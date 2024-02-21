@@ -20,20 +20,36 @@
 
     </head>
     <body>
-        <footer>
+        <footer>        
+            
             <div class="section__container">
-                <h4>Travel.co</h4>
+                <h4>Liên hệ</h4>
                 <div class="social__icons">
-                    <span><i class="ri-facebook-fill"></i></span>
+                    <a href="https://www.facebook.com/111203ng"><span><i class="ri-facebook-fill"></i></span></a>
                     <span><i class="ri-twitter-fill"></i></span>
                     <span><i class="ri-instagram-line"></i></span>
                     <span><i class="ri-linkedin-fill"></i></span>
                 </div>
                 <p>
-                    Travel makes one modest. You see what a tiny place you occupy in the
-                    world.
+                    taiminhtest@gmail.com
                 </p>
             </div>
+            
+    <style>
+        .section__container h4 {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            font-size: 24px;
+            font-weight: bold; 
+            color: whitesmoke; 
+        }
+    </style>
+    
+    <style>
+        a[href*="facebook.com"] i {
+            color: white;
+        }
+    </style>
+           
         </footer>
     </body>
 </html>
