@@ -5,7 +5,7 @@
 package ModelDAO;
 
 import DAO.ConnectDB;
-import Model.Details;
+import Model.ParkDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,17 +17,17 @@ import java.util.List;
  *
  * @author Nguyen Nhu Loc
  */
-public class DetailsDAO {
+public class ParkDetailDAO {
 
     private final ConnectDB db;
 
-    public DetailsDAO() throws Exception {
+    public ParkDetailDAO() throws Exception {
         db = new ConnectDB();
     }
 
-    public List<Details> getAllDetails() {
-        List<Details> list = new ArrayList<>();
-        String sql = "select * from Details";
+    public List<ParkDetail> getAllParkDetail() {
+        List<ParkDetail> list = new ArrayList<>();
+        String sql = "select * from ParkDetail";
         Connection conn;
         try {
             conn = db.getConnection();
@@ -36,23 +36,24 @@ public class DetailsDAO {
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Details c = new Details(rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("image1"),
-                        rs.getString("image2"),
-                        rs.getString("image3"),
-                        rs.getString("image_bg"),
-                        rs.getString("address"),
-                        rs.getString("time"),
-                        rs.getString("price"),
-                        rs.getString("email"),
-                        rs.getString("place_id"));
-                list.add(c);
-                System.out.println(c);
+                ParkDetail pd = mapResultSetToParkDetail(rs);
+                list.add(pd);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+    
+    private ParkDetail mapResultSetToParkDetail(ResultSet resultSet) throws SQLException {
+        ParkDetail pd = new ParkDetail();
+        pd.setParkDetailID(resultSet.getString("ParkDetailID"));
+        pd.setParkID(resultSet.getString("ParkID"));
+        pd.setImage1(resultSet.getString("Image1"));
+        pd.setImage2(resultSet.getString("Image2"));
+        pd.setImage3(resultSet.getString("Image3"));
+        pd.setImage_bg(resultSet.getString("Image_bg"));
+        pd.setOpenrationTime(resultSet.getString("OpenrationTime"));
+        return pd;
     }
 }

@@ -4,24 +4,21 @@
  */
 package Controller;
 
-import Model.Places;
-import ModelDAO.PlacesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Nguyen Nhu Loc
+ * @author Admin
  */
-public class PlacesServlet extends HttpServlet {
+public class AddToCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,48 +37,46 @@ public class PlacesServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PlacesServlet</title>");            
+            out.println("<title>Servlet AddToCartServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PlacesServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PlacesDAO c;
-        try {
-            c = new PlacesDAO();
-            List<Places> list = c.getAllPlaces();
-        System.out.println(list);
-        request.setAttribute("data", list);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(PlacesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          String ticketType = request.getParameter("ticketType"); // Loại vé
+        int quantity = Integer.parseInt(request.getParameter("quantity")); // Số lượng
+        int price = Integer.parseInt(request.getParameter("price"));
+        
+        System.out.println(price);
+        HttpSession session = request.getSession();
+        
+        Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new HashMap<>();
         }
+        
+        // Kiểm tra nếu vé đã được thêm vào giỏ hàng trước đó, tăng số lượng
+        if (cart.containsKey(ticketType)) {
+            int oldQuantity = cart.get(ticketType);
+            cart.put(ticketType, oldQuantity + quantity);
+        } else {
+            cart.put(ticketType, quantity);
+        }
+        
+        session.setAttribute("cart", cart);
+        
+        System.out.println(cart);
+        response.sendRedirect("booking/ticketType_list.jsp");
+        
     }
-    
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

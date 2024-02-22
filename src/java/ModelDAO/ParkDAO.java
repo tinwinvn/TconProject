@@ -5,7 +5,7 @@
 package ModelDAO;
 
 import DAO.ConnectDB;
-import Model.Places;
+import Model.Park;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,17 +17,17 @@ import java.util.List;
  *
  * @author Nguyen Nhu Loc
  */
-public class PlacesDAO {
+public class ParkDAO {
 
     private final ConnectDB db;
 
-    public PlacesDAO() throws Exception {
+    public ParkDAO() throws Exception {
         db = new ConnectDB();
     }
 
-    public List<Places> getAllPlaces() {
-        List<Places> list = new ArrayList<>();
-        String sql = "select * from Places";
+    public List<Park> getAllPark() {
+        List<Park> list = new ArrayList<>();
+        String sql = "select * from Park";
         Connection conn;
         try {
             conn = db.getConnection();
@@ -36,17 +36,23 @@ public class PlacesDAO {
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Places c = new Places(rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("address"),
-                        rs.getString("price"),
-                        rs.getString("image"));
-                list.add(c);
-                System.out.println(c);
+                Park pk = mapResultSetToPark(rs);
+                System.out.println(pk.getImage());
+                list.add(pk);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
+    }
+    
+     private Park mapResultSetToPark(ResultSet resultSet) throws SQLException {
+        Park pk = new Park();
+        pk.setParkID(resultSet.getString("ParkID"));
+        pk.setUserID(resultSet.getString("UserID"));
+        pk.setParkName(resultSet.getString("ParkName"));
+        pk.setAddress(resultSet.getString("Address"));
+        pk.setImage(resultSet.getString("Image"));
+        return pk;
     }
 }

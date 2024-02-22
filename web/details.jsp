@@ -5,8 +5,8 @@
 <html lang="en">
     <head>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <jsp:useBean id="dDAO" class="ModelDAO.DetailsDAO" ></jsp:useBean>
-        <jsp:useBean id="pDAO" class="ModelDAO.PlacesDAO"></jsp:useBean>
+        <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
+        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,12 +16,19 @@
 
         <body>
             <header>
-            <c:forEach items="${dDAO.allDetails}" var="c"> 
-                <c:set var="parkId" value="${param.id}"></c:set>
-                <c:set var="id" value="${c.place_id}"/>
+            <c:set var="parkId" value="${param.id}"></c:set>
+            <c:forEach items="${pDAO.allPark}" var="r">
+                <c:if test="${parkId == r.parkID}">
+                    <c:set var="parkName" value="${r.parkName}"></c:set>
+                    <c:set var="address" value="${r.address}"></c:set>                   
+                </c:if>
+            </c:forEach>
+            <c:forEach items="${dDAO.allParkDetail}" var="c">     
+                <c:set var="openrationTime" value="${c.openrationTime}"></c:set>
+                <c:set var="id" value="${c.parkID}"/>
                 <c:if test="${parkId == id}">
 
-                    <div class="logo"><c:out value="${c.name}"/></div>
+                    <div class="logo"><c:out value="${parkName}"/></div>
                     <nav>
                         <ul>
                             <li><a href="#">Home</a></li>
@@ -48,8 +55,9 @@
                         </div>
                         <!-- Add more cards as needed -->
                     </div>
-
-                    <a href="#" class="cta-button">Đặt vé</a>
+                    <c:if test="${sessionScope.acc != null}">
+                    <a href="booking/ticketType_list.jsp" class="cta-button">Đặt vé</a>
+                    </c:if>
                 </section>
                 <header>
                     <div class="logo">Kính chào quý khách</div>
@@ -60,9 +68,8 @@
                             <h2>Thông tin</h2>
                             <div class="game-info">
                                 <h3>Asia Park</h3>
-                                <strong>Địa chỉ:</strong> <c:out value="${c.address}"/>
-                                <p><strong>Giờ mở cửa:</strong> <c:out value="${c.time}"/></p>
-                                <p><strong>Giá vé:</strong> <c:out value="${c.price}"/></p>
+                                <strong>Địa chỉ:</strong> <c:out value="${address}"/>
+                                <p><strong>Giờ mở cửa:</strong> <c:out value="${openrationTime}"/></p>
                             </div>
                         </div>
                     </div>
@@ -177,7 +184,7 @@
             </body>
            
             <header style="text-align: center;">
-                <div class="logo"><c:out value="${c.email}"/></div>
+                <div class="logo"><c:out value=""/></div>
             </header>
 
 

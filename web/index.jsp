@@ -96,17 +96,16 @@
 
                     <div class="content mtop">
                         <div class="owl-carousel owl-carousel1 owl-theme">
-                        <jsp:useBean id="pDAO" class="ModelDAO.PlacesDAO" ></jsp:useBean>
-                        <c:forEach items="${pDAO.allPlaces}" var="c"> 
-                            <c:set var="id" value="${c.id}"/>
+                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO" ></jsp:useBean>
+                        <c:forEach items="${pDAO.allPark}" var="c"> 
+                            <c:set var="id" value="${c.parkID}"/>
                             <div class="items">
                                 <div class="image">
                                     <img src="${c.image}"/>
                                 </div>
                                 <div class="text">
-                                    <h2><c:out value="${c.name}" /></h2>
+                                    <h2><c:out value="${c.parkName}" /></h2>
                                     <p><c:out value="${c.address}" /></p>
-                                    <p><c:out value="${c.price}" /></p>
                                     <div class="button flex">
                                         <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
                                         <h3><span> <br>  </span> </h3>

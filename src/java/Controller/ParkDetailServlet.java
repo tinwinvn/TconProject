@@ -4,8 +4,8 @@
  */
 package Controller;
 
-import Model.Details;
-import ModelDAO.DetailsDAO;
+import Model.ParkDetail;
+import ModelDAO.ParkDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nguyen Nhu Loc
  */
-public class DetailsServlet extends HttpServlet {
+public class ParkDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,15 +60,15 @@ public class DetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DetailsDAO c;
+        ParkDetailDAO c;
         try {
-            c = new DetailsDAO();
-            List<Details> list = c.getAllDetails();
+            c = new ParkDetailDAO();
+            List<ParkDetail> list = c.getAllParkDetail();
         System.out.println(list);
         request.setAttribute("data", list);
         request.getRequestDispatcher("details.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(PlacesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
          String idParameter = request.getParameter("id");
