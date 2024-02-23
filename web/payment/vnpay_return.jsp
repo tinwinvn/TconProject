@@ -105,7 +105,7 @@
                 <div>
                     <jsp:useBean id="tDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
                     <c:set var="transactionCode" value="${param.vnp_TxnRef}"></c:set>
-                    ${tDAO.addNewTransaction(1, param.vnp_PayDate, param.vnp_TxnRef)}
+                    ${tDAO.addNewTransaction(param.vnp_OrderInfo, param.vnp_PayDate, param.vnp_TxnRef)}
                     <a href="../index.jsp" class="btn btn-primary">Back to Home</a>
                 </div>
             <p>

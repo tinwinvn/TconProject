@@ -56,8 +56,13 @@
                         <!-- Add more cards as needed -->
                     </div>
                     <c:if test="${sessionScope.acc != null}">
-                    <a href="booking/ticketType_list.jsp" class="cta-button">Đặt vé</a>
+                        <form action="OrderServlet" method="GET">
+                            <input type="hidden" name="parkID" value="${parkId}">
+                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                            <button type="submit" class="cta-button">Đặt vé</button>
+                        </form>
                     </c:if>
+                    
                 </section>
                 <header>
                     <div class="logo">Kính chào quý khách</div>

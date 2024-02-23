@@ -23,7 +23,7 @@
                                 <h5 class="user-name">Name: ${i.fullName}</h5>
                                 <h6 class="user-email">Email: ${i.email}</h6>   
                                 <h7 class="user-phone">Phone Number: ${i.phone}</h7><br>                              
-                                <a href="vnpay_pay.jsp?price=${param.price}" class="btn btn-primary">Pay Now</a>
+                                <a href="vnpay_pay.jsp?price=${param.price}&orderID=${param.orderID}" class="btn btn-primary">Pay Now</a>
                             </div>
                         </div>
                     </div>

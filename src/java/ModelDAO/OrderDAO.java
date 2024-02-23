@@ -6,6 +6,7 @@ package ModelDAO;
 
 import DAO.ConnectDB;
 import Model.Order;
+import Validation.GenerateID;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ public class OrderDAO {
     
     public List<Order> getAllOrder() throws Exception {
         List<Order> output = new ArrayList<>();
-        String query = "SELECT * FROM [Order]";
+        String query = "SELECT * FROM Orders";
         Connection conn = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -51,9 +52,9 @@ public class OrderDAO {
         return output;
     }
     
-    public Order getOrderbyUserID(int id) throws SQLException, UnsupportedEncodingException{
+    public Order getOrderbyUserID(String id) throws SQLException, UnsupportedEncodingException{
         Order o = new Order();
-        String query = "SELECT * FROM [Order] where UserID = ?";
+        String query = "SELECT * FROM Orders where UserID = ?";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -61,7 +62,7 @@ public class OrderDAO {
         try {
             conn = db.getConnection();
             statement = conn.prepareStatement(query);
-            statement.setInt(1, id);
+            statement.setString(1, id);
             rs = statement.executeQuery();
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -75,12 +76,33 @@ public class OrderDAO {
         }
         return o;
     }
-            
+    
+    
+    public void addNewOrder(String orderID, String userID, String voucherID, Date orderDate, boolean isConfirm) throws SQLException, Exception {
+        String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?)";
+        Connection conn;
+        
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, orderID);
+                statement.setString(2, userID);
+                statement.setString(3, null);
+                statement.setDate(4, orderDate);
+                statement.setBoolean(5, isConfirm);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
     private Order mapResultSetToOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
-        order.setOrderID(resultSet.getInt("OrderID"));
-        order.setUserID(resultSet.getInt("UserID"));
-        order.setVoucherID(resultSet.getInt("VoucherID"));
+        order.setOrderID(resultSet.getString("OrderID"));
+        order.setUserID(resultSet.getString("UserID"));
+        order.setVoucherID(resultSet.getString("VoucherID"));
         order.setOrderDate(resultSet.getDate("OrderDate"));
         order.setIsConfirm(resultSet.getBoolean("isConfirm"));
         return order;

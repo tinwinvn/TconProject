@@ -32,6 +32,7 @@
                                 <c:if test="${sessionScope.acc.role == 1}">
                                     <a href="admin/admin.html?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
                                 </c:if>
+                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
                             </div>
                         </div>
                     </li>

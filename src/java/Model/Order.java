@@ -7,16 +7,16 @@ package Model;
 import java.sql.Date;
 
 public class Order {
-    private int OrderID; 
-    private int UserID;
-    private int VoucherID;
+    private String OrderID; 
+    private String UserID;
+    private String VoucherID;
     private Date OrderDate;
     private Boolean isConfirm;
 
     public Order() {
     }
 
-    public Order(int OrderID, int UserID, int VoucherID, Date OrderDate, Boolean isConfirm) {
+    public Order(String OrderID, String UserID, String VoucherID, Date OrderDate, Boolean isConfirm) {
         this.OrderID = OrderID;
         this.UserID = UserID;
         this.VoucherID = VoucherID;
@@ -24,30 +24,32 @@ public class Order {
         this.isConfirm = isConfirm;
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return OrderID;
     }
 
-    public void setOrderID(int OrderID) {
+    public void setOrderID(String OrderID) {
         this.OrderID = OrderID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return UserID;
     }
 
-    public void setUserID(int UserID) {
+    public void setUserID(String UserID) {
         this.UserID = UserID;
     }
 
-    public int getVoucherID() {
+    public String getVoucherID() {
         return VoucherID;
     }
 
-    public void setVoucherID(int VoucherID) {
+    public void setVoucherID(String VoucherID) {
         this.VoucherID = VoucherID;
     }
 
+    
+    
     public Date getOrderDate() {
         return OrderDate;
     }

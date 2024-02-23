@@ -96,6 +96,31 @@ public class UserDAO {
         }
         return u;
     }
+    
+    public User getUserByOrderId(String id) throws SQLException, UnsupportedEncodingException {
+        User u = new User();
+        String query = "SELECT * FROM Orders where OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, id);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToUser(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return u;
+    }
 
     public void updateUser(String name, String phone, String dob, String id) throws SQLException, UnsupportedEncodingException {
         String query = "UPDATE Users "

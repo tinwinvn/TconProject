@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,35 +152,28 @@
     </nav>
     <main>
         <h2>Danh sách loại vé</h2>
+        <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <ul class="ticket-list">
-            <li class="ticket-item">
-              <h3>Vé người lớn</h3>
-                <p>Vé dành cho người từ 18 tuổi trở lên.</p>
-                <span class="price">Giá: 200.000 VNĐ</span>
-                <span class="quantity">Còn lại: 10</span>
+        <c:forEach var="ttL" items="${ttDAO.allTicketType}">           
+            <c:if test="${param.parkID == ttL.parkID}">
+                <li class="ticket-item">
+                <h3>${ttL.typeName}</h3>
+                <p>${ttL.description}</p>
+                <span class="price">Giá: ${ttL.price} VNĐ</span>
                 <form action="../AddToCartServlet" method="GET">
-                    <input type="hidden" name="ticketType" value="adult">
+                    <input type="hidden" name="ticketTypeID" value="${ttL.ticketTypeID}">
                     <input type="number" name="quantity" min="1" max="10" value="1">
-                    <input type="hidden" name="price" value="${200000}">
+                    <input type="hidden" name="price" value="${ttL.price}">
+                    <input type="hidden" name="parkID" value="${param.parkID}">
+                    <input type="hidden" name="orderID" value="${param.orderID}">
                     <button type="submit">Thêm vào giỏ hàng</button>
                 </form>
 
-            </li>
-            <li class="ticket-item">
-            <h3>Vé trẻ em</h3>
-                <p>Vé dành cho trẻ em từ 6 đến 17 tuổi.</p>
-                <span class="price">Giá: 150.000 VNĐ</span>
-                <span class="quantity">Còn lại: 20</span>
-                <form action="../AddToCartServlet" method="GET">
-                    <input type="hidden" name="ticketType" value="child">
-                    <input type="number" name="quantity" min="1" max="20" value="1">
-                    <input type="hidden" name="price" value="${150000}">
-                    <button type="submit">Thêm vào giỏ hàng</button>
-                </form>
-
-            </li>
+                </li>
+            </c:if>
+        </c:forEach>                          
         </ul>
-        <a href="cart.jsp" class="btn-cart">Xem giỏ hàng</a>
+        <a href="cart.jsp?orderID=${param.orderID}" class="btn-cart">Xem giỏ hàng</a>
     </main>
     <footer>
     </footer>

@@ -102,25 +102,30 @@
     </nav>
     <main>
         <h2>Giỏ hàng</h2>
+        <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <ul class="cart-list">
             <c:forEach var="item" items="${sessionScope.cart}">
-                <c:set var="ticketType" value="${item.key}" />
-                <c:set var="quantity" value="${item.value}" />
-                <c:set var="price" value="${item.value}" /> 
+                <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
+                <c:set var="ticketTypeName" value="${ticketType.typeName}" />
+                <c:set var="quantity" value="${item.value.quantity}" />
+                <c:set var="price" value="${ticketType.price}"></c:set>
+               
 
                 <li class="cart-item">
-                    <h3>${ticketType}</h3>
+                    <h3>${ticketTypeName}</h3>
                     <p>Số lượng: ${quantity}</p>
                     <p>Giá: ${price * quantity} VNĐ</p>
                 </li>
+                
+                <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
             </c:forEach>
             
             <c:if test="${empty sessionScope.cart}">
                 <p class="empty-cart-message">Giỏ hàng trống</p>
             </c:if>
         </ul>
-        <c:if test="${not empty sessionScope.cart}">
-                <a href="../payment/payment_vnPay.jsp?price=${price}" class="payment-link">Thanh Toán</a>
+            <c:if test="${not empty sessionScope.cart}">
+                <a href="../payment/payment_vnPay.jsp?price=${totalPrice}&orderID=${param.orderID}" class="payment-link">Thanh Toán</a>               
             </c:if>
     </main>
     <footer>

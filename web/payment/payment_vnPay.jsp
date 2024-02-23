@@ -38,7 +38,7 @@
         </div> 
         <script>
             function pay() {
-                window.location.href = "payment_infor.jsp?userId=${acc.userID}&price=${param.price}";
+                window.location.href = "payment_infor.jsp?userId=${acc.userID}&price=${param.price}&orderID=${param.orderID}";
             }
             function querydr() {
                 window.location.href = "vnpay_querydr.jsp";
