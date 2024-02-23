@@ -7,6 +7,8 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
+        <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,32 +93,22 @@
                     <div class="games-list">
                         <div class="scroll-container">
                             <div class="content">
-                                
-                                <session>
-                                <h2>Thiên đường vui chơi trong nhà</h2>
-                                <p>Khu trò chơi trong nhà được chia làm 4 khu gồm:
-
-                                    Soft Play: rộng 400m2 dành riêng cho trẻ em với các trò chơi vận động, trí tuệ, khám phá giúp kích thích phát triển trí não và rèn luyện sức khỏe cho bé.
-                                    Thế giới game xu (Redemption Game): kinh điển với những trò chơi thử thách sự nhanh nhẹn, tư duy logic dành cho mọi lứa tuổi.
-                                    Khu vực game bắn súng Sun Blaster: quy mô lớn tới 250m2, phù hợp với các nhóm bạn bè, gia đình.
-                                    Khu trò chơi vận động Carnival Game: dành cho tất cả lứa tuổi, đặc biệt phù hợp với thanh thiếu niên.</p>
-                                <img src="images/a.jpg" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
-                                </session>
-                                <session>
-                                <h2>Thiên đường vui chơi trong nhà</h2>
-                                <p>Khu trò chơi trong nhà được chia làm 4 khu gồm:
-
-                                    Soft Play: rộng 400m2 dành riêng cho trẻ em với các trò chơi vận động, trí tuệ, khám phá giúp kích thích phát triển trí não và rèn luyện sức khỏe cho bé.
-                                    Thế giới game xu (Redemption Game): kinh điển với những trò chơi thử thách sự nhanh nhẹn, tư duy logic dành cho mọi lứa tuổi.
-                                    Khu vực game bắn súng Sun Blaster: quy mô lớn tới 250m2, phù hợp với các nhóm bạn bè, gia đình.
-                                    Khu trò chơi vận động Carnival Game: dành cho tất cả lứa tuổi, đặc biệt phù hợp với thanh thiếu niên.</p>
-                                <img src="images/a.jpg" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
-                                </session>
+                                <c:forEach items="${gDAO.allGame}" var="c">
+                                    <c:if test="${c.parkID == param.id}">
+                                        <session>
+                                        <c:set var="GameName" value="${c.gameName}"/>
+                                        <h2>${GameName}</h2>
+                                        <c:set var="GameDescription" value="${c.getGameDescription()}"/>
+                                        <p>${GameDescription}</p>
+                                        <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
+                                        </session>
+                                    </c:if>
+                           </c:forEach>
 
                             </div>
                         </div>
 
-                        <button id="scrollBtn" onclick="scrollToTop()">Scroll To Top</button>                     
+                        <button id="scrollBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">arrow_upward</span></button>                     
                         <style>
                             /* CSS để giảm chiều rộng của thanh cuộn */
                             .scroll-container::-webkit-scrollbar {
