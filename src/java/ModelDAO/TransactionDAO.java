@@ -79,7 +79,7 @@ public class TransactionDAO {
         }
         return trc;
     }
-
+ 
     public void addNewTransaction(String orderID, String date, String TransactionCode) throws SQLException, Exception {
         String query = "INSERT INTO TransactionHistory VALUES (?, ?, ?, ?)";
         Connection conn;

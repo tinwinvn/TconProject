@@ -108,6 +108,11 @@
                                     <p><c:out value="${c.address}" /></p>
                                     <div class="button flex">
                                         <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
+                                        <form action="AddFavouriteServlet" method="POST">
+                                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                                            <input type="hidden" name="favouriteItems" value="${c.parkID}">
+                                            <button type="submit" class="primary-btn">Thêm vào mục yêu thích</button>
+                                        </form>
                                         <h3><span> <br>  </span> </h3>
                                     </div>
                                 </div>
