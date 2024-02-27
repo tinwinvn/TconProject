@@ -64,6 +64,14 @@
         <servlet-name>AddFavouriteServlet</servlet-name>
         <servlet-class>Controller.AddFavouriteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketRefundServlet</servlet-name>
+        <servlet-class>Controller.TicketRefundServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TicketChangeServlet</servlet-name>
+        <servlet-class>Controller.TicketChangeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>AddFavouriteServlet</servlet-name>
         <url-pattern>/AddFavouriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketRefundServlet</servlet-name>
+        <url-pattern>/TicketRefundServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketChangeServlet</servlet-name>
+        <url-pattern>/TicketChangeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

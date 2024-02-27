@@ -36,10 +36,10 @@
                                                     <c:set var="orderdetail" value="${orderDetailDAO.getOrderDetailByOrderID(transaction.orderID)}"></c:set>
                                                     <c:forEach var="tickettypeList" items="${ticketTypeDAO.allTicketType}">
                                                         <c:if test="${tickettypeList.ticketTypeID == orderdetail.ticketTypeID}">
-                                                        <li>${orderdetail.quantity} 
-                                                            ${tickettypeList.typeName}
-                                                            ${tickettypeList.price}
-                                                        </li>    
+                                                            <li>${orderdetail.quantity} 
+                                                                ${tickettypeList.typeName}
+                                                                ${tickettypeList.price}
+                                                            </li>    
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>
@@ -56,6 +56,10 @@
         <br>
         <form action="../index.jsp">
             <input type="submit" value="Back To Home">
+        </form>
+        <form action="../booking/refund.jsp"> <button type="submit">Refund Ticket</button>
+        </form>
+        <form action="../booking/ticket_change.jsp"> <button type="submit">Exchange Ticket</button>
         </form>
     </body>
 </html>
