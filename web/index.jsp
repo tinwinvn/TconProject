@@ -19,7 +19,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
               referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-
+        <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
+        <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
     </head>
     <body>
         <jsp:include page="navbar.jsp"></jsp:include>
@@ -96,21 +97,32 @@
 
                     <div class="content mtop">
                         <div class="owl-carousel owl-carousel1 owl-theme">
-                        <jsp:useBean id="pDAO" class="ModelDAO.PlacesDAO" ></jsp:useBean>
-                        <c:forEach items="${pDAO.allPlaces}" var="c"> 
-                            <c:set var="id" value="${c.id}"/>
+                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO" ></jsp:useBean>
+                        <c:forEach items="${pDAO.allPark}" var="c"> 
+                            <c:set var="id" value="${c.parkID}"/>
                             <div class="items">
                                 <div class="image">
                                     <img src="${c.image}"/>
                                 </div>
                                 <div class="text">
-                                    <h2><c:out value="${c.name}" /></h2>
+                                    <h2><c:out value="${c.parkName}" /></h2>
                                     <p><c:out value="${c.address}" /></p>
-                                    <p><c:out value="${c.price}" /></p>
+                                    <div class="details-part">
                                     <div class="button flex">
                                         <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
+                                        <div class="rnb rvl">
+                                            <c:set var="numList" value="${rDAO.allRating}" />
+                                            <c:forEach var="num" items="${numList}">
+                                                <c:if test="${id == num.receiveID}">
+                                                    <c:set var="totalRating" value="${totalRating + num.ratingValue}"/>
+                                                    <c:set var="size" value="${size + 1}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            <h3>${totalRating / size}/5.0</h3>
+                                        </div>
                                         <h3><span> <br>  </span> </h3>
                                     </div>
+                                        </div>
                                 </div>
                             </div>
                         </c:forEach>
@@ -200,6 +212,18 @@
 
 <style>
 
+    .rnb h3 {
+        color: #FFBD13;
+        font-size: 2rem;
+    }
+    
+    .details-part {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+    }
+    
     .heading h1 {
         font-size: 36px;
         color: #333;

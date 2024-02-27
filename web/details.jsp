@@ -5,10 +5,12 @@
 <html lang="en">
     <head>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <jsp:useBean id="dDAO" class="ModelDAO.DetailsDAO" ></jsp:useBean>
-        <jsp:useBean id="pDAO" class="ModelDAO.PlacesDAO"></jsp:useBean>
-        <jsp:useBean id="rating" class="ModelDAO.RatingDAO"></jsp:useBean>
-        <jsp:useBean id="user" class="ModelDAO.UserDAO"></jsp:useBean>
+        <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
+        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
+        <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
+        <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
+        <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
             <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,13 +21,20 @@
         </head>
 
         <body>
-            <header class="header">
-            <c:forEach items="${dDAO.allDetails}" var="c"> 
-                <c:set var="parkId" value="${param.id}"></c:set>
-                <c:set var="id" value="${c.place_id}"/>
+            <header>
+            <c:set var="parkId" value="${param.id}"></c:set>
+            <c:forEach items="${pDAO.allPark}" var="r">
+                <c:if test="${parkId == r.parkID}">
+                    <c:set var="parkName" value="${r.parkName}"></c:set>
+                    <c:set var="address" value="${r.address}"></c:set>                   
+                </c:if>
+            </c:forEach>
+            <c:forEach items="${dDAO.allParkDetail}" var="c">     
+                <c:set var="openrationTime" value="${c.openrationTime}"></c:set>
+                <c:set var="id" value="${c.parkID}"/>
                 <c:if test="${parkId == id}">
 
-                    <div class="logo"><c:out value="${c.name}"/></div>
+                    <div class="logo"><c:out value="${parkName}"/></div>
                     <nav>
                         <ul>
                             <li><a href="#">Home</a></li>
@@ -52,8 +61,14 @@
                         </div>
                         <!-- Add more cards as needed -->
                     </div>
-
-                    <a href="#" class="cta-button">Đặt vé</a>
+                    <c:if test="${sessionScope.acc != null}">
+                        <form action="OrderServlet" method="GET">
+                            <input type="hidden" name="parkID" value="${parkId}">
+                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                            <button type="submit" class="cta-button">Đặt vé</button>
+                        </form>
+                    </c:if>
+                    
                 </section>
                 <header class="header">
                     <div class="logo">Kính chào quý khách</div>
@@ -64,9 +79,8 @@
                             <h2>Thông tin</h2>
                             <div class="game-info">
                                 <h3>Asia Park</h3>
-                                <strong>Địa chỉ:</strong> <c:out value="${c.address}"/>
-                                <p><strong>Giờ mở cửa:</strong> <c:out value="${c.time}"/></p>
-                                <p><strong>Giá vé:</strong> <c:out value="${c.price}"/></p>
+                                <strong>Địa chỉ:</strong> <c:out value="${address}"/>
+                                <p><strong>Giờ mở cửa:</strong> <c:out value="${openrationTime}"/></p>
                             </div>
                         </div>
                     </div>
@@ -83,34 +97,569 @@
                     <div class="games-list">
                         <div class="scroll-container">
                             <div class="content">
-                                
-                                <session>
-                                <h2>Thiên đường vui chơi trong nhà</h2>
-                                <p>Khu trò chơi trong nhà được chia làm 4 khu gồm:
-
-                                    Soft Play: rộng 400m2 dành riêng cho trẻ em với các trò chơi vận động, trí tuệ, khám phá giúp kích thích phát triển trí não và rèn luyện sức khỏe cho bé.
-                                    Thế giới game xu (Redemption Game): kinh điển với những trò chơi thử thách sự nhanh nhẹn, tư duy logic dành cho mọi lứa tuổi.
-                                    Khu vực game bắn súng Sun Blaster: quy mô lớn tới 250m2, phù hợp với các nhóm bạn bè, gia đình.
-                                    Khu trò chơi vận động Carnival Game: dành cho tất cả lứa tuổi, đặc biệt phù hợp với thanh thiếu niên.</p>
-                                <img src="images/a.jpg" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
-                                </session>
-                                <session>
-                                <h2>Thiên đường vui chơi trong nhà</h2>
-                                <p>Khu trò chơi trong nhà được chia làm 4 khu gồm:
-
-                                    Soft Play: rộng 400m2 dành riêng cho trẻ em với các trò chơi vận động, trí tuệ, khám phá giúp kích thích phát triển trí não và rèn luyện sức khỏe cho bé.
-                                    Thế giới game xu (Redemption Game): kinh điển với những trò chơi thử thách sự nhanh nhẹn, tư duy logic dành cho mọi lứa tuổi.
-                                    Khu vực game bắn súng Sun Blaster: quy mô lớn tới 250m2, phù hợp với các nhóm bạn bè, gia đình.
-                                    Khu trò chơi vận động Carnival Game: dành cho tất cả lứa tuổi, đặc biệt phù hợp với thanh thiếu niên.</p>
-                                <img src="images/a.jpg" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
-                                </session>
+                                <c:forEach items="${gDAO.allGame}" var="c">
+                                    <c:if test="${c.parkID == param.id}">
+                                        <session>
+                                        <c:set var="GameName" value="${c.gameName}"/>
+                                        <h2>${GameName}</h2>
+                                        <c:set var="GameDescription" value="${c.getGameDescription()}"/>
+                                        <p>${GameDescription}</p>
+                                        <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
+                                        </session>
+                                    </c:if>
+                           </c:forEach>
 
                             </div>
                         </div>
 
                         <button id="scrollBtn" onclick="scrollToTop()"><span class="material-symbols-outlined">arrow_upward</span></button>                     
-                        <style>
-                            /* CSS để giảm chiều rộng của thanh cuộn */
+                        
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $(window).scroll(function () {
+                                    if ($(this).scrollTop() > 100) {
+                                        $('#scrollBtn').fadeIn();
+                                    } else {
+                                        $('#scrollBtn').fadeOut();
+                                    }
+                                });
+                                $('#scrollBtn').click(function () {
+                                    $('html, body').animate({scrollTop: 0}, 'slow');
+                                });
+                            });
+                            function scrollToTop() {
+                                $('html, body').animate({scrollTop: 0}, 'slow');
+                            }
+                        </script>
+                    </div>
+                </div>
+            </body>
+            <section class="rating">
+                <div class="tri table-flex">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                                <div class="rnb rvl">
+                                    <c:set var="numList" value="${rDAO.allRating}" />
+                                    <c:forEach var="num" items="${numList}">
+                                        <c:if test="${param.id == num.receiveID}">
+                                            <c:set var="totalRating" value="${totalRating + num.ratingValue}"/>
+                                            <c:set var="size" value="${size + 1}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <h3>${totalRating / size}/5.0</h3>
+                                </div>
+                                <div class="rnrn">
+                                    <p class="rars">${size} Reviews</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="rpb">
+                                    <div class="rnpb">
+                                        <label>5 <i class="small material-icons">star</i></label>
+                                        <div class="ropb">
+                                            <div class="ripb" style="width:20%"></div>
+                                        </div>
+                                        <div class="label">(1)</div>
+                                    </div>
+                                    <div class="rnpb">
+                                        <label>4 <i class="small material-icons">star</i></label>
+                                        <div class="ropb">
+                                            <div class="ripb" style="width:50%"></div>
+                                        </div>
+                                        <div class="label">(2)</div>
+                                    </div>
+                                    <div class="rnpb">
+                                        <label>3 <i class="small material-icons">star</i></label>
+                                        <div class="ropb">
+                                            <div class="ripb" style="width:80%"></div>
+                                        </div>
+                                        <div class="label">(3)</div>
+                                    </div>
+                                    <div class="rnpb">
+                                        <label>2 <i class="small material-icons">star</i></label>
+                                        <div class="ropb">
+                                            <div class="ripb" style="width:30%"></div>
+                                        </div>
+                                        <div class="label">(4)</div>
+                                    </div>
+                                    <div class="rnpb">
+                                        <label>1 <i class="small material-icons">star</i></label>
+                                        <div class="ropb">
+                                            <div class="ripb" style="width:40%"></div>
+                                        </div>
+                                        <div class="label">(5)</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <c:if test="${sessionScope.acc != null}">
+                                <div class="pup-button">
+                                    <p>Leave Your Rating Here!</p>
+                                    <button id="show-rating">Add rating</button>
+                                </div>
+                                <section class="all-ratingform">
+                                    <section class="rating-body" id="rating-form">
+                                        <div class="wrapper" id="rating-wrapper" style="display: none;">
+                                            <h3>Lorem ipsum dolor sit amet.</h3>
+                                            <form action="RatingServlet" method="post" id="ratingForm">
+                                                <div class="ratingvalue">
+                                                    <input type="number" name="star" hidden>
+                                                    <i class='bx bx-star star' style="--i: 0;"></i>
+                                                    <i class='bx bx-star star' style="--i: 1;"></i>
+                                                    <i class='bx bx-star star' style="--i: 2;"></i>
+                                                    <i class='bx bx-star star' style="--i: 3;"></i>
+                                                    <i class='bx bx-star star' style="--i: 4;"></i>
+                                                </div>
+                                                <textarea name="message" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                                                <div class="btn-group">
+                                                    <input type="hidden" name="userIdC" value="${sessionScope.acc.userID}">
+                                                    <input type="hidden" name="receiveId" value="${param.id}">
+                                                    <input type="hidden" name="parkID" value="${param.id}">
+                                                    <button type="submit" name="button" class="btn submit">Submit</button>
+                                                    <button type="button" class="btn cancel" id="cancel-btn">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </section>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                </div>
+                <div class="bri">
+                    <c:set var="rList" value="${rDAO.allRating}"/>
+                    <c:set var="uList" value="${uDAO.allUser}"/>
+                    
+                    <c:forEach var="list" items="${rList}">
+                        <c:if test="${param.id == list.receiveID}">
+                            <c:set var="userID" value="${list.sendID}" />
+                            <c:set var="username" value="${uDAO.getUserById(userID)}"/>
+                            
+                    <div class="uscm">
+                        <div class="uscm-secs">
+                            <div class="us-img">
+                                <img src="images/avatar.jpg" />
+                            </div>
+                            <div class="uscms">
+                                <div class="us-name">
+                                    <p>${username.fullName}</p>
+                                    <div class="dropdown">
+                                    <button class="dropbtn" onclick="toggleDropdown()">&#8942;</button>
+                                    <div class="dropdown-content" id="myDropdown">
+                                        <c:if test="${list.sendID == sessionScope.acc.userID}">
+                                            <!-- Button to open modal -->
+                                            <button class="update-btn" id="updateButton">Update</button>
+                                            <!-- The Modal -->
+                                            <div id="myModal" class="modal" style="display: none;">
+                                              <!-- Modal content -->
+                                              <div class="modal-content">
+                                                  <span class="close" id="cancel">&times;</span>
+                                                <h2>Edit Rating</h2>
+                                                <form id="editForm" action="UpdateCommentServlet" method="post">
+                                                  <input type="hidden" name="ratingId" value="${list.ratingID}">
+                                                  <input type="hidden" name="parkID" value="${param.id}">
+                                                  <textarea id="ratingText" name="ratingText" rows="4" cols="50" placeholder="${list.ratingText}"></textarea>
+                                                  <button type="submit">Save Changes</button>
+                                                </form>
+                                              </div>
+                                            </div>
+
+                                                  
+                                            <form action="DeleteCommentServlet" method="GET">
+                                                <input type="hidden" name="rId" value="${list.ratingID}">
+                                                <input type="hidden" name="parkID" value="${param.id}">
+                                                <button type="submit"><i class="fas fa-trash-alt"></i>Delete</button>
+                                            </form>
+                                        </c:if>
+                                            <button><i class="fas fa-flag"></i>Report</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="us-cmt">
+                                    <p>${list.ratingText}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </section>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                        const updButton = document.getElementById("updateButton");
+                        const updateModal = document.getElementById("myModal");
+                        const cancelSpan = document.getElementById("cancel");
+
+                        updButton.addEventListener("click", function() {
+                            updateModal.style.display = "block";
+                        });
+
+                        cancelSpan.addEventListener("click", function() {
+                            updateModal.style.display = "none";
+                        });
+                        
+                        window.onclick = function(event) {
+                            if (event.target === updateModal) {
+                              updateModal.style.display = "none";
+                            }
+}
+                    });
+
+                        
+                    </script>
+                    <style>
+                        /* Modal */
+                        .modal {
+                          position: fixed;
+                          z-index: 1;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          width: 100%;
+                          height: 100%;
+                          overflow: auto;
+                          background-color: rgba(0,0,0,0.4);
+                        }
+
+                        /* Modal Content */
+                        .modal-content {
+                          background-color: #fefefe;
+                          margin: 20% auto;
+                          padding: 20px;
+                          border: 1px solid #888;
+                          width: 80%;
+                        }
+
+                        /* Close Button */
+                        .close {
+                          color: #aaa;
+                          float: right;
+                          font-size: 28px;
+                          font-weight: bold;
+                        }
+
+                        .close:hover,
+                        .close:focus {
+                          color: black;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+
+                        /* Textarea and Button inside Modal Content */
+                        .modal-content textarea {
+                          width: 100%;
+                          padding: 10px;
+                          margin-bottom: 10px;
+                        }
+
+                        .modal-content button {
+                          background-color: #4CAF50;
+                          color: white;
+                          padding: 10px 15px;
+                          border: none;
+                          border-radius: 5px;
+                          cursor: pointer;
+                        }
+
+                        .modal-content button:hover {
+                          background-color: #45a049;
+                        }
+                    </style>
+                    
+                    <script>
+                        const allStar = document.querySelectorAll('.rating .star')
+                        const ratingValue = document.querySelector('.rating input')
+
+                        allStar.forEach((item, idx)=> {
+                                item.addEventListener('click', function () {
+                                        let click = 0
+                                        ratingValue.value = idx + 1
+
+                                        allStar.forEach(i=> {
+                                                i.classList.replace('bxs-star', 'bx-star')
+                                                i.classList.remove('active')
+                                        })
+                                        for(let i=0; i<allStar.length; i++) {
+                                                if(i <= idx) {
+                                                        allStar[i].classList.replace('bx-star', 'bxs-star')
+                                                        allStar[i].classList.add('active')
+                                                } else {
+                                                        allStar[i].style.setProperty('--i', click)
+                                                        click++
+                                                }
+                                        }
+                                })
+                        })
+                    </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                const pupButton = document.getElementById("show-rating");
+                const ratingWrapper = document.getElementById("rating-wrapper");
+                const cancelButton = document.getElementById("cancel-btn");
+
+                pupButton.addEventListener("click", function() {
+                    ratingWrapper.style.display = "block";
+                });
+
+                cancelButton.addEventListener("click", function() {
+                    ratingWrapper.style.display = "none";
+                });
+            });
+            </script>
+            <script>
+            function toggleDropdown() {
+              var dropdownContent = document.getElementById("myDropdown");
+              dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn') && !event.target.closest('.modal-content')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.style.display === "block") {
+                            openDropdown.style.display = "none";
+                        }
+                    }
+                }
+            }
+            </script>
+
+            <header style="text-align: center;">
+                <div class="logo"><c:out value=""/></div>
+            </header>
+
+            <style>
+                            /* Your existing CSS */
+                            .rating {
+                                color: #000;
+                                box-sizing: border-box;
+                                background-color: #ffffff;
+                            }
+                            .ratingvalue {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                grid-gap: .5rem;
+                                font-size: 2rem;
+                                color: #FFBD13;
+                                margin-bottom: 2rem;
+                            }
+                            .rating table {
+                                width: 100%;
+                                margin: 0;
+                                border-collapse: collapse;
+                                border-spacing: 0;
+                                color:#cccccc;
+                                margin-bottom:.625rem;
+                            }
+                            .rating table,
+                            .rating td{
+                                font-size: .8125rem;
+                                text-align: center;
+                            }
+                            
+                            .rating td{
+                                padding: 1rem;
+                                width:33.3%;
+                            }
+                            
+                            .tri {
+                                border-bottom: 1px solid #cccccc;
+                                padding: 12px;
+                            }
+                            
+                            .rnb h3 {
+                                color: #FFBD13;
+                                font-size: 2.4rem;
+                            }
+                            
+                            .tri .pdt-rate {
+                                height: 40px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+                            
+                            .rating-stars {
+                                position: relative;
+                                vertical-align:baseline;
+                                color: #cccccc;
+                                line-height: 10px;
+                                float: left;
+                            }
+                            
+                            .grey-stars{
+                                height: 100%
+                            }
+                            
+                            .filled-stars {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                height: 100%;
+                                overflow: hidden;
+                                color: #FFBD13;
+                            }
+                            .rpb {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                            }
+                            
+                            .rnpb{
+                                display: flex;
+                                width: 100%;
+                            }
+                            .rnpb label:first-child {
+                                margin-right: 5px;
+                                margin-top: -2px;
+                            }
+                            
+                            .rnpb label:last-child {
+                                margin-left: 3px;
+                                margin-top: -2px;
+                            }
+                            
+                            .rnpb label i {
+                                color: #FFBD13;
+                            }
+                            
+                            .ropb {
+                                height: 10px;
+                                width: 75%;
+                                background-color: #f1f1f1;
+                                position: relative;
+                                margin-bottom: 10px;
+                            }
+                            
+                            .ripb {
+                                height: 100%;
+                                background-color: #FFBD13;
+                                border: 0.5px solid #cccccc;
+                            }
+                            .pup-button p {
+                                
+                            }
+                            .pup-button button {
+                                width: 220px;
+                                height: 40px;
+                                background-color: #007BFF;
+                                color: #FFF;
+                                border: 0;
+                                outline: none;
+                                font-size: 1.2rem;
+                                box-shadow: 0px 2px 2px #007BFF;
+                                cursor: pointer;
+                            }
+                            
+                            .pup-button:hover{
+                                opacity: .9;
+                            }
+                            .bri {
+                                overflow: hidden;
+                                height: 100%;
+                            }
+                            .uscm-secs {
+                                margin-left: 30px;
+                                padding: 10px;
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                                border-bottom: 1px solid #cccccc;
+                            }
+                            .us-img {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 60px;
+                                height: 60px;
+                                line-height: 45px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                margin-right: 10px;
+                            }
+                            
+                            .us-img img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                            
+                            .uscms {
+                                display: flex;
+                                flex-direction: column;
+                                width: 90%;
+                                text-align: left;
+                            }
+                            
+                            .us-cmt p {
+                                font-size: .9rem;
+                                padding: 10px 10px 10px 0;
+                                color: #333;
+                                font-weight: 500;
+                                font-family: raleway;
+                                margin: 0;
+                            }
+                            
+                            .us-name{
+                                display: flex;
+                                justify-content: space-between;
+                                flex-grow: 1;
+                                font-size: 18px;
+                            }
+                            
+                            .dropbtn {
+                                color: black;
+                                padding: 0;
+                                font-size: 24px;
+                                border: none; /* Remove border */
+                                background-color: transparent; /* Remove background color */
+                                cursor: pointer;
+                            }
+
+                            /* Style the dropdown content (hidden by default) */
+                            .dropdown-content {
+                                display: none;
+                                position: absolute;
+                                background-color: #f9f9f9;
+                                min-width: 160px;
+                                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                                
+                                z-index: 1;
+                            }
+
+                            /* Style the buttons inside the dropdown */
+                            .dropdown-content button {
+                                background-color: inherit;
+                                color: black;
+                                padding: 12px 16px;
+                                text-decoration: none;
+                                display: block;
+                                border: none;
+                                width: 100%;
+                                text-align: left;
+                                cursor: pointer;
+                            }
+
+                            /* Change color of dropdown links on hover */
+                            .dropdown-content button:hover {
+                                background-color: #f1f1f1;
+                            }
+                /* CSS để giảm chiều rộng của thanh cuộn */
                             .scroll-container::-webkit-scrollbar {
                                 width: 2px; /* Đặt chiều rộng của thanh cuộn */
                                 border-radius: 10px;
@@ -156,213 +705,58 @@
                             #scrollBtn:hover {
                                 background-color: #0056b3;
                             }
+                        
+                
 
-                        </style>
-                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                $(window).scroll(function () {
-                                    if ($(this).scrollTop() > 100) {
-                                        $('#scrollBtn').fadeIn();
-                                    } else {
-                                        $('#scrollBtn').fadeOut();
-                                    }
-                                });
-                                $('#scrollBtn').click(function () {
-                                    $('html, body').animate({scrollTop: 0}, 'slow');
-                                });
-                            });
-                            function scrollToTop() {
-                                $('html, body').animate({scrollTop: 0}, 'slow');
+                        :root {
+                            --yellow: #FFBD13;
+                            --blue: #4383FF;
+                            --blue-d-1: #3278FF;
+                            --light: #F5F5F5;
+                            --grey: #AAA;
+                            --white: #FFF;
+                            --shadow: 8px 8px 30px rgba(0,0,0,.05);
                             }
-                        </script>
-                    </div>
-                </div>
-                    <div class="comment">         
-          <session class="header comment-header">
-                
-                <c:if test="${sessionScope.acc != null}">
-                <div class="wrapper">
-                        <h3>Your rating</h3>
-
-                            <form action="RatingServlet" method="post">
-                                <div class="rating">
-                                        <input type="number" name="star" hidden>
-                                        <i class='bx bx-star star' style="--i: 0;"></i>
-                                        <i class='bx bx-star star' style="--i: 1;"></i>
-                                        <i class='bx bx-star star' style="--i: 2;"></i>
-                                        <i class='bx bx-star star' style="--i: 3;"></i>
-                                        <i class='bx bx-star star' style="--i: 4;"></i>
-                                </div>
-                                <textarea name="message" cols="30" rows="5" placeholder="Your opinion..."></textarea>
-                                <div class="btn-group">
-                                    <input type="hidden" name="userIdC" value="${sessionScope.acc.userID}">
-                                    <input type="hidden" name="receiveId" value="${param.id}">
-                                    <input type="hidden" name="parkID" value="${param.id}">
-                                    <button type="submit" name="button" class="btn submit">Post Comment</button>
-                                </div>
-                        </form>
-                </div>
-                </c:if>
-                
-                <div class="testimonial-box-container">
-                <div class="testimonial-box">
-                    <c:set var="rList" value="${rating.allRating}" />
-                    <c:set var="uList" value="${user.allUser}"/>
-                    
-                    <c:forEach var="list" items="${rList}">
-                        <c:if test="${param.id == list.receiveID}">
-                        <c:set var="userID" value="${list.sendID}" />
-                        <c:set var="username" value="${user.getUserById(userID)}" />
-                        
-                    <div class="box-top">
-                        <div class="profile">
-                            <div class="profile-img">
-                                <img src="images/avatar.jpg" />
-                            </div>
-                            <div class="name-user">
-                                <strong>${username.fullName}</strong>
-                            </div>
-                        </div>
-                        <div class="rating-star">
-                            <strong>${list.ratingValue}</strong>
-                        </div> 
-
-                    </div>
-                    <div class="client-comment">
-                        <p>${list.ratingText}</p>
-                    </div>
-                    
-                    <div class="dropdown">
-                        <span class="dropbtn">&#8942;</span>
-                        <div class="dropdown-content">
-                            <c:if test="${list.sendID == sessionScope.acc.userID}">
-                                <a href="#"><i class="fas fa-edit"></i> Update</a>
-                                <form action="DeleteCommentServlet" method="GET">
-                                    <input type="hidden" name="rId" value="${list.ratingID}">
-                                    <input type="hidden" name="parkID" value="${param.id}">
-                                    <button type="submit"><i class="fas fa-trash-alt">Delete</i></button>
-                                </form>
-                            </c:if>
-                                <a href="#"><i class="fas fa-flag"></i> Report</a>
-                        </div>
-                      </div>
-                    </c:if>
-                    </c:forEach>
-                    
-                    </div>
-                    </div>
-                         
-            </session>
-</div>
-
-                    
-                    <script>
-                        const allStar = document.querySelectorAll('.rating .star')
-                        const ratingValue = document.querySelector('.rating input')
-
-                        allStar.forEach((item, idx)=> {
-                                item.addEventListener('click', function () {
-                                        let click = 0
-                                        ratingValue.value = idx + 1
-
-                                        allStar.forEach(i=> {
-                                                i.classList.replace('bxs-star', 'bx-star')
-                                                i.classList.remove('active')
-                                        })
-                                        for(let i=0; i<allStar.length; i++) {
-                                                if(i <= idx) {
-                                                        allStar[i].classList.replace('bx-star', 'bxs-star')
-                                                        allStar[i].classList.add('active')
-                                                } else {
-                                                        allStar[i].style.setProperty('--i', click)
-                                                        click++
-                                                }
-                                        }
-                                })
-                        })
-                    </script>
-            <header class="header" style="text-align: center;">
-                <div class="logo"><c:out value="${c.email}"/></div>
-            </header>
-
-            <style>
-                /* Style the dropdown content */
-                        .dropdown-content {
-                          display: none;
-                          position: absolute;
-                          background-color: #f9f9f9;
-                          min-width: 160px;
-                          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                          z-index: 1;
+                        .all-ratingform {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            font-family: 'Poppins', sans-serif;
                         }
-
-                        /* Style the dots */
-                        .dropbtn {
-                          font-size: 24px;
-                          cursor: pointer;
-                        }
-
-                        /* Style the links inside the dropdown */
-                        .dropdown-content a {
-                          color: black;
-                          padding: 12px 16px;
-                          text-decoration: none;
-                          display: block;
-                        }
-
-                        /* Change color of dropdown links on hover */
-                        .dropdown-content a:hover {background-color: #f1f1f1;}
-
-                        /* Show the dropdown menu on hover */
-                        .dropdown:hover .dropdown-content {
-                          display: block;
-                        }
-
-                        /* Position the dropdown content */
-                        .dropdown-content a i {
-                          margin-right: 5px;
-                        }
-
-                        .comment-header {
-                                display: flex;
-                                flex-direction: column; /* Stacking items vertically */
-                                justify-content: center; /* Centering items vertically */
-                                align-items: center; /* Centering items horizontally */
-                        }
-                        .comment {
-                            background: #F5F5F5;
-                            align-items: center;
-                        }
-                        .dropdown {
+                        .rating-body {
                             display: flex;
-                            color: #000;
-                            justify-content: flex-end;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 1rem;
                         }
-                        
                         .wrapper {
-                                background: #FFF;
+                                background: var(--white);
                                 padding: 2rem;
                                 max-width: 576px;
                                 width: 100%;
                                 border-radius: .75rem;
-                                box-shadow: 8px 8px 30px rgba(0,0,0,.05);
+                                box-shadow: var(--shadow);
                                 text-align: center;
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
                         }
+                        .btn cancel {
+                            
+                        }
+                        .wrapper .active {
+                            
+                        }
+                        
+                       
+                        
                         .wrapper h3 {
                                 font-size: 1.5rem;
                                 font-weight: 600;
                                 margin-bottom: 1rem;
                         }
-                        .rating {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                grid-gap: .5rem;
-                                font-size: 2rem;
-                                color: #FFBD13;
-                                margin-bottom: 2rem;
-                        }
+                        
                         .rating .star {
                                 cursor: pointer;
                         }
@@ -391,14 +785,14 @@
                                 transform: scale(1.1);
                         }
                         textarea {
-                                width: 100%;
-                                background: #F5F5F5;
+                                background: var(--light);
                                 padding: 1rem;
                                 border-radius: .5rem;
                                 border: none;
                                 outline: none;
                                 resize: none;
                                 margin-bottom: .5rem;
+                                width: 90%;
                         }
                         .btn-group {
                                 display: flex;
@@ -415,21 +809,19 @@
                                 font-weight: 500;
                         }
                         .btn-group .btn.submit {
-                                background: #4383FF;
-                                color: #FFF;
+                                background: var(--blue);
+                                color: var(--white);
                         }
                         .btn-group .btn.submit:hover {
-                                background: #3278FF;
+                                background: var(--blue-d-1);
                         }
                         .btn-group .btn.cancel {
-                                background: #FFF;
-                                color: #4383FF;
+                                background: var(--white);
+                                color: var(--blue);
                         }
                         .btn-group .btn.cancel:hover {
-                                background: #F5F5F5;
+                                background: var(--light);
                         }
-
-
                         .testimonial-box-container {
                             justify-content: center;
                             align-items: center;

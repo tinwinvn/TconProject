@@ -34,11 +34,35 @@
     </servlet>
     <servlet>
         <servlet-name>DetailsServlet</servlet-name>
-        <servlet-class>Controller.DetailsServlet</servlet-class>
+        <servlet-class>Controller.ParkDetailServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PlacesServlet</servlet-name>
-        <servlet-class>Controller.PlacesServlet</servlet-class>
+        <servlet-class>Controller.ParkServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ajaxServlet</servlet-name>
+        <servlet-class>Controller.ajaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>vnpayQuery</servlet-name>
+        <servlet-class>Controller.vnpayQuery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TransactionServlet</servlet-name>
+        <servlet-class>Controller.TransactionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <servlet-class>Controller.AddToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>Controller.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameServlet</servlet-name>
+        <servlet-class>Controller.GameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RatingServlet</servlet-name>
@@ -47,6 +71,10 @@
     <servlet>
         <servlet-name>DeleteCommentServlet</servlet-name>
         <servlet-class>Controller.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <servlet-class>Controller.UpdateCommentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -89,12 +117,40 @@
         <url-pattern>/PlacesServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ajaxServlet</servlet-name>
+        <url-pattern>/ajaxServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vnpayQuery</servlet-name>
+        <url-pattern>/vnpayQuery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TransactionServlet</servlet-name>
+        <url-pattern>/TransactionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartServlet</servlet-name>
+        <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/OrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameServlet</servlet-name>
+        <url-pattern>/GameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RatingServlet</servlet-name>
         <url-pattern>/RatingServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteCommentServlet</servlet-name>
         <url-pattern>/DeleteCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <url-pattern>/UpdateCommentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

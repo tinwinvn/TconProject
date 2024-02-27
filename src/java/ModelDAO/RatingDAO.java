@@ -81,5 +81,17 @@ public class RatingDAO {
         }
     }
     
+    public void updateRating(String newRatingText, String rID) throws Exception {
+        String sql = "UPDATE Rating SET RatingText = ? WHERE RatingID = ?";
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, newRatingText);
+            pstmt.setString(2, rID);
+            pstmt.executeUpdate();
+        }catch(Exception e){
+            
+        }
+    }
     
 }

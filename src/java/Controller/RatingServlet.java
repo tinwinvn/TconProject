@@ -82,6 +82,10 @@ public class RatingServlet extends HttpServlet {
             String receiveId = request.getParameter("receiveId");
             String parkId = request.getParameter("parkID");
             rat.newRating(ratingText, userId, ratingValue, receiveId);
+            System.out.println(ratingText);
+            System.out.println(userId);
+            System.out.println(ratingValue);
+            System.out.println(receiveId + parkId);
             response.sendRedirect("details.jsp?id=" + parkId);
         } catch (Exception ex) {
             Logger.getLogger(RatingServlet.class.getName()).log(Level.SEVERE, null, ex);
