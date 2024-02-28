@@ -37,7 +37,7 @@ public class AddFavouriteServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddFavouriteServlet</title>");            
+            out.println("<title>Servlet AddFavouriteServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AddFavouriteServlet at " + request.getContextPath() + "</h1>");
@@ -46,15 +46,6 @@ public class AddFavouriteServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -73,11 +64,9 @@ public class AddFavouriteServlet extends HttpServlet {
 
             // Gọi phương thức addNewFavourite để thêm vào cơ sở dữ liệu
             addFavouriteDAO.addNewFavourite(userID, favouriteItems);
-
-            // Chuyển hướng người dùng đến trang yêu thích đã được cập nhật
-            response.sendRedirect("index.jsp");
+            response.setStatus(200);
         } catch (Exception ex) {
-           Logger.getLogger(AddFavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);         
+            Logger.getLogger(AddFavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

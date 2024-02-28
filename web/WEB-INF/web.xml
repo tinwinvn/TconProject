@@ -61,16 +61,28 @@
         <servlet-class>Controller.OrderServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddFavouriteServlet</servlet-name>
-        <servlet-class>Controller.AddFavouriteServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TicketRefundServlet</servlet-name>
         <servlet-class>Controller.TicketRefundServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TicketChangeServlet</servlet-name>
         <servlet-class>Controller.TicketChangeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFavouriteServlet</servlet-name>
+        <servlet-class>Controller.DeleteFavouriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <servlet-class>Controller.DeleteCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResponeRefundServler</servlet-name>
+        <servlet-class>Controller.ResponeRefundServler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddFavouriteServlet</servlet-name>
+        <servlet-class>Controller.AddFavouriteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -133,16 +145,28 @@
         <url-pattern>/OrderServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddFavouriteServlet</servlet-name>
-        <url-pattern>/AddFavouriteServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TicketRefundServlet</servlet-name>
         <url-pattern>/TicketRefundServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TicketChangeServlet</servlet-name>
         <url-pattern>/TicketChangeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFavouriteServlet</servlet-name>
+        <url-pattern>/DeleteFavouriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <url-pattern>/DeleteCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponeRefundServler</servlet-name>
+        <url-pattern>/ResponeRefundServler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFavouriteServlet</servlet-name>
+        <url-pattern>/AddFavouriteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

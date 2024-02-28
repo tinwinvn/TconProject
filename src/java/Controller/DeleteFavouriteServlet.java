@@ -4,15 +4,11 @@
  */
 package Controller;
 
-import Model.OrderDetail;
-import ModelDAO.NotificationDAO;
-import ModelDAO.OrderDetailDAO;
-import ModelDAO.ParkDAO;
-import ModelDAO.TicketTypeDAO;
-import ModelDAO.TransactionDAO;
+import ModelDAO.AddFavouriteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class TicketRefundServlet extends HttpServlet {
+public class DeleteFavouriteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,15 +37,14 @@ public class TicketRefundServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TicketRefundServlet</title>");            
+            out.println("<title>Servlet DeleteFavouriteServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TicketRefundServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteFavouriteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,29 +55,15 @@ public class TicketRefundServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
-        String senderID = request.getParameter("senderID");
-        System.out.println(senderID);
-        System.out.println(transactionCode);
+        String favouriteID = request.getParameter("favouriteID");
         try{
-            NotificationDAO notificationDAO = new NotificationDAO();
-            TransactionDAO transactionDAO= new TransactionDAO();
-            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
-            ParkDAO parkDAO = new ParkDAO();
-            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            Date currentDate = new Date(System.currentTimeMillis());
-            String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
-            OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
-            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
-            String userID = parkDAO.getUserIDByParkID(parkID);
-            
-            notificationDAO.addNewNotification(senderID, userID, "Refund request transaction:",transactionCode, currentDate);
-            response.sendRedirect("booking/refund.jsp");
-        } catch (Exception ex){
-            
+            AddFavouriteDAO addFavouriteDAO = new AddFavouriteDAO();
+            addFavouriteDAO.deleteFavourite(favouriteID);
+            response.sendRedirect("favourite_list/favourite_list.jsp");
+        }catch(Exception ex){
+            Logger.getLogger(DeleteFavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     @Override
     public String getServletInfo() {

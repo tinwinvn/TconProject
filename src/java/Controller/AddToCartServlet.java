@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +49,7 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");            
+            out.println("<title>Servlet AddToCartServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
@@ -57,48 +58,67 @@ public class AddToCartServlet extends HttpServlet {
         }
     }
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
-          String parkID = request.getParameter("parkID");
-          String orderID = request.getParameter("orderID");        
-        int quantity = Integer.parseInt(request.getParameter("quantity")); // Số lượng
-        int price = Integer.parseInt(request.getParameter("price"));        
-        GenerateID gn = new GenerateID();
-        OrderDetail odt = new OrderDetail();        
-        try {
-            OrderDetailDAO otd = new OrderDetailDAO();            
-            odt = new OrderDetail(gn.generateID("OD"), null, ticketTypeID, quantity);
-            
-            otd.addNewOrderDetail(orderID, ticketTypeID, quantity);
-        } catch (Exception ex) {
-            Logger.getLogger(AddToCartServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        String transactionCode = request.getParameter("transactionCode");
+        System.out.println(transactionCode);
+        String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
+        String parkID = request.getParameter("parkID");
+        String orderID = request.getParameter("orderID");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int price = Integer.parseInt(request.getParameter("price"));
         HttpSession session = request.getSession();
-        
+
         Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
         if (cart == null) {
             cart = new HashMap<>();
         }
-        
+        GenerateID gn = new GenerateID();
+        OrderDetail odt = new OrderDetail();
+        try {
+            OrderDetailDAO otd = new OrderDetailDAO();
+            if (transactionCode.equals("")) {
+                odt = new OrderDetail(gn.generateID("OD"), null, ticketTypeID, quantity);
+                otd.addNewOrderDetail(orderID, ticketTypeID, quantity);
+            } else {
+                System.out.println(transactionCode);
+                List<OrderDetail> listOrderDetail = otd.getAllOrderDetail();
+                for (OrderDetail orderdetail : listOrderDetail) {
+                    if (orderdetail.getOrderID() == orderID) {
+                        if (cart.containsKey(orderdetail.getTicketTypeID())) {
+                            System.out.println(odt);
+                            odt = cart.get(orderdetail.getTicketTypeID());
+                            odt.getQuantity();
+                            int oldQuantity = odt.getQuantity();
+                            odt.setQuantity(oldQuantity + quantity);
+                            cart.put(orderdetail.getTicketTypeID(), odt);
+                        } else {
+                            cart.put(orderdetail.getTicketTypeID(), odt);
+                        }
+                        session.setAttribute("cart", cart);
+                        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&orderID=" + orderID);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AddToCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Kiểm tra nếu vé đã được thêm vào giỏ hàng trước đó, tăng số lượng
         if (cart.containsKey(ticketTypeID)) {
             odt = cart.get(ticketTypeID);
+            odt.getQuantity();
             int oldQuantity = odt.getQuantity();
             odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);       
+            cart.put(ticketTypeID, odt);
         } else {
             cart.put(ticketTypeID, odt);
         }
-        
+
         session.setAttribute("cart", cart);
-        
-        System.out.println(cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID="+parkID + "&orderID=" + orderID);
-        
+        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&orderID=" + orderID);
+
     }
 
     @Override

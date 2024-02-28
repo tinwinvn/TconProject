@@ -65,10 +65,33 @@ public class TicketTypeDAO {
         }
         return tt;
     }
-     
+           
+    public String getParkIDByTicketTypeID(String TicketTypeID) throws SQLException{
+        TicketType tt = new TicketType();
+        String query = "SELECT * FROM TicketType where TicketTypeID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, TicketTypeID);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    tt = mapResultSetToTicketType(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return tt.getParkID();
+    }
     
-    
-     private TicketType mapResultSetToTicketType(ResultSet resultSet) throws SQLException {
+    private TicketType mapResultSetToTicketType(ResultSet resultSet) throws SQLException {
         TicketType tkt = new TicketType();
         tkt.setTicketTypeID(resultSet.getString("TicketTypeID"));
         tkt.setParkID(resultSet.getString("ParkID"));

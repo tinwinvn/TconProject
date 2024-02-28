@@ -5,6 +5,63 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Payment History</title>
+        <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
     </head>
     <body>
         <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
@@ -19,6 +76,7 @@
                         <th>Date</th>
                         <th>Transaction Code</th>
                         <th>Order Detail</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,12 +97,30 @@
                                                             <li>${orderdetail.quantity} 
                                                                 ${tickettypeList.typeName}
                                                                 ${tickettypeList.price}
+                                                                
                                                             </li>    
                                                         </c:if>
                                                     </c:forEach>
                                                 </c:if>
                                             </c:forEach>
                                         </ul>
+                                    </td>
+                                    <td>
+                                        <c:if test="${transaction.getTransactionStatus() == 1}">
+                                        Giao dịch thành công
+                                        </c:if>
+                                        <c:if test="${transaction.getTransactionStatus() == 2}">
+                                        Đang hoàn tiền
+                                        </c:if>
+                                        <c:if test="${transaction.getTransactionStatus() == 3}">
+                                        Hoàn thành công
+                                        </c:if>
+                                        <c:if test="${transaction.getTransactionStatus() == 4}">
+                                        Từ chối hoàn tiền
+                                        </c:if>
+                                        <c:if test="${transaction.getTransactionStatus() == 5}">
+                                        Lỗi
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:if>

@@ -80,8 +80,78 @@ public class TransactionDAO {
         return trc;
     }
  
-    public void addNewTransaction(String orderID, String date, String TransactionCode) throws SQLException, Exception {
-        String query = "INSERT INTO TransactionHistory VALUES (?, ?, ?, ?)";
+    public String getOrderIDbyTransactionCode(String transactionCode) throws SQLException, UnsupportedEncodingException {
+        TransactionHistory trc = new TransactionHistory();
+        String query = "SELECT * FROM TransactionHistory where TransactionCode = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, transactionCode);
+            rs = statement.executeQuery();         
+            if (rs.next()) {
+                    trc = mapResultSetToTransaction(rs);
+                }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return trc.getOrderID();
+    }
+    
+    public String getTransactionIDbyTransactionCode(String transactionCode) throws SQLException, UnsupportedEncodingException {
+        TransactionHistory trc = new TransactionHistory();
+        String query = "SELECT * FROM TransactionHistory where TransactionCode = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, transactionCode);
+            rs = statement.executeQuery();         
+            if (rs.next()) {
+                    trc = mapResultSetToTransaction(rs);
+                }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return trc.getTransactionID();
+    }
+    
+    
+    public int getTransactionStatusbyTransactionCode(String transactionCode) throws SQLException, UnsupportedEncodingException {
+        TransactionHistory trc = new TransactionHistory();
+        String query = "SELECT * FROM TransactionHistory where TransactionCode = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, transactionCode);
+            rs = statement.executeQuery();         
+            if (rs.next()) {
+                    trc = mapResultSetToTransaction(rs);
+                }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return trc.getTransactionStatus();
+    }
+    
+    public void addNewTransaction(String orderID, String date, String TransactionCode, int transactionStatus) throws SQLException, Exception {
+        String query = "INSERT INTO TransactionHistory VALUES (?, ?, ?, ?, ?)";
         Connection conn;
         String fdate = toDate(date);
         GenerateID gn = new GenerateID();
@@ -93,6 +163,7 @@ public class TransactionDAO {
                 statement.setString(2, orderID);
                 statement.setString(3, fdate);              
                 statement.setString(4, TransactionCode);
+                statement.setInt(5, transactionStatus);
                 statement.execute();
             }
             conn.close();
@@ -100,6 +171,24 @@ public class TransactionDAO {
         }
     }
 
+    public void updateTransactionStatus(String transactionID, int transactionStatus) throws SQLException, Exception {
+        String query = "update TransactionHistory set TransactionStatus = ? where TransactionID = ?";
+        Connection conn;
+        GenerateID gn = new GenerateID();
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, transactionStatus);
+                statement.setString(2, transactionID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+
+    
     public String toDate(String input){
         // Định nghĩa định dạng của ngày tháng
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -126,6 +215,7 @@ public class TransactionDAO {
         trc.setOrderID(resultSet.getString("OrderID"));
         trc.setDate(resultSet.getString("Date"));
         trc.setTransactionCode(resultSet.getString("TransactionCode"));
+        trc.setTransactionStatus(resultSet.getInt("TransactionStatus"));
         return trc;
     }
 }

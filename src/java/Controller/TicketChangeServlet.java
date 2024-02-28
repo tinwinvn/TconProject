@@ -4,8 +4,16 @@
  */
 package Controller;
 
+import Model.OrderDetail;
+import ModelDAO.NotificationDAO;
+import ModelDAO.OrderDetailDAO;
+import ModelDAO.ParkDAO;
+import ModelDAO.TicketTypeDAO;
+import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +60,23 @@ public class TicketChangeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String transactionCode = request.getParameter("transactionCode");
+        try{
+            TransactionDAO tdao = new TransactionDAO();
+            NotificationDAO ndao = new NotificationDAO();
+            OrderDetailDAO detailDAO = new OrderDetailDAO();
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            
+            String orderID = tdao.getOrderIDbyTransactionCode(transactionCode);
+            OrderDetail orderDetail = detailDAO.getOrderDetailByOrderID(orderID);
+            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID());
+            
+            response.sendRedirect("booking/ticketType_list.jsp?orderID=" + orderID + "&parkID=" + parkID + "&transactionCode=" +transactionCode);
+        }catch (Exception ex){
+            Logger.getLogger(TicketChangeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
 

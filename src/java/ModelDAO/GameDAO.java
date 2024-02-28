@@ -5,8 +5,7 @@
 package ModelDAO;
 
 import DAO.ConnectDB;
-import Model.Park;
-import Model.User;
+import Model.Game;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,19 +15,19 @@ import java.util.List;
 
 /**
  *
- * @author Nguyen Nhu Loc
+ * @author Admin
  */
-public class ParkDAO {
-
+public class GameDAO {
+    
     private final ConnectDB db;
-
-    public ParkDAO() throws Exception {
+    
+    public GameDAO() throws Exception {
         db = new ConnectDB();
     }
-
-    public List<Park> getAllPark() {
-        List<Park> list = new ArrayList<>();
-        String sql = "select * from Park";
+    
+    public List<Game> getAllGame(){
+        List<Game> list = new ArrayList<>();
+        String sql = "select * from Game";
         Connection conn;
         try {
             conn = db.getConnection();
@@ -37,9 +36,8 @@ public class ParkDAO {
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Park pk = mapResultSetToPark(rs);
-                System.out.println(pk.getImage());
-                list.add(pk);
+                Game gm = mapResultSetToGame(rs);
+                list.add(gm);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -47,38 +45,38 @@ public class ParkDAO {
         return list;
     }
     
-    public String getUserIDByParkID(String parkID) throws SQLException{
-        String sql = "select * from Park where ParkID = ?";
-        Park park = new Park();
-        System.out.println(parkID);
+    public Game getGameByParkID(String TicketTypeID) throws SQLException{
+        Game gm = new Game();
+        String query = "SELECT * FROM Game where ParkID = ?";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
 
         try {
             conn = db.getConnection();
-            statement = conn.prepareStatement(sql);
-            statement.setString(1, parkID);
+            statement = conn.prepareStatement(query);
+            statement.setString(1, TicketTypeID);
             rs = statement.executeQuery();
-                if (rs.next()) {
-                    park = mapResultSetToPark(rs);
-                    System.out.println(park.getUserID());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToGame(resultSet);
+                }
             }
         } catch (SQLException ex) {
             throw ex;
         } finally {
             db.close(conn, statement, rs);
         }
-        return park.getUserID();
+        return gm;
     }
     
-     private Park mapResultSetToPark(ResultSet resultSet) throws SQLException {
-        Park pk = new Park();
-        pk.setParkID(resultSet.getString("ParkID"));
-        pk.setUserID(resultSet.getString("UserID"));
-        pk.setParkName(resultSet.getString("ParkName"));
-        pk.setAddress(resultSet.getString("Address"));
-        pk.setImage(resultSet.getString("Image"));
-        return pk;
+    private Game mapResultSetToGame(ResultSet resultSet) throws SQLException {
+        Game gm = new Game();
+        gm.setGameID(resultSet.getString("GameID"));
+        gm.setParkID(resultSet.getString("ParkID"));
+        gm.setGameName(resultSet.getString("GameName"));
+        gm.setGameDescription(resultSet.getString("GameDescription"));
+        gm.setImage(resultSet.getString("Image"));
+        return gm;
     }
 }

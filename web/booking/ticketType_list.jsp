@@ -166,6 +166,7 @@
                     <input type="hidden" name="price" value="${ttL.price}">
                     <input type="hidden" name="parkID" value="${param.parkID}">
                     <input type="hidden" name="orderID" value="${param.orderID}">
+                    <input type="hidden" name="transactionCode" value="${param.transactionCode}">
                     <button type="submit">Thêm vào giỏ hàng</button>
                 </form>
 

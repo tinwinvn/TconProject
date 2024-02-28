@@ -1,12 +1,14 @@
 package Validation;
 
 import Model.AddFavourite;
+import Model.Notification;
 import Model.Order;
 import Model.OrderDetail;
 import Model.TransactionHistory;
 import ModelDAO.UserDAO;
 import Model.User;
 import ModelDAO.AddFavouriteDAO;
+import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.TransactionDAO;
@@ -38,6 +40,20 @@ public class GenerateID {
             List<Order> listOrder = orderDAO.getAllOrder();
             for (Order order: listOrder) {
                 String numID = order.getOrderID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
+        } else if (entity == "NT") {
+            NotificationDAO notificationDAO = new NotificationDAO();
+            if (notificationDAO.getAllNotification().isEmpty()) {
+                return entity + "000001";
+            }
+            List<Notification> listNotification= notificationDAO.getAllNotification();
+            for (Notification notification : listNotification) {
+                String numID = notification.getNotificationID().substring(2);
                 int num = Integer.parseInt(numID);
                 String nextID = entity + (String.format("%06d", num + 1));
                 if (!isDupplicatedID(nextID, entity)) {
@@ -117,6 +133,14 @@ public class GenerateID {
             List<AddFavourite> listAddFavourite = addfavouriteDAO.getAllAddFavourite();
             for (AddFavourite addfavourite : listAddFavourite) {
                 if (addfavourite.getFavouriteID().equals(id)) {
+                    return true;
+                }
+            }
+        } else if (entity == "NT") {
+            NotificationDAO notificationDAO = new NotificationDAO();
+            List<Notification> listNotification = notificationDAO.getAllNotification();
+            for (Notification notification : listNotification) {
+                if (notification.getNotificationID().equals(id)) {
                     return true;
                 }
             }
