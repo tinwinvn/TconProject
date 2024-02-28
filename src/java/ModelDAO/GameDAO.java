@@ -6,7 +6,6 @@ package ModelDAO;
 
 import DAO.ConnectDB;
 import Model.Game;
-import Model.Park;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,17 +15,17 @@ import java.util.List;
 
 /**
  *
- * @author Nguyen Nhu Loc
+ * @author Admin
  */
 public class GameDAO {
-
+    
     private final ConnectDB db;
-
+    
     public GameDAO() throws Exception {
         db = new ConnectDB();
     }
-
-    public List<Game> getAllGame() {
+    
+    public List<Game> getAllGame(){
         List<Game> list = new ArrayList<>();
         String sql = "select * from Game";
         Connection conn;
@@ -37,9 +36,8 @@ public class GameDAO {
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Game pk = mapResultSetToGame(rs);
-                System.out.println(pk.getImage());
-                list.add(pk);
+                Game gm = mapResultSetToGame(rs);
+                list.add(gm);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -47,15 +45,38 @@ public class GameDAO {
         return list;
     }
     
-     private Game mapResultSetToGame(ResultSet resultSet) throws SQLException {
-        Game pk = new Game();
-        pk.setGameID(resultSet.getString("GameID"));
-        pk.setParkID(resultSet.getString("ParkID"));
-        pk.setGameName(resultSet.getString("GameName"));
-        pk.setGameDescription(resultSet.getString("GameDescription"));
-        pk.setImage(resultSet.getString("Image"));
-        return pk;
-    }
+    public Game getGameByParkID(String TicketTypeID) throws SQLException{
+        Game gm = new Game();
+        String query = "SELECT * FROM Game where ParkID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
 
-   
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, TicketTypeID);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToGame(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return gm;
+    }
+    
+    private Game mapResultSetToGame(ResultSet resultSet) throws SQLException {
+        Game gm = new Game();
+        gm.setGameID(resultSet.getString("GameID"));
+        gm.setParkID(resultSet.getString("ParkID"));
+        gm.setGameName(resultSet.getString("GameName"));
+        gm.setGameDescription(resultSet.getString("GameDescription"));
+        gm.setImage(resultSet.getString("Image"));
+        return gm;
+    }
 }

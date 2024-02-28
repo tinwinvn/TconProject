@@ -6,6 +6,7 @@ package ModelDAO;
 
 import DAO.ConnectDB;
 import Model.Park;
+import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +45,31 @@ public class ParkDAO {
             System.out.println(e);
         }
         return list;
+    }
+    
+    public String getUserIDByParkID(String parkID) throws SQLException{
+        String sql = "select * from Park where ParkID = ?";
+        Park park = new Park();
+        System.out.println(parkID);
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, parkID);
+            rs = statement.executeQuery();
+                if (rs.next()) {
+                    park = mapResultSetToPark(rs);
+                    System.out.println(park.getUserID());
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return park.getUserID();
     }
     
      private Park mapResultSetToPark(ResultSet resultSet) throws SQLException {

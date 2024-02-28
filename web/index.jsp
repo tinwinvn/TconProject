@@ -109,11 +109,11 @@
                                     <div class="button flex">
                                         <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
                                         <c:if test="${sessionScope.acc != null}">
-                                            <form action="AddFavouriteServlet" method="POST">
-                                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-                                            <input type="hidden" name="favouriteItems" value="${c.parkID}">
-                                            <button type="submit" class="primary-btn">Thêm vào mục yêu thích</button>
-                                        </form>
+                                            <form onsubmit="addToFavourites(event)">
+                                                <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                                                <input type="hidden" name="favouriteItems" value="${c.parkID}">
+                                                <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%">Yêu thích</button>
+                                            </form>
                                         </c:if>
                                         <h3><span> <br>  </span> </h3>
                                     </div>
@@ -126,6 +126,35 @@
                 </div>
             </div>
         </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            function addToFavourites(event) {
+                event.preventDefault();
+                var form = event.target;
+                var userID = form.userID.value;
+                var favouriteItems = form.favouriteItems.value;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'AddFavouriteServlet', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                Swal.fire({
+                title: 'Add Success',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 1500
+                });
+                setTimeout(function () {
+                }, 1500);
+                }
+            };
+            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+        }
+        </script>                    
+
         <script>
             $('.owl-carousel1').owlCarousel({
                 loop: true,

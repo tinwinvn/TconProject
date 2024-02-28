@@ -4,15 +4,13 @@
  */
 package Controller;
 
-import Model.OrderDetail;
 import ModelDAO.NotificationDAO;
-import ModelDAO.OrderDetailDAO;
-import ModelDAO.ParkDAO;
-import ModelDAO.TicketTypeDAO;
 import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class TicketRefundServlet extends HttpServlet {
+public class ResponeRefundServler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,15 +39,14 @@ public class TicketRefundServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TicketRefundServlet</title>");            
+            out.println("<title>Servlet ResponeRefundServler</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TicketRefundServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResponeRefundServler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,30 +57,37 @@ public class TicketRefundServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
         String senderID = request.getParameter("senderID");
-        System.out.println(senderID);
-        System.out.println(transactionCode);
-        try{
-            NotificationDAO notificationDAO = new NotificationDAO();
-            TransactionDAO transactionDAO= new TransactionDAO();
-            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
-            ParkDAO parkDAO = new ParkDAO();
-            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            Date currentDate = new Date(System.currentTimeMillis());
-            String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
-            OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
-            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
-            String userID = parkDAO.getUserIDByParkID(parkID);
-            
-            notificationDAO.addNewNotification(senderID, userID, "Refund request transaction:",transactionCode, currentDate);
-            response.sendRedirect("booking/refund.jsp");
-        } catch (Exception ex){
-            
-        }
+        String receiverID = request.getParameter("receiverID");
+        String accept = request.getParameter("accept");
+        String denied = request.getParameter("denied");
+        String transactionCode = request.getParameter("transactionCode");
+        Date currentDate = new Date(System.currentTimeMillis());
+        try {
+             NotificationDAO notiDAO = new NotificationDAO();
+             TransactionDAO tdao = new TransactionDAO();
+            if (accept != null) {
+                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
+                tdao.updateTransactionStatus(transactionID, 2);
+                notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is accepted \nPlease waiting for refund", currentDate);
+            } else if (denied != null){
+                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
+                tdao.updateTransactionStatus(transactionID, 4);
+                notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is denied because your request is invalid \nPlease check your request again", currentDate);
+
+            }
+            response.sendRedirect("booking/notification_list.jsp");
+        } catch (Exception ex) {
+            Logger.getLogger(ResponeRefundServler.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        
     }
 
-
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

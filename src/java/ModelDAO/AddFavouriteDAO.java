@@ -85,6 +85,21 @@ public class AddFavouriteDAO {
         }
     }
     
+    public void deleteFavourite(String favouriteID) throws SQLException, Exception {
+        String query = "DELETE FROM Addfavourite WHERE FavouriteID = ?";
+        Connection conn;
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, favouriteID);           
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
     private AddFavourite mapResultSetToAddFavourite(ResultSet resultSet) throws SQLException {
         AddFavourite af = new AddFavourite();
         af.setFavouriteID(resultSet.getString("FavouriteID"));

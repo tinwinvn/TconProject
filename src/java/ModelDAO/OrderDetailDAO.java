@@ -63,6 +63,21 @@ public class OrderDetailDAO {
         } catch (SQLException e) {
         }
     }
+      
+        public void daleteOrderDetail(String orderdetailID) throws SQLException, Exception {
+        String query = "DELETE FROM OrderDetail WHERE OrderDetailID = ?";
+            System.out.println(orderdetailID);
+        Connection conn;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, orderdetailID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
     
     public OrderDetail getOrderDetailByOrderID(String OrderID) throws SQLException{
         OrderDetail od  = new OrderDetail();
@@ -88,7 +103,7 @@ public class OrderDetailDAO {
         }
         return od;
     }  
-      
+         
      private OrderDetail mapResultSetToOrderDetail(ResultSet resultSet) throws SQLException {
         OrderDetail odd = new OrderDetail();
         odd.setOrderDetailID(resultSet.getString("OrderDetailID"));
