@@ -4,42 +4,42 @@ package Model;
 import java.sql.Date;
 
 public class TransactionHistory {
-    private int TransactionID;
-    private int OrderID;
-    private Date Date;
+    private String TransactionID;
+    private String OrderID;
+    private String Date;
     private String TransactionCode;
 
     public TransactionHistory() {
     }
 
-    public TransactionHistory(int TransactionID, int OrderID, Date Date, String TransactionCode) {
+    public TransactionHistory(String TransactionID, String OrderID, String Date, String TransactionCode) {
         this.TransactionID = TransactionID;
         this.OrderID = OrderID;
         this.Date = Date;
         this.TransactionCode = TransactionCode;
     }
 
-    public int getTransactionID() {
+    public String getTransactionID() {
         return TransactionID;
     }
 
-    public void setTransactionID(int TransactionID) {
+    public void setTransactionID(String TransactionID) {
         this.TransactionID = TransactionID;
     }
 
-    public int getOrderID() {
+    public String getOrderID() {
         return OrderID;
     }
 
-    public void setOrderID(int OrderID) {
+    public void setOrderID(String OrderID) {
         this.OrderID = OrderID;
     }
-
-    public Date getDate() {
+   
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(Date Date) {
+    public void setDate(String Date) {
         this.Date = Date;
     }
 

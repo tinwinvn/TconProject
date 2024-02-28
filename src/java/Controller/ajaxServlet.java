@@ -58,6 +58,7 @@ public class ajaxServlet extends HttpServlet {
 
     @Override
      protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String orderID = req.getParameter("orderID");
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
@@ -80,7 +81,7 @@ public class ajaxServlet extends HttpServlet {
             vnp_Params.put("vnp_BankCode", bankCode);
         }
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", orderID);
         vnp_Params.put("vnp_OrderType", orderType);
 
         String locate = req.getParameter("language");
@@ -100,7 +101,6 @@ public class ajaxServlet extends HttpServlet {
         cld.add(Calendar.MINUTE, 15);
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-        
         List fieldNames = new ArrayList(vnp_Params.keySet());
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
@@ -125,8 +125,8 @@ public class ajaxServlet extends HttpServlet {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());       
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;     
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
         com.google.gson.JsonObject job = new JsonObject();
         job.addProperty("code", "00");

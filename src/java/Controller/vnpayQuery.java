@@ -108,7 +108,7 @@ public class vnpayQuery extends HttpServlet {
         
         // Đặt dữ liệu vào thuộc tính của HttpServletRequest để chuyển đến JSP
         req.setAttribute("responseData", responseData);
-        req.getRequestDispatcher("/result.jsp").forward(req, resp);
+        req.getRequestDispatcher("payment/result.jsp").forward(req, resp);
     }
 
     @Override

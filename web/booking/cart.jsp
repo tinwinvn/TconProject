@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    
 <head>
     <meta charset="UTF-8">
     <title>Giỏ hàng</title>
@@ -97,30 +98,98 @@
 </head>
 <body>
     <header>
+          
+        
+        <style>
+    header {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        flex-grow: 1;
+    }
+
+    .logo h1 {
+        
+        
+        font-size: 2.5em;
+    }
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav li {
+        margin-right: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 1em;
+        transition: color 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+        color: #007bff;
+    }
+</style>
+
+       
+
+                    <div class="logo"><h1>Giỏ hàng:</h1></div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Games</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </nav>
+    
     </header>
     <nav>
     </nav>
     <main>
-        <h2>Giỏ hàng</h2>
+        
+        <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <ul class="cart-list">
             <c:forEach var="item" items="${sessionScope.cart}">
-                <c:set var="ticketType" value="${item.key}" />
-                <c:set var="quantity" value="${item.value}" />
-                <c:set var="price" value="${item.value}" /> 
+                <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
+                <c:set var="ticketTypeName" value="${ticketType.typeName}" />
+                <c:set var="quantity" value="${item.value.quantity}" />
+                <c:set var="price" value="${ticketType.price}"></c:set>
+               
 
                 <li class="cart-item">
-                    <h3>${ticketType}</h3>
+                    <h3>${ticketTypeName}</h3>
                     <p>Số lượng: ${quantity}</p>
                     <p>Giá: ${price * quantity} VNĐ</p>
                 </li>
+                
+                <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
             </c:forEach>
             
             <c:if test="${empty sessionScope.cart}">
                 <p class="empty-cart-message">Giỏ hàng trống</p>
             </c:if>
         </ul>
-        <c:if test="${not empty sessionScope.cart}">
-                <a href="../payment/payment_vnPay.jsp?price=${price}" class="payment-link">Thanh Toán</a>
+            <c:if test="${not empty sessionScope.cart}">
+                <a href="../payment/payment_vnPay.jsp?price=${totalPrice}&orderID=${param.orderID}" class="payment-link">Thanh Toán</a>               
             </c:if>
     </main>
     <footer>

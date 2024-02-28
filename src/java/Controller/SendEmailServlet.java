@@ -64,7 +64,7 @@ public class SendEmailServlet extends HttpServlet {
             User a = am.getUserByEmail(email);
             System.out.println(a);
             if (checkUserExists(email)) {
-                if (a != null) {
+                if (a == null) {
                     response.sendRedirect("error.jsp");
                 } else {
                     String otp = generateOTP();

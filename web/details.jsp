@@ -8,7 +8,7 @@
         <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,8 +58,13 @@
                         <!-- Add more cards as needed -->
                     </div>
                     <c:if test="${sessionScope.acc != null}">
-                    <a href="booking/ticketType_list.jsp" class="cta-button">Đặt vé</a>
+                        <form action="OrderServlet" method="GET">
+                            <input type="hidden" name="parkID" value="${parkId}">
+                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                            <button type="submit" class="cta-button">Đặt vé</button>
+                        </form>
                     </c:if>
+
                 </section>
                 <header>
                     <div class="logo">Kính chào quý khách</div>
@@ -79,26 +84,26 @@
                 <header>
                     <div class="logo">Các loại trò chơi</div>
                 </header>
-                            
+
             <body class="events-section" style="background-image: url('${c.image_bg}');">     
-                <div class="events-content">
-                    <div class="map-image">
-                        <img style="width: 860px; height: 600px; border-radius: 10px;" src="${c.image3}" alt="Map Image">
+                <div class="events-content" style="display: flex; height: 85vh">
+                    <div class="map-image" style="width: 60%; height: 100%">
+                        <img style=" height: 596px;  border-radius: 10px;" src="${c.image3}" alt="Map Image">
                     </div>
-                    <div class="games-list">
+                    <div class="games-list" style="width: 40%">
                         <div class="scroll-container">
                             <div class="content">
                                 <c:forEach items="${gDAO.allGame}" var="c">
                                     <c:if test="${c.parkID == param.id}">
                                         <session>
-                                        <c:set var="GameName" value="${c.gameName}"/>
-                                        <h2>${GameName}</h2>
-                                        <c:set var="GameDescription" value="${c.getGameDescription()}"/>
-                                        <p>${GameDescription}</p>
-                                        <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
+                                            <c:set var="GameName" value="${c.gameName}"/>
+                                            <h2>${GameName}</h2>
+                                            <c:set var="GameDescription" value="${c.getGameDescription()}"/>
+                                            <p>${GameDescription}</p>
+                                            <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
                                         </session>
                                     </c:if>
-                           </c:forEach>
+                                </c:forEach>
 
                             </div>
                         </div>
@@ -124,8 +129,8 @@
                             }
 
                             .scroll-container {
-                                width: 575px;
-                                height: 560px;
+                                /*width: 575px;*/
+                                height: 557px;
                                 overflow-y: scroll;
                                 border: 2px solid #ccc;
                                 padding: 20px;
@@ -174,7 +179,7 @@
                     </div>
                 </div>
             </body>
-           
+
             <header style="text-align: center;">
                 <div class="logo"><c:out value=""/></div>
             </header>
@@ -182,7 +187,7 @@
 
 
             <style>
-                
+
 
                 .events-section {
                     background-image: url('images_details/i.jpg');
@@ -209,7 +214,7 @@
 
                 .games-list {
                     flex-grow: 1;
-                    
+
                     text-align: left;
                 }
 
@@ -230,6 +235,7 @@
                     background-color: #333;
                     color: white;
                     padding: 30px 20px;
+                   
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -265,7 +271,7 @@
                     color: white;
                     text-align: center;
                     padding: 100px 20px;
-                    
+
                 }
 
                 .cta-button {

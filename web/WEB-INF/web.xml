@@ -57,6 +57,10 @@
         <servlet-class>Controller.AddToCartServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>Controller.OrderServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GameServlet</servlet-name>
         <servlet-class>Controller.GameServlet</servlet-class>
     </servlet>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>AddToCartServlet</servlet-name>
         <url-pattern>/AddToCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/OrderServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GameServlet</servlet-name>

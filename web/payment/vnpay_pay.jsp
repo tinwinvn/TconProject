@@ -54,6 +54,7 @@
                         <label for="language">Tiếng anh</label><br>
 
                     </div>
+                    <input type="hidden" name="orderID" value="${param.orderID}">
                     <button type="submit" class="btn btn-default" href>Thanh toán</button>
                 </form>
             </div>

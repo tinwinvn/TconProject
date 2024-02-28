@@ -240,6 +240,7 @@
     }
 
     .owl-carousel1 .items p {
+        font-size: 90%;
         color: #777;
         margin-bottom: 10px;
     }

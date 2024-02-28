@@ -9,23 +9,18 @@ package Model;
  * @author Admin
  */
 public class Ticket {
+   
     private String TicketID;
-    private String ParkID;
     private String TicketTypeID;
-    private String GameID;
     private String TicketCode;
-    private double price;
 
     public Ticket() {
     }
 
-    public Ticket(String TicketID, String ParkID, String TicketTypeID, String GameID, String TicketCode, double price) {
+    public Ticket(String TicketID, String TicketTypeID, String TicketCode) {
         this.TicketID = TicketID;
-        this.ParkID = ParkID;
         this.TicketTypeID = TicketTypeID;
-        this.GameID = GameID;
         this.TicketCode = TicketCode;
-        this.price = price;
     }
 
     public String getTicketID() {
@@ -36,28 +31,12 @@ public class Ticket {
         this.TicketID = TicketID;
     }
 
-    public String getParkID() {
-        return ParkID;
-    }
-
-    public void setParkID(String ParkID) {
-        this.ParkID = ParkID;
-    }
-
     public String getTicketTypeID() {
         return TicketTypeID;
     }
 
     public void setTicketTypeID(String TicketTypeID) {
         this.TicketTypeID = TicketTypeID;
-    }
-
-    public String getGameID() {
-        return GameID;
-    }
-
-    public void setGameID(String GameID) {
-        this.GameID = GameID;
     }
 
     public String getTicketCode() {
@@ -68,13 +47,7 @@ public class Ticket {
         this.TicketCode = TicketCode;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    
     
     
 }
