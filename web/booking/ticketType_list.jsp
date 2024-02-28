@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
+            background-image: url('../images/a.jpg');
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -146,7 +147,68 @@
 </head>
 <body>
     <header>
-        <h1>Đặt vé</h1>
+        
+        <style>
+    header {
+        
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        flex-grow: 1;
+    }
+
+    .logo h1 {
+        
+        
+        font-size: 2.5em;
+    }
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav li {
+        margin-right: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 1em;
+        transition: color 0.3s ease-in-out;
+    }
+
+    nav a:hover {
+        color: #007bff;
+    }
+</style>
+
+       
+
+                    <div class="logo"><h1>Đặt vé:</h1></div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Games</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </nav>
     </header>
     <nav>
     </nav>
@@ -176,8 +238,12 @@
         <a href="cart.jsp?orderID=${param.orderID}" class="btn-cart">Xem giỏ hàng</a>
     </main>
     <footer>
+        
     </footer>
 
   
+    
+    
+    
 </body>
 </html>

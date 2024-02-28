@@ -96,7 +96,7 @@
 
                     <div class="content mtop">
                         <div class="owl-carousel owl-carousel1 owl-theme">
-                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO" ></jsp:useBean>
+                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
                         <c:forEach items="${pDAO.allPark}" var="c"> 
                             <c:set var="id" value="${c.parkID}"/>
                             <div class="items">
@@ -247,6 +247,7 @@
     }
 
     .owl-carousel1 .items p {
+        font-size: 90%;
         color: #777;
         margin-bottom: 10px;
     }
