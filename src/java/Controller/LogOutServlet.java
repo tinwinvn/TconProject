@@ -31,6 +31,7 @@ public class LogOutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
+        session.removeAttribute("cart");
         response.sendRedirect("index.jsp");
     }
 

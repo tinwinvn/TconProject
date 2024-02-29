@@ -3,6 +3,7 @@
     Created on : Jan 14, 2024, 7:14:25 PM
     Author     : admin
 --%>
+
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +12,6 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
         <nav>
@@ -31,8 +30,11 @@
                                 <a href="LogOutServlet">LOG OUT</a>
                                 <a href="profile.jsp?userId=${sessionScope.acc.userID}">PROFILE</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
+                                    <a href="admin/admin.html?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
                                 </c:if>
+                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
+                                    <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
+                                    <a href="booking/notification_list.jsp">Thông báo</a>
                             </div>
                         </div>
                     </li>
@@ -43,7 +45,7 @@
                     <li> 
 
                         <form action="login.jsp">
-                            <button class="dropbtn" type="submit">LOGIN</button> 
+                            <button class="dropbtn" type="submit">Đăng nhập</button> 
                         </form>
                     </li>
                 </c:if>
