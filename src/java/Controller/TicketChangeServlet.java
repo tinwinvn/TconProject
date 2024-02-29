@@ -71,12 +71,10 @@ public class TicketChangeServlet extends HttpServlet {
             OrderDetail orderDetail = detailDAO.getOrderDetailByOrderID(orderID);
             String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID());
             
-            response.sendRedirect("booking/ticketType_list.jsp?orderID=" + orderID + "&parkID=" + parkID + "&transactionCode=" +transactionCode);
+            response.sendRedirect("CartServlet?orderID=" + orderID + "&parkID=" + parkID + "&transactionCode=" +transactionCode);
         }catch (Exception ex){
             Logger.getLogger(TicketChangeServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }             
     }
 
 

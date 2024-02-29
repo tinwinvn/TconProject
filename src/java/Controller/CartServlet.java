@@ -4,17 +4,10 @@
  */
 package Controller;
 
-import Model.Order;
 import Model.OrderDetail;
-import Model.TicketType;
-import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
-import Validation.GenerateID;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
-public class AddToCartServlet extends HttpServlet {
+public class CartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,56 +42,60 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");
+            out.println("<title>Servlet CartServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
-        String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
-        String parkID = request.getParameter("parkID");
         String orderID = request.getParameter("orderID");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int price = Integer.parseInt(request.getParameter("price"));
+        String transactionCode = request.getParameter("transactionCode");
+        String parkID = request.getParameter("parkID");
         HttpSession session = request.getSession();
 
         Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        System.out.println(cart);
-        GenerateID gn = new GenerateID();
-        OrderDetail odt = new OrderDetail();
+        if (cart == null) {
+            cart = new HashMap<>();
+        }
         try {
-            OrderDetailDAO otd = new OrderDetailDAO();
-            if (cart.containsKey(ticketTypeID)) {
-                otd.updateOrderDetail(cart.get(ticketTypeID).getOrderDetailID(), cart.get(ticketTypeID).getQuantity() + quantity);
-            } else {
-                odt = new OrderDetail(gn.generateID("OD"), null, ticketTypeID, quantity);
-                otd.addNewOrderDetail(orderID, ticketTypeID, quantity);
+            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+            System.out.println(transactionCode);
+            List<OrderDetail> listOrderDetail = orderDetailDAO.getAllOrderDetail();
+            for (OrderDetail orderdetail : listOrderDetail) {
+                if (orderdetail.getOrderID().equals(orderID)) {
+                        cart.put(orderdetail.getTicketTypeID(), orderdetail);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(AddToCartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        // Kiểm tra nếu vé đã được thêm vào giỏ hàng trước đó, tăng số lượng
-        if (cart.containsKey(ticketTypeID)) {
-            OrderDetail existingOrderDetail = cart.get(ticketTypeID);
-            int oldQuantity = existingOrderDetail.getQuantity();
-            existingOrderDetail.setQuantity(oldQuantity + quantity);
-        } else {
-            cart.put(ticketTypeID, odt);
-        }
-
         session.setAttribute("cart", cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&orderID=" + orderID);
-
+        response.sendRedirect("booking/cart.jsp?parkID="+ parkID + "&orderID=" + orderID);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
