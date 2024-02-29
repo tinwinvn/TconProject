@@ -78,6 +78,21 @@ public class OrderDetailDAO {
         } catch (SQLException e) {
         }
     }
+        public void updateOrderDetail(String orderdetailID, int quantity) throws SQLException, Exception {
+        String query = "  UPDATE OrderDetail SET Quantity = ? WHERE OrderDetailID = ?";
+            System.out.println(orderdetailID);
+        Connection conn;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, quantity);
+                statement.setString(2, orderdetailID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
     
     public OrderDetail getOrderDetailByOrderID(String OrderID) throws SQLException{
         OrderDetail od  = new OrderDetail();

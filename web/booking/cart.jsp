@@ -102,7 +102,7 @@
         <nav>
             <ul>
                 <li><a href="../index.jsp">Home</a></li>
-                <li><a href="ticketType_list.jsp">Add Cart</a></li>
+                <li><a href="ticketType_list.jsp?parkID=${param.parkID}&orderID=${param.orderID}">Add Cart</a></li>
             </ul>
         </nav>
         <main>
@@ -124,10 +124,8 @@
                                 <button type="submit">Xóa</button>
                             </form>
                         </li>
-
                         <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
-                </c:forEach>
-
+                </c:forEach>         
                 <c:if test="${empty sessionScope.cart}">
                     <p class="empty-cart-message">Giỏ hàng trống</p>
                 </c:if>

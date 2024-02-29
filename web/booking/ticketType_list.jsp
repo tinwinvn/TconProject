@@ -174,7 +174,13 @@
             </c:if>
         </c:forEach>                          
         </ul>
-        <a href="cart.jsp?orderID=${param.orderID}" class="btn-cart">Xem giỏ hàng</a>
+        <form action="../CartServlet" method="GET">
+            <input type="hidden" name="orderID" value="${param.orderID}">
+            <input type="hidden" name="transactionCode" value="${param.transactionCode}">
+            <input type="hidden" name="parkID" value="${param.parkID}">
+            <button class="btn-cart" type="submit">Xem giỏ hàng</button>
+        </form>
+        
     </main>
     <footer>
     </footer>
