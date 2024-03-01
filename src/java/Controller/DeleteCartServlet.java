@@ -4,15 +4,18 @@
  */
 package Controller;
 
+import Model.OrderDetail;
 import ModelDAO.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -55,15 +58,13 @@ public class DeleteCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderdetailID = request.getParameter("orderDetailID");
-        System.out.println(orderdetailID);
-        try{
-            OrderDetailDAO otDao = new OrderDetailDAO();
-            otDao.daleteOrderDetail(orderdetailID);
-            response.sendRedirect("booking/cart.jsp");
-        }catch(Exception ex){
-            Logger.getLogger(DeleteCartServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String ticketType = request.getParameter("ticketType");
+        String parkID = request.getParameter("parkID");
+        String transactionCode = request.getParameter("transactionCode");
+        HttpSession session = request.getSession();
+        Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
+        cart.remove(ticketType);
+        response.sendRedirect("booking/cart.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
     }
 
 

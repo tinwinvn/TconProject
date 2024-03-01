@@ -102,7 +102,7 @@
         <nav>
             <ul>
                 <li><a href="../index.jsp">Home</a></li>
-                <li><a href="ticketType_list.jsp?parkID=${param.parkID}&orderID=${param.orderID}">Add Cart</a></li>
+                <li><a href="ticketType_list.jsp?parkID=${param.parkID}&transactionCode=${param.transactionCode}">Add Cart</a></li>
             </ul>
         </nav>
         <main>
@@ -120,7 +120,9 @@
                             <p>Số lượng: ${quantity}</p>
                             <p>Giá: ${price * quantity} VNĐ</p>
                             <form action="../DeleteCartServlet" method="POST">
-                                <input type="hidden" name="orderDetailID" value="${item.value.orderDetailID}">
+                                <input type="hidden" name="ticketType" value="${item.key}">
+                                <input type="hidden" name="parkID" value="${param.parkID}">
+                                <input type="hidden" name="transactionCode" value="${param.transactionCode}">
                                 <button type="submit">Xóa</button>
                             </form>
                         </li>
@@ -131,7 +133,16 @@
                 </c:if>
             </ul>
             <c:if test="${not empty sessionScope.cart}">
-                <a href="../payment/payment_vnPay.jsp?price=${totalPrice}&orderID=${param.orderID}" class="payment-link">Thanh Toán</a>  
+                <c:if test="${empty param.transactionCode}">
+                    <a href="../payment/payment_vnPay.jsp?price=${totalPrice}&orderID=${param.orderID}" class="payment-link">Thanh Toán</a>  
+                </c:if>
+                <c:if test="${not empty param.transactionCode}">
+                    <form action="../ConfirmChangeTicketServlet" method="get">
+                        <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
+                        <input type="hidden" name="transactionCode" value="${param.transactionCode}">
+                        <button type="submit" class="payment-link">Đổi vé</button>
+                    </form>                  
+                </c:if>
             </c:if>
         </main>
         <footer>

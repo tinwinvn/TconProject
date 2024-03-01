@@ -48,7 +48,7 @@ public class NotificationDAO {
     }
      
       public void addNewNotification(String senderID, String receiverID, String title, String content, Date date) throws SQLException, Exception {
-        String query = "INSERT INTO Notification VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Notification VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection conn;
         GenerateID gn = new GenerateID();
         try {
@@ -61,6 +61,7 @@ public class NotificationDAO {
                 statement.setString(4, title);
                 statement.setString(5, content);
                 statement.setDate(6, date);
+                statement.setBoolean(7, false);
                 statement.execute();
             }
             conn.close();
@@ -76,6 +77,7 @@ public class NotificationDAO {
         nt.setTitle(resultSet.getString("Title"));
         nt.setContent(resultSet.getString("Content"));
         nt.setNotificationDate(resultSet.getDate("NotificationDate"));
+        nt.setIsConfirm(resultSet.getBoolean("isConfirm"));
         return nt;
     }
 }

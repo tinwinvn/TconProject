@@ -95,7 +95,7 @@ public class OrderDetailDAO {
     }
     
     public OrderDetail getOrderDetailByOrderID(String OrderID) throws SQLException{
-        OrderDetail od  = new OrderDetail();
+        OrderDetail od  = null;
         String query = "SELECT * FROM OrderDetail where OrderID = ?";
         Connection conn = null;
         PreparedStatement statement = null;
@@ -108,7 +108,7 @@ public class OrderDetailDAO {
             rs = statement.executeQuery();
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return mapResultSetToOrderDetail(resultSet);
+                    od = mapResultSetToOrderDetail(resultSet);
                 }
             }
         } catch (SQLException ex) {

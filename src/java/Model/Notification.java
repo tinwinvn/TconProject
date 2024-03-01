@@ -18,18 +18,30 @@ public class Notification {
     private String Title;
     private String Content;
     private Date NotificationDate;
+    private boolean isConfirm;
 
     public Notification() {
     }
 
-    public Notification(String NotificationID, String SenderID, String ReceiverID, String Title, String Content, Date NotificationDate) {
+    public Notification(String NotificationID, String SenderID, String ReceiverID, String Title, String Content, Date NotificationDate, boolean isConfirm) {
         this.NotificationID = NotificationID;
         this.SenderID = SenderID;
         this.ReceiverID = ReceiverID;
         this.Title = Title;
         this.Content = Content;
         this.NotificationDate = NotificationDate;
+        this.isConfirm = isConfirm;
     }
+
+    public boolean isIsConfirm() {
+        return isConfirm;
+    }
+
+    public void setIsConfirm(boolean isConfirm) {
+        this.isConfirm = isConfirm;
+    }
+
+    
 
     public String getNotificationID() {
         return NotificationID;

@@ -125,7 +125,6 @@
                                 </tr>
                             </c:if>
                         </c:if>
-                    </c:if>
                 </c:forEach>
             </c:forEach>
         </tbody>
@@ -134,5 +133,9 @@
     <form action="../index.jsp">
         <input type="submit" value="Back To Home">
     </form> 
+    <form action="../booking/refund.jsp"> <button type="submit">Refund Ticket</button>
+        </form>
+    <form action="../booking/ticket_change.jsp"> <button type="submit">Exchange Ticket</button>
+        </form>
 </body>
 </html>

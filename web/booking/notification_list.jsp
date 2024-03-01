@@ -14,7 +14,7 @@
     </head>
     <body>
         <jsp:useBean id="ntDAO" class="ModelDAO.NotificationDAO"></jsp:useBean>
-            <h1>Danh sách hoàn tiền</h1>
+            <h1>Thông báo</h1>
             <table border="1">
                 <tr>
                     <th>Title</th>

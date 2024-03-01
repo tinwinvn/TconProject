@@ -5,25 +5,24 @@
 package Controller;
 
 import Model.OrderDetail;
+import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDetailDAO;
+import ModelDAO.ParkDAO;
+import ModelDAO.TicketTypeDAO;
+import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class CartServlet extends HttpServlet {
+public class ConfirmChangeTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class CartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartServlet</title>");
+            out.println("<title>Servlet ConfirmChangeTicketServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConfirmChangeTicketServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,38 +62,30 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderID = request.getParameter("orderID");
+        processRequest(request, response);
         String transactionCode = request.getParameter("transactionCode");
-        String parkID = request.getParameter("parkID");
-        HttpSession session = request.getSession();
-
-        Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        try {
+        String senderID = request.getParameter("senderID");
+        System.out.println(senderID);
+        System.out.println(transactionCode);
+        try{
+            NotificationDAO notificationDAO = new NotificationDAO();
+            TransactionDAO transactionDAO= new TransactionDAO();
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            ParkDAO parkDAO = new ParkDAO();
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            List<OrderDetail> listOrderDetail = orderDetailDAO.getAllOrderDetail();
-            for (OrderDetail orderdetail : listOrderDetail) {
-                if (orderdetail.getOrderID().equals(orderID)) {
-                        cart.put(orderdetail.getTicketTypeID(), orderdetail);
-                }
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(AddToCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Date currentDate = new Date(System.currentTimeMillis());
+            String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
+            OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
+            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
+            String userID = parkDAO.getUserIDByParkID(parkID);
+            
+            notificationDAO.addNewNotification(senderID, userID, "Exchange request transaction",transactionCode, currentDate);
+            response.sendRedirect("payment/payment_history.jsp");
+        } catch (Exception ex){
+            
         }
-        session.setAttribute("cart", cart);
-        response.sendRedirect("booking/cart.jsp?parkID="+ parkID + "&transactionCode=" + transactionCode);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
