@@ -181,51 +181,7 @@
 
 
 
-    <section class="banner__container">
-        <div class="section__container">
-            <div class="banner__content">
-                <h2>Discount 10-30% Off</h2>
-                <p>
-                    Travel the world on a budget with our unbeatable discounted travel
-                    deals. Whether you're looking for a last-minute escape or planning
-                    ahead, we've got you covered with incredible discounts on flights,
-                    hotels, and packages. Don't wait, book now and experience the
-                    adventure of a lifetime without breaking the bank.
-                </p>
-                <button>See Tours</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="display__container">
-        <div class="section__container">
-            <h2 class="section__title">Why Choose Us</h2>
-            <p class="section__subtitle">
-                The gladdest moment in human life, is a departure into unknown lands.
-            </p>
-            <div class="display__grid">
-                <div class="display__card grid-1">
-                    <img src="images/grid-1.jpg" alt="grid" />
-                </div>
-                <div class="display__card">
-                    <i class="ri-earth-line"></i>
-                    <h4>Passionate Travel</h4>
-                    <p>Fuel your passion for adventure and discover new horizons</p>
-                </div>
-                <div class="display__card">
-                    <img src="images/grid-2.jpg" alt="grid" />
-                </div>
-                <div class="display__card">
-                    <img src="images/grid-3.jpg" alt="grid" />
-                </div>
-                <div class="display__card">
-                    <i class="ri-road-map-line"></i>
-                    <h4>Beautiful Places</h4>
-                    <p>Uncover the world's most breathtakingly beautiful places</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
     <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
