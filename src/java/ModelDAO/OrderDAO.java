@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,11 +79,36 @@ public class OrderDAO {
         return o;
     }
     
+    public Order getOrderbyOrderID(String id) throws SQLException, UnsupportedEncodingException{
+        Order o = new Order();
+        String query = "SELECT * FROM Orders where OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, id);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToOrder(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return o;
+    }
     
-    public void addNewOrder(String orderID, String userID, String voucherID, Date orderDate, boolean isConfirm) throws SQLException, Exception {
+    
+    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, boolean isConfirm) throws SQLException, Exception {
         String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?)";
         Connection conn;
-        
+        String fdate = toDate(orderDate);
         try {
 
             conn = db.getConnection();
@@ -89,7 +116,7 @@ public class OrderDAO {
                 statement.setString(1, orderID);
                 statement.setString(2, userID);
                 statement.setString(3, null);
-                statement.setDate(4, orderDate);
+                statement.setString(4, fdate);
                 statement.setBoolean(5, isConfirm);
                 statement.execute();
             }
@@ -103,8 +130,28 @@ public class OrderDAO {
         order.setOrderID(resultSet.getString("OrderID"));
         order.setUserID(resultSet.getString("UserID"));
         order.setVoucherID(resultSet.getString("VoucherID"));
-        order.setOrderDate(resultSet.getDate("OrderDate"));
+        order.setOrderDate(resultSet.getString("OrderDate"));
         order.setIsConfirm(resultSet.getBoolean("isConfirm"));
         return order;
+    }
+    
+    public String toDate(String input){
+        // Định nghĩa định dạng của ngày tháng
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        
+        try {
+            // Chuyển đổi chuỗi thành đối tượng Date
+            java.util.Date date =  inputFormat.parse(input);
+            
+            // Định nghĩa định dạng mới cho ngày tháng
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            
+            // Định dạng lại thành chuỗi theo định dạng mới
+            String formattedDate = outputFormat.format(date);
+            System.out.println(formattedDate);
+            return formattedDate;
+        } catch (ParseException e) {
+        }
+        return null;
     }
 }

@@ -4,12 +4,11 @@
  */
 package Controller;
 
-import ModelDAO.OrderDAO;
-import Validation.GenerateID;
+import ModelDAO.NotificationDAO;
+import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class OrderServlet extends HttpServlet {
+public class ResponeRefundServler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,56 +39,48 @@ public class OrderServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OrderServlet</title>");
+            out.println("<title>Servlet ResponeRefundServler</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OrderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ResponeRefundServler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String parkID = request.getParameter("parkID");
-        String userID = request.getParameter("userID");
-        Date currentDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-        String formattedDate = sdf.format(currentDate);
-        GenerateID gn = new GenerateID();
-        String orderID = null;
-        try {
-            orderID = gn.generateID("OR");
-            OrderDAO odDao = new OrderDAO();
-            odDao.addNewOrder(orderID, userID, null, currentDate, true);
-        } catch (Exception ex) {
-            Logger.getLogger(OrderServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&orderID=" + orderID);
+        processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String senderID = request.getParameter("senderID");
+        String receiverID = request.getParameter("receiverID");
+        String accept = request.getParameter("accept");
+        String denied = request.getParameter("denied");
+        String transactionCode = request.getParameter("transactionCode");
+        Date currentDate = new Date(System.currentTimeMillis());
+        try {
+             NotificationDAO notiDAO = new NotificationDAO();
+             TransactionDAO tdao = new TransactionDAO();
+            if (accept != null) {
+                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
+                tdao.updateTransactionStatus(transactionID, 2);
+                notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is accepted \nPlease waiting for refund", currentDate);
+            } else if (denied != null){
+                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
+                tdao.updateTransactionStatus(transactionID, 4);
+                notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is denied because your request is invalid \nPlease check your request again", currentDate);
+
+            }
+            response.sendRedirect("booking/notification_list.jsp");
+        } catch (Exception ex) {
+            Logger.getLogger(ResponeRefundServler.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        
     }
 
     /**

@@ -57,12 +57,40 @@
         <servlet-class>Controller.AddToCartServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OrderServlet</servlet-name>
-        <servlet-class>Controller.OrderServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GameServlet</servlet-name>
         <servlet-class>Controller.GameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddFavouriteServlet</servlet-name>
+        <servlet-class>Controller.AddFavouriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TicketRefundServlet</servlet-name>
+        <servlet-class>Controller.TicketRefundServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TicketChangeServlet</servlet-name>
+        <servlet-class>Controller.TicketChangeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFavouriteServlet</servlet-name>
+        <servlet-class>Controller.DeleteFavouriteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <servlet-class>Controller.DeleteCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResponeRefundServler</servlet-name>
+        <servlet-class>Controller.ResponeRefundServler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>Controller.CartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmChangeTicketServlet</servlet-name>
+        <servlet-class>Controller.ConfirmChangeTicketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RatingServlet</servlet-name>
@@ -133,14 +161,40 @@
         <url-pattern>/AddToCartServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OrderServlet</servlet-name>
-        <url-pattern>/OrderServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GameServlet</servlet-name>
         <url-pattern>/GameServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>TicketRefundServlet</servlet-name>
+        <url-pattern>/TicketRefundServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketChangeServlet</servlet-name>
+        <url-pattern>/TicketChangeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFavouriteServlet</servlet-name>
+        <url-pattern>/DeleteFavouriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <url-pattern>/DeleteCartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponeRefundServler</servlet-name>
+        <url-pattern>/ResponeRefundServler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddFavouriteServlet</servlet-name>
+        <url-pattern>/AddFavouriteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/CartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmChangeTicketServlet</servlet-name>
+        <url-pattern>/ConfirmChangeTicketServlet</url-pattern>
         <servlet-name>RatingServlet</servlet-name>
         <url-pattern>/RatingServlet</url-pattern>
     </servlet-mapping>

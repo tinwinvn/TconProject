@@ -104,8 +104,17 @@
             </div>
                 <div>
                     <jsp:useBean id="tDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
+                    <jsp:useBean id="orderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
+                    <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
+                    <jsp:useBean id="generate" class="Validation.GenerateID"></jsp:useBean>
+                    <c:set var="entity" value="OR"></c:set>
+                    <c:set var="orderID" value="${generate.generateID(entity)}"></c:set>
                     <c:set var="transactionCode" value="${param.vnp_TxnRef}"></c:set>
-                    ${tDAO.addNewTransaction(param.vnp_OrderInfo, param.vnp_PayDate, param.vnp_TxnRef)}
+                    ${orderDAO.addNewOrder(orderID, sessionScope.acc.userID, null, param.vnp_PayDate, true)}
+                    ${tDAO.addNewTransaction(orderID, param.vnp_PayDate, param.vnp_TxnRef, 1)}
+                    <c:forEach var="cart" items="${sessionScope.cart}">
+                        ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
+                    </c:forEach>
                     <a href="../index.jsp" class="btn btn-primary">Back to Home</a>
                 </div>
             <p>

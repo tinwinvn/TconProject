@@ -4,33 +4,25 @@
  */
 package Controller;
 
-import Model.Order;
 import Model.OrderDetail;
-import Model.TicketType;
-import ModelDAO.OrderDAO;
+import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDetailDAO;
-import Validation.GenerateID;
+import ModelDAO.ParkDAO;
+import ModelDAO.TicketTypeDAO;
+import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class AddToCartServlet extends HttpServlet {
+public class ConfirmChangeTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,47 +41,51 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");
+            out.println("<title>Servlet ConfirmChangeTicketServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ConfirmChangeTicketServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
         String transactionCode = request.getParameter("transactionCode");
-        String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
-        String parkID = request.getParameter("parkID");
-        String orderID = request.getParameter("orderID");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int price = Integer.parseInt(request.getParameter("price"));
-        HttpSession session = request.getSession();
-        OrderDetail odt = new OrderDetail();   
-        Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        
-        if (cart == null) {
-            cart = new HashMap<>();
+        String senderID = request.getParameter("senderID");
+        System.out.println(senderID);
+        System.out.println(transactionCode);
+        try{
+            NotificationDAO notificationDAO = new NotificationDAO();
+            TransactionDAO transactionDAO= new TransactionDAO();
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            ParkDAO parkDAO = new ParkDAO();
+            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+            Date currentDate = new Date(System.currentTimeMillis());
+            String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
+            OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
+            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
+            String userID = parkDAO.getUserIDByParkID(parkID);
+            
+            notificationDAO.addNewNotification(senderID, userID, "Exchange request transaction",transactionCode, currentDate);
+            response.sendRedirect("payment/payment_history.jsp");
+        } catch (Exception ex){
+            
         }
-        
-        if (cart.containsKey(ticketTypeID)) {
-            odt = cart.get(ticketTypeID);
-            int oldQuantity = odt.getQuantity();
-            odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);       
-        } else {
-            odt.setQuantity(quantity);
-            cart.put(ticketTypeID, odt);
-        }
-
-        session.setAttribute("cart", cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
-
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

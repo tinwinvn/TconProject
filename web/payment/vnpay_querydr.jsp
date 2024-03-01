@@ -41,7 +41,7 @@
             </div>
                 
                 <div>
-                    <a href="index.jsp" class="btn btn-primary">Back to Home</a>
+                    <a href="payment_history.jsp" class="btn btn-primary">Back to Home</a>
                 </div>
             </form>   
             <p>

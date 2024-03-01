@@ -97,7 +97,7 @@
 
                     <div class="content mtop">
                         <div class="owl-carousel owl-carousel1 owl-theme">
-                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO" ></jsp:useBean>
+                        <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
                         <c:forEach items="${pDAO.allPark}" var="c"> 
                             <c:set var="id" value="${c.parkID}"/>
                             <div class="items">
@@ -140,6 +140,35 @@
                 </div>
             </div>
         </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <script>
+            function addToFavourites(event) {
+                event.preventDefault();
+                var form = event.target;
+                var userID = form.userID.value;
+                var favouriteItems = form.favouriteItems.value;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'AddFavouriteServlet', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                Swal.fire({
+                title: 'Add Success',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 1500
+                });
+                setTimeout(function () {
+                }, 1500);
+                }
+            };
+            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+        }
+        </script>                    
+
         <script>
             $('.owl-carousel1').owlCarousel({
                 loop: true,
@@ -273,6 +302,7 @@
     }
 
     .owl-carousel1 .items p {
+        font-size: 90%;
         color: #777;
         margin-bottom: 10px;
     }

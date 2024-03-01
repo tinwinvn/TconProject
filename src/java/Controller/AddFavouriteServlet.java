@@ -4,33 +4,21 @@
  */
 package Controller;
 
-import Model.Order;
-import Model.OrderDetail;
-import Model.TicketType;
-import ModelDAO.OrderDAO;
-import ModelDAO.OrderDetailDAO;
-import Validation.GenerateID;
+import ModelDAO.AddFavouriteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Admin
  */
-public class AddToCartServlet extends HttpServlet {
+public class AddFavouriteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,10 +37,10 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");
+            out.println("<title>Servlet AddFavouriteServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddFavouriteServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,39 +49,25 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
-        String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
-        String parkID = request.getParameter("parkID");
-        String orderID = request.getParameter("orderID");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int price = Integer.parseInt(request.getParameter("price"));
-        HttpSession session = request.getSession();
-        OrderDetail odt = new OrderDetail();   
-        Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        
-        if (cart.containsKey(ticketTypeID)) {
-            odt = cart.get(ticketTypeID);
-            int oldQuantity = odt.getQuantity();
-            odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);       
-        } else {
-            odt.setQuantity(quantity);
-            cart.put(ticketTypeID, odt);
-        }
-
-        session.setAttribute("cart", cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
-
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String userID = request.getParameter("userID");
+        String favouriteItems = request.getParameter("favouriteItems");
+
+        // Tạo một đối tượng AddFavouriteDAO
+        try {
+            AddFavouriteDAO addFavouriteDAO = new AddFavouriteDAO();
+
+            // Gọi phương thức addNewFavourite để thêm vào cơ sở dữ liệu
+            addFavouriteDAO.addNewFavourite(userID, favouriteItems);
+            response.setStatus(200);
+        } catch (Exception ex) {
+            Logger.getLogger(AddFavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -62,13 +62,9 @@
                         <!-- Add more cards as needed -->
                     </div>
                     <c:if test="${sessionScope.acc != null}">
-                        <form action="OrderServlet" method="GET">
-                            <input type="hidden" name="parkID" value="${parkId}">
-                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-                            <button type="submit" class="cta-button">Đặt vé</button>
-                        </form>
+                        <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="cta-button">Đặt vé</a>
                     </c:if>
-                    
+
                 </section>
                 <header class="header">
                     <div class="logo">Kính chào quý khách</div>
@@ -88,26 +84,26 @@
                 <header class="header">
                     <div class="logo">Các loại trò chơi</div>
                 </header>
-                            
+
             <body class="events-section" style="background-image: url('${c.image_bg}');">     
-                <div class="events-content">
-                    <div class="map-image">
-                        <img style="width: 860px; height: 600px; border-radius: 10px;" src="${c.image3}" alt="Map Image">
+                <div class="events-content" style="display: flex; height: 85vh">
+                    <div class="map-image" style="width: 60%; height: 100%">
+                        <img style=" height: 596px;  border-radius: 10px;" src="${c.image3}" alt="Map Image">
                     </div>
-                    <div class="games-list">
+                    <div class="games-list" style="width: 40%">
                         <div class="scroll-container">
                             <div class="content">
                                 <c:forEach items="${gDAO.allGame}" var="c">
                                     <c:if test="${c.parkID == param.id}">
                                         <session>
-                                        <c:set var="GameName" value="${c.gameName}"/>
-                                        <h2>${GameName}</h2>
-                                        <c:set var="GameDescription" value="${c.getGameDescription()}"/>
-                                        <p>${GameDescription}</p>
-                                        <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
+                                            <c:set var="GameName" value="${c.gameName}"/>
+                                            <h2>${GameName}</h2>
+                                            <c:set var="GameDescription" value="${c.getGameDescription()}"/>
+                                            <p>${GameDescription}</p>
+                                            <img src="${c.image}" style="width: 500px; height: 300px" alt="Khu Vui Chơi">
                                         </session>
                                     </c:if>
-                           </c:forEach>
+                                </c:forEach>
 
                             </div>
                         </div>
@@ -684,8 +680,8 @@
                             }
 
                             .scroll-container {
-                                width: 575px;
-                                height: 560px;
+                                /*width: 575px;*/
+                                height: 557px;
                                 overflow-y: scroll;
                                 border: 2px solid #ccc;
                                 padding: 20px;
@@ -919,7 +915,7 @@
 
                 .games-list {
                     flex-grow: 1;
-                    
+
                     text-align: left;
                 }
 
@@ -940,6 +936,7 @@
                     background-color: #333;
                     color: white;
                     padding: 30px 20px;
+                   
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -975,7 +972,7 @@
                     color: white;
                     text-align: center;
                     padding: 100px 20px;
-                    
+
                 }
 
                 .cta-button {
