@@ -237,12 +237,12 @@
                     <c:set var="rList" value="${rDAO.allRating}"/>
                     <c:set var="uList" value="${uDAO.allUser}"/>
                     
-                    <c:forEach var="list" items="${rList}">
+                    <c:forEach var="list" items="${rList}" varStatus="loop">
                         <c:if test="${param.id == list.receiveID}">
                             <c:set var="userID" value="${list.sendID}" />
                             <c:set var="username" value="${uDAO.getUserById(userID)}"/>
                             
-                    <div class="uscm">
+                    <div class="uscm">  
                         <div class="uscm-secs">
                             <div class="us-img">
                                 <img src="images/avatar.jpg" />
@@ -251,27 +251,24 @@
                                 <div class="us-name">
                                     <p>${username.fullName}</p>
                                     <div class="dropdown">
-                                    <button class="dropbtn" onclick="toggleDropdown()">&#8942;</button>
-                                    <div class="dropdown-content" id="myDropdown">
+                                        <button class="dropbtn" id="dropButton_${loop.index}">&#8942;</button>
+                                    <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
                                         <c:if test="${list.sendID == sessionScope.acc.userID}">
                                             <!-- Button to open modal -->
-                                            <button class="update-btn" id="updateButton">Update</button>
+                                            <button class="update-btn" id="updateButton_${loop.index}">Update</button>
                                             <!-- The Modal -->
-                                            <div id="myModal" class="modal" style="display: none;">
+                                            <div id="myModal_${loop.index}" class="modal" style="display: none;">
                                               <!-- Modal content -->
                                               <div class="modal-content">
-                                                  <span class="close" id="cancel">&times;</span>
-                                                <h2>Edit Rating</h2>
-                                                <form id="editForm" action="UpdateCommentServlet" method="post">
+                                                  <span class="close" id="cancel_${loop.index}">&times;</span>
+                                                <form id="editForm_${loop.index}" action="UpdateCommentServlet" method="post">
                                                   <input type="hidden" name="ratingId" value="${list.ratingID}">
                                                   <input type="hidden" name="parkID" value="${param.id}">
-                                                  <textarea id="ratingText" name="ratingText" rows="4" cols="50" placeholder="${list.ratingText}"></textarea>
+                                                  <textarea id="ratingText_${loop.index}" name="ratingText" rows="4" cols="50" placeholder="${list.ratingText}"></textarea>
                                                   <button type="submit">Save Changes</button>
                                                 </form>
                                               </div>
                                             </div>
-
-                                                  
                                             <form action="DeleteCommentServlet" method="GET">
                                                 <input type="hidden" name="rId" value="${list.ratingID}">
                                                 <input type="hidden" name="parkID" value="${param.id}">
@@ -295,23 +292,30 @@
             </section>
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
-                        const updButton = document.getElementById("updateButton");
-                        const updateModal = document.getElementById("myModal");
-                        const cancelSpan = document.getElementById("cancel");
+                        const updateButtons = document.querySelectorAll(".update-btn");
+                        const updateModals = document.querySelectorAll(".modal");
+                        const cancelButtons = document.querySelectorAll(".close");
 
-                        updButton.addEventListener("click", function() {
-                            updateModal.style.display = "block";
+                        updateButtons.forEach((updateButton, index) => {
+                            const updateModal = updateModals[index];
+                            const cancelButton = cancelButtons[index];
+                            
+                            updateButton.addEventListener("click", function() {
+                                updateModal.style.display = "block";
+                            });
+                            
+                            cancelButton.addEventListener("click", function() {
+                               updateModal.style.display = "none"; 
+                            });
                         });
 
-                        cancelSpan.addEventListener("click", function() {
-                            updateModal.style.display = "none";
-                        });
-                        
                         window.onclick = function(event) {
-                            if (event.target === updateModal) {
-                              updateModal.style.display = "none";
-                            }
-}
+                            updateModals.forEach(updateModal => {
+                                if (!event.target.matches('.update-btn') && !updateModal.contains(event.target)) {
+                                    updateModal.style.display = "none";
+                                }
+                            });
+                        }
                     });
 
                         
@@ -416,23 +420,25 @@
             });
             </script>
             <script>
-            function toggleDropdown() {
-              var dropdownContent = document.getElementById("myDropdown");
-              dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
-            }
+                        document.addEventListener("DOMContentLoaded", function() {
+                        const dropButtons = document.querySelectorAll(".dropbtn");
+                        const dropdowns = document.querySelectorAll(".dropdown-content");
 
-            // Close the dropdown if the user clicks outside of it
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropbtn') && !event.target.closest('.modal-content')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    for (var i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.style.display === "block") {
-                            openDropdown.style.display = "none";
+                        dropButtons.forEach((dropButton, index) => {
+                            const dropdown = dropdowns[index];
+                            dropButton.addEventListener("click", function() {
+                                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                            });
+                        });
+
+                        window.onclick = function(event) {
+                            dropdowns.forEach(dropdown => {
+                                if (!event.target.matches('.dropbtn') && !dropdown.contains(event.target)) {
+                                    dropdown.style.display = "none";
+                                }
+                            });
                         }
-                    }
-                }
-            }
+                    });
             </script>
 
             <header style="text-align: center;">

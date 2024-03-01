@@ -111,14 +111,22 @@
                                     <div class="button flex">
                                         <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
                                         <div class="rnb rvl">
+                                            <c:set var="totalRating" value="${0}"/>
+                                            <c:set var="size" value="0"/>
                                             <c:set var="numList" value="${rDAO.allRating}" />
                                             <c:forEach var="num" items="${numList}">
+                                                
                                                 <c:if test="${id == num.receiveID}">
                                                     <c:set var="totalRating" value="${totalRating + num.ratingValue}"/>
                                                     <c:set var="size" value="${size + 1}"/>
                                                 </c:if>
                                             </c:forEach>
-                                            <h3>${totalRating / size}/5.0</h3>
+                                            <c:if test="${size > 0}">
+                                                <h3>${totalRating / size}</h3>
+                                            </c:if>
+                                            <c:if test="${size == 0}">
+                                                <h3>0</h3>
+                                            </c:if>
                                         </div>
                                         <h3><span> <br>  </span> </h3>
                                     </div>
