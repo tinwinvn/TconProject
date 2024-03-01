@@ -33,6 +33,8 @@
                                     <a href="admin/admin.html?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
                                 </c:if>
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
+                                    <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
+                                    <a href="booking/notification_list.jsp">Thông báo</a>
                             </div>
                         </div>
                     </li>

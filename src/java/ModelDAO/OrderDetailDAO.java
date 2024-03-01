@@ -5,6 +5,7 @@
 package ModelDAO;
 
 import DAO.ConnectDB;
+import Model.Order;
 import Model.OrderDetail;
 import Validation.GenerateID;
 import java.sql.Connection;
@@ -62,7 +63,47 @@ public class OrderDetailDAO {
         } catch (SQLException e) {
         }
     }
+      
+        public void daleteOrderDetail(String orderdetailID) throws SQLException, Exception {
+        String query = "DELETE FROM OrderDetail WHERE OrderDetailID = ?";
+            System.out.println(orderdetailID);
+        Connection conn;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, orderdetailID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
     
+    public OrderDetail getOrderDetailByOrderID(String OrderID) throws SQLException{
+        OrderDetail od  = new OrderDetail();
+        String query = "SELECT * FROM OrderDetail where OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, OrderID);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToOrderDetail(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return od;
+    }  
+         
      private OrderDetail mapResultSetToOrderDetail(ResultSet resultSet) throws SQLException {
         OrderDetail odd = new OrderDetail();
         odd.setOrderDetailID(resultSet.getString("OrderDetailID"));

@@ -77,6 +77,31 @@ public class OrderDAO {
         return o;
     }
     
+    public Order getOrderbyOrderID(String id) throws SQLException, UnsupportedEncodingException{
+        Order o = new Order();
+        String query = "SELECT * FROM Orders where OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, id);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResultSetToOrder(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return o;
+    }
+    
     
     public void addNewOrder(String orderID, String userID, String voucherID, Date orderDate, boolean isConfirm) throws SQLException, Exception {
         String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?)";

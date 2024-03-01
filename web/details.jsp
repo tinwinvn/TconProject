@@ -8,16 +8,34 @@
         <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
+
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
             <title>Entertainment World</title>
-            <link rel="stylesheet" href="styles.css">
+            <style>
+                .bg-white {
+                    background: white;
+                }
+                .bg-red {
+                    background: rgb(238, 46, 36);
+                }
+                .text-red {
+                    color: rgb(238, 46, 36);
+                }
+
+                .text-black {
+                    color: black;
+                }
+            </style>
         </head>
 
-        <body>
-            <header>
+        <body >
+            <div class="bg-red" style="height: 5vh"></div>
+            <div >
             <c:set var="parkId" value="${param.id}"></c:set>
             <c:forEach items="${pDAO.allPark}" var="r">
                 <c:if test="${parkId == r.parkID}">
@@ -30,7 +48,7 @@
                 <c:set var="id" value="${c.parkID}"/>
                 <c:if test="${parkId == id}">
 
-                    <div class="logo"><c:out value="${parkName}"/></div>
+<!--                    <div class="logo"><c:out value="${parkName}"/></div>
                     <nav>
                         <ul>
                             <li><a href="#">Home</a></li>
@@ -39,37 +57,52 @@
                             <li><a href="#">Events</a></li>
                             <li><a href="#">About Us</a></li>
                         </ul>
+                    </nav>-->
+                    <nav class="d-flex justify-content-evenly align-items-center bg-white">
+
+                        <ul class="d-flex align-items-center mb-0" >
+                            <li><a href="#" class="text-red p-2">Home</a></li>
+                            <li><a href="#" class="text-red p-2">Movies</a></li>
+                            <li><a href="#" class="text-red p-2">Games</a></li>
+                        </ul>
+                        <div class="logo text-black p-2"><c:out value="${parkName}"/></div>
+                        <ul class="align-items-center mb-0">
+                            <li><a href="#" class="text-red p-2">Home</a></li>
+                            <li><a href="#" class="text-red p-2">Movies</a></li>
+                            <li><a href="#" class="text-red p-2">Games</a></li>
+                        </ul>
+
                     </nav>
                 </header>
 
-                <section class="featured-section">
-                    <div class="info-card" style="color: orange">
-                        <div class="card" style="margin-left: -200px;">
+                <section class="featured-section position-relative " style="background-image: url('${c.image_bg}'); height: 70vh; background-size: cover; background-repeat:no-repeat;">
+                    <div class="position-absolute d-flex align-items-center justify-content-around top-100 start-50 translate-middle ">
+                        <div class="card" style="">
                             <i class="fas fa-film"></i>
                             <h3>Mô tả</h3>
                             <p>Description of Movie 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
 
-                        <div class="card" style="margin-right: -200px;">
+                        <div class="card" style="">
                             <i class="fas fa-film"></i>
                             <h3>Thông báo</h3>
                             <p>Description of Movie 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
                         <!-- Add more cards as needed -->
+                        <c:if test="${sessionScope.acc != null}">
+                            <form action="OrderServlet" method="GET">
+                                <input type="hidden" name="parkID" value="${parkId}">
+                                <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                                <button type="submit" class="cta-button">Đặt vé</button>
+                            </form>
+                        </c:if>
                     </div>
-                    <c:if test="${sessionScope.acc != null}">
-                        <form action="OrderServlet" method="GET">
-                            <input type="hidden" name="parkID" value="${parkId}">
-                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-                            <button type="submit" class="cta-button">Đặt vé</button>
-                        </form>
-                    </c:if>
 
                 </section>
                 <header>
                     <div class="logo">Kính chào quý khách</div>
                 </header>
-                <section class="games-section" style="background-image: url('${c.image2}'); border-radius: 10px;">
+                <section class="games-section" style="background-image: url('${c.image2}');">
                     <div class="content-wrapper" style="text-align: left;">
                         <div class="cta-button">
                             <h2>Thông tin</h2>
@@ -85,12 +118,11 @@
                     <div class="logo">Các loại trò chơi</div>
                 </header>
 
-            <body class="events-section" style="background-image: url('${c.image_bg}');">     
-                <div class="events-content" style="display: flex; height: 85vh">
-                    <div class="map-image" style="width: 60%; height: 100%">
-                        <img style=" height: 596px;  border-radius: 10px;" src="${c.image3}" alt="Map Image">
+                <section class="row" style="background-image: url('${c.image_bg}'); background-size:cover;">     
+                    <div class="map-image col-6 p-0" style="">
+                        <img style="height: 100%; width: 100%" src="${c.image3}" alt="Map Image">
                     </div>
-                    <div class="games-list" style="width: 40%">
+                    <div class="games-list col-6 p-0 ">
                         <div class="scroll-container">
                             <div class="content">
                                 <c:forEach items="${gDAO.allGame}" var="c">
@@ -158,6 +190,9 @@
                             }
 
                         </style>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
                         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                         <script>
                             $(document).ready(function () {
@@ -177,191 +212,181 @@
                             }
                         </script>
                     </div>
-                </div>
-            </body>
+                </section>
 
-            <header style="text-align: center;">
-                <div class="logo"><c:out value=""/></div>
-            </header>
-
-
-
-            <style>
-
-
-                .events-section {
-                    background-image: url('images_details/i.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    color: #fff;
-                    padding: 40px 20px;
-                    text-align: center;
-                }
-
-                .events-section h2 {
-                    font-size: 2.5em;
-                    margin-bottom: 20px;
-                }
-
-                .events-content {
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: center;
-                    flex-wrap: wrap;
-                }
+                <header style="text-align: center;">
+                    <div class="logo"><c:out value=""/></div>
+                </header>
 
 
 
-                .games-list {
-                    flex-grow: 1;
+                <style>
 
-                    text-align: left;
-                }
 
-                .scroll-bar {
-                    overflow-x: auto;
-                    white-space: nowrap;
-                    margin-top: 20px;
-                }
+                    .events-section {
+                        background-image: url('images_details/i.jpg');
+                        background-size: cover;
+                        background-position: center;
+                        color: #fff;
+                        text-align: center;
+                    }
 
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
+                    .events-section h2 {
+                        font-size: 2.5em;
+                        margin-bottom: 20px;
+                    }
 
-                header {
-                    background-color: #333;
-                    color: white;
-                    padding: 30px 20px;
-                   
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    border-radius: 10px;
-                }
+                    .events-content {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-wrap: wrap;
+                    }
 
-                .logo {
-                    font-size: 24px;
-                    font-weight: bold;
-                    border-radius: 5px;
-                }
 
-                nav ul {
-                    list-style: none;
-                    display: flex;
-                }
 
-                nav li {
-                    margin-right: 20px;
-                }
+                    .games-list {
+                        flex-grow: 1;
 
-                nav a {
-                    text-decoration: none;
-                    color: white;
-                    font-weight: bold;
-                    border-radius: 5px;
-                }
+                        text-align: left;
+                    }
 
-                .hero-section {
-                    background-image: url('background.jpg');
-                    background-size: cover;
-                    background-position: center;
-                    color: white;
-                    text-align: center;
-                    padding: 100px 20px;
+                    .scroll-bar {
+                        overflow-x: auto;
+                        white-space: nowrap;
+                        margin-top: 20px;
+                    }
 
-                }
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                    }
 
-                .cta-button {
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #ff6600;
-                    color: white;
-                    text-decoration: none;
-                    font-weight: bold;
-                    border-radius: 5px;
-                    margin-top: 20px;
-                }
+                    header {
+                        background-color: #333;
+                        color: white;
+                        padding: 30px 20px;
 
-                .featured-section,
-                .games-section,
-                .events-section {
-                    padding: 40px 20px;
-                }
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
 
-                footer {
-                    background-color: #333;
-                    color: white;
-                    text-align: center;
-                    padding: 10px 0;
-                    position: fixed;
-                    bottom: 0;
-                    width: 100%;
-                }
+                    .logo {
+                        font-size: 24px;
+                        font-weight: bold;
+                        border-radius: 5px;
+                    }
 
-                body {
-                    margin: 0;
-                    padding: 0;
-                    font-family: 'Arial', sans-serif;
-                }
+                    nav ul {
+                        list-style: none;
+                        display: flex;
+                    }
 
-                .featured-section {
-                    position: relative;
-                    background-image: url('${c.image1}');
-                    background-size: cover;
-                    color: #fff;
-                    text-align: center;
-                    padding: 100px 0;
-                    border-radius: 10px;
-                }
+                    nav li {
+                        margin-right: 20px;
+                    }
 
-                .featured-section h2 {
-                    font-size: 3em;
-                    margin-bottom: 20px;
-                }
+                    nav a {
+                        text-decoration: none;
+                        color: white;
+                        font-weight: bold;
+                        border-radius: 5px;
+                    }
 
-                .info-card {
-                    display: flex;
-                    justify-content: space-around;
-                    flex-wrap: wrap;
-                    margin-top: 30px;
+                    .hero-section {
+                        background-image: url('background.jpg');
+                        background-size: cover;
+                        background-position: center;
+                        color: white;
+                        text-align: center;
+                        padding: 100px 20px;
 
-                }
+                    }
 
-                .info-card .card {
-                    background: rgba(255, 255, 255, 0.8);
-                    border-radius: 10px;
-                    padding: 20px;
-                    margin: 20px;
-                    width: 300px;
-                    overflow: hidden;
-                    transition: transform 0.3s ease-in-out;
-                }
+                    .cta-button {
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #ff6600;
+                        color: white;
+                        text-decoration: none;
+                        font-weight: bold;
+                        border-radius: 5px;
+                        margin-top: 20px;
+                    }
 
-                .info-card .card:hover {
-                    transform: scale(1.05);
-                }
+                    .featured-section,
+                    .games-section
+                    {
+                        padding: 40px 20px;
+                    }
 
-                .card i {
-                    font-size: 2em;
-                    color: #3498db;
-                    margin-bottom: 10px;
-                }
+                    footer {
+                        background-color: #333;
+                        color: white;
+                        text-align: center;
+                        padding: 10px 0;
+                        position: fixed;
+                        bottom: 0;
+                        width: 100%;
+                    }
 
-                .card h3 {
-                    font-size: 1.5em;
-                    margin-bottom: 10px;
-                }
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        font-family: 'Arial', sans-serif;
+                    }
 
-                .card p {
-                    font-size: 1em;
-                    color: #333;
-                }
+                    /*                    .featured-section {
+                                            position: relative;
+                                            background-image: url('/${c.image_bg}');
+                                            background-size: cover;
+                                            color: #fff;
+                                            text-align: center;
+                                            padding: 100px 0;
+                                            border-radius: 10px;
+                                        }*/
 
-            </style>
-        </c:if>
-    </c:forEach>
+                    .featured-section h2 {
+                        font-size: 3em;
+                        margin-bottom: 20px;
+                    }
+
+
+                    .card {
+                        height: 50%;
+                        background: rgba(255, 255, 255, 0.8);
+                        border-radius: 10px;
+                        padding: 20px;
+                        width: 35vw;
+                        overflow: hidden;
+                        transition: transform 0.3s ease-in-out;
+                    }
+
+                    .card:hover {
+                        transform: scale(1.05);
+                    }
+
+                    .card i {
+                        font-size: 2em;
+                        color: #3498db;
+                        margin-bottom: 10px;
+                    }
+
+                    .card h3 {
+                        font-size: 1.5em;
+                        margin-bottom: 10px;
+                    }
+
+                    .card p {
+                        font-size: 1em;
+                        color: #333;
+                    }
+
+                </style>
+            </c:if>
+        </c:forEach>
 
 </html>
