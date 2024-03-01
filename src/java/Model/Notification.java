@@ -40,9 +40,7 @@ public class Notification {
     public void setIsConfirm(boolean isConfirm) {
         this.isConfirm = isConfirm;
     }
-
-    
-
+  
     public String getNotificationID() {
         return NotificationID;
     }

@@ -68,7 +68,24 @@ public class NotificationDAO {
         } catch (SQLException e) {
         }
     }
-     
+      
+      public void updateNotification(boolean isConfirm, String notificationID) throws SQLException, Exception {
+        String query = "update Notification set isConfirm = ? where NotificationID = ?";
+        Connection conn;
+        GenerateID gn = new GenerateID();
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setBoolean(1,isConfirm);
+                statement.setString(2, notificationID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+  
      private Notification mapResultSetToNotification(ResultSet resultSet) throws SQLException {
         Notification nt = new Notification();
         nt.setNotificationID(resultSet.getString("NotificationID"));
