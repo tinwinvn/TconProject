@@ -2,7 +2,7 @@
 <%@page import="ModelDAO.Config"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
-<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="java.util.Iterator"%>

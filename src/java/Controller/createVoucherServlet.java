@@ -2,56 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
-import Model.Game;
-import ModelDAO.GameDAO;
+import Model.User;
+import ModelDAO.VoucherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author Nguyen Nhu Loc
+ * @author DELL
  */
-public class GameServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class createVoucherServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PlacesServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PlacesServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            request.getRequestDispatcher("CreateVoucher.jsp").forward(request, response);
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,23 +47,12 @@ public class GameServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        GameDAO c;
-        try {
-            c = new GameDAO();
-            List<Game> list = c.getAllGame();
-        System.out.println(list);
-        request.setAttribute("data", list);
-        request.getRequestDispatcher("details.jsp").forward(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(ParkServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -83,13 +60,27 @@ public class GameServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    throws ServletException, IOException {
+        try {
+            String code = request.getParameter("code");
+            String discountRate = request.getParameter("discount");
+            String used = request.getParameter("used");
+            User user = (User) request.getSession().getAttribute("acc");
+            VoucherDAO voucherDAO = new VoucherDAO();
+            Boolean isCheckVoucher = voucherDAO.checkVoucherCode(code);
+            if(isCheckVoucher){
+                request.setAttribute("error", "Voucher Code existed!");
+            }
+            else {
+                voucherDAO.createVoucher(code, Integer.parseInt(discountRate), used != null, );
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(createVoucherServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
