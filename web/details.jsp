@@ -61,7 +61,7 @@
                     <nav class="d-flex justify-content-evenly align-items-center bg-white">
 
                         <ul class="d-flex align-items-center mb-0" >
-                            <li><a href="#" class="text-red p-2">Home</a></li>
+                            <li><a href="index.jsp" class="text-red p-2">Home</a></li>
                             <li><a href="#" class="text-red p-2">Movies</a></li>
                             <li><a href="#" class="text-red p-2">Games</a></li>
                         </ul>
