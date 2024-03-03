@@ -72,7 +72,7 @@ public class createVoucherServlet extends HttpServlet {
                 request.setAttribute("error", "Voucher Code existed!");
             }
             else {
-                voucherDAO.createVoucher(code, Integer.parseInt(discountRate), used != null, );
+                voucherDAO.createVoucher(code, Integer.parseInt(discountRate), used != null, user.getUserID());
             }
         } catch (Exception ex) {
             Logger.getLogger(createVoucherServlet.class.getName()).log(Level.SEVERE, null, ex);
