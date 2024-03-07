@@ -30,7 +30,7 @@
                                 <a href="LogOutServlet">LOG OUT</a>
                                 <a href="profile.jsp?userId=${sessionScope.acc.userID}">PROFILE</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="admin/admin.html?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
+                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
                                 </c:if>
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
@@ -44,7 +44,7 @@
                 <c:if test="${sessionScope.acc == null}">
                     <li> 
 
-                        <form action="login.jsp">
+                        <form action="LoginServlet" method="get">
                             <button class="dropbtn" type="submit">Đăng nhập</button> 
                         </form>
                     </li>

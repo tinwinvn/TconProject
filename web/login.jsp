@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 ﻿<!DOCTYPE html>
 <html lang="vi">
 
@@ -30,6 +32,7 @@
 </head>
 
 <body>
+    <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
     <!-- Start Preloader -->
     <div id="preload-block">
         <div class="square-block"></div>
@@ -69,15 +72,16 @@
                                 <h3 class="auth-title">Login to your account</h3>
                                 <p>Don’t have an account? <a class="lnk-toggler" data-panel=".panel-signup" href="#">Sign Up Free!</a></p>
                             </div>
+                            <c:set var="cookie" value="${pageContext.request.cookies}"></c:set>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
                                     <form name="loginForm" class="loginForm" action="LoginServlet" method="POST">
                                         <div class="form-group">
-                                            <input type="email" class="form-control email" name="username" placeholder="Email address" required="">
+                                            <input type="email" class="form-control email" value="${cookie.userC.value}" name="username" placeholder="Email address" required="">
                                         </div>
                                         <div class="form-group">
                                             <div class="pwdMask">
-                                                <input type="password" class="form-control password" name="password" placeholder="Password" required="">
+                                                <input type="password" class="form-control password" value="${cookie.passC.value}" name="password" placeholder="Password" required="">
                                                 <span class="fa fa-eye-slash pwd-toggle"></span>
                                             </div>
                                         </div>
@@ -85,7 +89,7 @@
                                         <div class="row remember-row">
                                             <div class="col-xs-6 col-sm-6">
                                                 <label class="checkbox text-left">
-                                                    <input type="checkbox" value="remember-me">
+                                                    <input type="checkbox" value="remember-me" name="remember" ${(cookie.remC!=null?'checked':'')}>
                                                     <span class="label-text">Remember me</span>
                                                 </label>
                                             </div>

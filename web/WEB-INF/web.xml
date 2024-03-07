@@ -92,6 +92,18 @@
         <servlet-name>ConfirmChangeTicketServlet</servlet-name>
         <servlet-class>Controller.ConfirmChangeTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendQRServlet</servlet-name>
+        <servlet-class>Controller.SendQRServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentServlet</servlet-name>
+        <servlet-class>Controller.PaymentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AcceptVerificationOrderServlet</servlet-name>
+        <servlet-class>Controller.AcceptVerificationOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -183,6 +195,18 @@
     <servlet-mapping>
         <servlet-name>ConfirmChangeTicketServlet</servlet-name>
         <url-pattern>/ConfirmChangeTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendQRServlet</servlet-name>
+        <url-pattern>/SendQRServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentServlet</servlet-name>
+        <url-pattern>/PaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AcceptVerificationOrderServlet</servlet-name>
+        <url-pattern>/AcceptVerificationOrderServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

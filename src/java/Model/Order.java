@@ -10,21 +10,22 @@ public class Order {
     private String OrderID; 
     private String UserID;
     private String VoucherID;
-    private String OrderDate;
-    private Boolean isConfirm;
+    private Date OrderDate;
+    private Date ExperationDate;
+    private int orderStatus;
 
     public Order() {
     }
 
-    public Order(String OrderID, String UserID, String VoucherID, String OrderDate, Boolean isConfirm) {
+    public Order(String OrderID, String UserID, String VoucherID, Date OrderDate, Date ExperationDate, int orderStatus) {
         this.OrderID = OrderID;
         this.UserID = UserID;
         this.VoucherID = VoucherID;
         this.OrderDate = OrderDate;
-        this.isConfirm = isConfirm;
+        this.ExperationDate = ExperationDate;
+        this.orderStatus = orderStatus;
     }
 
-    
     public String getOrderID() {
         return OrderID;
     }
@@ -49,21 +50,31 @@ public class Order {
         this.VoucherID = VoucherID;
     }
 
-    public String getOrderDate() {
+    public Date getOrderDate() {
         return OrderDate;
     }
 
-    public void setOrderDate(String OrderDate) {
+    public void setOrderDate(Date OrderDate) {
         this.OrderDate = OrderDate;
     }
 
-    public Boolean getIsConfirm() {
-        return isConfirm;
+    public Date getExperationDate() {
+        return ExperationDate;
     }
 
-    public void setIsConfirm(Boolean isConfirm) {
-        this.isConfirm = isConfirm;
+    public void setExperationDate(Date ExperationDate) {
+        this.ExperationDate = ExperationDate;
     }
-   
+
+    public int getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    
+
     
 }

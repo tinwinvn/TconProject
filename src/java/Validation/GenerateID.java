@@ -4,6 +4,7 @@ import Model.AddFavourite;
 import Model.Notification;
 import Model.Order;
 import Model.OrderDetail;
+import Model.Ticket;
 import Model.TransactionHistory;
 import ModelDAO.UserDAO;
 import Model.User;
@@ -11,6 +12,7 @@ import ModelDAO.AddFavouriteDAO;
 import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
+import ModelDAO.TicketDAO;
 import ModelDAO.TransactionDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +82,6 @@ public class GenerateID {
                 return entity + "000001";
             }
             List<TransactionHistory> listTransactionHistory = transactionDAO.getAllTransaction();
-            System.out.println(listTransactionHistory);
             for (TransactionHistory transactionHistory: listTransactionHistory) {
                 String numID = transactionHistory.getTransactionID().substring(2);
                 int num = Integer.parseInt(numID);
@@ -89,7 +90,21 @@ public class GenerateID {
                     return nextID;
                 }
             }
-        } else{
+        } else if (entity == "TK") {
+            TicketDAO ticketDAO = new TicketDAO();
+            if (ticketDAO.getAllTicket().isEmpty()) {
+                return entity + "000001";
+            }
+            List<Ticket> listTicket = ticketDAO.getAllTicket();
+            for (Ticket ticket: listTicket) {
+                String numID = ticket.getTicketID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
+        } else {
 
             UserDAO userDAO = new UserDAO();
             if (userDAO.getAllUser().isEmpty()) {
@@ -100,7 +115,6 @@ public class GenerateID {
             for (User user : listUser) {
                 String numID = user.getUserID().substring(2);
                 int num = Integer.parseInt(numID);
-                System.out.println(num);
                 String nextID = entity + (String.format("%06d", num + 1));
                 if (!isDupplicatedID(nextID, entity)) {
                     return nextID;
@@ -149,6 +163,14 @@ public class GenerateID {
             List<TransactionHistory> listTransaction = transactionDAO.getAllTransaction();
             for (TransactionHistory transactionHistory : listTransaction) {
                 if (transactionHistory.getTransactionID().equals(id)) {
+                    return true;
+                }
+            }
+        } else if (entity == "TK") {
+            TicketDAO ticketDAO = new TicketDAO();
+            List<Ticket> listTicket = ticketDAO.getAllTicket();
+            for (Ticket ticket : listTicket) {
+                if (ticket.getTicketID().equals(id)) {
                     return true;
                 }
             }

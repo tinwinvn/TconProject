@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -68,7 +69,7 @@
         <jsp:useBean id="transactionDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
         <jsp:useBean id="ticketTypeDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="OrderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
-        <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
+        <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>       
             <h2>Payment History</h2>
             <table border="1">
                 <thead>
@@ -89,21 +90,25 @@
                                     <td>${transaction.getTransactionCode()}</td>
                                     <td>
                                         <ul>
+                                            <c:set var="totalPrice" value="${0}"></c:set>
                                             <c:forEach var="orderdetailList" items="${orderDetailDAO.allOrderDetail}">
                                                 <c:if test="${orderdetailList.orderID == transaction.orderID}">
                                                     <c:set var="orderdetail" value="${orderDetailDAO.getOrderDetailByOrderID(transaction.orderID)}"></c:set>
                                                     <c:forEach var="tickettypeList" items="${ticketTypeDAO.allTicketType}">
                                                         <c:if test="${tickettypeList.ticketTypeID == orderdetail.ticketTypeID}">
-                                                            <li>${orderdetail.quantity} 
-                                                                ${tickettypeList.typeName}
-                                                                ${tickettypeList.price}
-                                                                
-                                                            </li>    
+                                                            <li>
+                                                                <p>Số lượng: ${orderdetail.quantity}</p>
+                                                                <p>Loại vé: ${tickettypeList.typeName}</p>
+                                                                <p>Giá: <fmt:formatNumber value="${tickettypeList.price}" type="number"></fmt:formatNumber> VNĐ</p>
+                                                                <c:set var="totalPrice" value="${totalPrice + orderdetail.quantity * tickettypeList.price}"></c:set>
+                                                            </li>
                                                         </c:if>
-                                                    </c:forEach>
-                                                </c:if>
+                                                    </c:forEach>                                                                
+                                                </c:if>                                                 
                                             </c:forEach>
+                                            <p>Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber></p>                
                                         </ul>
+                                        
                                     </td>
                                     <td>
                                         <c:if test="${transaction.getTransactionStatus() == 1}">

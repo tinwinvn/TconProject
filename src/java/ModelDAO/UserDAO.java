@@ -240,6 +240,16 @@ public class UserDAO {
         } catch (SQLException e) {
         }
     }
+    
+    public User getUserByToken(String token) throws Exception{
+        User u = null;
+        for (User user : getAllUser()){
+            if (getToken(user.getUserID(), user.getRole()).equals(token)){
+                u = user;
+            }
+        }
+        return u;
+    }
 
     private User mapResultSetToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -277,4 +287,28 @@ public class UserDAO {
             return null;
         }
     }
+    
+    public String toSHA256token(String token){
+        try {
+            // Create SHA-1 message digest
+            MessageDigest sha1Digest = MessageDigest.getInstance("SHA-256");
+            byte[] sha256Hash = sha1Digest.digest(token.getBytes());
+
+            // Encode SHA-1 hash with Base64
+            String base64Encoded = Base64.getEncoder().encodeToString(sha256Hash);
+
+            return base64Encoded;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public String getToken(String userID, int role){
+        String roleS = String.valueOf(role);
+        String token = userID + roleS;
+        String encodeToken = toSHA256token(token);
+        return encodeToken;
+    }   
+   
 }

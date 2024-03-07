@@ -6,14 +6,14 @@ import java.sql.Date;
 public class TransactionHistory {
     private String TransactionID;
     private String OrderID;
-    private String Date;
+    private Date Date;
     private String TransactionCode;
     private int TransactionStatus;
 
     public TransactionHistory() {
     }
 
-    public TransactionHistory(String TransactionID, String OrderID, String Date, String TransactionCode, int TransactionStatus) {
+    public TransactionHistory(String TransactionID, String OrderID, Date Date, String TransactionCode, int TransactionStatus) {
         this.TransactionID = TransactionID;
         this.OrderID = OrderID;
         this.Date = Date;
@@ -37,11 +37,11 @@ public class TransactionHistory {
         this.OrderID = OrderID;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
-    public void setDate(String Date) {
+    public void setDate(Date Date) {
         this.Date = Date;
     }
 
@@ -60,6 +60,8 @@ public class TransactionHistory {
     public void setTransactionStatus(int TransactionStatus) {
         this.TransactionStatus = TransactionStatus;
     }
+
+    
 
     
     

@@ -7,13 +7,17 @@ package ModelDAO;
 import DAO.ConnectDB;
 import Model.Order;
 import Validation.GenerateID;
+import Validation.GenerateQR;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -104,11 +108,36 @@ public class OrderDAO {
         return o;
     }
     
-    
-    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, boolean isConfirm) throws SQLException, Exception {
-        String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?)";
+    public void updateOrderStatusByOrderID(int orderStatus, String orderID){
+        String query = "update Orders set OrderStatus = ? where OrderID = ?";
         Connection conn;
-        String fdate = toDate(orderDate);
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, orderStatus);
+                statement.setString(2, orderID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
+    
+    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String expirationDate, int orderStatus) throws SQLException, Exception {
+        String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?)";
+        Connection conn;
+        GenerateQR genQR = new GenerateQR();
+        genQR.generateQR(orderID);
+        SendEmail send = new SendEmail();
+        String dir = GenerateQR.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        File file = new File(dir);
+        file = file.getParentFile().getParentFile().getParentFile().getParentFile();
+        String absoluteFolderPath = Paths.get(file.toString(), "web/payment/QR/" + orderID + ".jpg").toString();
+        send.sendQR("taingocminh2003@gmail.com", "Your QR", absoluteFolderPath);
+        Timestamp fdate = toDate(orderDate);
+        Timestamp edate = toeDate(expirationDate);
         try {
 
             conn = db.getConnection();
@@ -116,8 +145,9 @@ public class OrderDAO {
                 statement.setString(1, orderID);
                 statement.setString(2, userID);
                 statement.setString(3, null);
-                statement.setString(4, fdate);
-                statement.setBoolean(5, isConfirm);
+                statement.setTimestamp(4, fdate);
+                statement.setTimestamp(5, edate);
+                statement.setInt(6, orderStatus);
                 statement.execute();
             }
             conn.close();
@@ -130,26 +160,33 @@ public class OrderDAO {
         order.setOrderID(resultSet.getString("OrderID"));
         order.setUserID(resultSet.getString("UserID"));
         order.setVoucherID(resultSet.getString("VoucherID"));
-        order.setOrderDate(resultSet.getString("OrderDate"));
-        order.setIsConfirm(resultSet.getBoolean("isConfirm"));
+        order.setOrderDate(resultSet.getDate("OrderDate"));
+        order.setExperationDate(resultSet.getDate("ExperationDate"));
+        order.setOrderStatus(resultSet.getInt("OrderStatus"));
         return order;
     }
     
-    public String toDate(String input){
+    public Timestamp toDate(String input){
         // Định nghĩa định dạng của ngày tháng
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         
         try {
-            // Chuyển đổi chuỗi thành đối tượng Date
             java.util.Date date =  inputFormat.parse(input);
-            
-            // Định nghĩa định dạng mới cho ngày tháng
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            
-            // Định dạng lại thành chuỗi theo định dạng mới
-            String formattedDate = outputFormat.format(date);
-            System.out.println(formattedDate);
-            return formattedDate;
+            Timestamp dateSQL = new Timestamp(date.getTime());
+            return dateSQL;
+        } catch (ParseException e) {
+        }
+        return null;
+    }
+    
+    public Timestamp toeDate(String input){
+        // Định nghĩa định dạng của ngày tháng
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            java.util.Date date =  inputFormat.parse(input);
+            Timestamp dateSQL = new Timestamp(date.getTime());
+            return dateSQL;
         } catch (ParseException e) {
         }
         return null;

@@ -210,10 +210,8 @@
                         </ul>
                     </nav>
     </header>
-    <nav>
-    </nav>
     <main>
-        <h2>Danh sách loại vé</h2>
+        <h2>Danh sách loại vé</h2> 
         <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <ul class="ticket-list">
         <c:forEach var="ttL" items="${ttDAO.allTicketType}">           
