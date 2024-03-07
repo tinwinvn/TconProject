@@ -8,9 +8,13 @@
         <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
+        <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
+        <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
 
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-dfNlPb3SjOOElnFh2PI0tJ0JWw4+x1Ec/0l2fcG6E2tS9MguqnUqsC2ZqTjp1fG" crossorigin="anonymous">
+            <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -208,7 +212,322 @@
                         </script>
                     </div>
                 </section>
+                <section class="rating">
+                <div class="tri table-flex">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                
+                                <div class="rnb rvl">
+                                    <c:set var="numList" value="${rDAO.allRating}" />
+                                    <c:forEach var="num" items="${numList}">
+                                        <c:if test="${param.id == num.receiveID}">
+                                            <c:set var="totalRating" value="${totalRating + num.ratingValue}"/>
+                                            <c:set var="size" value="${size + 1}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <h3>${totalRating / size}/5.0</h3>
+                                </div>
+                                <div class="rnrn">
+                                    <p class="rars">${size} Reviews</p>
+                                </div>
+                            </td>
+                            <td>
+                                <c:if test="${sessionScope.acc != null}">
+                                <div class="pup-button">
+                                    <p>Leave Your Rating Here!</p>
+                                    <button id="show-rating">Add rating</button>
+                                </div>
+                                <section class="all-ratingform">
+                                    <section class="rating-body" id="rating-form">
+                                        <div class="wrapper" id="rating-wrapper" style="display: none;">
+                                            <h3>Lorem ipsum dolor sit amet.</h3>
+                                            <form action="RatingServlet" method="post" id="ratingForm">
+                                                <div class="ratingvalue">
+                                                    <input type="number" name="star" hidden>
+                                                    <i class='bx bx-star star' style="--i: 0;"></i>
+                                                    <i class='bx bx-star star' style="--i: 1;"></i>
+                                                    <i class='bx bx-star star' style="--i: 2;"></i>
+                                                    <i class='bx bx-star star' style="--i: 3;"></i>
+                                                    <i class='bx bx-star star' style="--i: 4;"></i>
+                                                </div>
+                                                <textarea name="message" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+                                                <div class="btn-group">
+                                                    <input type="hidden" name="userIdC" value="${sessionScope.acc.userID}">
+                                                    <input type="hidden" name="receiveId" value="${param.id}">
+                                                    <input type="hidden" name="parkID" value="${param.id}">
+                                                    <button type="submit" name="button" class="btn submit">Submit</button>
+                                                    <button type="button" class="btn cancel" id="cancel-btn">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </section>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                </div>
+                <div class="bri">
+                    <c:set var="rList" value="${rDAO.allRating}"/>
+                    <c:set var="uList" value="${uDAO.allUser}"/>
+                    <c:set var="commentCount" value="0"/>
+                    <c:forEach var="list" items="${rList}" varStatus="loop">
+                        <c:if test="${param.id == list.receiveID}">
+                            <c:set var="userID" value="${list.sendID}" />
+                            <c:set var="username" value="${uDAO.getUserById(userID)}"/>
+                            
+                    <div class="uscm ${loop.index > 3 ? 'hidden' : ''}" >  
+                        <div class="uscm-secs">
+                            <div class="us-img">
+                                <img src="images/avatar.jpg" />
+                            </div>
+                            <div class="uscms">
+                                <div class="us-name">
+                                    <p>${username.fullName}</p>
+                                    <div class="dropdown">
+                                        <button class="dropbtn" id="dropButton_${loop.index}">&#8942;</button>
+                                    <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
+                                        <c:if test="${list.sendID == sessionScope.acc.userID}">
+                                            <!-- Button to open modal -->
+                                            <button class="update-btn" id="updateButton_${loop.index}">Update</button>
+                                            <!-- The Modal -->
+                                            <div id="myModal_${loop.index}" class="modal" style="display: none;">
+                                              <!-- Modal content -->
+                                              <div class="modal-content">
+                                                  <span class="close" id="cancel_${loop.index}">&times;</span>
+                                                <form id="editForm_${loop.index}" action="UpdateCommentServlet" method="post">
+                                                  <input type="hidden" name="ratingId" value="${list.ratingID}">
+                                                  <input type="hidden" name="parkID" value="${param.id}">
+                                                  <textarea id="ratingText_${loop.index}" name="ratingText" rows="4" cols="50">${list.ratingText}</textarea>
+                                                  <button id="update-button"type="submit">Save Changes</button>
+                                                </form>
+                                              </div>
+                                            </div>
+                                            <form action="DeleteCommentServlet" method="GET">
+                                                <input type="hidden" name="rId" value="${list.ratingID}">
+                                                <input type="hidden" name="parkID" value="${param.id}">
+                                                <button type="submit"><i class="fas fa-trash-alt"></i>Delete</button>
+                                            </form>
+                                        </c:if>
+                                            <button><i class="fas fa-flag"></i>Report</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="us-cmt">
+                                    <p>${list.ratingText}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                                <c:set var="commentCount" value="${commentCount + 1}"/>
+                                
+                        </c:if>
+                        
+                    </c:forEach>
+                    <c:if test="${commentCount > 3}">
+                        <button id="readMoreButton">Read more</button>
+                    </c:if>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var readMoreButton = document.getElementById('readMoreButton');
+                            
+                            // Function to handle showing or hiding additional comments
+                            function toggleAdditionalComments() {
+                            var allComments = document.querySelectorAll('.uscm'); // Lấy tất cả các comment
+                            allComments.forEach(function(comment, index) {
+                                if (index >= 3) { // Ẩn các comment từ chỉ số thứ 3 trở đi
+                                    comment.classList.toggle('hidden');
+                                }
+                            });
+                            // Change the text of the button based on its current state
+                            if (readMoreButton.textContent === 'Read more') {
+                                readMoreButton.textContent = 'Hide';
+                            } else {
+                                readMoreButton.textContent = 'Read more';
+                            }
+                        }
 
+                            // Event listener for the read more button
+                            readMoreButton.addEventListener('click', function() {
+                                toggleAdditionalComments();
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                        const updateButtons = document.querySelectorAll(".update-btn");
+                        const updateModals = document.querySelectorAll(".modal");
+                        const cancelButtons = document.querySelectorAll(".close");
+
+                        updateButtons.forEach((updateButton, index) => {
+                            const updateModal = updateModals[index];
+                            const cancelButton = cancelButtons[index];
+                            
+                            updateButton.addEventListener("click", function() {
+                                updateModal.style.display = "block";
+                            });
+                            
+                            cancelButton.addEventListener("click", function() {
+                               updateModal.style.display = "none"; 
+                            });
+                        });
+
+                        window.onclick = function(event) {
+                            updateModals.forEach(updateModal => {
+                                if (!event.target.matches('.update-btn') && !updateModal.contains(event.target)) {
+                                    updateModal.style.display = "none";
+                                }
+                            });
+                        }
+                    });
+
+                        
+                    </script>
+                    <style>
+                        .hidden {
+                            display: none;
+                        }
+                        
+                        #readMoreButton {
+                            border: none; /* Loại bỏ viền */
+                            background: none; /* Loại bỏ nền */
+                            padding: 0; /* Loại bỏ padding */
+                            margin: 0; /* Loại bỏ margin */
+                            cursor: pointer; /* Biến con trỏ thành pointer khi rê chuột */
+                            
+                            font-size: inherit; /* Kích thước font chữ giống với kích thước font chữ của các phần tử khác */
+                            
+                        }
+                        /* Modal */
+                        .modal {
+                          position: fixed;
+                          z-index: 1;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          width: 100%;
+                          height: 100%;
+                          overflow: auto;
+                          
+                          background-color: rgba(0,0,0,0.4);
+                        }
+
+                        /* Modal Content */
+                        .modal-content {
+                          background-color: #fefefe;
+                          margin: 20% auto;
+                          padding: 20px;
+                          border: 1px solid #888;
+                          border-radius: 0.5rem;
+                          width: 50%;
+                        }
+
+                        /* Close Button */
+                        .close {
+                          color: #aaa;
+                          float: right;
+                          font-size: 28px;
+                          font-weight: bold;
+                        }
+
+                        .close:hover,
+                        .close:focus {
+                          color: black;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+
+                        /* Textarea and Button inside Modal Content */
+                        .modal-content textarea {
+                          width: 97%;
+                          padding: 10px;
+                          margin-bottom: 10px;
+                        }
+
+                        #update-button {
+                          background-color: #4CAF50;
+                          color: white;
+                          padding: 10px 15px;
+                          border: none;
+                          border-radius: 5px;
+                          width: 15%;
+                          text-align: center;
+                          cursor: pointer;
+                        }
+
+                        .modal-content button:hover {
+                          background-color: #45a049;
+                        }
+                    </style>
+                    
+                    <script>
+                        const allStar = document.querySelectorAll('.rating .star')
+                        const ratingValue = document.querySelector('.rating input')
+
+                        allStar.forEach((item, idx)=> {
+                                item.addEventListener('click', function () {
+                                        let click = 0
+                                        ratingValue.value = idx + 1
+
+                                        allStar.forEach(i=> {
+                                                i.classList.replace('bxs-star', 'bx-star')
+                                                i.classList.remove('active')
+                                        })
+                                        for(let i=0; i<allStar.length; i++) {
+                                                if(i <= idx) {
+                                                        allStar[i].classList.replace('bx-star', 'bxs-star')
+                                                        allStar[i].classList.add('active')
+                                                } else {
+                                                        allStar[i].style.setProperty('--i', click)
+                                                        click++
+                                                }
+                                        }
+                                })
+                        })
+                    </script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                const pupButton = document.getElementById("show-rating");
+                const ratingWrapper = document.getElementById("rating-wrapper");
+                const cancelButton = document.getElementById("cancel-btn");
+
+                pupButton.addEventListener("click", function() {
+                    ratingWrapper.style.display = "block";
+                });
+
+                cancelButton.addEventListener("click", function() {
+                    ratingWrapper.style.display = "none";
+                });
+            });
+            </script>
+            <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                        const dropButtons = document.querySelectorAll(".dropbtn");
+                        const dropdowns = document.querySelectorAll(".dropdown-content");
+
+                        dropButtons.forEach((dropButton, index) => {
+                            const dropdown = dropdowns[index];
+                            dropButton.addEventListener("click", function() {
+                                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                            });
+                        });
+
+                        window.onclick = function(event) {
+                            dropdowns.forEach(dropdown => {
+                                if (!event.target.matches('.dropbtn') && !dropdown.contains(event.target)) {
+                                    dropdown.style.display = "none";
+                                }
+                            });
+                        };
+                    });
+            </script>
                 <header style="text-align: center;">
                     <div class="logo"><c:out value=""/></div>
                 </header>
@@ -216,7 +535,398 @@
 
 
                 <style>
+                    /* Your existing CSS */
+                            .rating {
+                                color: #000;
+                                box-sizing: border-box;
+                                background-color: #ffffff;
+                            }
+                            .ratingvalue {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                grid-gap: .5rem;
+                                font-size: 2rem;
+                                color: #FFBD13;
+                                margin-bottom: 2rem;
+                            }
+                            .rating table {
+                                width: 100%;
+                                margin: 0;
+                                border-collapse: collapse;
+                                border-spacing: 0;
+                                color:#cccccc;
+                                margin-bottom:.625rem;
+                            }
+                            .rating table,
+                            .rating td{
+                                font-size: .8125rem;
+                                text-align: center;
+                            }
+                            
+                            .rating td{
+                                padding: 1rem;
+                                width:33.3%;
+                            }
+                            
+                            .tri {
+                                border-bottom: 1px solid #cccccc;
+                                padding: 12px;
+                            }
+                            
+                            .rnb h3 {
+                                color: #FFBD13;
+                                font-size: 2.4rem;
+                            }
+                            
+                            .tri .pdt-rate {
+                                height: 40px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+                            
+                            .rating-stars {
+                                position: relative;
+                                vertical-align:baseline;
+                                color: #cccccc;
+                                line-height: 10px;
+                                float: left;
+                            }
+                            
+                            .grey-stars{
+                                height: 100%
+                            }
+                            
+                            .filled-stars {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                height: 100%;
+                                overflow: hidden;
+                                color: #FFBD13;
+                            }
+                            .rpb {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                            }
+                            
+                            .rnpb{
+                                display: flex;
+                                width: 100%;
+                            }
+                            .rnpb label:first-child {
+                                margin-right: 5px;
+                                margin-top: -2px;
+                            }
+                            
+                            .rnpb label:last-child {
+                                margin-left: 3px;
+                                margin-top: -2px;
+                            }
+                            
+                            .rnpb label i {
+                                color: #FFBD13;
+                            }
+                            
+                            .ropb {
+                                height: 10px;
+                                width: 75%;
+                                background-color: #f1f1f1;
+                                position: relative;
+                                margin-bottom: 10px;
+                            }
+                            
+                            .ripb {
+                                height: 100%;
+                                background-color: #FFBD13;
+                                border: 0.5px solid #cccccc;
+                            }
+                            .pup-button p {
+                                
+                            }
+                            .pup-button button {
+                                width: 220px;
+                                height: 40px;
+                                background-color: #007BFF;
+                                color: #FFF;
+                                border: 0;
+                                outline: none;
+                                font-size: 1.2rem;
+                                box-shadow: 0px 2px 2px #007BFF;
+                                cursor: pointer;
+                            }
+                            
+                            .pup-button:hover{
+                                opacity: .9;
+                            }
+                            .bri {
+                                overflow: hidden;
+                                height: 100%;
+                            }
+                            .uscm-secs {
+                                margin-left: 30px;
+                                padding: 10px;
+                                display: flex;
+                                width: 100%;
+                                height: 100%;
+                                border-bottom: 1px solid #cccccc;
+                            }
+                            .us-img {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 60px;
+                                height: 60px;
+                                line-height: 45px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                margin-right: 10px;
+                            }
+                            
+                            .us-img img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                            }
+                            
+                            .uscms {
+                                display: flex;
+                                flex-direction: column;
+                                width: 90%;
+                                text-align: left;
+                            }
+                            
+                            .us-cmt p {
+                                font-size: .9rem;
+                                padding: 10px 10px 10px 0;
+                                color: #333;
+                                font-weight: 500;
+                                font-family: raleway;
+                                margin: 0;
+                            }
+                            
+                            .us-name{
+                                display: flex;
+                                justify-content: space-between;
+                                flex-grow: 1;
+                                font-size: 18px;
+                            }
+                            
+                            .dropbtn {
+                                color: black;
+                                padding: 0;
+                                font-size: 24px;
+                                border: none; /* Remove border */
+                                background-color: transparent; /* Remove background color */
+                                cursor: pointer;
+                            }
 
+                            /* Style the dropdown content (hidden by default) */
+                            .dropdown-content {
+                                display: none;
+                                position: absolute;
+                                background-color: #f9f9f9;
+                                min-width: 160px;
+                                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                                
+                                z-index: 1;
+                            }
+
+                            /* Style the buttons inside the dropdown */
+                            .dropdown-content button {
+                                background-color: inherit;
+                                color: black;
+                                padding: 12px 16px;
+                                text-decoration: none;
+                                display: block;
+                                border: none;
+                                width: 100%;
+                                text-align: left;
+                                cursor: pointer;
+                            }
+
+                            /* Change color of dropdown links on hover */
+                            .dropdown-content button:hover {
+                                background-color: #f1f1f1;
+                            }
+
+:root {
+                            --yellow: #FFBD13;
+                            --blue: #4383FF;
+                            --blue-d-1: #3278FF;
+                            --light: #F5F5F5;
+                            --grey: #AAA;
+                            --white: #FFF;
+                            --shadow: 8px 8px 30px rgba(0,0,0,.05);
+                            }
+                        .all-ratingform {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            font-family: 'Poppins', sans-serif;
+                        }
+                        .rating-body {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 1rem;
+                        }
+                        .wrapper {
+                                background: var(--white);
+                                padding: 2rem;
+                                max-width: 576px;
+                                width: 100%;
+                                border-radius: .75rem;
+                                box-shadow: var(--shadow);
+                                text-align: center;
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                        }
+                        
+                       
+                        
+                        .wrapper h3 {
+                                font-size: 1.5rem;
+                                font-weight: 600;
+                                margin-bottom: 1rem;
+                                color: #000;
+                        }
+                        
+                        .rating .star {
+                                cursor: pointer;
+                        }
+                        .rating .star.active {
+                                opacity: 0;
+                                animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+                        }
+
+                        @keyframes animate {
+                                0% {
+                                        opacity: 0;
+                                        transform: scale(1);
+                                }
+                                50% {
+                                        opacity: 1;
+                                        transform: scale(1.2);
+                                }
+                                100% {
+                                        opacity: 1;
+                                        transform: scale(1);
+                                }
+                        }
+
+
+                        .rating .star:hover {
+                                transform: scale(1.1);
+                        }
+                        textarea {
+                                background: var(--light);
+                                padding: 1rem;
+                                border-radius: .5rem;
+                                border: none;
+                                outline: none;
+                                resize: none;
+                                margin-bottom: .5rem;
+                                width: 90%;
+                        }
+                        .btn-group {
+                                display: flex;
+                                grid-gap: .5rem;
+                                align-items: center;
+                        }
+                        .btn-group .btn {
+                                padding: .75rem 1rem;
+                                border-radius: .5rem;
+                                border: none;
+                                outline: none;
+                                cursor: pointer;
+                                font-size: .875rem;
+                                font-weight: 500;
+                        }
+                        .btn-group .btn.submit {
+                                background: var(--blue);
+                                color: var(--white);
+                        }
+                        .btn-group .btn.submit:hover {
+                                background: var(--blue-d-1);
+                        }
+                        .btn-group .btn.cancel {
+                                background: var(--white);
+                                color: var(--blue);
+                        }
+                        .btn-group .btn.cancel:hover {
+                                background: var(--light);
+                        }
+                        .testimonial-box-container {
+                            justify-content: center;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            width: 100%;
+                        }
+
+                        .testimonial-box {
+                            width: 500px;
+                            box-shadow: 2px 2px 30px #000;
+                            background-color: #FFF;
+                            padding: 20px;
+                            margin: 15px;
+                            cursor: pointer;
+                        }
+
+                        .profile-img {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            margin-right: 10px;
+                        }
+
+                        .profile-img img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+
+                        .profile {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        .name-user {
+                            display: flex;
+                            flex-direction: column;
+                        }
+
+                        .name-user strong{
+                            color: #44525f;
+                            font-size: 1.1rem;
+                            letter-spacing: 0.5px;
+                        }
+
+                        .rating-star {
+                            color: #FFBD13;
+                        }
+
+                        .box-top{
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 20px;
+                        }
+
+                        .client-comment p {
+                            font-size: 0.9rem;
+                            color:#000;
+                            margin-bottom: 10px;
+                        }
 
                     .events-section {
                         background-image: url('images_details/i.jpg');

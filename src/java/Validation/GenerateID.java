@@ -4,6 +4,7 @@ import Model.AddFavourite;
 import Model.Notification;
 import Model.Order;
 import Model.OrderDetail;
+import Model.Rating;
 import Model.TransactionHistory;
 import ModelDAO.UserDAO;
 import Model.User;
@@ -11,6 +12,7 @@ import ModelDAO.AddFavouriteDAO;
 import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
+import ModelDAO.RatingDAO;
 import ModelDAO.TransactionDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,20 @@ public class GenerateID {
                     return nextID;
                 }
             }
+        } else if (entity == "RT") {
+            RatingDAO ratingDAO = new RatingDAO();
+            if (ratingDAO.getAllRating().isEmpty()) {
+                return entity + "000001";
+            }
+            List<Rating> listRating = ratingDAO.getAllRating();
+            for (Rating rating : listRating) {
+                String numID = rating.getRatingID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
         } else{
 
             UserDAO userDAO = new UserDAO();
@@ -149,6 +165,14 @@ public class GenerateID {
             List<TransactionHistory> listTransaction = transactionDAO.getAllTransaction();
             for (TransactionHistory transactionHistory : listTransaction) {
                 if (transactionHistory.getTransactionID().equals(id)) {
+                    return true;
+                }
+            }
+        } else if (entity == "RT") {
+            RatingDAO ratingDAO = new RatingDAO();
+            List<Rating> listRating = ratingDAO.getAllRating();
+            for (Rating rating : listRating) {
+                if (rating.getRatingID().equals(id)) {
                     return true;
                 }
             }

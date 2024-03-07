@@ -101,6 +101,18 @@
         <servlet-class>Controller.AcceptVerificationOrderServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <servlet-class>Controller.UpdateCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>Controller.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RatingServlet</servlet-name>
+        <servlet-class>Controller.RatingServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SendQRServlet</servlet-name>
         <servlet-class>Controller.SendQRServlet</servlet-class>
     </servlet>
@@ -207,6 +219,18 @@
     <servlet-mapping>
         <servlet-name>SendQRServlet</servlet-name>
         <url-pattern>/SendQRServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RatingServlet</servlet-name>
+        <url-pattern>/RatingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <url-pattern>/UpdateCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/DeleteCommentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

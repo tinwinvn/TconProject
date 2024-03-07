@@ -74,6 +74,7 @@ public class UpdateCommentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
             String newRatingText = request.getParameter("ratingText");
             String ratingId = request.getParameter("ratingId");
             RatingDAO rDao = new RatingDAO();

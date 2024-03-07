@@ -75,6 +75,7 @@ public class RatingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
             RatingDAO rat = new RatingDAO();
             String ratingText = request.getParameter("message");
             String userId = request.getParameter("userIdC");
