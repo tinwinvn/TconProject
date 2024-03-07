@@ -117,7 +117,30 @@ public class OrderDetailDAO {
             db.close(conn, statement, rs);
         }
         return od;
-    }  
+    }
+    
+    public List<OrderDetail> getOrderDetailListByOrderID(String OrderID) throws SQLException{
+        List<OrderDetail> odlist  = new ArrayList<>();
+        String query = "SELECT * FROM OrderDetail where OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        System.out.println(OrderID);
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, OrderID);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                    odlist.add(mapResultSetToOrderDetail(rs));
+                }          
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return odlist;
+    }
          
      private OrderDetail mapResultSetToOrderDetail(ResultSet resultSet) throws SQLException {
         OrderDetail odd = new OrderDetail();

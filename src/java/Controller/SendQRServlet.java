@@ -5,18 +5,17 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-public class LogOutServlet extends HttpServlet {
+public class SendQRServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,19 +29,18 @@ public class LogOutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.removeAttribute("acc");
-        session.removeAttribute("cart");       
-        Cookie arr[] = request.getCookies();
-        if (arr != null) {
-                for (Cookie o : arr) {
-                    if (o.getName().equals("statusC")) {
-                        o.setValue("logout");
-                        response.addCookie(o);
-                    }
-                }
-            }
-        response.sendRedirect("index.jsp");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SendQRServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SendQRServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +69,31 @@ public class LogOutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String vnp_Amount = request.getParameter("vnp_Amount");
+        String vnp_BankCode = request.getParameter("vnp_BankCode");
+        String vnp_BankTranNo = request.getParameter("vnp_BankTranNo");
+        String vnp_CardType = request.getParameter("vnp_CardType");
+        String vnp_OrderInfo = request.getParameter("vnp_OrderInfo");
+        String vnp_PayDate = request.getParameter("vnp_PayDate");
+        String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
+        String vnp_TmnCode = request.getParameter("vnp_TmnCode");
+        String vnp_TransactionNo = request.getParameter("vnp_TransactionNo");
+        String vnp_TransactionStatus = request.getParameter("vnp_TransactionStatus");
+        String vnp_TxnRef = request.getParameter("vnp_TxnRef");
+        String vnp_SecureHash = request.getParameter("vnp_SecureHash");
+        request.setAttribute("action", "submitted");
+        response.sendRedirect("payment/vnpay_return.jsp?vnp_Amount=" + vnp_Amount
+                + "&vnp_BankCode=" + vnp_BankCode
+                + "&vnp_BankTranNo=" + vnp_BankTranNo
+                + "&vnp_CardType=" + vnp_CardType
+                + "&vnp_OrderInfo=" + vnp_OrderInfo
+                + "&vnp_PayDate=" + vnp_PayDate
+                + "&vnp_ResponseCode=" + vnp_ResponseCode
+                + "&vnp_TmnCode=" + vnp_TmnCode
+                + "&vnp_TransactionNo=" + vnp_TransactionNo
+                + "&vnp_TransactionStatus=" + vnp_TransactionStatus
+                + "&vnp_TxnRef=" + vnp_TxnRef
+                + "&vnp_SecureHash=" + vnp_SecureHash);
     }
 
     /**

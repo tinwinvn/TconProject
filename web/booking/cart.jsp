@@ -99,6 +99,7 @@
         <header>
         </header>
         <div class="logo"><h1>Giỏ hàng</h1></div>
+        <input type="date" id="experationDate" name="experationDate" required="">
         <nav>
             <ul>
                 <li><a href="../index.jsp">Home</a></li>
@@ -111,22 +112,22 @@
             <jsp:useBean id="odDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
                 <ul class="cart-list">
                 <c:forEach var="item" items="${sessionScope.cart}">
-                        <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
-                        <c:set var="ticketTypeName" value="${ticketType.typeName}" />
-                        <c:set var="quantity" value="${item.value.quantity}" />
-                        <c:set var="price" value="${ticketType.price}"></c:set>
-                            <li class="cart-item">
-                                <h3>${ticketTypeName}</h3>
-                            <p>Số lượng: ${quantity}</p>
-                            <p>Giá: ${price * quantity} VNĐ</p>
-                            <form action="../DeleteCartServlet" method="POST">
-                                <input type="hidden" name="ticketType" value="${item.key}">
-                                <input type="hidden" name="parkID" value="${param.parkID}">
-                                <input type="hidden" name="transactionCode" value="${param.transactionCode}">
-                                <button type="submit">Xóa</button>
-                            </form>
-                        </li>
-                        <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
+                    <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
+                    <c:set var="ticketTypeName" value="${ticketType.typeName}" />
+                    <c:set var="quantity" value="${item.value.quantity}" />
+                    <c:set var="price" value="${ticketType.price}"></c:set>
+                        <li class="cart-item">
+                            <h3>${ticketTypeName}</h3>
+                        <p>Số lượng: ${quantity}</p>
+                        <p>Giá: ${price * quantity} VNĐ</p>
+                        <form action="../DeleteCartServlet" method="POST">                              
+                            <input type="hidden" name="ticketType" value="${item.key}">
+                            <input type="hidden" name="parkID" value="${param.parkID}">
+                            <input type="hidden" name="transactionCode" value="${param.transactionCode}">
+                            <button type="submit">Xóa</button>
+                        </form>
+                    </li>
+                    <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
                 </c:forEach>         
                 <c:if test="${empty sessionScope.cart}">
                     <p class="empty-cart-message">Giỏ hàng trống</p>
@@ -134,7 +135,12 @@
             </ul>
             <c:if test="${not empty sessionScope.cart}">
                 <c:if test="${empty param.transactionCode}">
-                    <a href="../payment/payment_vnPay.jsp?price=${totalPrice}&orderID=${param.orderID}" class="payment-link">Thanh Toán</a>  
+                    <form action="../PaymentServlet" method="post">
+                        <input type="date" id="experationDate" name="experationDate" required="">
+                        <input type="hidden" name="totalPrice" value="${totalPrice}">
+                        <input type="hidden" name="orderID" value="${param.orderID}">
+                        <button type="submit" class="payment-link">Thanh Toán</button>
+                    </form>  
                 </c:if>
                 <c:if test="${not empty param.transactionCode}">
                     <form action="../ConfirmChangeTicketServlet" method="get">

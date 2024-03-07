@@ -4,28 +4,21 @@
  */
 package Controller;
 
-import ModelDAO.SendEmail;
-import ModelDAO.UserDAO;
-import static Controller.SendEmailServlet.emailToExpirationTime;
-import static Controller.SendEmailServlet.emailToOTP;
-import Model.User;
+import ModelDAO.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Nguyen Nhu Loc
+ * @author admin
  */
-public class SignUpServlet extends HttpServlet {
+public class AcceptVerificationOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +37,10 @@ public class SignUpServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SignUpServlet</title>");
+            out.println("<title>Servlet AcceptVerificationOrderServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SignUpServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AcceptVerificationOrderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,65 +72,13 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("password");
-        String repass = request.getParameter("repassword");
+        String orderID = request.getParameter("orderID");
         try {
-            UserDAO am = new UserDAO();
-            User a = am.getUserByEmail(email);
-            System.out.println(a);
-            if (checkUserExists(email)) {
-                if (a != null) {
-                    response.sendRedirect("error.jsp");
-
-                } else if (!am.checkPassword(pass)) {
-                    response.sendRedirect("test.jsp");
-                } else {
-                    String encodePass = am.toSHA256(pass);
-                    String otp = generateOTP();
-                    saveOTP(email, otp);
-                    SendEmail sendEmail = new SendEmail();
-                    sendEmail.sendOTP(email, otp);
-
-                    HttpSession session = request.getSession();
-                    LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(2);
-                    session.setAttribute("otpExpirationTime", expirationTime);
-
-                    // Lưu mã OTP và thời điểm hết hạn vào Map
-                    emailToOTP.put(email, otp);
-                    emailToExpirationTime.put(email, expirationTime);
-
-                    session.setAttribute("otp", otp);
-                    if (pass.equals(repass)) {
-
-                        response.sendRedirect("verifySignUp.jsp?email=" + email + "&password=" + encodePass);
-                    } else {
-                        response.sendRedirect("login.jsp");
-                    }
-                }
-
-            } else {
-                response.sendRedirect("error.jsp");
-            }
+            OrderDAO orderDAO = new OrderDAO();
+        orderDAO.updateOrderStatusByOrderID(2, orderID);
         } catch (Exception ex) {
-            Logger.getLogger(SendEmailServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcceptVerificationOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }
-
-    private boolean checkUserExists(String email) {
-        return true;
-    }
-
-    private void saveOTP(String email, String otp) {
-
-        emailToOTP.put(email, otp);
-
-    }
-
-    private String generateOTP() {
-        Random random = new Random();
-        return String.format("%04d", random.nextInt(10000));
     }
 
     /**
@@ -148,6 +89,6 @@ public class SignUpServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold> 
 
 }

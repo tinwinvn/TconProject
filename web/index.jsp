@@ -84,7 +84,7 @@
                                 },
                                 768: {
                                     items: 2,
-                                    margin: 10,
+                                    margin: 10
                                 },
                                 1000: {
                                     items: 3
@@ -168,13 +168,13 @@
                     },
                     768: {
                         items: 2,
-                        margin: 10,
+                        margin: 10
                     },
                     1000: {
                         items: 3
                     }
                 }
-            })
+            });
         </script>
     </body>
 

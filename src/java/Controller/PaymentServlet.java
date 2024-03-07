@@ -4,22 +4,8 @@
  */
 package Controller;
 
-import Model.Order;
-import Model.OrderDetail;
-import Model.TicketType;
-import ModelDAO.OrderDAO;
-import ModelDAO.OrderDetailDAO;
-import Validation.GenerateID;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author admin
  */
-public class AddToCartServlet extends HttpServlet {
+public class PaymentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,49 +35,48 @@ public class AddToCartServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddToCartServlet</title>");
+            out.println("<title>Servlet PaymentServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddToCartServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PaymentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
-        String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
-        String parkID = request.getParameter("parkID");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        HttpSession session = request.getSession();
-        OrderDetail odt = new OrderDetail();   
-        Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        
-        if (cart == null) {
-            cart = new HashMap<>();
-        }
-        
-        if (cart.containsKey(ticketTypeID)) {
-            odt = cart.get(ticketTypeID);
-            int oldQuantity = odt.getQuantity();
-            odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);       
-        } else {
-            odt.setQuantity(quantity);
-            cart.put(ticketTypeID, odt);
-        }
-
-        session.setAttribute("cart", cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
-
+        processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String experationDate = request.getParameter("experationDate");
+        String totalPrice = request.getParameter("totalPrice");
+        String orderID = request.getParameter("orderID");
+        System.out.println(experationDate);
+        HttpSession session = request.getSession();
+        session.setAttribute("experationDate", experationDate);
+        response.sendRedirect("payment/payment_vnPay.jsp?price="+totalPrice+"&orderID="+orderID);
     }
 
     /**

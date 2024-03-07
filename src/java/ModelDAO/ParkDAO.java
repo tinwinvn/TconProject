@@ -32,13 +32,11 @@ public class ParkDAO {
         Connection conn;
         try {
             conn = db.getConnection();
-            System.out.println(conn);
             PreparedStatement st;
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Park pk = mapResultSetToPark(rs);
-                System.out.println(pk.getImage());
                 list.add(pk);
             }
         } catch (SQLException e) {

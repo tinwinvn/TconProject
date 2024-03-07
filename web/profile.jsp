@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="./css/profile.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Profile</title>
     </head>
     <body>
@@ -27,20 +28,75 @@
                                 <div class="account-settings">
                                         <div class="user-profile">
                                                  <div class="user-avatar">
-                                                    <img src="../images/avatar.jpg">
+                                                    <img src="images/avatar.jpg">
+                                                    <div class="round">
+                                                        <i class = "fa fa-camera" style = "color: #000;"></i>
+                                                      </div>
                                                 </div>
-                                                <!-- <form action="UpdateAvatarServlet" id="frmUploadPhoto" enctype="multipart/form-data" method="post">
-                                                    <i class="material-icons">&#xe439;</i>
-                                                    <input class="input-cover-photo" type="file" id="userCoverPhoto" name="userCoverPhoto"/>
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </form>
-                                                -->
+                                                <!-- Popup Form -->
+                                                <div id="popupForm" class="popup-form">
+                                                    <form id="uploadForm" class="form-container">
+                                                        <input type="file" name="file" id="fileInput">
+                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                        <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+                                                    </form>
+                                                </div>
+                                                
                                                 <h5 class="user-name">${i.fullName}</h5>
                                                 <h6 class="user-email">${i.email}</h6>                  
                                         </div>
                                 </div>
                         </div>
                 </div>
+                                        <style>
+                                            .user-avatar {
+                                                position: relative;
+                                                margin: auto;
+                                            }
+                                            .user-avatar .round{
+                                              position: absolute;
+                                              bottom: 0;
+                                              right: 0;
+                                              background: #cccccc;
+                                              width: 32px;
+                                              height: 32px;
+                                              line-height: 33px;
+                                              text-align: center;
+                                              border-radius: 50%;
+                                              overflow: hidden;
+                                              margin-right: 60px; 
+                                            }
+                                            .popup-form {
+                                                display: none;
+                                                position: fixed;
+                                                top: 50%;
+                                                left: 50%;
+                                                transform: translate(-50%, -50%);
+                                                background-color: #fff;
+                                                padding: 20px;
+                                                border: 1px solid #ccc;
+                                                z-index: 999;
+                                            }
+
+                                            .form-container {
+                                                width: 300px;
+                                            }
+
+                                        </style>
+                                        <script>
+                                            // Function to show the popup form
+                                                function showPopup() {
+                                                    document.getElementById('popupForm').style.display = 'block';
+                                                }
+
+                                                // Function to close the popup form
+                                                function closePopup() {
+                                                    document.getElementById('popupForm').style.display = 'none';
+                                                }
+
+                                                // Event listener to show the popup form when the camera icon is clicked
+                                                document.querySelector('.round').addEventListener('click', showPopup);
+                                        </script>
             </c:if>
         </c:forEach>
         </div>
@@ -80,45 +136,13 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
                                             <button type="submit" class="btn btn-primary">Update</button>
+                                            <button type="submit" class="btn btn-secondary"><a href="changepassword.jsp">Change Password</a></button>
                                         </div>
                                 </div>
                         </div>
                         
                     </form>
-                    <form action="ChangePasswordServlet" method="post">
-                        <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <h6 class="mt-3 mb-2 text-primary">Change your password</h6>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                                <label for="oldPass">Old password</label>
-                                                <input name="oldpassword" type="password" class="form-control" id="oldPass" placeholder="Enter old password">
-                                        </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                                <label for="newPass">New password</label>
-                                                <input name="newpassword" type="password" class="form-control" id="newPass" placeholder="Enter new password">
-                                        </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                        <div class="form-group">
-                                                <label for="newPassagain">New password again</label>
-                                                <input name="confirmpassword" type="password" class="form-control" id="newPassagain" placeholder="Enter new password again">
-                                        </div>
-                                </div>
-                                <input name="userId" type="hidden" value="${param.userId}">
-                        </div>
-                        <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <div class="text-right">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                        </div>
-                                </div>
-                        </div>
-                        
-                </form>
+                    
                         
                 </div>
         </div>
