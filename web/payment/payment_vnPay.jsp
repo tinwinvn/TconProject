@@ -17,11 +17,11 @@
    
 
     <body>
-        <jsp:include page="../nav.jsp"></jsp:include>
+        
+<jsp:include page="../nav.jsp"></jsp:include>
 
-
-          <div class="card-body" style="border: 2px solid; padding: 2%; border-radius: 10px; border-color: lightgray; width: 30vw; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                <div class="" style="text-align: center">
+          <div class="card-body" style="border: 2px solid; padding: 2%; border-radius: 10px; border-color: lightgray; width: 30%; margin-left: 35%; margin-top: 7% ">
+                <div class="" style="text-align: center;">
 
                     <h3 class="text-muted" style="color: black">VNPAY</h3>
                 </div>
@@ -52,35 +52,13 @@
         </script>
 
 
+        
+        <footer style="background-color: white; height: 30%">
+            <jsp:include page="../footer.jsp"></jsp:include>
+        </footer>
     </body>
 
 
-
-
-
-
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    .footer {
-        text-align: center;
-        margin-top: 20px;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-    }
-</style>
 
     
     

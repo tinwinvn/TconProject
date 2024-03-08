@@ -14,10 +14,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
         <title>Profile</title>
     </head>
     <body>
-        <div class="container">
+        <jsp:include page="nav.jsp"></jsp:include>
+        <div class="container" style="margin-top: 5%;">
         <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <jsp:useBean id="userAlg" class="ModelDAO.UserDAO"></jsp:useBean>
@@ -100,7 +103,7 @@
             </c:if>
         </c:forEach>
         </div>
-        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="col-xl-1 col-lg-1" style="margin-left:20% ">
         <div class="card h-100">
                 <div class="card-body">
                     <form action="ProfileUpdateServlet" method="post"> 
@@ -108,7 +111,7 @@
                             <c:if test="${i.userID == param.userId}">
                                 <div class="row gutters">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                                                <h6 class="mb-2 text-primary" style="color: #EE2E24 !important">Personal Details</h6>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
@@ -135,8 +138,8 @@
                         <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
-                                            <button type="submit" class="btn btn-primary">Update</button>
-                                            <button type="submit" class="btn btn-secondary"><a href="changepassword.jsp">Change Password</a></button>
+                                            <button type="submit" class="btn btn-primary" style="background-color: #EE2E24">Update</button>
+                                            <button type="submit" class="btn btn-secondary" style="background-color: white;"><a href="changepassword.jsp" style="color: #EE2E24">Change Password</a></button>
                                         </div>
                                 </div>
                         </div>
@@ -150,5 +153,7 @@
         </div>
 </div>
 
+        <jsp:include page="footer.jsp"></jsp:include>
     </body>
+   
 </html>
