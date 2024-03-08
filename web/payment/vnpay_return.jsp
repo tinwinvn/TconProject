@@ -100,6 +100,10 @@
                             }
                         %></label>
                 </div> 
+                <div class="form-group">
+                    <label >Test</label>
+                    <label></label>
+                </div> 
 
             </div>
                 <div>
@@ -107,15 +111,23 @@
                     <jsp:useBean id="orderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
                     <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
                     <jsp:useBean id="generate" class="Validation.GenerateID"></jsp:useBean>
-                    <c:set var="entity" value="OR"></c:set>
-                    <c:set var="orderID" value="${generate.generateID(entity)}"></c:set>
-                    <c:set var="transactionCode" value="${param.vnp_TxnRef}"></c:set>
-                    ${orderDAO.addNewOrder(orderID, sessionScope.acc.userID, null, param.vnp_PayDate, true)}
-                    ${tDAO.addNewTransaction(orderID, param.vnp_PayDate, param.vnp_TxnRef, 1)}
-                    <c:forEach var="cart" items="${sessionScope.cart}">
-                        ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
-                    </c:forEach>
+                    <jsp:useBean id="ticketDAO" class="ModelDAO.TicketDAO"></jsp:useBean>
+                    <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
+                        <c:set var="entity" value="OR"></c:set>
+                        <c:set var="expirationDate" value="${sessionScope.experationDate}"></c:set>
+                        <c:set var="orderID" value="${generate.generateID(entity)}"></c:set>
+                        <c:set var="transactionCode" value="${param.vnp_TxnRef}"></c:set>
+                        ${orderDAO.addNewOrder(orderID, sessionScope.acc.userID, null, param.vnp_PayDate, expirationDate, 1)}
+                        ${tDAO.addNewTransaction(orderID, param.vnp_PayDate, param.vnp_TxnRef, 1)}          
+                        <c:forEach var="cart" items="${sessionScope.cart}">
+                            ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
+                            <c:forEach var="i" begin="1" end="${cart.value.quantity}">
+                                ${ticketDAO.addNewTicket(cart.key, orderID)}
+                                ${userDAO.UpdatePointByUserID(sessionScope.acc.userID)}
+                            </c:forEach>
+                        </c:forEach>
                     <a href="../index.jsp" class="btn btn-primary">Back to Home</a>
+                    
                 </div>
             <p>
                 &nbsp;
@@ -125,4 +137,6 @@
             </footer>
         </div>  
     </body>
+    
+   
 </html>

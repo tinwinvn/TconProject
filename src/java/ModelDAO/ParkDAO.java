@@ -32,13 +32,11 @@ public class ParkDAO {
         Connection conn;
         try {
             conn = db.getConnection();
-            System.out.println(conn);
             PreparedStatement st;
             st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Park pk = mapResultSetToPark(rs);
-                System.out.println(pk.getImage());
                 list.add(pk);
             }
         } catch (SQLException e) {
@@ -70,6 +68,29 @@ public class ParkDAO {
             db.close(conn, statement, rs);
         }
         return park.getUserID();
+    }
+    
+    public String getParkNameByParkID(String parkID) throws SQLException{
+        String sql = "select * from Park where ParkID = ?";
+        Park park = new Park();
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, parkID);
+            rs = statement.executeQuery();
+                if (rs.next()) {
+                    park = mapResultSetToPark(rs);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return park.getParkName();
     }
     
      private Park mapResultSetToPark(ResultSet resultSet) throws SQLException {

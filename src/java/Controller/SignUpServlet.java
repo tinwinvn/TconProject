@@ -97,7 +97,7 @@ public class SignUpServlet extends HttpServlet {
                     String otp = generateOTP();
                     saveOTP(email, otp);
                     SendEmail sendEmail = new SendEmail();
-                    sendEmail.send(email, otp);
+                    sendEmail.sendOTP(email, otp);
 
                     HttpSession session = request.getSession();
                     LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(2);

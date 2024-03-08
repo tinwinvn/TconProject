@@ -31,7 +31,16 @@ public class LogOutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
-        session.removeAttribute("cart");
+        session.removeAttribute("cart");       
+        Cookie arr[] = request.getCookies();
+        if (arr != null) {
+                for (Cookie o : arr) {
+                    if (o.getName().equals("statusC")) {
+                        o.setValue("logout");
+                        response.addCookie(o);
+                    }
+                }
+            }
         response.sendRedirect("index.jsp");
     }
 

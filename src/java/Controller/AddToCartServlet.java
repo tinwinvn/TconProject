@@ -64,9 +64,7 @@ public class AddToCartServlet extends HttpServlet {
         String transactionCode = request.getParameter("transactionCode");
         String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
         String parkID = request.getParameter("parkID");
-        String orderID = request.getParameter("orderID");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int price = Integer.parseInt(request.getParameter("price"));
         HttpSession session = request.getSession();
         OrderDetail odt = new OrderDetail();   
         Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
@@ -86,6 +84,7 @@ public class AddToCartServlet extends HttpServlet {
         }
 
         session.setAttribute("cart", cart);
+        request.setAttribute("notification", "Add to Cart Successfully!");
         response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
 
     }

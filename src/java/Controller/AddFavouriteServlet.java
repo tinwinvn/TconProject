@@ -4,9 +4,12 @@
  */
 package Controller;
 
+import Model.AddFavourite;
 import ModelDAO.AddFavouriteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.servlet.ServletException;
@@ -55,6 +58,9 @@ public class AddFavouriteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+
         String userID = request.getParameter("userID");
         String favouriteItems = request.getParameter("favouriteItems");
 
@@ -62,19 +68,30 @@ public class AddFavouriteServlet extends HttpServlet {
         try {
             AddFavouriteDAO addFavouriteDAO = new AddFavouriteDAO();
 
-            // Gọi phương thức addNewFavourite để thêm vào cơ sở dữ liệu
-            addFavouriteDAO.addNewFavourite(userID, favouriteItems);
+            // Lấy danh sách các mục yêu thích từ cơ sở dữ liệu
+            List<AddFavourite> af = addFavouriteDAO.getAllAddFavourite();
+            boolean isExist = false;
+            // Kiểm tra xem mục yêu thích đã tồn tại trong danh sách hay chưa
+            for (AddFavourite item : af) {
+                if (item.getUserID().equals(userID) && item.getFavouriteItems().equals(favouriteItems)) {
+                    isExist = true;
+                    break;
+                }
+            }
+            if (isExist) {
+                out.println("fail");
+            } else {
+                // Nếu mục yêu thích chưa tồn tại, thêm vào cơ sở dữ liệu và gửi "sus" về cho client
+                addFavouriteDAO.addNewFavourite(userID, favouriteItems);
+                out.println("sus");
+            }
             response.setStatus(200);
         } catch (Exception ex) {
-            Logger.getLogger(AddFavouriteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            // Xử lý lỗi
+            response.setStatus(500);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -4,8 +4,10 @@
  */
 package Controller;
 
+import Model.Order;
 import Model.OrderDetail;
 import ModelDAO.NotificationDAO;
+import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.ParkDAO;
 import ModelDAO.TicketTypeDAO;
@@ -62,22 +64,26 @@ public class TicketRefundServlet extends HttpServlet {
             throws ServletException, IOException {
         String transactionCode = request.getParameter("transactionCode");
         String senderID = request.getParameter("senderID");
-        System.out.println(senderID);
-        System.out.println(transactionCode);
         try{
             NotificationDAO notificationDAO = new NotificationDAO();
             TransactionDAO transactionDAO= new TransactionDAO();
             TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
             ParkDAO parkDAO = new ParkDAO();
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+            OrderDAO orderDAO = new OrderDAO();      
             Date currentDate = new Date(System.currentTimeMillis());
             String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
+            Order order = orderDAO.getOrderbyOrderID(orderID);
             OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
             String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
             String userID = parkDAO.getUserIDByParkID(parkID);
+            if (order.getOrderStatus() == 1){
+                notificationDAO.addNewNotification(senderID, userID, "Yêu cầu hoàn trả vé",transactionCode, currentDate);
+                response.sendRedirect("payment/payment_history.jsp?userID=" + senderID);
+            } else if (order.getOrderStatus() == 2){
+                response.sendRedirect("payment/payment_history.jsp?userID=" + senderID);
+            }
             
-            notificationDAO.addNewNotification(senderID, userID, "Refund request transaction:",transactionCode, currentDate);
-            response.sendRedirect("booking/refund.jsp");
         } catch (Exception ex){
             
         }

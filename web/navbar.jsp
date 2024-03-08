@@ -13,9 +13,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
+    
     <body>
         <nav>
-            <div class="nav__logo"><a href="#">Travel.co</a></div>
+            <div class="nav__logo"><a href="#">TCON</a></div>
             <ul class="nav__links">
                 <li class="link">Home</li>
                 <li class="link">Blog</li>
@@ -25,16 +26,19 @@
                     <c:if test="${sessionScope.acc != null}">
                     <li>
                         <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn">HELLO<span class="caret"></span></button>
+                            <button onclick="myFunction()" class="dropbtn" style="color: #EE2E24">HELLO<span class="caret"></span></button>
                             <div id="myDropdown" class="dropdown-content">
-                                <a href="LogOutServlet">LOG OUT</a>
-                                <a href="profile.jsp?userId=${sessionScope.acc.userID}">PROFILE</a>
+                                <a href="LogOutServlet" style="color: white">LOG OUT</a>
+                                <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: white">PROFILE</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="admin/admin.html?userId=${sessionScope.acc.userID}">USERS MANAGER</a>
+                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: white">USERS MANAGER</a>
                                 </c:if>
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
                                     <a href="booking/notification_list.jsp">Thông báo</a>
+                                <c:if test="${sessionScope.acc.role == 1}">
+                                    <a href="listuser.jsp">USERS LIST</a>
+                                </c:if>
                             </div>
                         </div>
                     </li>
@@ -44,12 +48,13 @@
                 <c:if test="${sessionScope.acc == null}">
                     <li> 
 
-                        <form action="login.jsp">
-                            <button class="dropbtn" type="submit">Đăng nhập</button> 
+                        <form action="LoginServlet" method="get">
+                            <button class="dropbtn" type="submit" style="color: #EE2E24">Đăng nhập</button> 
                         </form>
                     </li>
                 </c:if>
             </ul>
+            
         </nav>  
         <script>
             /* When the user clicks on the button, 

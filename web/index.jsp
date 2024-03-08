@@ -6,7 +6,10 @@
 
     <head>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,64 +18,60 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tcon</title>
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
               referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-
+        <link rel="stylesheet" type="text/css" href="css_god/index.css"/>
+        <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
+        <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
     </head>
+
     <body>
+        <div class="bg-red" style="height: 5vh; background-color: #EE2E24"></div>
+        <div class="bg-red" style="height: 5vh; background-color: white"></div>
         <jsp:include page="navbar.jsp"></jsp:include>
             <header>
                 <div class="section__container">
                     <div class="header__content">
-                        <h1>Travel</h1>
+                        <h1 style>Tcon</h1>
                         <p>
-                            xin chào mọi người
+                            Chào mừng đến với Tcon! 
+                            Tại đây, chúng tôi tự hào mang đến cho bạn những khu vui chơi trải dài khắp địa bàn thành phố Đà Nẵng. 
+                            Với một loạt các dịch vụ và nội dung đa dạng, chúng tôi sẽ mang lại cho bạn những trải nghiệm độc đáo và đáng nhớ.
                         </p>
-                        <button>Read more</button>
+                      
                     </div>
                 </div>
             </header>
 
 
 
-        <body>
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
-
-            <section class="rooms">
+            <div class="rooms" style="margin-top: 3vh">
                 <div class="container top">
                     <div class="heading">
-                        <h1>Khám phá</h1>
+                        <h1 style="color: #EE2E24">Khám phá</h1>
                         <h2>Các địa điểm</h2>
-                        <p>Mỗi địa điểm đều đem lại cảm giác và trải nghiệm khác nhau, hãy chọn lựa cho mình một nơi để gửi gắm.</p>
                     </div>
 
-                    <div class="container top">
+                    <div class="container top" style="">
                         <div class="content mtop">
                             <div class="owl-carousel owl-carousel1 owl-theme">
-                                <!-- Các thẻ items ở đây -->
+
                             </div>
                             <div class="carousel-navigation">
-                                <button class="prev-btn" onclick="prevSlide()">❮</button>
-                                <button class="next-btn" onclick="nextSlide()">❯</button>
+                                <button class="prev-btn" onclick="prevSlide()" style="background-color: #EE2E24">❮</button>
+                                <button class="next-btn" onclick="nextSlide()" style="background-color: #EE2E24">❯</button>
                             </div>
                         </div>
                     </div>
 
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"
+                    referrerpolicy="no-referrer"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
+                    referrerpolicy="no-referrer"></script>
                     <script>
-                        function nextSlide() {
-                            $(".owl-carousel1").trigger("next.owl.carousel");
-                        }
-
-                        function prevSlide() {
-                            $(".owl-carousel1").trigger("prev.owl.carousel");
-                        }
-
                         $('.owl-carousel1').owlCarousel({
                             loop: true,
                             margin: 40,
@@ -84,7 +83,7 @@
                                 },
                                 768: {
                                     items: 2,
-                                    margin: 10,
+                                    margin: 10
                                 },
                                 1000: {
                                     items: 3
@@ -104,56 +103,59 @@
                                     <img src="${c.image}"/>
                                 </div>
                                 <div class="text">
-                                    <h2><c:out value="${c.parkName}" /></h2>
-                                    <p><c:out value="${c.address}" /></p>
+                                    <h2 style="color: #EE2E24"><c:out value="${c.parkName}" /></h2>
+                                    <p style="color: black"><c:out value="${c.address}" /></p>
                                     <div class="button flex">
-                                        <a href="details.jsp?id=${id}"><button class="primary-btn">Xem chi tiết</button></a>
+                                        <a href="details.jsp?id=${id}"><button class="primary-btn" style="background-color: #EE2E24">Xem chi tiết</button></a>
                                         <c:if test="${sessionScope.acc != null}">
                                             <form onsubmit="addToFavourites(event)">
                                                 <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
                                                 <input type="hidden" name="favouriteItems" value="${c.parkID}">
-                                                <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%">Yêu thích</button>
+                                                <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%; background-color: #EE2E24">Yêu thích</button>
                                             </form>
                                         </c:if>
+                                        <div class="rnb rvl">
+                                            
+                                            <c:set var="numList" value="${rDAO.allRating}" />
+                                            <c:set var="totalRating" value="${0}" />
+                                            <c:set var="size" value="${0}" />
+
+                                            <c:forEach var="num" items="${numList}">
+                                                <c:if test="${id == num.receiveID}">
+                                                    <c:set var="totalRating" value="${totalRating + num.ratingValue}" />
+                                                    <c:set var="size" value="${size + 1}" />
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <c:choose>
+                                                <c:when test="${size > 0}">
+                                                    <div class="valueRating">
+                                                        
+                                                        <h3 id="starRating">
+                                                            <fmt:formatNumber type="number" maxFractionDigits="1" value="${totalRating / size}"/>
+                                                        </h3>
+                                                        
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="valueRating">
+                                                        <h3>0</h3>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            
+                                        </div>
                                         <h3><span> <br>  </span> </h3>
+                                        
                                     </div>
+                                        
                                 </div>
                             </div>
-                        </c:forEach>
-
-
+                        </c:forEach>                 
                     </div>
                 </div>
             </div>
-        </section>
-
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
-        <script>
-            function addToFavourites(event) {
-                event.preventDefault();
-                var form = event.target;
-                var userID = form.userID.value;
-                var favouriteItems = form.favouriteItems.value;
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'AddFavouriteServlet', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                Swal.fire({
-                title: 'Add Success',
-                icon: 'success',
-                confirmButtonText: 'OK',
-                timer: 1500
-                });
-                setTimeout(function () {
-                }, 1500);
-                }
-            };
-            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
-        }
-        </script>                    
+        </div>
 
         <script>
             $('.owl-carousel1').owlCarousel({
@@ -168,162 +170,191 @@
                     },
                     768: {
                         items: 2,
-                        margin: 10,
+                        margin: 10
                     },
                     1000: {
                         items: 3
                     }
                 }
-            })
+            });
         </script>
+        
+         <footer  style="background-color: white">       
+             <div class="" style="height: 0.5vh; background-color: #EE2E24"></div>
+            <div class="" style="">
+                
+                <div class="container overflow-hidden" style="margin-top: 3%; height: 20vh">
+                    
+                    <div class="row gy-4 gy-md-0" >
+                        <div class="col-xs-12 col-md-7 order-1 order-md-0">
+                            <div class="copyright text-center text-md-start">
+                                <h4 style="color: #EE2E24">Tcon</h4>
+                            </div>
+                            <div class="credits text-secondary text-center text-md-start mt-2 fs-7">
+                                <h2>Kính chào quý khách!</h2>
+                            </div>               
+                        </div>
+                        
+                    
+              
+                        <div class="col-xs-12 col-md-5 order-1 order-md-1" style="">
+                            <ul class="nav justify-content-center justify-content-md-end" style=" margin-top: 5%">
+                                <li class="nav-item">
+                                    <a class="nav-link link-dark" href="#!">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link link-dark" href="#!">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                                        <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link link-dark" href="#!">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                                        <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link link-dark" href="#!">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            
+                        </div>
+                        
+                    </div>
+                        
+                </div>
+                
+         </footer>
     </body>
-
-
-
-
-    
-    <jsp:include page="footer.jsp"></jsp:include>
-</body>
 </html>
 
 
 
-
-<style>
-
-    .heading h1 {
-        font-size: 36px;
-        color: #333;
-
+<script>
+    function nextSlide() {
+        $(".owl-carousel1").trigger("next.owl.carousel");
     }
 
-
-    .owl-carousel1 .items {
-        background: #f8f8f8;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
+    function prevSlide() {
+        $(".owl-carousel1").trigger("prev.owl.carousel");
     }
 
-    .owl-carousel1 .items:hover {
-        transform: scale(1.05);
+    $('.owl-carousel1').owlCarousel({
+        loop: true,
+        margin: 40,
+        nav: false,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2,
+                margin: 10,
+            },
+            1000: {
+                items: 3
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
+<script>
+    function addToFavourites(event) {
+        event.preventDefault();
+        var form = event.target;
+        var userID = form.userID.value;
+        var favouriteItems = form.favouriteItems.value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'AddFavouriteServlet', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                Swal.fire({
+                    title: 'Add Success',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 1500
+                });
+                setTimeout(function () {
+                }, 1500);
+            }
+        };
+        xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
     }
+</script>                    
+<script>
+    $('.owl-carousel1').owlCarousel({
+        loop: true,
+        margin: 40,
+        nav: true,
+        dots: false,
+        navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2,
+                margin: 10,
+            },
+            1000: {
+                items: 3
+            }
+        }
+    })
+</script>
 
-    .owl-carousel1 .items .image img {
-        width: 100%;
-        height: auto;
-        border-bottom: 1px solid #ddd;
-    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    .owl-carousel1 .items .text {
-        padding: 20px;
-    }
+                        <script>
+                        function addToFavourites(event) {
+                            event.preventDefault();
+                            var form = event.target;
+                            var userID = form.userID.value;
+                            var favouriteItems = form.favouriteItems.value;
+                            var a; // Khai báo biến a để lưu trạng thái
 
-    .owl-carousel1 .items h2 {
-        font-size: 24px;
-        color: #333;
-        margin-bottom: 10px;
-    }
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', 'AddFavouriteServlet', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4) {
+                                    if (xhr.status === 200) {
+                                        if (xhr.responseText.trim() === "sus") {
+                                            a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
+                                            Swal.fire({
+                                                title: 'Add Success',
+                                                icon: 'success',
+                                                confirmButtonText: 'OK',
+                                                timer: 1500
+                                            });
+                                        } else {
+                                            a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
+                                            Swal.fire({
+                                                title: 'Đã có trong danh sách yêu thích',
+                                                icon: 'error',
+                                                confirmButtonText: 'OK'
+                                            });
+                                        }
+                                    }
+                                }
+                            };
+                            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+                        }
 
-    .owl-carousel1 .items .rate {
-        color: #f39c12;
-        margin-bottom: 10px;
-    }
-
-    .owl-carousel1 .items p {
-        font-size: 90%;
-        color: #777;
-        margin-bottom: 10px;
-    }
-
-    .owl-carousel1 .items .button {
-        margin-top: 10px;
-    }
-
-    .owl-carousel1 .items .button .primary-btn {
-        background-color: #3498db;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .owl-carousel1 .items .button .primary-btn:hover {
-        background-color: #2c3e50;
-    }
-</style>
-
-
-<style>
-    .heading {
-        text-align: center;
-        padding: 40px 20px;
-        background-color: #f8f8f8;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .heading h1 {
-        font-size: 42px;
-        color: rgba(51, 51, 51, 0.5);
-        margin-bottom: 10px;
-    }
-
-    .heading h2 {
-        position: relative;
-        font-size: 28px;
-        color: #555;
-        margin-bottom: 20px;
-    }
-
-    .heading h2::before {
-        content: '';
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 100%;
-        background: rgba(51, 51, 51, 0.2);
-        z-index: -1;
-    }
-
-    .heading p {
-        font-size: 18px;
-        color: #777;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-</style>
-
-
-<style>
-    .carousel-navigation {
-        text-align: right;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-right:  10px;
-    }
-
-    .prev-btn,
-    .next-btn {
-        font-size: 18px;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    .prev-btn:hover,
-    .next-btn:hover {
-        background-color: #2c3e50;
-    }
-
-</style>
-
-
+                        </script>  

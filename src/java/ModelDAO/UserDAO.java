@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -223,7 +224,6 @@ public class UserDAO {
         System.out.println(password);
         GenerateID gen = new GenerateID();
         String id = gen.generateID("US");
-        System.out.println(id);
         Connection conn;
         try {
 
@@ -240,6 +240,34 @@ public class UserDAO {
         } catch (SQLException e) {
         }
     }
+    
+        public void UpdatePointByUserID( String userID) throws Exception {
+        String query = "update Users set Point = ? where UserID = ?";
+        Connection conn;
+        User user = getUserById(userID);
+        int point = user.getPoint();
+        int newPoint = ++point;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, newPoint);
+                statement.setString(2, userID);
+                statement.execute();
+            }            
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
+    public User getUserByToken(String token) throws Exception{
+        User u = null;
+        for (User user : getAllUser()){
+            if (getToken(user.getUserID(), user.getRole()).equals(token)){
+                u = user;
+            }
+        }
+        return u;
+    }
 
     private User mapResultSetToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -251,6 +279,7 @@ public class UserDAO {
         user.setPhone(resultSet.getString("Phone"));
         user.setDob(resultSet.getDate("Dob"));
         user.setImage(resultSet.getString("Image"));
+        user.setPoint(resultSet.getInt("Point"));
         user.setIsActive(resultSet.getBoolean("isActive"));
         return user;
     }
@@ -275,6 +304,132 @@ public class UserDAO {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public String toSHA256token(String token){
+        try {
+            // Create SHA-1 message digest
+            MessageDigest sha1Digest = MessageDigest.getInstance("SHA-256");
+            byte[] sha256Hash = sha1Digest.digest(token.getBytes());
+
+            // Encode SHA-1 hash with Base64
+            String base64Encoded = Base64.getEncoder().encodeToString(sha256Hash);
+
+            return base64Encoded;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public String getToken(String userID, int role){
+        String roleS = String.valueOf(role);
+        String token = userID + roleS;
+        String encodeToken = toSHA256token(token);
+        return encodeToken;
+    }   
+   
+    public void uploadAvatar(String userId, String avatarPath) throws Exception{
+        String sql = "UPDATE Users SET [Image] = ? WHERE [UserID] = ?;";
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, avatarPath);
+            pstmt.setString(2, userId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+    
+    public List<User> searchUsers(String txtSearch) throws Exception{
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE FullName LIKE ? OR Email LIKE ?;";
+        try{
+            Connection con = db.getConnection();
+            ResultSet rs = null;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1,"%" + txtSearch + "%");
+            pstmt.setString(2,"%" + txtSearch + "%");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {                
+                list.add(new User(rs.getString(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getInt(9),
+                        rs.getBoolean(10)));
+            }
+        }catch (SQLException e) {
+            throw e;
+        }
+        return list;
+    }
+    
+    public List<User> sortByName() throws SQLException{
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM Users ORDER BY FullName";
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User u = mapResultSetToUser(rs);
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return userList;
+    }
+    
+    public List<User> sortByNameDecs() throws SQLException{
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM Users ORDER BY FullName DESC";
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User u = mapResultSetToUser(rs);
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return userList;
+    }
+    
+    public void banUser(String userID, boolean isActive) throws SQLException{
+        String sql = "UPDATE Users SET isActive = ? WHERE UserID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setBoolean(1, isActive);
+            statement.setString(2, userID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
         }
     }
 }
