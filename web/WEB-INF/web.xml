@@ -128,6 +128,10 @@
         <servlet-name>SortUserServlet</servlet-name>
         <servlet-class>Controller.SortUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChartServlet</servlet-name>
+        <servlet-class>Controller.ChartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -255,6 +259,10 @@
     <servlet-mapping>
         <servlet-name>SortUserServlet</servlet-name>
         <url-pattern>/SortUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChartServlet</servlet-name>
+        <url-pattern>/ChartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

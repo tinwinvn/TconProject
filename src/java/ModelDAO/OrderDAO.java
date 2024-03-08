@@ -5,6 +5,7 @@
 package ModelDAO;
 
 import DAO.ConnectDB;
+import Model.Chart;
 import Model.Order;
 import Validation.GenerateID;
 import Validation.GenerateQR;
@@ -108,6 +109,34 @@ public class OrderDAO {
         return o;
     }
     
+    public List<Chart> MixOrderWTicket() throws SQLException, UnsupportedEncodingException{
+        List<Chart> ch = new ArrayList<>();
+        String query = "SELECT OrderDetail.Quantity, TicketType.Price, Orders.OrderDate, Park.ParkName\n"
+                + "FROM Orders\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN TicketType ON OrderDetail.TicketTypeID = TicketType.TicketTypeID\n"
+                + "INNER JOIN Park ON TicketType.ParkID = Park.ParkID";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    ch.add(mapResultSetToChart(resultSet));
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return ch;
+    }
+    
     public void updateOrderStatusByOrderID(int orderStatus, String orderID){
         String query = "update Orders set OrderStatus = ? where OrderID = ?";
         Connection conn;
@@ -164,6 +193,15 @@ public class OrderDAO {
         order.setExperationDate(resultSet.getDate("ExperationDate"));
         order.setOrderStatus(resultSet.getInt("OrderStatus"));
         return order;
+    }
+    
+    private Chart mapResultSetToChart(ResultSet resultSet) throws SQLException {
+        Chart chart = new Chart();
+        chart.setQuantity(resultSet.getInt("Quantity"));
+        chart.setPrice(resultSet.getInt("Price"));
+        chart.setOrderDate(resultSet.getDate("OrderDate"));
+        chart.setParkName(resultSet.getString("ParkName"));
+        return chart;
     }
     
     public Timestamp toDate(String input){
