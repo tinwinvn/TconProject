@@ -119,7 +119,7 @@
     border: 0;
     outline: none;
     font-size: 1.2rem;
-    box-shadow: 0px 2px 2px #007BFF;
+    
     cursor: pointer;
 }
 
@@ -196,7 +196,7 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 100px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   
 
     z-index: 1;
 }
@@ -246,7 +246,7 @@
     max-width: 576px;
     width: 100%;
     border-radius: .75rem;
-    box-shadow: var(--shadow);
+   
     text-align: center;
     position: fixed;
     top: 50%;
@@ -336,7 +336,7 @@ textarea {
 
 .testimonial-box {
     width: 500px;
-    box-shadow: 2px 2px 30px #000;
+    
     background-color: #FFF;
     padding: 20px;
     margin: 15px;

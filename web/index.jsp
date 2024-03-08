@@ -25,11 +25,11 @@
         <link rel="stylesheet" type="text/css" href="css_god/index.css"/>
         <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
         <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
-    </head>
+        </head>
 
-    <body>
-        <div class="bg-red" style="height: 5vh; background-color: #EE2E24"></div>
-        <div class="bg-red" style="height: 5vh; background-color: white"></div>
+        <body>
+            <div class="bg-red" style="height: 5vh; background-color: #EE2E24"></div>
+            <div class="bg-red" style="height: 6vh; background-color: white"></div>
         <jsp:include page="navbar.jsp"></jsp:include>
             <header>
                 <div class="section__container">
@@ -40,7 +40,7 @@
                             Tại đây, chúng tôi tự hào mang đến cho bạn những khu vui chơi trải dài khắp địa bàn thành phố Đà Nẵng. 
                             Với một loạt các dịch vụ và nội dung đa dạng, chúng tôi sẽ mang lại cho bạn những trải nghiệm độc đáo và đáng nhớ.
                         </p>
-                      
+
                     </div>
                 </div>
             </header>
@@ -72,24 +72,24 @@
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
                     referrerpolicy="no-referrer"></script>
                     <script>
-                        $('.owl-carousel1').owlCarousel({
-                            loop: true,
-                            margin: 40,
-                            nav: false,
-                            dots: false,
-                            responsive: {
-                                0: {
-                                    items: 1
-                                },
-                                768: {
-                                    items: 2,
-                                    margin: 10
-                                },
-                                1000: {
-                                    items: 3
-                                }
-                            }
-                        })
+                                    $('.owl-carousel1').owlCarousel({
+                                        loop: true,
+                                        margin: 40,
+                                        nav: false,
+                                        dots: false,
+                                        responsive: {
+                                            0: {
+                                                items: 1
+                                            },
+                                            768: {
+                                                items: 2,
+                                                margin: 10
+                                            },
+                                            1000: {
+                                                items: 3
+                                            }
+                                        }
+                                    })
                     </script>
 
 
@@ -106,16 +106,22 @@
                                     <h2 style="color: #EE2E24"><c:out value="${c.parkName}" /></h2>
                                     <p style="color: black"><c:out value="${c.address}" /></p>
                                     <div class="button flex">
-                                        <a href="details.jsp?id=${id}"><button class="primary-btn" style="background-color: #EE2E24">Xem chi tiết</button></a>
-                                        <c:if test="${sessionScope.acc != null}">
-                                            <form onsubmit="addToFavourites(event)">
-                                                <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-                                                <input type="hidden" name="favouriteItems" value="${c.parkID}">
-                                                <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%; background-color: #EE2E24">Yêu thích</button>
-                                            </form>
-                                        </c:if>
+                                        <div style="display: flex; align-items: center;">
+                                            <a href="details.jsp?id=${id}" style="text-decoration: none;">
+                                                <button class="primary-btn" style="background-color: #EE2E24; ">Xem chi tiết</button>
+                                            </a>
+
+                                            <c:if test="${sessionScope.acc != null}">
+                                                <form onsubmit="addToFavourites(event)" style="margin-left: 30%">
+                                                    <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                                                    <input type="hidden" name="favouriteItems" value="${c.parkID}">
+                                                    <button type="submit" class="primary-btn" style="background-color: #EE2E24;">Yêu thích</button>
+                                                </form>
+                                            </c:if>
+                                        </div>
+
                                         <div class="rnb rvl">
-                                            
+
                                             <c:set var="numList" value="${rDAO.allRating}" />
                                             <c:set var="totalRating" value="${0}" />
                                             <c:set var="size" value="${0}" />
@@ -126,29 +132,31 @@
                                                     <c:set var="size" value="${size + 1}" />
                                                 </c:if>
                                             </c:forEach>
+                                            <div style="float: right; color: #ffcc00">
+                                                <c:choose>
 
-                                            <c:choose>
-                                                <c:when test="${size > 0}">
-                                                    <div class="valueRating">
-                                                        
-                                                        <h3 id="starRating">
-                                                            <fmt:formatNumber type="number" maxFractionDigits="1" value="${totalRating / size}"/>
-                                                        </h3>
-                                                        
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div class="valueRating">
-                                                        <h3>0</h3>
-                                                    </div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            
+                                                    <c:when test="${size > 0}">
+                                                        <div class="valueRating">
+
+                                                            <h3 id="starRating" >
+                                                                <fmt:formatNumber type="number" maxFractionDigits="1" value="${totalRating / size}"/>
+                                                            </h3>
+
+                                                        </div>
+                                                    </c:when>
+
+                                                    <c:otherwise>
+                                                        <div class="valueRating">
+                                                            <h3>0</h3>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                         </div>
                                         <h3><span> <br>  </span> </h3>
-                                        
+
                                     </div>
-                                        
+
                                 </div>
                             </div>
                         </c:forEach>                 
@@ -178,13 +186,13 @@
                 }
             });
         </script>
-        
-         <footer  style="background-color: white">       
-             <div class="" style="height: 0.5vh; background-color: #EE2E24"></div>
+
+        <footer  style="background-color: white">       
+            <div class="" style="height: 0.5vh; background-color: #EE2E24"></div>
             <div class="" style="">
-                
+
                 <div class="container overflow-hidden" style="margin-top: 3%; height: 20vh">
-                    
+
                     <div class="row gy-4 gy-md-0" >
                         <div class="col-xs-12 col-md-7 order-1 order-md-0">
                             <div class="copyright text-center text-md-start">
@@ -194,9 +202,9 @@
                                 <h2>Kính chào quý khách!</h2>
                             </div>               
                         </div>
-                        
-                    
-              
+
+
+
                         <div class="col-xs-12 col-md-5 order-1 order-md-1" style="">
                             <ul class="nav justify-content-center justify-content-md-end" style=" margin-top: 5%">
                                 <li class="nav-item">
@@ -227,16 +235,16 @@
                                         </svg>
                                     </a>
                                 </li>
-                                
+
                             </ul>
-                            
+
                         </div>
-                        
+
                     </div>
-                        
+
                 </div>
-                
-         </footer>
+
+        </footer>
     </body>
 </html>
 
@@ -319,42 +327,42 @@
     })
 </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                        <script>
-                        function addToFavourites(event) {
-                            event.preventDefault();
-                            var form = event.target;
-                            var userID = form.userID.value;
-                            var favouriteItems = form.favouriteItems.value;
-                            var a; // Khai báo biến a để lưu trạng thái
+<script>
+    function addToFavourites(event) {
+        event.preventDefault();
+        var form = event.target;
+        var userID = form.userID.value;
+        var favouriteItems = form.favouriteItems.value;
+        var a; // Khai báo biến a để lưu trạng thái
 
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'AddFavouriteServlet', true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState === 4) {
-                                    if (xhr.status === 200) {
-                                        if (xhr.responseText.trim() === "sus") {
-                                            a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
-                                            Swal.fire({
-                                                title: 'Add Success',
-                                                icon: 'success',
-                                                confirmButtonText: 'OK',
-                                                timer: 1500
-                                            });
-                                        } else {
-                                            a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
-                                            Swal.fire({
-                                                title: 'Đã có trong danh sách yêu thích',
-                                                icon: 'error',
-                                                confirmButtonText: 'OK'
-                                            });
-                                        }
-                                    }
-                                }
-                            };
-                            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
-                        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'AddFavouriteServlet', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    if (xhr.responseText.trim() === "sus") {
+                        a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
+                        Swal.fire({
+                            title: 'Add Success',
+                            icon: 'success',
+                            confirmButtonText: 'OK',
+                            timer: 1500
+                        });
+                    } else {
+                        a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
+                        Swal.fire({
+                            title: 'Đã có trong danh sách yêu thích',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                }
+            }
+        };
+        xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+    }
 
-                        </script>  
+</script>  

@@ -115,7 +115,7 @@
                                             <form onsubmit="addToFavourites(event)">
                                                 <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
                                                 <input type="hidden" name="favouriteItems" value="${c.gameID}">
-                                                <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%">Yêu thích</button>
+                                                <button type="submit" class="btn btn-primary" style="margin-top: 5px; font-size: 102%;background-color: #EE2E24; border-color: #EE2E24">Yêu thích</button>
                                             </form>
                                         </div>
 
@@ -226,7 +226,7 @@
                                 <c:if test="${sessionScope.acc != null}">
                                     <div class="pup-button">
                                         <p>Để lại cảm nhận của bạn tại đây!</p>
-                                        <button id="show-rating" style="background-color: #EE2E24; border-radius: 15%; width: 6vw">Đánh giá</button>
+                                        <button id="show-rating"  style="background-color: #EE2E24; border-radius: 15%; width: 6vw; border-bottom-color: #EE2E24">Đánh giá</button>
                                     </div>
                                     <div class="all-ratingform">
                                         <div class="rating-body" id="rating-form">

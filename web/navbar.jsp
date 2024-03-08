@@ -16,13 +16,13 @@
     
     <body>
         <nav>
-            <div class="nav__logo"><a href="#">TCON</a></div>
-            <ul class="nav__links">
-                <li class="link">Home</li>
-                <li class="link">Blog</li>
-                <li class="link">Offers</li>
-                <li class="link">Services</li>
-                <li class="link">Contacts</li>
+            <div class="nav__logo"><a href="#" style="color: #EE2E24">TCON</a></div>
+            <ul class="nav__links" style="margin-top: 1%">
+                <li class="link" style="color: #EE2E24">Home</li>
+                <li class="link" style="color: #EE2E24">Blog</li>
+                <li class="link" style="color: #EE2E24">Offers</li>
+                <li class="link" style="color: #EE2E24">Services</li>
+                <li class="link" style="color: #EE2E24">Contacts</li>
                     <c:if test="${sessionScope.acc != null}">
                     <li>
                         <div class="dropdown">
