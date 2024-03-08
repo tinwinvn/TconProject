@@ -21,17 +21,15 @@
         <jsp:useBean id="parkDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <c:set var="parkName" value="${parkDAO.getParkNameByParkID(param.parkID)}"></c:set>
                         <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
-                            <li><a href="#" class="text-red p-2">Home</a></li>
-                            <li><a href="#" class="text-red p-2">Movies</a></li>
-                            <li><a href="#" class="text-red p-2">Games</a></li>
+                            <li><a href="../index.jsp" class="text-red p-2">Trang Chủ</a></li>
+                            <li><a href="#" class="text-red p-2">Giới Thiệu</a></li>
+                            <li><a href="#" class="text-red p-2">Trải nghiệm</a></li>
                         </ul>
-                        <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
+            <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
                         <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                            <li><a href="#" class="text-red p-2">Home</a></li>
-                            <li><a href="#" class="text-red p-2">Movies</a></li>
-                            <li><a href="#" class="text-red p-2">Games</a></li>
-
-
+                            <li><a href="#" class="text-red p-2">Trò chơi</a></li>
+                            <li><a href="#" class="text-red p-2">Tin tức</a></li>
+                            <li><a href="#" class="text-red p-2">Bản Đồ</a></li>
                         </ul>
 
                     </nav>

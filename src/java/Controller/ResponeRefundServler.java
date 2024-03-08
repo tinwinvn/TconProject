@@ -6,6 +6,7 @@ package Controller;
 
 import ModelDAO.NotificationDAO;
 import ModelDAO.TransactionDAO;
+import ModelDAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -67,13 +68,14 @@ public class ResponeRefundServler extends HttpServlet {
         boolean isConfirm = true;
         System.out.println(notificationID);
         try {
+            UserDAO udao = new UserDAO();
              NotificationDAO notiDAO = new NotificationDAO();
              TransactionDAO tdao = new TransactionDAO();
             if (accept != null) {
                 String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
                 tdao.updateTransactionStatus(transactionID, 2);
                 notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is accepted \nPlease waiting for refund", currentDate);
-                
+                udao.UpdatePointByUserID(receiverID);
                 notiDAO.updateNotification(isConfirm, notificationID);
             } else if (denied != null){
                 String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);

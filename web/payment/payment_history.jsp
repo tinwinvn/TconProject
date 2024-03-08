@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Payment History</title>
+        <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
         <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -62,6 +63,28 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Màu nền với độ trong suốt */
+    }
+
+    /* Style cho popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #ccc;
+            z-index: 9999;
+        }
     </style>
     </head>
     <body>
@@ -69,15 +92,28 @@
         <jsp:useBean id="transactionDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
         <jsp:useBean id="ticketTypeDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="OrderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
-        <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>       
-            <h2>Payment History</h2>
+        <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>     
+        <jsp:include page="../nav.jsp"></jsp:include>
+            <h2>Lịch sử giao dịch</h2>
+            <button onclick="openPopup()">Hoàn vé</button>
+            <div id="overlay" class="overlay"></div>
+            <div id="popup" class="popup">
+                <form action="../TicketRefundServlet" method="POST">
+                    <label for="transactionCode">Nhập vào mã giao dịch của bạn:</label> <br>                
+                    <input type="text" id="transactionCode" name="transactionCode" required>
+                    <input type="hidden" name="senderID" value="${param.userID}">
+                    <br><br>
+                    <button type="submit">Refund</button>
+                    <button onclick="closePopup()">Close</button>
+                </form>
+            </div>
             <table border="1">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Transaction Code</th>
-                        <th>Order Detail</th>
-                        <th>Status</th>
+                        <th>Ngày</th>
+                        <th>Mã giao dịch</th>
+                        <th>Chi tiết</th>
+                        <th>Trạng Thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +122,7 @@
                         <c:if test="${order.userID == param.userID}">
                             <c:if test="${transaction.getOrderID() == order.orderID}">
                                 <tr>
-                                    <td>${transaction.getDate()}</td>
+                                    <td>${transaction.date}</td>
                                     <td>${transaction.getTransactionCode()}</td>
                                     <td>
                                         <ul>
@@ -97,8 +133,8 @@
                                                     <c:forEach var="tickettypeList" items="${ticketTypeDAO.allTicketType}">
                                                         <c:if test="${tickettypeList.ticketTypeID == orderdetail.ticketTypeID}">
                                                             <li>
-                                                                <p>Số lượng: ${orderdetail.quantity}</p>
                                                                 <p>Loại vé: ${tickettypeList.typeName}</p>
+                                                                <p>Số lượng: ${orderdetail.quantity}</p>                                                              
                                                                 <p>Giá: <fmt:formatNumber value="${tickettypeList.price}" type="number"></fmt:formatNumber> VNĐ</p>
                                                                 <c:set var="totalPrice" value="${totalPrice + orderdetail.quantity * tickettypeList.price}"></c:set>
                                                             </li>
@@ -106,7 +142,7 @@
                                                     </c:forEach>                                                                
                                                 </c:if>                                                 
                                             </c:forEach>
-                                            <p>Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber></p>                
+                                            <p>Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber> VNĐ</p>                
                                         </ul>
                                         
                                     </td>
@@ -115,7 +151,7 @@
                                         Giao dịch thành công
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 2}">
-                                        Đang hoàn tiền
+                                        Đã hoàn vé
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 3}">
                                         Hoàn thành công
@@ -137,10 +173,21 @@
     <br>
     <form action="../index.jsp">
         <input type="submit" value="Back To Home">
-    </form> 
-    <form action="../booking/refund.jsp"> <button type="submit">Refund Ticket</button>
-        </form>
-    <form action="../booking/ticket_change.jsp"> <button type="submit">Exchange Ticket</button>
-        </form>
+    </form>     
 </body>
+
+<script>
+    // Hàm mở popup
+    function openPopup() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("popup").style.display = "block";
+    }
+
+    // Hàm đóng popup
+    function closePopup() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
+    
+</script>
 </html>

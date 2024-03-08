@@ -223,7 +223,6 @@ public class UserDAO {
         System.out.println(password);
         GenerateID gen = new GenerateID();
         String id = gen.generateID("US");
-        System.out.println(id);
         Connection conn;
         try {
 
@@ -234,6 +233,24 @@ public class UserDAO {
                 statement.setString(3, password);
                 statement.setInt(4, 3);
                 statement.setBoolean(5, true);
+                statement.execute();
+            }            
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
+        public void UpdatePointByUserID( String userID) throws Exception {
+        String query = "update Users set Point = ? where UserID = ?";
+        Connection conn;
+        User user = getUserById(userID);
+        int point = user.getPoint();
+        int newPoint = ++point;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, newPoint);
+                statement.setString(2, userID);
                 statement.execute();
             }            
             conn.close();
@@ -261,6 +278,7 @@ public class UserDAO {
         user.setPhone(resultSet.getString("Phone"));
         user.setDob(resultSet.getDate("Dob"));
         user.setImage(resultSet.getString("Image"));
+        user.setPoint(resultSet.getInt("Point"));
         user.setIsActive(resultSet.getBoolean("isActive"));
         return user;
     }

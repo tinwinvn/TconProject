@@ -15,7 +15,7 @@
     </head>
     <body>
         <nav>
-            <div class="nav__logo"><a href="#">Travel.co</a></div>
+            <div class="nav__logo"><a href="#">TCON</a></div>
             <ul class="nav__links">
                 <li class="link">Home</li>
                 <li class="link">Blog</li>

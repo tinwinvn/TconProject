@@ -12,12 +12,13 @@ public class User {
     private String phone;
     private Date dob;
     private String image;
+    private int point; 
     private Boolean isActive;
 
     public User() {
     }
 
-    public User(String userID, int role, String email, String password, String fullName, String phone, Date dob, String image, Boolean isActive) {
+    public User(String userID, int role, String email, String password, String fullName, String phone, Date dob, String image, int point, Boolean isActive) {
         this.userID = userID;
         this.role = role;
         this.email = email;
@@ -26,8 +27,11 @@ public class User {
         this.phone = phone;
         this.dob = dob;
         this.image = image;
+        this.point = point;
         this.isActive = isActive;
     }
+
+    
 
     public String getUserID() {
         return userID;
@@ -93,6 +97,15 @@ public class User {
         this.image = image;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+    
+    
     public Boolean getIsActive() {
         return isActive;
     }

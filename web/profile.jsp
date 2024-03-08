@@ -43,7 +43,8 @@
                                                 </div>
                                                 
                                                 <h5 class="user-name">${i.fullName}</h5>
-                                                <h6 class="user-email">${i.email}</h6>                  
+                                                <h6 class="user-email">${i.email}</h6>
+                                                <h6 class="user-email">${i.dob}</h6>
                                         </div>
                                 </div>
                         </div>
@@ -125,7 +126,13 @@
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
                                                         <label for="eMail">Date of Birth</label>
-                                                        <input type="date" class="form-control" id="eMail" name="dob"}>
+                                                        <input type="date" class="form-control" id="eMail" name="dob"} placeholder="${i.dob}"> 
+                                                </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                        <label for="eMail">Your Point</label>
+                                                        <input type="text" class="form-control" id="point" name="point" value="${i.point}" readonly=""}>
                                                 </div>
                                         </div>
                                                 <input name="userId" type="hidden" value="${i.userID}"/>

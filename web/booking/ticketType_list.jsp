@@ -16,7 +16,7 @@
 
         <jsp:include page="../nav.jsp"></jsp:include>
 
-
+        <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
 
         <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>       
             <div class="container d-flex justify-content-center align-items-center">
@@ -57,9 +57,7 @@
  
 
 
-        <footer>
-
-        </footer>
+        <jsp:include page="../footer.jsp"></jsp:include>
 
 
 

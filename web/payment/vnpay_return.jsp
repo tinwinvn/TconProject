@@ -112,6 +112,7 @@
                     <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
                     <jsp:useBean id="generate" class="Validation.GenerateID"></jsp:useBean>
                     <jsp:useBean id="ticketDAO" class="ModelDAO.TicketDAO"></jsp:useBean>
+                    <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
                         <c:set var="entity" value="OR"></c:set>
                         <c:set var="expirationDate" value="${sessionScope.experationDate}"></c:set>
                         <c:set var="orderID" value="${generate.generateID(entity)}"></c:set>
@@ -122,6 +123,7 @@
                             ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
                             <c:forEach var="i" begin="1" end="${cart.value.quantity}">
                                 ${ticketDAO.addNewTicket(cart.key, orderID)}
+                                ${userDAO.UpdatePointByUserID(sessionScope.acc.userID)}
                             </c:forEach>
                         </c:forEach>
                     <a href="../index.jsp" class="btn btn-primary">Back to Home</a>

@@ -42,17 +42,19 @@
                 <nav class="d-flex  bg-white" >
 
                     <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
-                        <li><a href="#" class="text-red p-2">Home</a></li>
-                        <li><a href="#" class="text-red p-2">Movies</a></li>
-                        <li><a href="#" class="text-red p-2">Games</a></li>
+                        <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
+                        <li><a href="#" class="text-red p-2">Giới thiệu</a></li>
+                        <li><a href="#" class="text-red p-2">Trải Nghiệm</a></li>
                     </ul>
                     <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
                     <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                        <li><a href="#" class="text-red p-2">Home</a></li>
-                        <li><a href="#" class="text-red p-2">Movies</a></li>
-                        <li><a href="#" class="text-red p-2">Games</a></li>
+                        <li><a href="#" class="text-red p-2">Trò Chơi</a></li>
+                        <li><a href="#" class="text-red p-2">Tin tức</a></li>
+                        <li><a href="#" class="text-red p-2">Bản đồ</a></li>
+                        <c:if test="${sessionScope.acc != null}">
                         <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
                            style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
+                        </c:if>
 
                     </ul>
 

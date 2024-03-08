@@ -29,11 +29,12 @@
             <header>
                 <div class="section__container">
                     <div class="header__content">
-                        <h1>Travel</h1>
+                        <h1>Tcon</h1>
                         <p>
-                            xin chào mọi người
+                            Chào mừng đến với Tcon! 
+                            Tại đây, chúng tôi tự hào mang đến cho bạn những khu vui chơi trải dài khắp địa bàn thành phố Đà Nẵng. 
+                            Với một loạt các dịch vụ và nội dung đa dạng, chúng tôi sẽ mang lại cho bạn những trải nghiệm độc đáo và đáng nhớ.
                         </p>
-                        <button>Read more</button>
                     </div>
                 </div>
             </header>
