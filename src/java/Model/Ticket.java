@@ -4,10 +4,6 @@
  */
 package Model;
 
-/**
- *
- * @author Admin
- */
 public class Ticket {
    
     private String TicketID;

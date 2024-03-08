@@ -42,7 +42,7 @@ public class AddFavouriteDAO {
         return list;
     }
     
-    public AddFavourite getAddfavouriteByID(String TicketTypeID) throws SQLException{
+    public AddFavourite getAddfavouriteByID(String userID) throws SQLException{
         AddFavourite af = new AddFavourite();
         String query = "SELECT * FROM Addfavourite where UserID = ?";
         Connection conn = null;
@@ -52,7 +52,7 @@ public class AddFavouriteDAO {
         try {
             conn = db.getConnection();
             statement = conn.prepareStatement(query);
-            statement.setString(1, TicketTypeID);
+            statement.setString(1, userID);
             rs = statement.executeQuery();
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -65,6 +65,25 @@ public class AddFavouriteDAO {
             db.close(conn, statement, rs);
         }
         return af;
+    }
+    
+    public boolean isFavouriteItemExists(String userID, String favouriteItems) throws SQLException {
+        boolean isExists = false;
+        String query = "SELECT * FROM Addfavourite WHERE UserID = ? AND FavouriteItems = ?";
+        Connection conn = null;
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setString(1, userID);
+            preparedStatement.setString(2, favouriteItems);
+            
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Nếu resultSet có dữ liệu, tức là đã tồn tại một bản ghi có favouriteItems tương tự cho userID
+                    isExists = true;
+                }
+            }
+        }
+        
+        return isExists;
     }
     
     public void addNewFavourite(String userID, String favouriteItems) throws SQLException, Exception {

@@ -19,7 +19,7 @@
                     <br><br>
                     <button type="submit">Refund</button>
                 </form>
-                    <a href="../payment/payment_history.jsp"><button type="submit">Transaction</button></a>
+                    <a href="../payment/payment_history.jsp?userID=${sessionScope.acc.userID}"><button type="submit">Transaction</button></a>
                     <a href="../index.jsp"><button type="submit">Home</button></a>
 
 
