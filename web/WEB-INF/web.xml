@@ -116,6 +116,18 @@
         <servlet-name>SendQRServlet</servlet-name>
         <servlet-class>Controller.SendQRServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>Controller.UploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>Controller.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortUserServlet</servlet-name>
+        <servlet-class>Controller.SortUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -231,6 +243,18 @@
     <servlet-mapping>
         <servlet-name>DeleteCommentServlet</servlet-name>
         <url-pattern>/DeleteCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortUserServlet</servlet-name>
+        <url-pattern>/SortUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

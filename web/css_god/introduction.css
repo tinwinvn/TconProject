@@ -1,0 +1,29 @@
+.introduction-wrapper {
+    display: flex;
+    margin-left: 300px; /* Tạo khoảng cách với lề bên trái */
+    margin-right: 100px; /* Tạo khoảng cách với lề bên phải */
+}
+
+.content {
+    width: 60%; /* Chiếm 70% chiều rộng của introduction-wrapper */
+    max-width: calc(70% - 5px); /* Giảm 5px để tạo khoảng cách giữa content và col-lg-3 */
+    margin-right: 5px; /* Khoảng cách giữa content và col-lg-3 */
+    border-radius: 10px; /* Điều chỉnh giá trị này để thay đổi độ cong của khung bo */
+    border: 2px solid #ccc; /* Màu và độ rộng của viền */
+    padding: 20px; /* Khoảng cách bên trong khung bo */
+    box-sizing: border-box; /* Đảm bảo rằng padding không làm thay đổi kích thước bên ngoài của phần tử */
+}
+
+.col-lg-3 {
+    width: 40%; /* Chiếm 30% chiều rộng của introduction-wrapper */
+    max-width: calc(30% - 5px); /* Giảm 5px để tạo khoảng cách giữa content và col-lg-3 */
+    margin-left: 5px; /* Khoảng cách giữa content và col-lg-3 */
+    border-radius: 10px; /* Điều chỉnh giá trị này để thay đổi độ cong của khung bo */
+    border: 2px solid #ccc; /* Màu và độ rộng của viền */
+    padding: 20px; /* Khoảng cách bên trong khung bo */
+    box-sizing: border-box; /* Đảm bảo rằng padding không làm thay đổi kích thước bên ngoài của phần tử */
+}
+
+.content img {
+    text-align: center;
+}

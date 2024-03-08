@@ -35,6 +35,9 @@
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
                                     <a href="booking/notification_list.jsp">Thông báo</a>
+                                <c:if test="${sessionScope.acc.role == 1}">
+                                    <a href="listuser.jsp">USERS LIST</a>
+                                </c:if>
                             </div>
                         </div>
                     </li>
