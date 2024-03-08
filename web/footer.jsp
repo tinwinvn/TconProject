@@ -9,19 +9,12 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-
         <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/footers/footer-2/assets/css/footer-2.css">
     </head>
     <body>
-         
-
-
             
-        <footer style="position: static; color: #EE2E24; height: 30vh; background-color:white; margin-top: 2%">
+        <footer style="position: static; color: #EE2E24; height: 30vh; background-color:white; margin-top: 2%; ">
             <div class="bg-red" style="height: 0.5vh;"></div>
             <div class="" style="">
                 
@@ -69,7 +62,9 @@
                                         </svg>
                                     </a>
                                 </li>
+                                
                             </ul>
+                            
                         </div>
                         
                     </div>

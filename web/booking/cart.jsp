@@ -16,7 +16,6 @@
 
     <body>
         <jsp:include page="../nav.jsp"></jsp:include>
-        <div class="logo"><h1>Giỏ hàng</h1></div>
         <nav>
             <ul>
                 <li><a href="../index.jsp">Home</a></li>
@@ -30,8 +29,74 @@
         <jsp:useBean id="odDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
 
 
+        
+       <div class="container d-flex justify-content-center align-items-center">
+                <div class="row" >
+                <c:forEach var="item" items="${sessionScope.cart}">
+                    <div class="card mx-3" style="width: 15rem; height: 50%">
 
-            <div class="container d-flex justify-content-center align-items-center">
+                        <div class="card-body text-center d-flex flex-column align-items-center">
+                            <img class="card-img-top" src="../images/a.jpg" alt="">
+
+
+                            <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
+                            <c:set var="ticketTypeName" value="${ticketType.typeName}" />
+                            <c:set var="quantity" value="${item.value.quantity}" />
+                            <c:set var="price" value="${ticketType.price}"></c:set>
+
+                                <h3>${ticketTypeName}</h3>
+                            <p>Số lượng: ${quantity}</p>
+                            <p>Giá: ${price * quantity} VNĐ</p>
+                            <form action="../DeleteCartServlet" method="POST">                              
+                                <input type="hidden" name="ticketType" value="${item.key}">
+                                <input type="hidden" name="parkID" value="${param.parkID}">
+                                <input type="hidden" name="transactionCode" value="${param.transactionCode}">
+                                <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Xóa</button>
+                            </form>
+
+
+                            <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
+
+
+                            <c:if test="${empty sessionScope.cart}">
+                                <p class="empty-cart-message">Giỏ hàng trống</p>
+                            </c:if>
+
+                            <c:if test="${not empty sessionScope.cart}">
+
+                            </c:if>
+
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+        <c:if test="${not empty sessionScope.cart}">
+                <c:if test="${empty param.transactionCode}">
+                    <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">
+                        <input type="date" id="experationDate" name="experationDate" required="">
+                        <input type="hidden" name="totalPrice" value="${totalPrice}">
+                        <input type="hidden" name="orderID" value="${param.orderID}">
+                        <div style="margin-top: 1%">
+                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   </form>  
+                        </div>
+                </c:if>
+                <c:if test="${not empty param.transactionCode}">
+                    <form action="../ConfirmChangeTicketServlet" method="get">
+                        <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
+                        <input type="hidden" name="transactionCode" value="${param.transactionCode}">
+                        <button type="submit" class="payment-link">Đổi vé</button>
+                    </form>                  
+                </c:if>
+            </c:if>
+        </div>
+        
+        
+        
+        
+        
+<!--        <div class="container d-flex justify-content-center align-items-center">
                 <div class="row" >
                 <c:forEach var="item" items="${sessionScope.cart}">
                     <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
@@ -72,7 +137,8 @@
                     </form>                  
                 </c:if>
             </c:if>
-        </main>
+        </main>-->
+       
         <jsp:include page="../footer.jsp"></jsp:include>
     </body>
 </html>

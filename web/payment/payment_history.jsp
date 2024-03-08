@@ -6,59 +6,60 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Payment History</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
         <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f8f8;
-            margin: 20px;
-            text-align: center;
-        }
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f8f8;
+                margin: 20px;
+                text-align: center;
+            }
 
-        h2 {
-            color: #333;
-        }
+            h2 {
+                color: #333;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
 
-        th {
-            background-color: #f2f2f2;
-        }
+            th {
+                background-color: #f2f2f2;
+            }
 
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+            tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
 
-        form {
-            margin-top: 20px;
-        }
+            form {
+                margin-top: 20px;
+            }
 
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            button {
+                background-color: #EE2E24;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
 
         input[type="submit"]:hover {
             background-color: #45a049;
@@ -88,14 +89,14 @@
     </style>
     </head>
     <body>
+        <jsp:include page="../nav.jsp"></jsp:include>
         <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
         <jsp:useBean id="transactionDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
         <jsp:useBean id="ticketTypeDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="OrderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
         <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>     
-        <jsp:include page="../nav.jsp"></jsp:include>
-            <h2>Lịch sử giao dịch</h2>
-            <button onclick="openPopup()">Hoàn vé</button>
+        <h2 style="text-align: center; color: #EE2E24">Lịch sử giao dịch</h2>
+        <button style="margin-left: 45%" onclick="openPopup()">Hoàn vé</button>
             <div id="overlay" class="overlay"></div>
             <div id="popup" class="popup">
                 <form action="../TicketRefundServlet" method="POST">
@@ -137,7 +138,7 @@
                                                                 <p>Số lượng: ${orderdetail.quantity}</p>                                                              
                                                                 <p>Giá: <fmt:formatNumber value="${tickettypeList.price}" type="number"></fmt:formatNumber> VNĐ</p>
                                                                 <c:set var="totalPrice" value="${totalPrice + orderdetail.quantity * tickettypeList.price}"></c:set>
-                                                            </li>
+                                                                </li>
                                                         </c:if>
                                                     </c:forEach>                                                                
                                                 </c:if>                                                 
@@ -148,32 +149,29 @@
                                     </td>
                                     <td>
                                         <c:if test="${transaction.getTransactionStatus() == 1}">
-                                        Giao dịch thành công
+                                            Giao dịch thành công
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 2}">
                                         Đã hoàn vé
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 3}">
-                                        Hoàn thành công
+                                            Hoàn thành công
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 4}">
-                                        Từ chối hoàn tiền
+                                            Từ chối hoàn tiền
                                         </c:if>
                                         <c:if test="${transaction.getTransactionStatus() == 5}">
-                                        Lỗi
+                                            Lỗi
                                         </c:if>
                                     </td>
                                 </tr>
                             </c:if>
                         </c:if>
+                    </c:forEach>
                 </c:forEach>
-            </c:forEach>
         </tbody>
     </table>
-    <br>
-    <form action="../index.jsp">
-        <input type="submit" value="Back To Home">
-    </form>     
+    <br>  
 </body>
 
 <script>

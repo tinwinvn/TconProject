@@ -19,13 +19,13 @@
         <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
 
         <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>       
-            <div class="container d-flex justify-content-center align-items-center">
+            <div class="container d-flex justify-content-center align-items-center" style="margin-top: 5vh">
                 <div class="row" >
 
                 <c:forEach var="ttL" items="${ttDAO.allTicketType}">
                     <c:if test="${param.parkID == ttL.parkID}">
                         <div class="col-md-6 mb-3" style="">
-                            <div class="card" style="width: 15rem; height: 55vh" >
+                            <div class="card" style="width: 15rem; height: 100%" >
                                 <img class="card-img-top" src="../images/a.jpg" alt="">
                                 <div class="card-body text-center d-flex flex-column align-items-center" style="background-color:white; color: black">
                                     <h3>${ttL.typeName}</h3>
@@ -51,18 +51,18 @@
         </div>
 
         <div class="container text-center">
-            <a href="cart.jsp?orderID=${param.orderID}" class="btn-cart"><button type="submit" style="margin-top: 3%; background-color: #EE2E24; color: white; border-color: #EE2E24;" class="btn btn-primary">Xem giỏ hàng</button></a>
+            <a href="cart.jsp?orderID=${param.orderID}&parkID=${param.parkID}" class="btn-cart"><button type="submit" style="margin-top: 3%; background-color: #EE2E24; color: white; border-color: #EE2E24;" class="btn btn-primary">Xem giỏ hàng</button></a>
         </div>
 
  
 
 
-        <jsp:include page="../footer.jsp"></jsp:include>
+  
 
 
 
 
 
-
+<jsp:include page="../footer.jsp"></jsp:include>
     </body>
 </html>
