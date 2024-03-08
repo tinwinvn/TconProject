@@ -28,16 +28,18 @@
                                 <div class="account-settings">
                                         <div class="user-profile">
                                                  <div class="user-avatar">
-                                                    <img src="images/avatar.jpg">
+                                                    <img src="uploads/${i.image}">
                                                     <div class="round">
                                                         <i class = "fa fa-camera" style = "color: #000;"></i>
                                                       </div>
                                                 </div>
                                                 <!-- Popup Form -->
                                                 <div id="popupForm" class="popup-form">
-                                                    <form id="uploadForm" class="form-container">
-                                                        <input type="file" name="file" id="fileInput">
-                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                    <form action="UploadServlet" method="post" enctype="multipart/form-data" id="uploadForm" class="form-container">
+                                                        <input type="file" name="file" accept="image/*">
+                                                        <input type="hidden" name="userId" value="${param.userId}">
+                                                        
+                                                        <button type="submit" value="Upload" class="btn btn-primary">Save</button>
                                                         <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
                                                     </form>
                                                 </div>

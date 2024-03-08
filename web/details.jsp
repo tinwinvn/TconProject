@@ -158,13 +158,23 @@
                                 
                                 <div class="rnb rvl">
                                     <c:set var="numList" value="${rDAO.allRating}" />
+                                    <c:set var="totalRating" value="${0}" />
+                                    <c:set var="size" value="${0}" />
+
                                     <c:forEach var="num" items="${numList}">
                                         <c:if test="${param.id == num.receiveID}">
-                                            <c:set var="totalRating" value="${totalRating + num.ratingValue}"/>
-                                            <c:set var="size" value="${size + 1}"/>
+                                            <c:set var="totalRating" value="${totalRating + num.ratingValue}" />
+                                            <c:set var="size" value="${size + 1}" />
                                         </c:if>
                                     </c:forEach>
-                                    <h3>${totalRating / size}/5.0</h3>
+
+                                    <script>
+                                        var totalRating = ${totalRating};
+                                        var size = ${size};
+                                        var averageRating = size > 0 ? totalRating / size : 0;
+                                        var formattedRating = averageRating.toFixed(1);
+                                        document.write("<h3>" + formattedRating + "/5.0</h3>");
+                                    </script>
                                 </div>
                                 <div class="rnrn">
                                     <p class="rars">${size} Reviews</p>
@@ -217,10 +227,17 @@
                             <c:set var="userID" value="${list.sendID}" />
                             <c:set var="username" value="${uDAO.getUserById(userID)}"/>
                             
-                    <div class="uscm ${loop.index > 2 ? 'hidden' : ''}" >  
+                    <div class="uscm ${loop.index > 3 ? 'hidden' : ''}" >  
                         <div class="uscm-secs">
                             <div class="us-img">
-                                <img src="images/avatar.jpg" />
+                                <c:choose>
+                                    <c:when test="${username.image != null}">
+                                        <img src="uploads/${username.image}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="images/avatar.jpg">
+                                    </c:otherwise>
+                                    </c:choose>
                             </div>
                             <div class="uscms">
                                 <div class="us-name">

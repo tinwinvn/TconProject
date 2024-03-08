@@ -6,6 +6,7 @@
 
     <head>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 
@@ -22,6 +23,8 @@
               referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="css_god/index.css"/>
+        <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
+        <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
     </head>
 
     <body>
@@ -108,8 +111,41 @@
                                                 <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%">Yêu thích</button>
                                             </form>
                                         </c:if>
+                                        <div class="rnb rvl">
+                                            
+                                            <c:set var="numList" value="${rDAO.allRating}" />
+                                            <c:set var="totalRating" value="${0}" />
+                                            <c:set var="size" value="${0}" />
+
+                                            <c:forEach var="num" items="${numList}">
+                                                <c:if test="${id == num.receiveID}">
+                                                    <c:set var="totalRating" value="${totalRating + num.ratingValue}" />
+                                                    <c:set var="size" value="${size + 1}" />
+                                                </c:if>
+                                            </c:forEach>
+
+                                            <c:choose>
+                                                <c:when test="${size > 0}">
+                                                    <div class="valueRating">
+                                                        
+                                                        <h3 id="starRating">
+                                                            <fmt:formatNumber type="number" maxFractionDigits="1" value="${totalRating / size}"/>
+                                                        </h3>
+                                                        
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="valueRating">
+                                                        <h3>0</h3>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            
+                                        </div>
                                         <h3><span> <br>  </span> </h3>
+                                        
                                     </div>
+                                        
                                 </div>
                             </div>
                         </c:forEach>

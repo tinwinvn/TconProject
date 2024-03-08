@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -311,4 +312,105 @@ public class UserDAO {
         return encodeToken;
     }   
    
+    public void uploadAvatar(String userId, String avatarPath) throws Exception{
+        String sql = "UPDATE Users SET [Image] = ? WHERE [UserID] = ?;";
+        try {
+            Connection con = db.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, avatarPath);
+            pstmt.setString(2, userId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+    
+    public List<User> searchUsers(String txtSearch) throws Exception{
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE FullName LIKE ? OR Email LIKE ?;";
+        try{
+            Connection con = db.getConnection();
+            ResultSet rs = null;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1,"%" + txtSearch + "%");
+            pstmt.setString(2,"%" + txtSearch + "%");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {                
+                list.add(new User(rs.getString(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        Boolean.TRUE));
+            }
+        }catch (SQLException e) {
+            throw e;
+        }
+        return list;
+    }
+    
+    public List<User> sortByName() throws SQLException{
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM Users ORDER BY FullName";
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User u = mapResultSetToUser(rs);
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return userList;
+    }
+    
+    public List<User> sortByNameDecs() throws SQLException{
+        ArrayList<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM Users ORDER BY FullName DESC";
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User u = mapResultSetToUser(rs);
+                userList.add(u);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return userList;
+    }
+    
+    public void banUser(String userID, boolean isActive) throws SQLException{
+        String sql = "UPDATE Users SET isActive = ? WHERE UserID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setBoolean(1, isActive);
+            statement.setString(2, userID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
 }
