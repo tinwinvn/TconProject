@@ -362,7 +362,8 @@ public class UserDAO {
                         rs.getString(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        Boolean.TRUE));
+                        rs.getInt(9),
+                        rs.getBoolean(10)));
             }
         }catch (SQLException e) {
             throw e;
