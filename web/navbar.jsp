@@ -16,13 +16,13 @@
     
     <body>
         <nav>
-            <div class="nav__logo"><a href="#" style="color: #EE2E24">TCON</a></div>
-            <ul class="nav__links" style="margin-top: 1%">
-                <li class="link" style="color: #EE2E24">Home</li>
-                <li class="link" style="color: #EE2E24">Blog</li>
-                <li class="link" style="color: #EE2E24">Offers</li>
-                <li class="link" style="color: #EE2E24">Services</li>
-                <li class="link" style="color: #EE2E24">Contacts</li>
+            <div class="nav__logo"><a href="#">TCON</a></div>
+            <ul class="nav__links">
+                <li class="link">Home</li>
+                <li class="link">Blog</li>
+                <li class="link"><a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a></li>
+                <li class="link"><a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a></li>
+                <li class="link"><a href="booking/notification_list.jsp">Thông báo</a></li>
                     <c:if test="${sessionScope.acc != null}">
                     <li>
                         <div class="dropdown">
@@ -32,10 +32,7 @@
                                 <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: white">PROFILE</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
                                     <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: white">USERS MANAGER</a>
-                                </c:if>
-                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
-                                    <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
-                                    <a href="booking/notification_list.jsp">Thông báo</a>
+                                </c:if>                    
                                 <c:if test="${sessionScope.acc.role == 1}">
                                     <a href="listuser.jsp">USERS LIST</a>
                                 </c:if>
