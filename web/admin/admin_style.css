@@ -420,6 +420,7 @@ body {
 	background: var(--light);
 	padding: 24px;
 	overflow-x: auto;
+        width : 90%;
 }
 #content main .table-data .head {
 	display: flex;

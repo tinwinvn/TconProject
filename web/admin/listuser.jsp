@@ -11,10 +11,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="css/listuser.css">
+        <link rel="stylesheet" href="../css/listuser.css">
+        <link rel="stylesheet" href="admin_style.css">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body>       
+        <jsp:include page="admin_nav.jsp"></jsp:include>
+        <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li>
+                            <a class="active" href="../index.jsp">User Manager</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
         <c:set var="listUser" value="${uDAO.allUser}"/>
         <c:set var="ul" value="listUser"/>
@@ -23,7 +39,7 @@
                     <div class="col-lg-12 card-margin">
                         <div class="card search-form">
                             <div class="card-body p-0">
-                                <form id="search-form" action="SearchUserServlet" method="post" onsubmit="checkSearchForm()">
+                                <form id="search-form" action="../SearchUserServlet" method="post" onsubmit="checkSearchForm()">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="row no-gutters">
@@ -58,7 +74,7 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="result-actions">
-                                                            <form action="SortUserServlet" method="post" id="sortForm">
+                                                            <form action="../SortUserServlet" method="post" id="sortForm">
                                                                 <input type="hidden" name="sortPerformed" id="sortPerformed" value="false"> <!-- Input ẩn để lưu trữ trạng thái sắp xếp -->
                                                                 <div class="result-sorting">
                                                                     <span>Sort By:</span>
@@ -370,7 +386,7 @@
                                                 <span id="closeButton_${loop.index}" class="close" onclick="hideBanConfirmation()">&times;</span>
                                                 <h2>Ban User Confirmation</h2>
                                                 <p>Are you sure you want to ban this user?</p>
-                                                <form id="banForm_${loop.index}" action="BanUserServlet" method="post">
+                                                <form id="banForm_${loop.index}" action="../BanUserServlet" method="post">
                                                     <input type="hidden" name="userId" value="${i.userID}">
                                                     <input type="hidden" id="isActiveInput" name="isActive" value="false">
                                                     <button type="submit" onclick="banUser()">Yes, Ban User</button>
@@ -385,7 +401,7 @@
                                                 <span id="closeButton_${loop.index}" class="close" onclick="hideUnbanConfirmation()">&times;</span>
                                                 <h2>Unban User Confirmation</h2>
                                                 <p>Are you sure you want to unban this user?</p>
-                                                <form id="banForm_${loop.index}" action="BanUserServlet" method="post">
+                                                <form id="banForm_${loop.index}" action="../BanUserServlet" method="post">
                                                     <input type="hidden" name="userId" value="${i.userID}">
                                                     <input type="hidden" id="isActiveInput" name="isActive" value="true">
                                                     <button onclick="unbanUser()">Yes, Unban User</button>

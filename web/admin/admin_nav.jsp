@@ -27,13 +27,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="listuser.jsp">
 					<i class='bx bxs-shopping-bag-alt' ></i>
-					<span class="text">My Store</span>
+					<span class="text">Users List</span>
 				</a>
 			</li>
 			<li>
-				<a href="../statistic/weekstatistic_list.jsp">
+				<a href="weekstatistic_list.jsp">
 					<i class='bx bxs-doughnut-chart' ></i>
 					<span class="text">Analytics</span>
 				</a>
@@ -45,9 +45,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="../booking/notification_list.jsp">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Team</span>
+					<span class="text">Notification</span>
 				</a>
 			</li>
 		</ul>
@@ -75,22 +75,6 @@
 		<!-- NAVBAR -->
 		<nav>
 			<i class='bx bx-menu' ></i>
-			<a href="#" class="nav-link">Categories</a>
-
-			<input type="checkbox" id="switch-mode" hidden>
-			<label for="switch-mode" class="switch-mode"></label>
-                        
-                        <div class="dropdown">
-                            <!-- Sử dụng thẻ span để bao bọc biểu tượng -->
-                            <button onclick="myFunction()" class="bx"><span class="bx-icon bxs-bell"></span><span class="caret"></span></button>
-                            <div id="myDropdown" class="dropdown-content">
-                            <a href="booking/notification_list.jsp">Thông báo</a>
-                            </div>
-                        </div>
-
-			<a href="#" class="profile">
-				<img src="img/people.png">
-			</a>
 		</nav>
     </body>
     <script src="admin_js.js"></script>

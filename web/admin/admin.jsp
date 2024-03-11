@@ -18,6 +18,48 @@
 
         <title>AdminHub</title>
     </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .chartMenu {
+            width: 100vw;
+            height: 40px;
+            background: #1A1A1A;
+            color: rgba(54, 162, 235, 1);
+        }
+
+        .chartMenu p {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .chartCard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: calc(100vh - 40px);
+            background: #eee;
+        }
+
+        .chartBox {
+            width: 400px; /* Gi?m chi?u r?ng c?a khung bi?u ?? */
+            padding: 20px;
+            border-radius: 20px;
+            border: solid 3px rgba(54, 162, 235, 1);
+            background: white;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            width: 100% !important; /* Thay ??i chi?u r?ng c?a canvas */
+            height: auto !important; /* Gi? t? l? khung bi?u ?? khi thay ??i kích th??c */
+        }
+    </style>
     <body>
 
 
@@ -67,101 +109,123 @@
 
 
             <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <h3>Recent Orders</h3>
-                        <i class='bx bx-search' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Date Order</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status process">Process</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="todo">
-                    <div class="head">
-                        <h3>Todos</h3>
-                        <i class='bx bx-plus' ></i>
-                        <i class='bx bx-filter' ></i>
-                    </div>
-                    <ul class="todo-list">
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded' ></i>
-                        </li>
-                    </ul>
-                </div>
+                    
+                    <div class="chartBox">               
+                        <canvas id="myChart"></canvas>
+                        <form id="fetchForm" action="../ChartServlet" method="GET">
+                            <button id="fetchButton" type="submit">Fetch Now</button>
+                        </form>
+                    </div>   
+                
+                    <label for="weekPicker">Chọn tuần:</label>
+                    <input type="week" id="weekPicker" name="week" onchange="loadDataForWeek(this.value)">
+                    <div id="dataDisplay"></div>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+
+                <script>
+                    document.getElementById('fetchForm').addEventListener('submit', function (event) {
+                        event.preventDefault();
+                        updateBarChart();
+
+                    });
+                                      
+                    //Fetch block
+                    async function updateBarChart() {
+                        const url = "http://localhost:8080/ProjectSWP/ChartServlet";     
+                        try {
+                            
+                            const response = await fetch(url);
+                            const datapoints = await response.json();
+                            console.log(datapoints);
+
+                            const financialData = datapoints.financialreport[0];
+                            const quantity = financialData.Quantity;
+                            const price = financialData.Price;
+                            const orderDate = financialData.OrderDate;
+                            const parkName = financialData.ParkName;
+                            const financials = datapoints.financialreport;
+                            console.log(financials);
+                            
+                            financials.forEach(report => {
+                                const orderDate = new Date(report.OrderDate);
+                                console.log(orderDate);
+                                const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                                report.OrderDayOfWeek = daysOfWeek[orderDate.getDay()];
+                                console.log(daysOfWeek[orderDate.getDay()]);
+                            });
+                            
+                            labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                            const label = 'Asia Park';
+                            
+                            //const data = financials.map(item => item.Price);
+                            console.log(label);
+                           
+                            const asiaData = labels.map(label => {                              
+                                return financials.filter(item => item.ParkName === 'Asia Park' && item.OrderDayOfWeek === label)
+                                                  .reduce((total, item) => total + item.Price * item.Quantity, 0);
+                            });
+                            console.log(asiaData);
+                            //const nuiThanTaiData = financials.filter(item => item.ParkName === 'Núi Thần Tài').map(item => item.Price);
+                            //const helioCenterData = financials.filter(item => item.ParkName === 'Helio Center').map(item => item.Price);
+                            //const baNaHillsData = financials.filter(item => item.ParkName === 'Bà Nà Hills').map(item => item.Price);
+
+                            myChart.data.labels = labels;
+                            myChart.data.datasets[0].label = 'Asia Park';
+                            //myChart.data.datasets[1].label = 'Núi Thần Tài';
+                            //myChart.data.datasets[2].label = 'Helio Center';
+                            //myChart.data.datasets[3].label = 'Bà Nà Hills';
+
+                            myChart.data.datasets[0].data = asiaData;
+                            //myChart.data.datasets[1].data = nuiThanTaiData;
+                            //myChart.data.datasets[2].data = helioCenterData;
+                            //myChart.data.datasets[3].data = baNaHillsData;
+                            myChart.update(); 
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    }
+
+                    // setup
+                    const data = {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                                label: [],
+                                data: [],
+                                backgroundColor: [
+                                    '#C60000'
+                                ],
+                                borderColor: [
+                                    '#C60000'
+                                ],
+                                borderWidth: 1
+                            }
+                        ]
+                    };
+
+                    // config
+
+                    const config = {
+                        type: 'bar',
+                        data,
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    };
+
+                    const myChart = new Chart(document.getElementById('myChart').getContext('2d'), config);
+
+                </script>
             </div>
         </main>
         <!-- MAIN -->
-    </section>
-    <!-- CONTENT -->
+        <!-- CONTENT -->
 
 
-    <script src="admin_js.js"></script>
-</body>
+        <script src="admin_js.js"></script>
+    </body>
 </html>
 
