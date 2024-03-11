@@ -78,10 +78,14 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = request.getParameter("newpassword");
         String confirmPassword = request.getParameter("confirmpassword");
         String userId = request.getParameter("userId");
+        System.out.println(userId);
         try {
             UserDAO ua = new UserDAO();
             User u = ua.getUserById(userId);
-            if(oldPassword.equals(u.getPassword()) && newPassword.equals(confirmPassword)){
+            String oldPasswordSHA = ua.toSHA256(oldPassword);
+            System.out.println(oldPasswordSHA);
+            System.out.println(u.getPassword());
+            if(oldPasswordSHA.equals(u.getPassword()) && newPassword.equals(confirmPassword)){
                 ua.updatePassword(newPassword, userId);
                 request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
             }else {

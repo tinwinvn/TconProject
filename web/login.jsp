@@ -54,9 +54,6 @@
                             <!-- social login buttons start -->
                             <div class="row social-buttons">
                                 <div class="col-xs-4 col-sm-4 col-md-12">
-                                    <a href="#" class="btn btn-block btn-google">
-                                        <i class="fa fa-google-plus"></i> <span class="hidden-xs hidden-sm">Sign in with google</span>
-                                    </a>
                                 </div>
                             </div>
                             <!-- ./social-buttons -->

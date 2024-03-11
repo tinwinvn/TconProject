@@ -50,6 +50,12 @@
 					<span class="text">Team</span>
 				</a>
 			</li>
+                        <li>
+				<a href="#">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Request</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>

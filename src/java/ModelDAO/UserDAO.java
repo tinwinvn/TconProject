@@ -150,7 +150,7 @@ public class UserDAO {
             } else {
                 statement.setDate(3, Date.valueOf(dob));
             }
-            statement.setString(5, id);
+            statement.setString(4, id);
             statement.execute();
             statement.close();
             conn.close();
@@ -178,12 +178,13 @@ public class UserDAO {
 
     public void updatePassword(String newpassword, String id) {
         String query = "UPDATE Users SET password = ? WHERE UserID = ?";
+        String newpasswordSHA = toSHA256(newpassword);
         Connection conn;
         PreparedStatement statement;
         try {
             conn = db.getConnection();
             statement = conn.prepareStatement(query);
-            statement.setString(1, newpassword);
+            statement.setString(1, newpasswordSHA);
             statement.setString(2, id);
             statement.execute();
             statement.close();

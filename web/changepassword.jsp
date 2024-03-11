@@ -22,24 +22,6 @@
         <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <jsp:useBean id="userAlg" class="ModelDAO.UserDAO"></jsp:useBean>
-        <c:forEach var="i" items="${userAlg.allUser}">
-            <c:if test="${i.userID == param.userId}">
-                <div class="card h-100">
-                        <div class="card-body">
-                                <div class="account-settings">
-                                        <div class="user-profile">
-                                                 <div class="user-avatar">
-                                                    <img src="../images/avatar.jpg">
-                                                </div>
-                                               
-                                                <h5 class="user-name">${i.fullName}</h5>
-                                                <h6 class="user-email">${i.email}</h6>                  
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-            </c:if>
-        </c:forEach>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
