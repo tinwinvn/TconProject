@@ -22,15 +22,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChangePasswordServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,35 +39,21 @@ public class ChangePasswordServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain");
         String oldPassword = request.getParameter("oldpassword");
         String newPassword = request.getParameter("newpassword");
         String confirmPassword = request.getParameter("confirmpassword");
+        PrintWriter out = response.getWriter();
         String userId = request.getParameter("userId");
         System.out.println(userId);
         try {
@@ -87,14 +64,17 @@ public class ChangePasswordServlet extends HttpServlet {
             System.out.println(u.getPassword());
             if(oldPasswordSHA.equals(u.getPassword()) && newPassword.equals(confirmPassword)){
                 ua.updatePassword(newPassword, userId);
-                request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
+                response.getWriter().write("success");
+                //request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
             }else {
-                request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
+                out.println("fail");
+                //request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
             }
         }catch(Exception ex){
             Logger.getLogger(ChangePasswordServlet.class.getName()).log(Level.SEVERE, null, ex);
+            out.println("error");
         }
-        request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
+        //request.getRequestDispatcher("profile.jsp?uId=" + userId ).forward(request, response);
     }
 
     /**

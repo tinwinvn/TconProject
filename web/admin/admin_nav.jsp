@@ -33,12 +33,6 @@
 				</a>
 			</li>
 			<li>
-				<a href="weekstatistic_list.jsp">
-					<i class='bx bxs-doughnut-chart' ></i>
-					<span class="text">Analytics</span>
-				</a>
-			</li>
-			<li>
 				<a href="#">
 					<i class='bx bxs-message-dots' ></i>
 					<span class="text">Message</span>
