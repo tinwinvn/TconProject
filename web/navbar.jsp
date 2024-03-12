@@ -30,12 +30,9 @@
                             <div id="myDropdown" class="dropdown-content">
                                 <a href="LogOutServlet" style="color: white">LOG OUT</a>
                                 <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: white">PROFILE</a>
-                                <c:if test="${sessionScope.acc.role == 1}">
+                                <c:if test="${sessionScope.acc.role != 3}">
                                     <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: white">USERS MANAGER</a>
                                 </c:if>                    
-                                <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="listuser.jsp">USERS LIST</a>
-                                </c:if>
                             </div>
                         </div>
                     </li>

@@ -111,11 +111,11 @@ public class OrderDAO {
     
     public List<Chart> MixOrderWTicket() throws SQLException, UnsupportedEncodingException{
         List<Chart> ch = new ArrayList<>();
-        String query = "SELECT OrderDetail.Quantity, TicketType.Price, Orders.OrderDate, Park.ParkName\n"
-                + "FROM Orders\n"
-                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
-                + "INNER JOIN TicketType ON OrderDetail.TicketTypeID = TicketType.TicketTypeID\n"
-                + "INNER JOIN Park ON TicketType.ParkID = Park.ParkID";
+        String query = "SELECT OrderDetail.Quantity, TicketType.Price, Orders.OrderDate, Park.ParkName, Park.ParkID\n" +
+                        "FROM Orders\n" +
+                        "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n" +
+                        "INNER JOIN TicketType ON OrderDetail.TicketTypeID = TicketType.TicketTypeID\n" +
+                        "INNER JOIN Park ON TicketType.ParkID = Park.ParkID";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -200,7 +200,8 @@ public class OrderDAO {
         chart.setQuantity(resultSet.getInt("Quantity"));
         chart.setPrice(resultSet.getInt("Price"));
         chart.setOrderDate(resultSet.getDate("OrderDate"));
-        chart.setParkName(resultSet.getString("ParkName"));
+        chart.setParkName(resultSet.getString("ParkName")); 
+        chart.setParkID(resultSet.getString("ParkID"));
         return chart;
     }
     

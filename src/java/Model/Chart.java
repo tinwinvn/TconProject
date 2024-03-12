@@ -12,15 +12,17 @@ public class Chart {
     private int Price;
     private Date OrderDate;
     private String ParkName;
+    private String ParkID;
     
     public Chart() {
     }
 
-    public Chart(int Quantity, int Price, Date OrderDate, String ParkName) {
+    public Chart(int Quantity, int Price, Date OrderDate, String ParkName, String ParkID) {
         this.Quantity = Quantity;
         this.Price = Price;
         this.OrderDate = OrderDate;
         this.ParkName = ParkName;
+        this.ParkID = ParkID;
     }
 
     public int getQuantity() {
@@ -55,6 +57,16 @@ public class Chart {
         this.ParkName = ParkName;
     }
 
+    public String getParkID() {
+        return ParkID;
+    }
+
+    public void setParkID(String ParkID) {
+        this.ParkID = ParkID;
+    }
+
+    
+    
     
     
 }
