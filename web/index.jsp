@@ -8,8 +8,6 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +21,7 @@
               referrerpolicy="no-referrer" />
         <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="css_god/index.css"/>
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
         <jsp:useBean id="uDAO" class="ModelDAO.UserDAO"></jsp:useBean>
         </head>
@@ -45,7 +44,9 @@
                 </div>
             </header>
 
+            
 
+            
 
             <div class="rooms" style="margin-top: 3vh">
                 <div class="container top">
@@ -93,6 +94,8 @@
                     </script>
 
 
+                    
+                    
                     <div class="content mtop">
                         <div class="owl-carousel owl-carousel1 owl-theme">
                         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
@@ -108,14 +111,14 @@
                                     <div class="button flex">
                                         <div style="display: flex; align-items: center;">
                                             <a href="details.jsp?id=${id}" style="text-decoration: none;">
-                                                <button class="primary-btn" style="background-color: #EE2E24; ">Xem chi tiết</button>
+                                                <button class="primary-btn" style="background-color: #EE2E24; width: 100%;">Xem chi tiết</button> 
                                             </a>
 
                                             <c:if test="${sessionScope.acc != null}">
-                                                <form onsubmit="addToFavourites(event)" style="margin-left: 30%">
+                                                <form onsubmit="addToFavourites(event)" style="margin-left: 35%">
                                                     <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
                                                     <input type="hidden" name="favouriteItems" value="${c.parkID}">
-                                                    <button type="submit" class="primary-btn" style="background-color: #EE2E24;">Yêu thích</button>
+                                                    <button type="submit" class="primary-btn" style="background-color: #EE2E24; width: 100%">Yêu thích</button>
                                                 </form>
                                             </c:if>
                                         </div>
@@ -245,6 +248,7 @@
                 </div>
 
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
 
