@@ -26,12 +26,14 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
+                    <c:if test="${sessionScope.acc.role == 1}">
 			<li>
 				<a href="listuser.jsp">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">Users List</span>
 				</a>
 			</li>
+                    </c:if>
 			<li>
 				<a href="#">
 					<i class='bx bxs-message-dots' ></i>
