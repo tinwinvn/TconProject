@@ -88,7 +88,7 @@
                     </div>
 
                 </div>
-                <div style="display: flex; gap: 39.5vw; margin-left: 2.5%; margin-top: 7%; color:#EE2E24">
+                <div style="display: flex; gap: 42%; margin-left: 2.5%; margin-top: 7%; color:#EE2E24">
                     <h1>BẢN ĐỒ</h1>
                     <h1>TRÒ CHƠI</h1>
                 </div>       
@@ -197,6 +197,7 @@
             }
         </script>
         
+        <div class="bg-red" style="height: 0.5vh;"></div>
         
         <div class="rating" style="margin-top: 5vh;">
             <div class="tri table-flex">
@@ -216,21 +217,28 @@
                                             <c:set var="size" value="${size + 1}" />
                                         </c:if>
                                     </c:forEach>
-                                    <h3 style="color: #EE2E24">${totalRating / size}/5.0</h3>
+
+                                    <script>
+                                        var totalRating = ${totalRating};
+                                        var size = ${size};
+                                        var averageRating = size > 0 ? totalRating / size : 0;
+                                        var formattedRating = averageRating.toFixed(1);
+                                        document.write("<h3>" + formattedRating + "/5.0</h3>");
+                                    </script>
                                 </div>
                                 <div class="rnrn">
-                                    <p class="rars">${size} Đánh giá</p>
+                                    <p class="rars" style="color: black">${size} Đánh giá</p>
                                 </div>
                             </td>
                             <td>
                                 <c:if test="${sessionScope.acc != null}">
                                     <div class="pup-button">
-                                        <p>Để lại cảm nhận của bạn tại đây!</p>
-                                        <button id="show-rating"  style="background-color: #EE2E24; border-radius: 15%; width: 6vw; border-bottom-color: #EE2E24">Đánh giá</button>
+                                        <p style="color: black">Để lại cảm nhận của bạn tại đây!</p>
+                                        <button id="show-rating"  style="background-color: #EE2E24; border-radius: 15%; width: 6vw; border-bottom-color: #EE2E24;">Đánh giá</button>
                                     </div>
                                     <div class="all-ratingform">
-                                        <div class="rating-body" id="rating-form">
-                                            <div class="wrapper" id="rating-wrapper" style="display: none;">
+                                        <div class="rating-body" id="rating-form" style="">
+                                            <div class="wrapper" id="rating-wrapper" style="display: none;  z-index: 1000; border: 2px solid #EE2E24; padding: 10px;">
                                                 <h3 style="color: #EE2E24">Bình chọn</h3>
                                                 <form action="RatingServlet" method="post" id="ratingForm">
                                                     <div class="ratingvalue">
@@ -262,148 +270,96 @@
         </div>
 
 
+<div class="bg-red" style="height: 0.5vh;"></div>
 
+       <div class="row d-flex justify-content-center" style="margin-top: 5vh; margin-left: 5vw">
+            
+               
+                    <div class="card-body p-4"  style="">       
+                        <div class="card mb-4"  style="width: 95%;">
 
-
-        <div class="row d-flex justify-content-center" style="margin-top: 5vh; margin-left: 5vw">
-            <div class="col-md-8 col-lg-6" style="">
-                <div class="card shadow border" style="background-color: #EE2E24; width: 41vw">
-                    <div class="card-body p-4">       
-                        <div class="card mb-4">
-                            
-                    <div class="uscm ${loop.index > 3 ? 'hidden' : ''}" >  
-                            
                             <div class="card-body">
-                                 <c:set var="rList" value="${rDAO.allRating}"/>
-            <c:set var="uList" value="${uDAO.allUser}"/>
-            <c:set var="commentCount" value="0"/>
-            <c:forEach var="list" items="${rList}" varStatus="loop">
-                <c:if test="${param.id == list.receiveID}">
-                    <c:set var="userID" value="${list.sendID}" />
-                    <c:set var="username" value="${uDAO.getUserById(userID)}"/>
-                    <div class="uscm ${loop.index > 2 ? 'hidden' : ''}" >  
-                        <div class="uscm-secs">
-                            <div class="us-img">
-                                <img src="images/avatar.jpg" />
-                            </div>
-                            <div class="uscms">
-                                <div class="us-name" style="">
-                                    <p>${username.fullName}</p>
-                                    <div class="dropdown" style="">
-                                        <button class="dropbtn" id="dropButton_${loop.index}" style="margin-right: 4vw;">&#8942;</button>
-                                        <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
-                                            <c:if test="${list.sendID == sessionScope.acc.userID}">
-                                                <!-- Button to open modal -->
-                                                <button class="update-btn" id="updateButton_${loop.index}" style=" width: 6vw; height: 5vh"><h6>Sửa</h6></button>
-                                                <!-- The Modal -->
-                                                
-                                                <form action="DeleteCommentServlet" method="GET">
-                                                    <input type="hidden" name="rId" value="${list.ratingID}">
-                                                    <input type="hidden" name="parkID" value="${param.id}">
-                                                    <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
-                                                </form>
-                                            </c:if>
-                                                <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="us-cmt">
-                                    <p>${list.ratingText}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <c:set var="commentCount" value="${commentCount + 1}"/>
-                </c:if>
-            </c:forEach>
-            <c:if test="${commentCount > 3}">
-                <button id="readMoreButton">Read more</button>
-            </c:if>           
+                                <c:set var="rList" value="${rDAO.allRating}"/>
+                                <c:set var="uList" value="${uDAO.allUser}"/>
+                                <c:set var="commentCount" value="0"/>
+                                <c:forEach var="list" items="${rList}" varStatus="loop">
+                                    <c:if test="${param.id == list.receiveID}">
+                                        <c:set var="userID" value="${list.sendID}" />
+                                        <c:set var="username" value="${uDAO.getUserById(userID)}"/>
+                                        <div class="uscm ${loop.index > 4 ? 'hidden' : ''}" >  
+                                            <div class="uscm-secs">
+                                                <div class="us-img">
+                                                    <c:choose>
+                                                        <c:when test="${username.image != null}">
+                                                            <img src="uploads/${username.image}">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="images/avatar.jpg">
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                                <div class="uscms">
+                                                    <div class="us-name" style="">
+                                                        <p>${username.fullName}</p>
+                                                        <div class="dropdown" style="">
+                                                            <button class="dropbtn" id="dropButton_${loop.index}" style="margin-right: 4vw;">&#8942;</button>
+                                                            <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
+                                                                <c:if test="${list.sendID == sessionScope.acc.userID}">
+                                                                    <!-- Button to open modal -->
+                                                                    <input type="hidden" id="oldComment_${loop.index}" value="${list.ratingText}" />
+                                                                    <button class="update-btn" id="updateButton_${loop.index}" data-oldcomment="${list.ratingText}" style=" width: 6vw; height: 5vh"><h6>Sửa</h6></button>
+                                                                    <!-- The Modal -->
+
+                                                                    <form action="DeleteCommentServlet" method="GET">
+                                                                        <input type="hidden" name="rId" value="${list.ratingID}">
+                                                                        <input type="hidden" name="parkID" value="${param.id}">
+                                                                        <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
+                                                                    </form>
+                                                                </c:if>
+                                                                    <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="us-cmt">
+                                                        <p>${list.ratingText}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                    <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
+                                                    <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
+                                        </div> 
+                                        <c:set var="commentCount" value="${commentCount + 1}"/>
+                                    </c:if>
+                                    
+                                </c:forEach>
+                                <c:if test="${commentCount > 3}">
+                                    <button id="readMoreButton" style="color: #EE2E24">Xem thêm</button>
+                                </c:if>           
                             </div>                    
                         </div> 
                     </div>
-                </div>
-            </div>          
+                
+                     
         </div>
-            <div id="myModal_${loop.index}" class="modal" style="margin-left: 50vw; margin-top: 35vh; height: 70vh">
-                                                    <!-- Modal content -->
-                                                    <div class="modal-content">
-                                                        <span class="close" id="cancel_${loop.index}">&times;</span>
-                                                        <form id="editForm_${loop.index}" action="UpdateCommentServlet" method="post">
-                                                            <input type="hidden" name="ratingId" value="${list.ratingID}">
-                                                            <input type="hidden" name="parkID" value="${param.id}">
-                                                            <textarea id="ratingText_${loop.index}" name="ratingText" rows="4" cols="50" placeholder="${list.ratingText}"></textarea>
-                                                            <button id="update-button"type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                
+                                
+                                
+ <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0);">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="editForm" action="UpdateCommentServlet" method="post">
+            <input type="hidden" id="ratingId" name="ratingId" value="">
+            <input type="hidden" id="parkID" name="parkID" value="">
+            <textarea id="ratingText" name="ratingText" rows="4" cols="50"></textarea>
+            <button id="update-button" type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
+        </form>
+    </div>
+</div>
 
 
-<!--        <div class="bri">
-            <c:set var="rList" value="${rDAO.allRating}"/>
-            <c:set var="uList" value="${uDAO.allUser}"/>
-            <c:set var="commentCount" value="0"/>
-            <c:forEach var="list" items="${rList}" varStatus="loop">
-                <c:if test="${param.id == list.receiveID}">
-                    <c:set var="userID" value="${list.sendID}" />
-                    <c:set var="username" value="${uDAO.getUserById(userID)}"/>
-                    <div class="uscm ${loop.index > 2 ? 'hidden' : ''}" >  
-                        <div class="uscm-secs">
-                            <div class="us-img">
-                                <c:choose>
-                                    <c:when test="${username.image != null}">
-                                        <img src="uploads/${username.image}">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img src="images/avatar.jpg">
-                                    </c:otherwise>
-                                    </c:choose>
-                            </div>
-                            <div class="uscms">
-                                <div class="us-name">
-                                    <p>${username.fullName}</p>
-                                    <div class="dropdown">
-                                        <button class="dropbtn" id="dropButton_${loop.index}">&#8942;</button>
-                                        <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
-                                            <c:if test="${list.sendID == sessionScope.acc.userID}">
-                                                 Button to open modal 
-                                                <button class="update-btn" id="updateButton_${loop.index}">Update</button>
-                                                 The Modal 
-                                                <div id="myModal_${loop.index}" class="modal" style="display: none;">
-                                                     Modal content 
-                                                    <div class="modal-content">
-                                                        <span class="close" id="cancel_${loop.index}">&times;</span>
-                                                        <form id="editForm_${loop.index}" action="UpdateCommentServlet" method="post">
-                                                            <input type="hidden" name="ratingId" value="${list.ratingID}">
-                                                            <input type="hidden" name="parkID" value="${param.id}">
-                                                            <textarea id="ratingText_${loop.index}" name="ratingText" rows="4" cols="50" placeholder="${list.ratingText}"></textarea>
-                                                            <button id="update-button"type="submit">Save Changes</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <form action="DeleteCommentServlet" method="GET">
-                                                    <input type="hidden" name="rId" value="${list.ratingID}">
-                                                    <input type="hidden" name="parkID" value="${param.id}">
-                                                    <button type="submit"><i class="fas fa-trash-alt"></i>Delete</button>
-                                                </form>
-                                            </c:if>
-                                            <button><i class="fas fa-flag"></i>Report</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="us-cmt">
-                                    <p>${list.ratingText}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <c:set var="commentCount" value="${commentCount + 1}"/>
-                </c:if>
-            </c:forEach>
-            <c:if test="${commentCount > 3}">
-                <button id="readMoreButton">Read more</button>
-            </c:if>           
-        </div>-->
+
+
+
     
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -418,10 +374,10 @@
                             }
                         });
                         // Change the text of the button based on its current state
-                        if (readMoreButton.textContent === 'Read more') {
-                            readMoreButton.textContent = 'Hide';
+                        if (readMoreButton.textContent === 'Xem thêm') {
+                            readMoreButton.textContent = 'Ẩn';
                         } else {
-                            readMoreButton.textContent = 'Read more';
+                            readMoreButton.textContent = 'Xem thêm';
                         }
                     }
 
@@ -431,33 +387,44 @@
                     });
                 });
             </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const updateButtons = document.querySelectorAll(".update-btn");
-            const updateModals = document.querySelectorAll(".modal");
-            const cancelButtons = document.querySelectorAll(".close");
+<script>
+         // Get the modal
+        var modal = document.getElementById('myModal');
 
-            updateButtons.forEach((updateButton, index) => {
-                const updateModal = updateModals[index];
-                const cancelButton = cancelButtons[index];
+        // Get the button that opens the modal
+        var btns = document.querySelectorAll('[id^=updateButton_]');
 
-                updateButton.addEventListener("click", function () {
-                    updateModal.style.display = "block";
-                });
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
 
-                cancelButton.addEventListener("click", function () {
-                    updateModal.style.display = "none";
-                });
-            });
+        // When the user clicks the button, open the modal 
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                var index = this.id.split('_')[1];
+                var ratingId = document.getElementById('ratingId');
+                var parkId = document.getElementById('parkID');
+                var ratingText = document.getElementById('ratingText');
+                var oldComment = document.getElementById('oldComment_' + index).value;
 
-            window.onclick = function (event) {
-                updateModals.forEach(updateModal => {
-                    if (!event.target.matches('.update-btn') && !updateModal.contains(event.target)) {
-                        updateModal.style.display = "none";
-                    }
-                });
+                ratingId.value = document.getElementById('ratingId_' + index).value;
+                parkId.value = document.getElementById('parkID_' + index).value;
+                ratingText.value = oldComment;
+
+                modal.style.display = "block";
             }
-        });
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
 
 
     </script>
