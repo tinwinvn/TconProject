@@ -8,12 +8,11 @@
 </head>
 <body>   
     <form action="VerifyOTPServlet" method="post">
-        <h2>Enter OTP to Sign Up</h2>
+        <h2>Chúng tôi đã gửi OTP đến email của bạn, hãy kiểm tra trong hộp thư</h2>
         <label for="otp">OTP:</label>
         <input type="text" id="otp" name="otp" required>
         <input type="hidden" name="email" value="${param.email}">
         <input type="hidden" name="password" value="${param.password}">
-        <p>${param.password}</p>
         <input type="submit" value="Verify">
     </form>
 </body>

@@ -85,7 +85,8 @@ nav {
 }
 
 header {
-    height: 100vh;
+    
+    height: 80vh;
     background-image: linear-gradient(
         rgba(45, 92, 132, 0.5),
         rgba(45, 92, 132, 0.5)

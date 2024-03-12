@@ -93,16 +93,44 @@
         <servlet-class>Controller.ConfirmChangeTicketServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SendQRServlet</servlet-name>
-        <servlet-class>Controller.SendQRServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PaymentServlet</servlet-name>
         <servlet-class>Controller.PaymentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AcceptVerificationOrderServlet</servlet-name>
         <servlet-class>Controller.AcceptVerificationOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <servlet-class>Controller.UpdateCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>Controller.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RatingServlet</servlet-name>
+        <servlet-class>Controller.RatingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendQRServlet</servlet-name>
+        <servlet-class>Controller.SendQRServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>Controller.UploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>Controller.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SortUserServlet</servlet-name>
+        <servlet-class>Controller.SortUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChartServlet</servlet-name>
+        <servlet-class>Controller.ChartServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -197,16 +225,44 @@
         <url-pattern>/ConfirmChangeTicketServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendQRServlet</servlet-name>
-        <url-pattern>/SendQRServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PaymentServlet</servlet-name>
         <url-pattern>/PaymentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AcceptVerificationOrderServlet</servlet-name>
         <url-pattern>/AcceptVerificationOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendQRServlet</servlet-name>
+        <url-pattern>/SendQRServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RatingServlet</servlet-name>
+        <url-pattern>/RatingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCommentServlet</servlet-name>
+        <url-pattern>/UpdateCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/DeleteCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/UploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SortUserServlet</servlet-name>
+        <url-pattern>/SortUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChartServlet</servlet-name>
+        <url-pattern>/ChartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

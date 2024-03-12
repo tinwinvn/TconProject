@@ -6,6 +6,7 @@ package Controller;
 
 import ModelDAO.NotificationDAO;
 import ModelDAO.TransactionDAO;
+import ModelDAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -63,18 +64,25 @@ public class ResponeRefundServler extends HttpServlet {
         String denied = request.getParameter("denied");
         String transactionCode = request.getParameter("transactionCode");
         Date currentDate = new Date(System.currentTimeMillis());
+        String notificationID = request.getParameter("notificationID");
+        boolean isConfirm = true;
+        System.out.println(notificationID);
         try {
+            UserDAO udao = new UserDAO();
              NotificationDAO notiDAO = new NotificationDAO();
              TransactionDAO tdao = new TransactionDAO();
             if (accept != null) {
                 String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
                 tdao.updateTransactionStatus(transactionID, 2);
                 notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is accepted \nPlease waiting for refund", currentDate);
+                udao.UpdatePointByUserID(receiverID);
+                notiDAO.updateNotification(isConfirm, notificationID);
             } else if (denied != null){
                 String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
                 tdao.updateTransactionStatus(transactionID, 4);
                 notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is denied because your request is invalid \nPlease check your request again", currentDate);
-
+                
+                notiDAO.updateNotification(isConfirm, notificationID);
             }
             response.sendRedirect("booking/notification_list.jsp");
         } catch (Exception ex) {
@@ -83,11 +91,7 @@ public class ResponeRefundServler extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    
     @Override
     public String getServletInfo() {
         return "Short description";

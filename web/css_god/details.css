@@ -1,0 +1,834 @@
+/* Your existing CSS */
+.rating {
+    color: #000;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+.ratingvalue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: .5rem;
+    font-size: 2rem;
+    color: #FFBD13;
+    margin-bottom: 2rem;
+}
+.rating table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color:#cccccc;
+    margin-bottom:.625rem;
+}
+.rating table,
+.rating td{
+    font-size: .8125rem;
+    text-align: center;
+}
+
+.rating td{
+    padding: 1rem;
+    width:33.3%;
+}
+
+.tri {
+    border-bottom: 1px solid #cccccc;
+    padding: 12px;
+}
+
+.rnb h3 {
+    color: #FFBD13;
+    font-size: 2.4rem;
+}
+
+.tri .pdt-rate {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.rating-stars {
+    position: relative;
+    vertical-align:baseline;
+    color: #cccccc;
+    line-height: 10px;
+    float: left;
+}
+
+.grey-stars{
+    height: 100%
+}
+
+.filled-stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #FFBD13;
+}
+.rpb {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rnpb{
+    display: flex;
+    width: 100%;
+}
+.rnpb label:first-child {
+    margin-right: 5px;
+    margin-top: -2px;
+}
+
+.rnpb label:last-child {
+    margin-left: 3px;
+    margin-top: -2px;
+}
+
+.rnpb label i {
+    color: #FFBD13;
+}
+
+.ropb {
+    height: 10px;
+    width: 75%;
+    background-color: #f1f1f1;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.ripb {
+    height: 100%;
+    background-color: #FFBD13;
+    border: 0.5px solid #cccccc;
+}
+.pup-button p {
+
+}
+.pup-button button {
+    width: 220px;
+    height: 40px;
+    background-color: #007BFF;
+    color: #FFF;
+    border: 0;
+    outline: none;
+    font-size: 1.2rem;
+    
+    cursor: pointer;
+}
+
+.pup-button:hover{
+    opacity: .9;
+}
+.bri {
+    overflow: hidden;
+    height: 100%;
+}
+.uscm-secs {
+    margin-left: 30px;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #cccccc;
+}
+.us-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    line-height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.us-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.uscms {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    text-align: left;
+}
+
+.us-cmt p {
+    font-size: .9rem;
+    padding: 10px 10px 10px 0;
+    color: #333;
+    font-weight: 500;
+    font-family: raleway;
+    margin: 0;
+}
+
+.us-name{
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+    font-size: 18px;
+}
+
+.dropbtn {
+    color: black;
+    padding: 0;
+    font-size: 24px;
+    border: none; /* Remove border */
+    background-color: transparent; /* Remove background color */
+    cursor: pointer;
+}
+
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    right: 45px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+   
+
+    z-index: 1;
+}
+
+/* Style the buttons inside the dropdown */
+.dropdown-content button {
+    background-color: inherit;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+    background-color: #f1f1f1;
+}
+
+:root {
+    --yellow: #FFBD13;
+    --blue: #4383FF;
+    --blue-d-1: #3278FF;
+    --light: #F5F5F5;
+    --grey: #AAA;
+    --white: #FFF;
+    --shadow: 8px 8px 30px rgba(0,0,0,.05);
+}
+.all-ratingform {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.rating-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+.wrapper {
+    background: var(--white);
+    padding: 2rem;
+    max-width: 576px;
+    width: 100%;
+    border-radius: .75rem;
+   
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+.wrapper h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.rating .star {
+    cursor: pointer;
+}
+.rating .star.active {
+    opacity: 0;
+    animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.rating .star:hover {
+    transform: scale(1.1);
+}
+textarea {
+    background: var(--light);
+    padding: 1rem;
+    border-radius: .5rem;
+    border: none;
+    outline: none;
+    resize: none;
+    margin-bottom: .5rem;
+    width: 90%;
+}
+.btn-group {
+    display: flex;
+    grid-gap: .5rem;
+    align-items: center;
+}
+.btn-group .btn {
+    padding: .75rem 1rem;
+    border-radius: .5rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: .875rem;
+    font-weight: 500;
+}
+.btn-group .btn.submit {
+    background: var(--blue);
+    color: var(--white);
+}
+.btn-group .btn.submit:hover {
+    background: var(--blue-d-1);
+}
+.btn-group .btn.cancel {
+    background: var(--white);
+    color: var(--blue);
+}
+.btn-group .btn.cancel:hover {
+    background: var(--light);
+}
+.testimonial-box-container {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.testimonial-box {
+    width: 500px;
+    
+    background-color: #FFF;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.name-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.name-user strong{
+    color: #44525f;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.rating-star {
+    color: #FFBD13;
+}
+
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.client-comment p {
+    font-size: 0.9rem;
+    color:#000;
+    margin-bottom: 10px;
+}
+
+.bg-white {
+    background: white;
+}
+.bg-red {
+    background: rgb(238, 46, 36);
+}
+.text-red {
+    color: rgb(238, 46, 36);
+}
+.scroll-container::-webkit-scrollbar {
+    width: 2px;
+    border-radius: 10px;
+}
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #007BFF;
+    border-radius: 10px;
+}
+.scroll-container::-webkit-scrollbar-track {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+.scroll-container {
+
+    overflow-y: scroll;
+    overflow-wrap: break-word;
+    border: 2px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    color: #fff;
+}
+.scroll-container::-webkit-scrollbar {
+    width: 0;
+}
+#scrollBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 10px;
+}
+#scrollBtn:hover {
+    background-color: #0056b3;
+}
+.events-section {
+
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+}
+.events-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+.events-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.games-list {
+    flex-grow: 1;
+
+    text-align: left;
+}
+.scroll-bar {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+    background-color: #333;
+    color: white;
+    padding: 30px 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+}
+nav li {
+    margin-right: 20px;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.hero-section {
+
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.games-section {
+    padding: 40px 20px;
+}
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.featured-section h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+.card {
+    height: 50%;
+
+    border-radius: 10px;
+    padding: 20px;
+    width: 35vw;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card i {
+    font-size: 2em;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+.card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+.card p {
+    font-size: 1em;
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+#readMoreButton {
+    border: none; /* Loại bỏ viền */
+    background: none; /* Loại bỏ nền */
+    padding: 0; /* Loại bỏ padding */
+    margin: 0; /* Loại bỏ margin */
+    cursor: pointer; /* Biến con trỏ thành pointer khi rê chuột */
+
+    font-size: inherit; /* Kích thước font chữ giống với kích thước font chữ của các phần tử khác */
+
+}
+/* Modal */
+.modal {
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 20% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 0.5rem;
+    width: 50%;
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Textarea and Button inside Modal Content */
+.modal-content textarea {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#update-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    width: 15%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+}
+
+
+/* CSS cho nút cuộn */
+.scroll-button-container {
+    position: fixed;
+    top: 90%;
+    left: 95%;
+    transform: translateY(-50%);
+    z-index: 9999;
+}
+
+.scroll-button {
+    width: 50px;
+    height: 50px;
+    background-color: #EE2E24;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.scroll-button:hover {
+    background-color: #0056b3;
+}
+
+.scroll-button-up {
+    margin-bottom: 10px;
+}
+
+.chat-list {
+    padding: 10px 10px;
+    font-size: .8rem;
+    overflow-y: auto;
+}
+
+.chat-list li {
+    margin-bottom: 10px;
+    overflow: auto;
+    color: #ffffff;
+}
+
+.chat-list .chat-img {
+    float: left;
+    width: 48px;
+}
+
+.chat-list .chat-img img {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    width: 100%;
+}
+
+.chat-list .chat-message {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    background: #5a99ee;
+    display: inline-block;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.chat-list .chat-message:before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    width: 0;
+    height: 0;
+}
+
+.chat-list .chat-message h5 {
+    margin: 0 0 5px 0;
+    font-weight: 600;
+    line-height: 100%;
+    font-size: .9rem;
+}
+
+.chat-list .chat-message p {
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-list .chat-body {
+    margin-left: 20px;
+    float: left;
+    width: 70%;
+}
+
+.chat-list .in .chat-message:before {
+    left: -12px;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid #5a99ee;
+}
+
+.chat-list .out .chat-img {
+    float: right;
+}
+
+.chat-list .out .chat-body {
+    float: right;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.chat-list .out .chat-message {
+    background: #fc6d4c;
+}
+
+.chat-list .out .chat-message:before {
+    right: -12px;
+    border-bottom: 20px solid transparent;
+    border-left: 20px solid #fc6d4c;
+}
+
+.chat-card-header:first-child {
+    -webkit-border-radius: 0.3rem 0.3rem 0 0;
+    -moz-border-radius: 0.3rem 0.3rem 0 0;
+    border-radius: 0.3rem 0.3rem 0 0;
+}
+.chat-card-header {
+    background: #17202b;
+    border: 0;
+    font-size: 1rem;
+    padding: .65rem 1rem;
+    position: relative;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.content{
+    margin-top:40px;
+}
+
+.chat-box.show {
+    display: block; /* Hiển thị chat box khi có lớp 'show' */
+}
+
+
+.chat-box {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 9998;
+}
+
+.chat-card {
+    height: 50%;
+    right: 10px;
+    border-radius: 10px;
+    right: 5% !important;
+    width: 30% !important;
+    bottom: 17% !important;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    overflow-y: auto; 
+}
+.chat-card:hover {
+    transform: scale(1.05);
+}
+.chat-card i {
+    font-size: 2em;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+.chat-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+.chat-card p {
+    font-size: 1em;
+    color: #333;
+}
+
+
+
+
+

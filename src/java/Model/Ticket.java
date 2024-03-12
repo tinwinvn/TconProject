@@ -4,30 +4,24 @@
  */
 package Model;
 
-import java.sql.Date;
-
-/**
- *
- * @author Admin
- */
 public class Ticket {
    
     private String TicketID;
     private String TicketTypeID;
-    private String OrderID;
+    private String orderID;
     private String TicketCode;
     private boolean isUsed;
 
     public Ticket() {
     }
 
-    public Ticket(String TicketID, String TicketTypeID, String OrderID, String TicketCode, boolean isUsed) {
+    public Ticket(String TicketID, String TicketTypeID, String orderID, String TicketCode, boolean isUsed) {
         this.TicketID = TicketID;
         this.TicketTypeID = TicketTypeID;
-        this.OrderID = OrderID;
+        this.orderID = orderID;
         this.TicketCode = TicketCode;
         this.isUsed = isUsed;
-    } 
+    }
 
     public String getTicketID() {
         return TicketID;
@@ -46,11 +40,11 @@ public class Ticket {
     }
 
     public String getOrderID() {
-        return OrderID;
+        return orderID;
     }
 
-    public void setOrderID(String OrderID) {
-        this.OrderID = OrderID;
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
 
     public String getTicketCode() {
@@ -67,7 +61,5 @@ public class Ticket {
 
     public void setIsUsed(boolean isUsed) {
         this.isUsed = isUsed;
-    }
-
-    
+    }   
 }
