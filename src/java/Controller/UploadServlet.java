@@ -135,9 +135,9 @@ public class UploadServlet extends HttpServlet {
                             String trimmedRealPath = storepath.replace("\\build\\", "\\");
                             System.out.println(trimmedRealPath);    
                             File uploadFile = new File(trimmedRealPath + "/" + path.getFileName());
-                            item.write(uploadFile);
-                            System.out.println(trimmedRealPath + "/" + path.getFileName());
-                            
+                            if (!uploadFile.exists()){
+                                item.write(uploadFile);   
+                            }                                                    
                         }
                     }
                 }

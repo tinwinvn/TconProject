@@ -47,7 +47,7 @@
                         <div class="headline">
                             <!-- brand-logo start -->
                             <div class="brand-logo">
-                                <a href="index.jsp"><img src="images\logo.png" width="200" alt="brand-logo"></a>
+                                <a href="index.jsp"><img src="images/logo.jpg" width="200" alt="brand-logo"></a>
                             </div>
                             <!-- ./brand-logo -->
                             <p>Login using social media to get quick access</p>
@@ -66,19 +66,19 @@
                         <!-- panel-login start -->
                         <div class="authfy-panel panel-login text-center active">
                             <div class="authfy-heading">
-                                <h3 class="auth-title">Login to your account</h3>
-                                <p>Don’t have an account? <a class="lnk-toggler" data-panel=".panel-signup" href="#">Sign Up Free!</a></p>
+                                <h3 class="auth-title">Đăng nhập vào tài khoản của bạn  </h3>
+                                <p>Không có tài khoản? <a class="lnk-toggler" data-panel=".panel-signup" href="#">Đăng ký ngay!</a></p>
                             </div>
                             <c:set var="cookie" value="${pageContext.request.cookies}"></c:set>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
                                     <form name="loginForm" class="loginForm" action="LoginServlet" method="POST">
                                         <div class="form-group">
-                                            <input type="email" class="form-control email" value="${cookie.userC.value}" name="username" placeholder="Email address" required="">
+                                            <input type="email" class="form-control email" value="${cookie.userC.value}" name="username" placeholder="Địa chỉ email" required="">
                                         </div>
                                         <div class="form-group">
                                             <div class="pwdMask">
-                                                <input type="password" class="form-control password" value="${cookie.passC.value}" name="password" placeholder="Password" required="">
+                                                <input type="password" class="form-control password" value="${cookie.passC.value}" name="password" placeholder="Mật khẩu" required="">
                                                 <span class="fa fa-eye-slash pwd-toggle"></span>
                                             </div>
                                         </div>
@@ -87,18 +87,18 @@
                                             <div class="col-xs-6 col-sm-6">
                                                 <label class="checkbox text-left">
                                                     <input type="checkbox" value="remember-me" name="remember" ${(cookie.remC!=null?'checked':'')}>
-                                                    <span class="label-text">Remember me</span>
+                                                    <span class="label-text">Nhớ mật khẩu</span>
                                                 </label>
                                             </div>
                                             <div class="col-xs-6 col-sm-6">
                                                 <p class="forgotPwd">
-                                                    <a class="lnk-toggler" data-panel=".panel-forgot">Forgot password?</a>
+                                                    <a class="lnk-toggler" data-panel=".panel-forgot">Quên mật khẩu ?</a>
                                                 </p>
                                             </div>
                                         </div>
                                         <!-- ./remember-row -->
                                         <div class="form-group">
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
                                         </div>
                                     </form>
                                 </div>
@@ -110,32 +110,34 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="authfy-heading">
-                                        <h3 class="auth-title">Sign up for free!</h3>
+                                        <h3 class="auth-title">Đăng ký miễn phí!</h3>
                                     </div>
-                                    <form name="signupForm" class="signupForm" action="SignUpServlet" method="POST">
+                                    <form name="signupForm" class="signupForm" id="signupForm" action="SignUpServlet" method="POST">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" name="email" placeholder="Email address" required="">
+                                            <input type="email" class="form-control" name="email" placeholder="Địa chỉ email" required>
                                         </div>
                                         <div class="form-group">
                                             <div class="pwdMask">
-                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required="">
                                                 <span class="fa fa-eye-slash pwd-toggle"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="pwdMask">
-                                                <input type="password" class="form-control" name="repassword" placeholder="Confirm Password">
+                                                <input type="password" class="form-control" name="repassword" placeholder="Nhập lại mật khẩu" required="">
                                                 <span class="fa fa-eye-slash pwd-toggle"></span>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <p class="term-policy text-muted small">I agree to the <a href="#">privacy policy</a> and <a href="#">terms of service</a>.</p>
+                                        
+                                        <div class="form-group" style="display: flex; align-items: center">
+                                                <input style="margin-bottom: 4%" type="checkbox" value="accept" name="acceptance" id="acceptCheckbox">
+                                                <p class="term-policy text-muted small" style="margin-left: 12%">Tôi đồng ý với <a href="#">chính sách bảo mật</a> và <a href="#">điều khoản dịch vụ</a>.</p>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up with email</button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="submitForm()">Đăng ký với email</button>
                                         </div>
                                     </form>
-                                    <a class="lnk-toggler" data-panel=".panel-login" href="#">Already have an account?</a>
+                                    <a class="lnk-toggler" data-panel=".panel-login" href="#">Bạn đã có tài khoản?</a>
                                 </div>
                             </div>
                         </div>
@@ -145,23 +147,23 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="authfy-heading">
-                                        <h3 class="auth-title">Recover your password</h3>
-                                        <p>Fill in your e-mail address below and we will send you an email with further instructions.</p>
+                                        <h3 class="auth-title">Khôi phục mật khẩu của bạn</h3>
+                                        <p>Nhập vào địa chỉ email của bạn ở bên dưới, chúng tôi sẽ gửi cho bạn mã OTP để lấy lại mật khẩu.</p>
                                     </div>
                                     <form name="forgetForm" class="forgetForm" action="SendEmailServlet" method="POST">
                                         <div class="form-group">
-                                            <input type="email" class="form-control" name="email" placeholder="Email address" required="">
+                                            <input type="email" class="form-control" name="email" placeholder="Địa chỉ email" required="">
                                         </div>
                                         <div class="form-group">
             
-                                            <button class="btn btn-lg btn-primary btn-block" type="submit">Recover your password</button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="submit">Khôi phục mật khẩu</button>
                                             
                                         </div>
                                         <div class="form-group">
-                                            <a class="lnk-toggler" data-panel=".panel-login" href="#">Already have an account?</a>
+                                            <a class="lnk-toggler" data-panel=".panel-login" href="#">Bạn đã có tài khoản?</a>
                                         </div>
                                         <div class="form-group">
-                                            <a class="lnk-toggler" data-panel=".panel-signup" href="#">Don’t have an account?</a>
+                                            <a class="lnk-toggler" data-panel=".panel-signup" href="#">Bạn không có tài khoản?</a>
                                         </div>
                                     </form>
                                 </div>
@@ -180,6 +182,17 @@
     <!-- Javascript Files -->
 
     <!-- initialize jQuery Library -->
+    
+    <script>
+    function submitForm() {
+      var checkbox = document.getElementById("acceptCheckbox");
+      if (checkbox.checked) {
+        document.getElementById("signupForm").submit();
+      } else {
+        alert("Bạn cần phải đồng ý với điều khoản dịch vụ");
+      }
+    }
+    </script>
     <script src="js\jquery-2.2.4.min.js"></script>
 
     <!-- for Bootstrap js -->

@@ -72,11 +72,12 @@ public class PaymentServlet extends HttpServlet {
             throws ServletException, IOException {
         String experationDate = request.getParameter("experationDate");
         String totalPrice = request.getParameter("totalPrice");
+        String parkID = request.getParameter("parkID");
         String orderID = request.getParameter("orderID");
         System.out.println(experationDate);
         HttpSession session = request.getSession();
         session.setAttribute("experationDate", experationDate);
-        response.sendRedirect("payment/payment_vnPay.jsp?price="+totalPrice+"&orderID="+orderID);
+        response.sendRedirect("payment/payment_vnPay.jsp?price="+totalPrice+"&orderID="+orderID+ "&parkID="+parkID);
     }
 
     /**

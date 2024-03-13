@@ -29,9 +29,9 @@
                 <div class="card h-100">
                         <div class="card-body">
                                 <div class="account-settings">
-                                        <div class="user-profile">
+                                    <div class="user-profile">
                                                  <div class="user-avatar">
-                                                    <img src="uploads/${i.image}">
+                                                    <img style="border-radius: 50%; border: 2px solid black" src="uploads/${i.image}">
                                                     <div class="round">
                                                         <i class = "fa fa-camera" style = "color: #000;"></i>
                                                       </div>

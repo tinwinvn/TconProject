@@ -94,7 +94,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirect to profile page after successful password change
-                            window.location.href = 'profile.jsp?uId=' + userId;
+                            window.location.href = 'profile.jsp?userId=' + userId;
                         }
                     });
                 } else if (a === "fail") {

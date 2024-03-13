@@ -286,12 +286,12 @@
                                     <c:if test="${param.id == list.receiveID}">
                                         <c:set var="userID" value="${list.sendID}" />
                                         <c:set var="username" value="${uDAO.getUserById(userID)}"/>
-                                        <div class="uscm ${loop.index > 4 ? 'hidden' : ''}" >  
+                                        <div class="uscm ${loop.index > 2 ? 'hidden' : ''}" >  
                                             <div class="uscm-secs">
                                                 <div class="us-img">
                                                     <c:choose>
                                                         <c:when test="${username.image != null}">
-                                                            <img src="uploads/${username.image}">
+                                                            <img src="uploads/${username.image}" style="border-radius: 50%; border: 2px solid black">
                                                         </c:when>
                                                         <c:otherwise>
                                                             <img src="images/avatar.jpg">

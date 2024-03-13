@@ -19,7 +19,7 @@
     <body>
         
 <jsp:include page="../nav.jsp"></jsp:include>
-
+            <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
           <div class="card-body" style="border: 2px solid; padding: 2%; border-radius: 10px; border-color: lightgray; width: 30%; margin-left: 35%; margin-top: 7% ">
                 <div class="" style="text-align: center;">
 
@@ -44,7 +44,7 @@
         
             <script>
                 function pay() {
-                    window.location.href = "payment_infor.jsp?userId=${acc.userID}&price=${param.price}&orderID=${param.orderID}";
+                    window.location.href = "payment_infor.jsp?userId=${acc.userID}&price=${param.price}&orderID=${param.orderID}&parkID=${param.parkID}";
                 }
                 function querydr() {
                     window.location.href = "vnpay_querydr.jsp";
