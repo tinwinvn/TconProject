@@ -21,59 +21,60 @@
             </div>
 
 
-
-            <table class="table" style="margin-top: 2%; ">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Content</th>
-                        <th scope="col">Date</th>
-                        <c:if test="${sessionScope.acc.role != 3}">
-                        <th scope="col">Action</th>
-                        <th scope="col">Status</th>
-                        </c:if>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="notilist" items="${ntDAO.allNotification}">
-
-                    <c:if test="${sessionScope.acc.userID == notilist.receiverID}">
-
+            <div style="overflow: auto; max-height: 20% !important">
+                <table class="table" style="margin-top: 2%;  ">
+                    <thead>
                         <tr>
-                            <td>${notilist.title}</td> 
-                            <td>${notilist.content}</td>
-                            <td>${notilist.notificationDate}</td>
-                            <c:if test="${sessionScope.acc.role!=3}">
-                                <td>
-                                    <form action="../ResponeRefundServler" method="POST">
-                                        <input type="hidden" name="senderID" value="${notilist.receiverID}">
-                                        <input type="hidden" name="receiverID" value="${notilist.senderID}">
-                                        <input type="hidden" name="transactionCode" value="${notilist.content}">
-                                        <input type="hidden" name="notificationID" value="${notilist.notificationID}">
-                                        <c:if test="${notilist.isConfirm == false}">
-                                            <button type="submit" name="accept" value="accept">Accept</button>
-                                            <button type="submit" name="denied" value="denied">Denied</button>
-                                            <a href="../payment/verification_order.jsp?orderID=${orderDAO.getOrderbyOrderID(transactionDAO.getOrderIDbyTransactionCode(notilist.content)).orderID}">Detail</a>
-                                        </c:if>
-                                    </form>
-                                </td>
-                            </c:if>
+                            <th scope="col">Title</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Date</th>
                             <c:if test="${sessionScope.acc.role != 3}">
-                                <td>   
-                                    <c:if test="${notilist.isConfirm == true}">
-                                        Đã xử lí
-                                    </c:if>
-                                    <c:if test="${notilist.isConfirm == false}">
-                                        Đang chờ xử lí
-                                    </c:if>
-                                </td>    
-                            </c:if>    
-                        </tr>
+                            <th scope="col">Action</th>
+                            <th scope="col">Status</th>
+                            </c:if>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="notilist" items="${ntDAO.allNotification}">
 
-                    </c:if>
-                </c:forEach>
-            </tbody>
-        </table>
+                        <c:if test="${sessionScope.acc.userID == notilist.receiverID}">
+
+                            <tr>
+                                <td>${notilist.title}</td> 
+                                <td>${notilist.content}</td>
+                                <td>${notilist.notificationDate}</td>
+                                <c:if test="${sessionScope.acc.role!=3}">
+                                    <td>
+                                        <form action="../ResponeRefundServler" method="POST">
+                                            <input type="hidden" name="senderID" value="${notilist.receiverID}">
+                                            <input type="hidden" name="receiverID" value="${notilist.senderID}">
+                                            <input type="hidden" name="transactionCode" value="${notilist.content}">
+                                            <input type="hidden" name="notificationID" value="${notilist.notificationID}">
+                                            <c:if test="${notilist.isConfirm == false}">
+                                                <button type="submit" name="accept" value="accept">Accept</button>
+                                                <button type="submit" name="denied" value="denied">Denied</button>
+                                                <a href="../payment/verification_order.jsp?orderID=${orderDAO.getOrderbyOrderID(transactionDAO.getOrderIDbyTransactionCode(notilist.content)).orderID}">Detail</a>
+                                            </c:if>
+                                        </form>
+                                    </td>
+                                </c:if>
+                                <c:if test="${sessionScope.acc.role != 3}">
+                                    <td>   
+                                        <c:if test="${notilist.isConfirm == true}">
+                                            Đã xử lí
+                                        </c:if>
+                                        <c:if test="${notilist.isConfirm == false}">
+                                            Đang chờ xử lí
+                                        </c:if>
+                                    </td>    
+                                </c:if>    
+                            </tr>
+
+                        </c:if>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
 
 
 

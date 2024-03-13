@@ -77,7 +77,7 @@
                         <li>
                             <a href="#">Dashboard</a>
                         </li>
-                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li><i class="bx bx-chevron-right"></i></li>
                         <li>
                             <a class="active" href="../index.jsp">Home</a>
                         </li>

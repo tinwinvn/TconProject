@@ -15,9 +15,9 @@
     <body>
         <!-- SIDEBAR -->
 	<section id="sidebar">
-		<a href="#" class="brand">
+		<a href="../index.jsp" class="brand">
 			<i class='bx bxs-smile'></i>
-			<span class="text">AdminHub</span>
+			<span class="text">Tcon</span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
@@ -26,42 +26,24 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
-                    <c:if test="${sessionScope.acc.role == 1}">
+                <c:if test="${sessionScope.acc.role == 1}">
 			<li>
 				<a href="listuser.jsp">
 					<i class='bx bxs-shopping-bag-alt' ></i>
 					<span class="text">Users List</span>
 				</a>
 			</li>
-                    </c:if>
+                </c:if>
 			<li>
-				<a href="#">
-					<i class='bx bxs-message-dots' ></i>
-					<span class="text">Message</span>
-				</a>
-			</li>
-			<li>
-				<a href="../booking/notification_list.jsp">
+				<a href="admin_notification.jsp">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Notification</span>
-				</a>
-			</li>
-                        <li>
-				<a href="#">
-					<i class='bx bxs-group' ></i>
-					<span class="text">Request</span>
 				</a>
 			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>
-				<a href="#">
-					<i class='bx bxs-cog' ></i>
-					<span class="text">Settings</span>
-				</a>
-			</li>
-			<li>
-				<a href="#" class="logout">
+				<a href="../LogOutServlet" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
 					<span class="text">Logout</span>
 				</a>
