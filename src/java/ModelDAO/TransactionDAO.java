@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -152,8 +153,9 @@ public class TransactionDAO {
     
     public void addNewTransaction(String orderID, String date, String TransactionCode, int transactionStatus) throws SQLException, Exception {
         String query = "INSERT INTO TransactionHistory VALUES (?, ?, ?, ?, ?)";
+        System.out.println(orderID);
         Connection conn;
-        String fdate = toDate(date);
+        Timestamp fdate = toDate(date);
         GenerateID gn = new GenerateID();
         try {
 
@@ -161,7 +163,7 @@ public class TransactionDAO {
             try (PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setString(1, gn.generateID("TS"));
                 statement.setString(2, orderID);
-                statement.setString(3, fdate);              
+                statement.setTimestamp(3, fdate);              
                 statement.setString(4, TransactionCode);
                 statement.setInt(5, transactionStatus);
                 statement.execute();
@@ -189,21 +191,27 @@ public class TransactionDAO {
     }
 
     
-    public String toDate(String input){
+    public Timestamp toDate(String input){
         // Định nghĩa định dạng của ngày tháng
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         
         try {
-            // Chuyển đổi chuỗi thành đối tượng Date
             java.util.Date date =  inputFormat.parse(input);
-            
-            // Định nghĩa định dạng mới cho ngày tháng
-            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            
-            // Định dạng lại thành chuỗi theo định dạng mới
-            String formattedDate = outputFormat.format(date);
-            System.out.println(formattedDate);
-            return formattedDate;
+            Timestamp dateSQL = new Timestamp(date.getTime());
+            return dateSQL;
+        } catch (ParseException e) {
+        }
+        return null;
+    }
+    
+    public Timestamp toeDate(String input){
+        // Định nghĩa định dạng của ngày tháng
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            java.util.Date date =  inputFormat.parse(input);
+            Timestamp dateSQL = new Timestamp(date.getTime());
+            return dateSQL;
         } catch (ParseException e) {
         }
         return null;

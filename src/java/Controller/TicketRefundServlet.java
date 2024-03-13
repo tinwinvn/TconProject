@@ -78,6 +78,8 @@ public class TicketRefundServlet extends HttpServlet {
             String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
             String userID = parkDAO.getUserIDByParkID(parkID);
             if (order.getOrderStatus() == 1){
+                System.out.println(senderID);
+                System.out.println(userID);
                 notificationDAO.addNewNotification(senderID, userID, "Yêu cầu hoàn trả vé",transactionCode, currentDate);
                 response.sendRedirect("payment/payment_history.jsp?userID=" + senderID);
             } else if (order.getOrderStatus() == 2){

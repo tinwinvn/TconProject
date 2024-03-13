@@ -164,7 +164,7 @@ public class OrderDAO {
         File file = new File(dir);
         file = file.getParentFile().getParentFile().getParentFile().getParentFile();
         String absoluteFolderPath = Paths.get(file.toString(), "web/payment/QR/" + orderID + ".jpg").toString();
-        send.sendQR("taingocminh2003@gmail.com", "Your QR", absoluteFolderPath);
+        send.sendQR("taingocminh2003@gmail.com", "Your QR Code", absoluteFolderPath);
         Timestamp fdate = toDate(orderDate);
         Timestamp edate = toeDate(expirationDate);
         try {
