@@ -7,7 +7,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Payment History</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
+        <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>    
+        <link rel="stylesheet" href="../css/styles.css" />
         <style>
             body {
                 font-family: 'Arial', sans-serif;
@@ -89,13 +90,14 @@
     </style>
     </head>
     <body>
-        <jsp:include page="../nav.jsp"></jsp:include>
+        <div class="bg-red" style="height: 3vh; background-color: #EE2E24"></div>
+        <jsp:include page="../navbar.jsp"></jsp:include>
         <jsp:useBean id="userDAO" class="ModelDAO.UserDAO"></jsp:useBean>
         <jsp:useBean id="transactionDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
         <jsp:useBean id="ticketTypeDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="OrderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
         <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>     
-        <h2 style="text-align: center; color: #EE2E24; margin-top: 2%">Lịch sử giao dịch</h2>
+        <h2 style="text-align: center; color: #EE2E24; margin-top: 5%">Lịch sử giao dịch</h2>
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 2%">
         <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24" onclick="openPopup()">Hoàn vé</button>
         </div>
