@@ -70,6 +70,32 @@ public class ParkDAO {
         return park.getUserID();
     }
     
+    public String getParkIDByUserID(String userID) throws SQLException {
+        String sql = "SELECT * FROM Park WHERE UserID = ?";
+        Park park = new Park();
+        System.out.println(userID);
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, userID);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                park = mapResultSetToPark(rs);
+                System.out.println(park);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return park.getParkID();
+    }
+
+    
     public String getParkNameByParkID(String parkID) throws SQLException{
         String sql = "select * from Park where ParkID = ?";
         Park park = new Park();

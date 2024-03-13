@@ -31,6 +31,10 @@
                 <p>Ngày sử dụng: ${orderDAO.getOrderbyOrderID(param.orderID).experationDate}</p>  
                 <c:if test="${orderDAO.getOrderbyOrderID(param.orderID).orderStatus == 1}">
                     <p>Hợp lệ</p>
+                    <form action="../AcceptVerificationOrderServlet" method="post"> 
+                        <input type="hidden" name="orderID" value="${param.orderID}">
+                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Xác nhận</button>
+                    </form>
                 </c:if>
                 <c:if test="${orderDAO.getOrderbyOrderID(param.orderID).orderStatus == 2}">
                     <p>Đã được sử dụng</p>
@@ -38,10 +42,6 @@
                 <c:if test="${orderDAO.getOrderbyOrderID(param.orderID).orderStatus == 3}">
                     <p>Đã hoàn vé</p>
                 </c:if>
-                    <form action="../AcceptVerificationOrderServlet" method="post"> 
-                        <input type="hidden" name="orderID" value="${param.orderID}">
-                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Xác nhận</button>
-                    </form>
     
               </div>          
                         <footer style="background-color: white; height: 30%">

@@ -43,8 +43,18 @@
 
                     <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
                         <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
-                        <li><a href="introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
-                        <li><a href="#" class="text-red p-2">Trải Nghiệm</a></li>
+                        <li><a href="introduction/introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
+                        <li>
+                            <div class="dropdown">
+                                <a href="#" onclick="myFunction()" class="dropbtn text-red p-2" style="color: #EE2E24; font-size: unset !important">Trải nghiệm<span class="caret"></span></a>
+
+                                <div id="myDropdown" class="dropdown-content" style="background-color: white; left: 20px !important; height: 32vh; width: 10vw">
+                                    <a href="details.jsp?id=PA000001" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Asia Park</a>
+                                    <a href="details.jsp?id=PA000002" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Núi Thần Tài</a>
+                                    <a href="details.jsp?id=PA000003" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Helio Center</a>
+                                    <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
+                            </div> 
+                        </li>
                     </ul>
                     <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
                     <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
@@ -278,15 +288,21 @@
                     <div class="card-body p-4"  style="">       
                         <div class="card mb-4"  style="width: 95%;">
 
-                            <div class="card-body">
+
+        <div class="row d-flex justify-content-center" style="margin-top: 5vh; margin-left: 5vw">
+            <div class="col-md-8 col-lg-6" style="">
+                <div class="card shadow border" style="background-color: #EE2E24; width: 41vw">
+                    <div class="card-body p-4">       
+                        <div class="card mb-4" style="overflow-y: scroll; max-height: 450px;">
+
+                             <div class="card-body">
                                 <c:set var="rList" value="${rDAO.allRating}"/>
                                 <c:set var="uList" value="${uDAO.allUser}"/>
-                                <c:set var="commentCount" value="0"/>
                                 <c:forEach var="list" items="${rList}" varStatus="loop">
                                     <c:if test="${param.id == list.receiveID}">
                                         <c:set var="userID" value="${list.sendID}" />
                                         <c:set var="username" value="${uDAO.getUserById(userID)}"/>
-                                        <div class="uscm ${loop.index > 4 ? 'hidden' : ''}" >  
+                                        <div class="uscm">  
                                             <div class="uscm-secs">
                                                 <div class="us-img">
                                                     <c:choose>
@@ -328,66 +344,39 @@
                                                     <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
                                                     <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
                                         </div> 
-                                        <c:set var="commentCount" value="${commentCount + 1}"/>
+                                        
                                     </c:if>
-                                    
                                 </c:forEach>
-                                <c:if test="${commentCount > 3}">
-                                    <button id="readMoreButton" style="color: #EE2E24">Xem thêm</button>
-                                </c:if>           
+                                
                             </div>                    
                         </div> 
                     </div>
                 
                      
         </div>
-                                
-                                
-                                
- <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0);">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <form id="editForm" action="UpdateCommentServlet" method="post">
-            <input type="hidden" id="ratingId" name="ratingId" value="">
-            <input type="hidden" id="parkID" name="parkID" value="">
-            <textarea id="ratingText" name="ratingText" rows="4" cols="50"></textarea>
-            <button id="update-button" type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
-        </form>
-    </div>
-</div>
-
-
-
-
-
-    
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    var readMoreButton = document.getElementById('readMoreButton');
-
-                    // Function to handle showing or hiding additional comments
-                    function toggleAdditionalComments() {
-                        var allComments = document.querySelectorAll('.uscm'); // Lấy tất cả các comment
-                        allComments.forEach(function (comment, index) {
-                            if (index >= 3) { // Ẩn các comment từ chỉ số thứ 3 trở đi
-                                comment.classList.toggle('hidden');
-                            }
-                        });
-                        // Change the text of the button based on its current state
-                        if (readMoreButton.textContent === 'Xem thêm') {
-                            readMoreButton.textContent = 'Ẩn';
-                        } else {
-                            readMoreButton.textContent = 'Xem thêm';
-                        }
-                    }
-
-                    // Event listener for the read more button
-                    readMoreButton.addEventListener('click', function () {
-                        toggleAdditionalComments();
-                    });
-                });
-            </script>
-<script>
+                                          <div id="myModal" class="modal" style="display: none; margin-left: 50vw; margin-top: 35vh; height: 70vh">
+                                            <div class="modal-content">
+                                                <span class="close">&times;</span>
+                                                <form id="editForm" action="UpdateCommentServlet" method="post">
+                                                    <input type="hidden" id="ratingId" name="ratingId" value="">
+                                                    <input type="hidden" id="parkID" name="parkID" value="">
+                                                    <textarea id="ratingText" name="ratingText" rows="4" cols="50"></textarea>
+                                                    <button id="update-button" type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                <style>
+                                    ::-webkit-scrollbar{
+                                        width: 10px;
+                                        background-color: #ff6666;
+                                    }
+                                    ::-webkit-scrollbar-thumb{
+                                        border-radius: 5px;
+                                        background-color: #F7F7F7;
+                                    }
+                                </style>                              
+                                  
+    <script>
          // Get the modal
         var modal = document.getElementById('myModal');
 
@@ -491,15 +480,27 @@
             }
         });
     </script>
+    <script>
+            /* When the user clicks on the button, 
+             toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
 
-
-
-
-
-
-
-
-
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            };
+        </script>
 
     <jsp:include page="footer.jsp"></jsp:include>
 </body>

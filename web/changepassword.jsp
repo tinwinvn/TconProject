@@ -22,30 +22,12 @@
         <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <jsp:useBean id="userAlg" class="ModelDAO.UserDAO"></jsp:useBean>
-        <c:forEach var="i" items="${userAlg.allUser}">
-            <c:if test="${i.userID == param.userId}">
-                <div class="card h-100">
-                        <div class="card-body">
-                                <div class="account-settings">
-                                        <div class="user-profile">
-                                                 <div class="user-avatar">
-                                                    <img src="../images/avatar.jpg">
-                                                </div>
-                                               
-                                                <h5 class="user-name">${i.fullName}</h5>
-                                                <h6 class="user-email">${i.email}</h6>                  
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-            </c:if>
-        </c:forEach>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
         <div class="card h-100">
                 <div class="card-body">
                     
-                    <form action="ChangePasswordServlet" method="post">
+                    <form onsubmit="changePassword(event)" >
                         <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <h6 class="mt-3 mb-2 text-primary" style="color: #EE2E24 !important">Thay đổi mật khẩu</h6>
@@ -85,6 +67,63 @@
         </div>
         </div>
 </div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+        function changePassword(event) {
+    event.preventDefault(); // Ngăn chặn form submit theo cách truyền thống
+    var form = event.target;
+    var userId = form.userId.value; // Lấy giá trị của trường userId
+    var oldPassword = form.oldpassword.value;
+    var newPassword = form.newpassword.value;
+    var confirmPassword = form.confirmpassword.value;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'ChangePasswordServlet', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var a = xhr.responseText.trim();
+                if (a === "success") {
+                    Swal.fire({
+                        title: 'Thành công',
+                        text: 'Đổi mật khẩu thành công',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 1500
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to profile page after successful password change
+                            window.location.href = 'profile.jsp?userId=' + userId;
+                        }
+                    });
+                } else if (a === "fail") {
+                    Swal.fire({
+                        title: 'Lỗi',
+                        text: 'Mật khẩu mới của bạn không khớp',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                } else if (a === "error") {
+                    Swal.fire({
+                        title: 'Lỗi',
+                        text: 'Đã xảy ra lỗi khi thay đổi mật khẩu',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            }
+        }
+    };
+    var data = 'userId=' + encodeURIComponent(userId) +
+               '&oldpassword=' + encodeURIComponent(oldPassword) +
+               '&newpassword=' + encodeURIComponent(newPassword) +
+               '&confirmpassword=' + encodeURIComponent(confirmPassword);
+    xhr.send(data);
+}
+
+</script>
+
    <footer style="background-color: white; height: 30%">
             <jsp:include page="footer.jsp"></jsp:include>
         </footer>

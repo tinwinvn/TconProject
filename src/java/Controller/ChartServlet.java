@@ -48,13 +48,12 @@ public class ChartServlet extends HttpServlet {
             
             OrderDAO orderDAO = new OrderDAO();
             Gson gson = new Gson();
-            System.out.println(gson);
             //String JsonString = gson.toJson(orderDAO.MixOrderWTicket());
             
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("financialreport", JsonParser.parseString(gson.toJson(orderDAO.MixOrderWTicket())));
             
-            String filePath = getServletContext().getRealPath("/statistic/ChartServlet.json");
+            String filePath = getServletContext().getRealPath("/admin/ChartServlet.json");
             String trimmedRealPath = filePath.replace("\\build\\", "\\");
             
             try (FileWriter fileWriter = new FileWriter(trimmedRealPath)) {
@@ -67,7 +66,6 @@ public class ChartServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             out.print(responseJsonString);
             out.flush();
-            response.sendRedirect("statistic/weekstatistic_list.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ChartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

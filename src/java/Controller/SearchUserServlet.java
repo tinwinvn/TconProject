@@ -74,7 +74,6 @@ public class SearchUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
             request.setCharacterEncoding("UTF-8");
             String txtSearch = request.getParameter("txtSearch");
             UserDAO uDAO = new UserDAO();
@@ -87,7 +86,7 @@ public class SearchUserServlet extends HttpServlet {
             if (searchPerformed) {
                 request.setAttribute("listU", list);
             }
-            request.getRequestDispatcher("listuser.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/listuser.jsp").forward(request, response);
         } catch (Exception e) {
             
         }

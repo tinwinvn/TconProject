@@ -16,6 +16,7 @@
 
     <body>
         <jsp:include page="../nav.jsp"></jsp:include>
+        <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
         <nav>
             <ul>
                 <li><a href="../index.jsp">Home</a></li>
@@ -75,12 +76,16 @@
         <c:if test="${not empty sessionScope.cart}">
                 <c:if test="${empty param.transactionCode}">
                     <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">
-                        <input type="date" id="experationDate" name="experationDate" required="">
-                        <input type="text" id="discountCode" name="discountCode" placeholder="Mã giảm giá (nếu có)">
+                        <div style="display: flex; align-items: center; justify-content: center">
+                            <p style="margin-top: 0.7%; margin-right: 10px">Ngày sử dụng: </p>
+                            <input type="date" id="experationDate" name="experationDate" required="">
+                        </div>
                         <input type="hidden" name="totalPrice" value="${totalPrice}">
                         <input type="hidden" name="orderID" value="${param.orderID}">
+                        <input type="hidden" name="parkID" value="${param.parkID}">
                         <div style="margin-top: 1%">
-                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                    
+                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
+                    </form>  
                         </div>
                         </form> 
                 </c:if>
@@ -99,4 +104,15 @@
        
         <jsp:include page="../footer.jsp"></jsp:include>
     </body>
+    
+    <script>
+        // Lấy ngày hiện tại
+        var currentDate = new Date();
+
+        // Format ngày hiện tại thành chuỗi yyyy-mm-dd
+        var formattedDate = currentDate.toISOString().split('T')[0];
+
+        // Đặt giá trị min cho trường input date
+        document.getElementById("experationDate").setAttribute("min", formattedDate);
+    </script>
 </html>

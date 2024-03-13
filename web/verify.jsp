@@ -10,7 +10,7 @@
 <body>
     
     <form action="VerifyOTPServlet" method="post">
-        <h2>Enter OTP to Verify</h2>
+        <h2>Chúng tôi đã gửi OTP đến email của bạn, hãy kiểm tra trong hộp thư</h2>
         <label for="otp">OTP:</label>
         <input type="text" id="otp" name="otp" required>
         <input type="hidden" name="userId" value="${param.userId}">

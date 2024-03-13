@@ -75,6 +75,7 @@ public class ProfileUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         System.out.println(name);
         if (name == "") {
@@ -90,20 +91,15 @@ public class ProfileUpdateServlet extends HttpServlet {
         if (dob == "") {
             dob = null;
         }
-            String IDCard = request.getParameter("idcard");
-            if (IDCard == "") {
-                IDCard = null;
-            }
             String userId = request.getParameter("userId");
             try {
                 UserDAO um = new UserDAO();
                 um.updateUser(name, phone, dob, userId);
-                request.getRequestDispatcher("profile.jsp?userId=" + userId).forward(request, response);
+                response.sendRedirect("profile.jsp?userId=" + userId);
 
             } catch (Exception ex) {
                 Logger.getLogger(ProfileUpdateServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.getRequestDispatcher("profile.jsp?userId=" + userId).forward(request, response);
         }
 
         /**

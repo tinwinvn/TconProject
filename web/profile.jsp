@@ -29,9 +29,9 @@
                 <div class="card h-100">
                         <div class="card-body">
                                 <div class="account-settings">
-                                        <div class="user-profile">
+                                    <div class="user-profile">
                                                  <div class="user-avatar">
-                                                    <img src="uploads/${i.image}">
+                                                    <img style="border-radius: 50%; border: 2px solid black" src="uploads/${i.image}">
                                                     <div class="round">
                                                         <i class = "fa fa-camera" style = "color: #000;"></i>
                                                       </div>
@@ -148,7 +148,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
                                             <button type="submit" class="btn btn-primary" style="background-color: #EE2E24">Update</button>
-                                            <button type="submit" class="btn btn-secondary" style="background-color: white;"><a href="changepassword.jsp" style="color: #EE2E24">Change Password</a></button>
+                                            <button type="submit" class="btn btn-secondary" style="background-color: white;"><a href="changepassword.jsp?userId=${param.userId}" style="color: #EE2E24">Change Password</a></button>
                                         </div>
                                 </div>
                         </div>
