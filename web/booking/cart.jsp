@@ -29,7 +29,6 @@
         <jsp:useBean id="otDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
         <jsp:useBean id="odDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
 
-
         
        <div class="container d-flex justify-content-center align-items-center">
                 <div class="row" >
@@ -44,7 +43,7 @@
                             <c:set var="ticketTypeName" value="${ticketType.typeName}" />
                             <c:set var="quantity" value="${item.value.quantity}" />
                             <c:set var="price" value="${ticketType.price}"></c:set>
-
+                            <c:set var="parkID" value="${ticketType.parkID}"></c:set>
                                 <h3>${ticketTypeName}</h3>
                             <p>Số lượng: ${quantity}</p>
                             <p>Giá: ${price * quantity} VNĐ</p>
@@ -57,8 +56,8 @@
 
 
                             <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
-
-
+                            <c:set var="voucherPrice" value="${totalPrice * discountrate}"></c:set>
+                            <c:set var="finalPrice" value="${empty param.voucher ? totalPrice : voucherPrice}" />    
                             <c:if test="${empty sessionScope.cart}">
                                 <p class="empty-cart-message">Giỏ hàng trống</p>
                             </c:if>

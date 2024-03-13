@@ -105,6 +105,41 @@ public class SendEmail {
         }
     }
     
+    public void sendVoucherCode(String mail, String voucherCode) {
+        String email = "taiminhtest@gmail.com";
+
+        String pswd = "eavo dccr fnnv koyg";
+
+        final String senderEmail = email;
+        final String password = pswd;
+        final String receiverEmail = mail;
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmail));
+            message.setSubject("Voucher from send-voucher");
+            message.setText("Your voucher code" + voucherCode);
+            Transport.send(message);
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            System.out.println("loi");
+        }
+    }
+    
     public String toSHA256(String string){
         try {
             // Create SHA-1 message digest

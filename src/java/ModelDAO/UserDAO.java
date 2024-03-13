@@ -260,6 +260,29 @@ public class UserDAO {
         }
     }
     
+        public int getPointByUserID(String userID) throws SQLException{
+        String sql = "select * from Users where UserID = ?";
+        User user = new User();
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, userID);
+            rs = statement.executeQuery();
+                if (rs.next()) {
+                    user = mapResultSetToUser(rs);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return user.getPoint();
+    }
+        
     public User getUserByToken(String token) throws Exception{
         User u = null;
         for (User user : getAllUser()){

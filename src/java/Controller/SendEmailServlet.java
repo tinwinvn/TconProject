@@ -72,7 +72,7 @@ public class SendEmailServlet extends HttpServlet {
                     SendEmail sendEmail = new SendEmail();
                     sendEmail.sendOTP(email, otp);
                     
-                   HttpSession session = request.getSession();
+                    HttpSession session = request.getSession();
                     LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(2);
                     session.setAttribute("otpExpirationTime", expirationTime);
 

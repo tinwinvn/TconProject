@@ -1,0 +1,68 @@
+/* Thiết kế các khối div chứa tin tức */
+.box-news-type {
+    margin-bottom: 20px;
+}
+
+/* Thiết kế khung nền và viền cho khối tin tức */
+.box-news {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Thiết kế hình ảnh trong khối tin tức */
+.box-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Thiết kế thông tin trong khối tin tức */
+.box-info {
+    padding: 15px;
+}
+
+/* Thiết kế tiêu đề của tin tức */
+.box-info-title a {
+    color: #333333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Thiết kế màu và kích thước của chữ mô tả trong tin tức */
+.box-info-desc {
+    color: #666666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Thiết kế màu và kích thước của nút "Xem thêm" */
+.more {
+    color: #ee2e24;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Thiết kế nút "Xem thêm" khi rê chuột qua */
+.more:hover {
+    color: #ff0000;
+}
+
+/* Thiết kế các khối tin tức */
+/* Thiết lập flex container cho khối chứa các khối tin tức */
+.container {
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: center; /* Căn giữa các khối tin tức theo chiều ngang */
+    align-items: center; /* Căn giữa các khối tin tức theo chiều dọc */
+    height: 100vh; /* Đảm bảo khối chứa toàn bộ chiều cao của màn hình */
+}
+
+/* Thiết kế các khối tin tức */
+.box-news-type {
+    /* Thiết lập các thuộc tính cho khối tin tức */
+}
+

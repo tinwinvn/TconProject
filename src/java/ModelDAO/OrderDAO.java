@@ -168,7 +168,6 @@ public class OrderDAO {
         Timestamp fdate = toDate(orderDate);
         Timestamp edate = toeDate(expirationDate);
         try {
-
             conn = db.getConnection();
             try (PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setString(1, orderID);

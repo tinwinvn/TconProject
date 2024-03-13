@@ -8,12 +8,14 @@ import Model.Rating;
 import Model.TransactionHistory;
 import ModelDAO.UserDAO;
 import Model.User;
+import Model.Voucher;
 import ModelDAO.AddFavouriteDAO;
 import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.RatingDAO;
 import ModelDAO.TransactionDAO;
+import ModelDAO.VoucherDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,20 @@ public class GenerateID {
             List<OrderDetail> listOrderDetail = orderdetailDAO.getAllOrderDetail();
             for (OrderDetail orderdetail : listOrderDetail) {
                 String numID = orderdetail.getOrderDetailID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
+        } else if (entity == "VH") {
+            VoucherDAO  voucherDAO= new VoucherDAO();
+            if (voucherDAO.getAllVoucher().isEmpty()) {
+                return entity + "000001";
+            }
+            List<Voucher> listVoucher= voucherDAO.getAllVoucher();
+            for (Voucher voucher : listVoucher) {
+                String numID = voucher.getVoucherID().substring(2);
                 int num = Integer.parseInt(numID);
                 String nextID = entity + (String.format("%06d", num + 1));
                 if (!isDupplicatedID(nextID, entity)) {
@@ -133,6 +149,14 @@ public class GenerateID {
             List<OrderDetail> listOrderdetail = orderdetailDAO.getAllOrderDetail();
             for (OrderDetail orderdetail : listOrderdetail) {
                 if (orderdetail.getOrderDetailID().equals(id)) {
+                    return true;
+                }
+            }
+        } else if (entity == "VH") {
+            VoucherDAO voucherDAO = new VoucherDAO();
+            List<Voucher> listVoucher = voucherDAO.getAllVoucher();
+            for (Voucher voucher : listVoucher) {
+                if (voucher.getVoucherID().equals(id)) {
                     return true;
                 }
             }
