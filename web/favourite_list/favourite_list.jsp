@@ -9,22 +9,27 @@
         <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
     </head>
     <body>
-        <jsp:include page="../nav.jsp"></jsp:include>
-        
-        
+        <jsp:include page="../nav.jsp"></jsp:include> 
         <jsp:useBean id="afDAO" class="ModelDAO.AddFavouriteDAO"></jsp:useBean>
         <jsp:useBean id="pkDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gmDAO" class="ModelDAO.GameDAO"></jsp:useBean>
-        <nav class="d-flex justify-content-evenly align-items-center bg-white">
-            <ul class="d-flex align-items-center mb-0" >
-                <li><a href="../index.jsp" class="text-red p-2">Home</a></li>
-                <li><a href="#" class="text-red p-2" onclick="showFavorites('parks')">Danh sách công viên yêu thích</a></li>
-                <li><a href="#" class="text-red p-2" onclick="showFavorites('games')">Danh sách Trò chơi yêu thích</a></li>
-            </ul>
-            <div class="logo text-black p-2"></div>
-        </nav>
+        
 
-            <div id="favoritesTable" style="margin-left: 22%">
+        
+            <div style="margin-top: 2%; display: flex; justify-content: center;">
+    
+    <a href="#" onclick="showFavorites('parks')">
+        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-right: 30%">Danh sách công viên yêu thích</button>
+    </a>
+    <a href="#" onclick="showFavorites('games')">
+        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-left: 30%">Danh sách trò chơi yêu thích</button>
+    </a>
+</div>
+
+           
+        
+
+            <div id="favoritesTable" style="margin-left: 24%">
                 <table border="1" >
                     <thead>
                         <tr>
@@ -167,8 +172,8 @@
     }
 
     table th {
-        background-color: #007bff;
-        color: #fff;
+        background-color: white;
+        color: #EE2E24;
     }
 
     table tbody tr:nth-child(even) {

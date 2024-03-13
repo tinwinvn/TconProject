@@ -95,8 +95,10 @@
         <jsp:useBean id="ticketTypeDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="OrderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
         <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>     
-        <h2 style="text-align: center; color: #EE2E24">Lịch sử giao dịch</h2>
-        <button style="margin-left: 45%" onclick="openPopup()">Hoàn vé</button>
+        <h2 style="text-align: center; color: #EE2E24; margin-top: 2%">Lịch sử giao dịch</h2>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 2%">
+        <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24" onclick="openPopup()">Hoàn vé</button>
+        </div>
             <div id="overlay" class="overlay"></div>
             <div id="popup" class="popup">
                 <form action="../TicketRefundServlet" method="POST">
@@ -108,7 +110,7 @@
                     <button onclick="closePopup()">Close</button>
                 </form>
             </div>
-            <table border="1">
+            <table border="1" style="margin-top: 2%">
                 <thead>
                     <tr>
                         <th>Ngày</th>
@@ -172,6 +174,9 @@
         </tbody>
     </table>
     <br>  
+    <footer style="background-color: white; height: 30%; position: static">
+            <jsp:include page="../footer.jsp"></jsp:include>
+        </footer>
 </body>
 
 <script>

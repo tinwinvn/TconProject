@@ -15,29 +15,32 @@
     </head>
     
     <body>
-        <nav>
+        <nav>          
             <div class="nav__logo"><a href="#" style="color: #EE2E24">TCON</a></div>
+            </div>
             <ul class="nav__links" style="margin-top: 1%">
                 <li class="link" style="color: #EE2E24">Home</li>
                 <li class="link" style="color: #EE2E24">Blog</li>
                 <li class="link" style="color: #EE2E24">Offers</li>
                 <li class="link" style="color: #EE2E24">Services</li>
                 <li class="link" style="color: #EE2E24">Contacts</li>
+               
                     <c:if test="${sessionScope.acc != null}">
                     <li>
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn" style="color: #EE2E24">HELLO<span class="caret"></span></button>
-                            <div id="myDropdown" class="dropdown-content">
-                                <a href="LogOutServlet" style="color: white">LOG OUT</a>
-                                <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: white">PROFILE</a>
+                            
+                            <div id="myDropdown" class="dropdown-content" style="background-color: white;">
+                                <a href="LogOutServlet" style="color: black">LOG OUT</a>
+                                <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: black">PROFILE</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: white">USERS MANAGER</a>
+                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: black">USERS MANAGER</a>
                                 </c:if>
-                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a>
-                                    <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a>
-                                    <a href="booking/notification_list.jsp">Thông báo</a>
+                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử giao dịch</a>
+                                    <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}" style="color: black">Danh sách yêu thích</a>
+                                    <a href="booking/notification_list.jsp" style="color: black">Thông báo</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
-                                    <a href="listuser.jsp">USERS LIST</a>
+                                    <a href="listuser.jsp" style="color: black">USERS LIST</a>
                                 </c:if>
                             </div>
                         </div>
