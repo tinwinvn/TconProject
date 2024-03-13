@@ -53,7 +53,7 @@
                                     <a href="details.jsp?id=PA000002" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Núi Thần Tài</a>
                                     <a href="details.jsp?id=PA000003" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Helio Center</a>
                                     <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
-                            </div> 
+                                </div> 
                         </li>
                     </ul>
                     <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
@@ -61,9 +61,9 @@
                         <li><a href="#" class="text-red p-2">Trò Chơi</a></li>
                         <li><a href="#" class="text-red p-2">Tin tức</a></li>
                         <li><a href="#" class="text-red p-2">Bản đồ</a></li>
-                        <c:if test="${sessionScope.acc != null}">
-                        <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
-                           style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
+                            <c:if test="${sessionScope.acc != null}">
+                            <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
+                               style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
                         </c:if>
 
                     </ul>
@@ -133,44 +133,44 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        
-                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
-                        <script>
-                        function addToFavourites(event) {
-                            event.preventDefault();
-                            var form = event.target;
-                            var userID = form.userID.value;
-                            var favouriteItems = form.favouriteItems.value;
-                            var a; // Khai báo biến a để lưu trạng thái
 
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'AddFavouriteServlet', true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState === 4) {
-                                    if (xhr.status === 200) {
-                                        if (xhr.responseText.trim() === "sus") {
-                                            a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
-                                            Swal.fire({
-                                                title: 'Add Success',
-                                                icon: 'success',
-                                                confirmButtonText: 'OK',
-                                                timer: 1500
-                                            });
-                                        } else {
-                                            a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
-                                            Swal.fire({
-                                                title: 'Đã có trong danh sách yêu thích',
-                                                icon: 'error',
-                                                confirmButtonText: 'OK'
-                                            });
-                                        }
-                                    }
-                                }
-                            };
-                            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
-                        }
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        <script>
+                                                function addToFavourites(event) {
+                                                    event.preventDefault();
+                                                    var form = event.target;
+                                                    var userID = form.userID.value;
+                                                    var favouriteItems = form.favouriteItems.value;
+                                                    var a; // Khai báo biến a để lưu trạng thái
+
+                                                    var xhr = new XMLHttpRequest();
+                                                    xhr.open('POST', 'AddFavouriteServlet', true);
+                                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                                    xhr.onreadystatechange = function () {
+                                                        if (xhr.readyState === 4) {
+                                                            if (xhr.status === 200) {
+                                                                if (xhr.responseText.trim() === "sus") {
+                                                                    a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
+                                                                    Swal.fire({
+                                                                        title: 'Add Success',
+                                                                        icon: 'success',
+                                                                        confirmButtonText: 'OK',
+                                                                        timer: 1500
+                                                                    });
+                                                                } else {
+                                                                    a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
+                                                                    Swal.fire({
+                                                                        title: 'Đã có trong danh sách yêu thích',
+                                                                        icon: 'error',
+                                                                        confirmButtonText: 'OK'
+                                                                    });
+                                                                }
+                                                            }
+                                                        }
+                                                    };
+                                                    xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+                                                }
 
                         </script>
 
@@ -206,9 +206,9 @@
                 $('html, body').animate({scrollTop: 0}, 'slow');
             }
         </script>
-        
+
         <div class="bg-red" style="height: 0.5vh;"></div>
-        
+
         <div class="rating" style="margin-top: 5vh;">
             <div class="tri table-flex">
                 <table>
@@ -280,207 +280,215 @@
         </div>
 
 
-<div class="bg-red" style="height: 0.5vh;"></div>
+        <div class="bg-red" style="height: 0.5vh;"></div>
 
-       <div class="row d-flex justify-content-center" style="margin-top: 5vh; margin-left: 5vw">
-            
-               
-                    <div class="card-body p-4"  style="">       
-                        <div class="card mb-4"  style="width: 95%;">
+        <div class="row d-flex justify-content-center" style="margin-bottom: 3vh; margin-left: 5vw">
 
 
-        <div class="row d-flex justify-content-center" style="margin-top: 5vh; margin-left: 5vw">
-            <div class="col-md-8 col-lg-6" style="">
-                <div class="card shadow border" style="background-color: #EE2E24; width: 41vw">
-                    <div class="card-body p-4">       
-                        <div class="card mb-4" style="overflow-y: scroll; max-height: 450px;">
+            <div class="card-body p-4"  style="">       
 
-                             <div class="card-body">
-                                <c:set var="rList" value="${rDAO.allRating}"/>
-                                <c:set var="uList" value="${uDAO.allUser}"/>
-                                <c:forEach var="list" items="${rList}" varStatus="loop">
-                                    <c:if test="${param.id == list.receiveID}">
-                                        <c:set var="userID" value="${list.sendID}" />
-                                        <c:set var="username" value="${uDAO.getUserById(userID)}"/>
-                                        <div class="uscm">  
-                                            <div class="uscm-secs">
-                                                <div class="us-img">
-                                                    <c:choose>
-                                                        <c:when test="${username.image != null}">
-                                                            <img src="uploads/${username.image}">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <img src="images/avatar.jpg">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </div>
-                                                <div class="uscms">
-                                                    <div class="us-name" style="">
-                                                        <p>${username.fullName}</p>
-                                                        <div class="dropdown" style="">
-                                                            <button class="dropbtn" id="dropButton_${loop.index}" style="margin-right: 4vw;">&#8942;</button>
-                                                            <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
-                                                                <c:if test="${list.sendID == sessionScope.acc.userID}">
-                                                                    <!-- Button to open modal -->
-                                                                    <input type="hidden" id="oldComment_${loop.index}" value="${list.ratingText}" />
-                                                                    <button class="update-btn" id="updateButton_${loop.index}" data-oldcomment="${list.ratingText}" style=" width: 6vw; height: 5vh"><h6>Sửa</h6></button>
-                                                                    <!-- The Modal -->
 
-                                                                    <form action="DeleteCommentServlet" method="GET">
-                                                                        <input type="hidden" name="rId" value="${list.ratingID}">
-                                                                        <input type="hidden" name="parkID" value="${param.id}">
-                                                                        <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
-                                                                    </form>
-                                                                </c:if>
+
+                <div class="row d-flex justify-content-center" style="margin-top: 3vh; margin-right: 70%">
+                    <div class="col-md-8 col-lg-6" style="">
+
+                        <div class="card-body p-4">       
+                            <div class="card mb-4" style="overflow-y: scroll; max-height: 450px; width: 750%; ">
+
+                                <div class="card-body">
+                                    <c:set var="rList" value="${rDAO.allRating}"/>
+                                    <c:set var="uList" value="${uDAO.allUser}"/>
+                                    <c:forEach var="list" items="${rList}" varStatus="loop">
+                                        <c:if test="${param.id == list.receiveID}">
+                                            <c:set var="userID" value="${list.sendID}" />
+                                            <c:set var="username" value="${uDAO.getUserById(userID)}"/>
+                                            <div class="uscm">  
+                                                <div class="uscm-secs">
+                                                    <div class="us-img">
+                                                        <c:choose>
+                                                            <c:when test="${username.image != null}">
+                                                                <img src="uploads/${username.image}">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <img src="images/avatar.jpg">
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </div>
+                                                    <div class="uscms">
+                                                        <div class="us-name" style="">
+                                                            <p>${username.fullName}</p>
+                                                            <div class="dropdown" style="">
+                                                                <button class="dropbtn" id="dropButton_${loop.index}" style="margin-right: 4vw;">&#8942;</button>
+                                                                <div class="dropdown-content" id="myDropdown_${loop.index}" style="display: none;">
+                                                                    <c:if test="${list.sendID == sessionScope.acc.userID}">
+                                                                        <!-- Button to open modal -->
+                                                                        <input type="hidden" id="oldComment_${loop.index}" value="${list.ratingText}" />
+                                                                        <button class="update-btn" id="updateButton_${loop.index}" data-oldcomment="${list.ratingText}" style=" width: 6vw; height: 5vh"><h6>Sửa</h6></button>
+                                                                        <!-- The Modal -->
+
+                                                                        <form action="DeleteCommentServlet" method="GET">
+                                                                            <input type="hidden" name="rId" value="${list.ratingID}">
+                                                                            <input type="hidden" name="parkID" value="${param.id}">
+                                                                            <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
+                                                                        </form>
+                                                                    </c:if>
                                                                     <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="us-cmt">
-                                                        <p>${list.ratingText}</p>
+                                                        <div class="us-cmt">
+                                                            <p>${list.ratingText}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                                    <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
-                                                    <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
-                                        </div> 
-                                        
-                                    </c:if>
-                                </c:forEach>
-                                
-                            </div>                    
-                        </div> 
-                    </div>
-                
-                     
+                                                <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
+                                                <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
+                                            </div> 
+
+                                        </c:if>
+                                    </c:forEach>
+
+                                </div>                    
+                            </div> 
+                        </div>
+
+
+
+ <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                            <div class="modal-content" style="border-color: #EE2E24">
+                                <span class="close">&times;</span>
+                                <form id="editForm" action="UpdateCommentServlet" method="post">
+                                    <input type="hidden" id="ratingId" name="ratingId" value="">
+                                    <input type="hidden" id="parkID" name="parkID" value="">
+                                    <textarea id="ratingText" name="ratingText" rows="4" cols="50"></textarea>
+                                    <button id="update-button" type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>           
+                </div>     
+
+
+                <style>
+                    ::-webkit-scrollbar{
+                        width: 10px;
+                        background-color: #ff6666;
+                    }
+                    ::-webkit-scrollbar-thumb{
+                        border-radius: 5px;
+                        background-color: #F7F7F7;
+                    }
+                </style>                              
+
+
+
+            </div>
         </div>
-                                          <div id="myModal" class="modal" style="display: none; margin-left: 50vw; margin-top: 35vh; height: 70vh">
-                                            <div class="modal-content">
-                                                <span class="close">&times;</span>
-                                                <form id="editForm" action="UpdateCommentServlet" method="post">
-                                                    <input type="hidden" id="ratingId" name="ratingId" value="">
-                                                    <input type="hidden" id="parkID" name="parkID" value="">
-                                                    <textarea id="ratingText" name="ratingText" rows="4" cols="50"></textarea>
-                                                    <button id="update-button" type="submit" style="background-color: #EE2E24">Lưu thay đổi</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                <style>
-                                    ::-webkit-scrollbar{
-                                        width: 10px;
-                                        background-color: #ff6666;
-                                    }
-                                    ::-webkit-scrollbar-thumb{
-                                        border-radius: 5px;
-                                        background-color: #F7F7F7;
-                                    }
-                                </style>                              
-                                  
-    <script>
-         // Get the modal
-        var modal = document.getElementById('myModal');
+        <script>
+            // Get the modal
+            var modal = document.getElementById('myModal');
 
-        // Get the button that opens the modal
-        var btns = document.querySelectorAll('[id^=updateButton_]');
+            // Get the button that opens the modal
+            var btns = document.querySelectorAll('[id^=updateButton_]');
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks the button, open the modal 
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].onclick = function() {
-                var index = this.id.split('_')[1];
-                var ratingId = document.getElementById('ratingId');
-                var parkId = document.getElementById('parkID');
-                var ratingText = document.getElementById('ratingText');
-                var oldComment = document.getElementById('oldComment_' + index).value;
+            // When the user clicks the button, open the modal 
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].onclick = function () {
+                    var index = this.id.split('_')[1];
+                    var ratingId = document.getElementById('ratingId');
+                    var parkId = document.getElementById('parkID');
+                    var ratingText = document.getElementById('ratingText');
+                    var oldComment = document.getElementById('oldComment_' + index).value;
 
-                ratingId.value = document.getElementById('ratingId_' + index).value;
-                parkId.value = document.getElementById('parkID_' + index).value;
-                ratingText.value = oldComment;
+                    ratingId.value = document.getElementById('ratingId_' + index).value;
+                    parkId.value = document.getElementById('parkID_' + index).value;
+                    ratingText.value = oldComment;
 
-                modal.style.display = "block";
+                    modal.style.display = "block";
+                }
             }
-        }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
                 modal.style.display = "none";
             }
-        }
 
-
-    </script>
-
-
-    <script>
-        const allStar = document.querySelectorAll('.rating .star')
-        const ratingValue = document.querySelector('.rating input')
-
-        allStar.forEach((item, idx) => {
-            item.addEventListener('click', function () {
-                let click = 0
-                ratingValue.value = idx + 1
-
-                allStar.forEach(i => {
-                    i.classList.replace('bxs-star', 'bx-star')
-                    i.classList.remove('active')
-                })
-                for (let i = 0; i < allStar.length; i++) {
-                    if (i <= idx) {
-                        allStar[i].classList.replace('bx-star', 'bxs-star')
-                        allStar[i].classList.add('active')
-                    } else {
-                        allStar[i].style.setProperty('--i', click)
-                        click++
-                    }
-                }
-            })
-        })
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const pupButton = document.getElementById("show-rating");
-            const ratingWrapper = document.getElementById("rating-wrapper");
-            const cancelButton = document.getElementById("cancel-btn");
-
-            pupButton.addEventListener("click", function () {
-                ratingWrapper.style.display = "block";
-            });
-
-            cancelButton.addEventListener("click", function () {
-                ratingWrapper.style.display = "none";
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const dropButtons = document.querySelectorAll(".dropbtn");
-            const dropdowns = document.querySelectorAll(".dropdown-content");
-
-            dropButtons.forEach((dropButton, index) => {
-                const dropdown = dropdowns[index];
-                dropButton.addEventListener("click", function () {
-                    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-                });
-            });
-
+            // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
-                dropdowns.forEach(dropdown => {
-                    if (!event.target.matches('.dropbtn') && !dropdown.contains(event.target)) {
-                        dropdown.style.display = "none";
-                    }
-                });
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
             }
-        });
-    </script>
-    <script>
+
+
+        </script>
+
+
+        <script>
+            const allStar = document.querySelectorAll('.rating .star')
+            const ratingValue = document.querySelector('.rating input')
+
+            allStar.forEach((item, idx) => {
+                item.addEventListener('click', function () {
+                    let click = 0
+                    ratingValue.value = idx + 1
+
+                    allStar.forEach(i => {
+                        i.classList.replace('bxs-star', 'bx-star')
+                        i.classList.remove('active')
+                    })
+                    for (let i = 0; i < allStar.length; i++) {
+                        if (i <= idx) {
+                            allStar[i].classList.replace('bx-star', 'bxs-star')
+                            allStar[i].classList.add('active')
+                        } else {
+                            allStar[i].style.setProperty('--i', click)
+                            click++
+                        }
+                    }
+                })
+            })
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const pupButton = document.getElementById("show-rating");
+                const ratingWrapper = document.getElementById("rating-wrapper");
+                const cancelButton = document.getElementById("cancel-btn");
+
+                pupButton.addEventListener("click", function () {
+                    ratingWrapper.style.display = "block";
+                });
+
+                cancelButton.addEventListener("click", function () {
+                    ratingWrapper.style.display = "none";
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const dropButtons = document.querySelectorAll(".dropbtn");
+                const dropdowns = document.querySelectorAll(".dropdown-content");
+
+                dropButtons.forEach((dropButton, index) => {
+                    const dropdown = dropdowns[index];
+                    dropButton.addEventListener("click", function () {
+                        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                    });
+                });
+
+                window.onclick = function (event) {
+                    dropdowns.forEach(dropdown => {
+                        if (!event.target.matches('.dropbtn') && !dropdown.contains(event.target)) {
+                            dropdown.style.display = "none";
+                        }
+                    });
+                }
+            });
+        </script>
+        <script>
             /* When the user clicks on the button, 
              toggle between hiding and showing the dropdown content */
             function myFunction() {
@@ -502,7 +510,7 @@
             };
         </script>
 
-    <jsp:include page="footer.jsp"></jsp:include>
-</body>
+        <jsp:include page="footer.jsp"></jsp:include>
+    </body>
 
 </html>

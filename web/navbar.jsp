@@ -29,9 +29,7 @@
                 <li class="link" style="color: #EE2E24">Contacts</li>
                
                     <c:if test="${sessionScope.acc != null}">
-                    <li class="link"><a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a></li>
-                    <li class="link"><a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a></li>
-                    <li class="link"><a href="booking/notification_list.jsp">Thông báo</a></li>
+                   
                     <li>
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn" style="color: #EE2E24">HELLO<span class="caret"></span></button>
@@ -42,7 +40,7 @@
                                 <c:if test="${sessionScope.acc.role == 1}">
                                     <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: black">USERS MANAGER</a>
                                 </c:if>
-                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử giao dịch</a>
+                                    <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}" style="">Lịch sử giao dịch</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}" style="color: black">Danh sách yêu thích</a>
                                     <a href="booking/notification_list.jsp" style="color: black">Thông báo</a>
                                 <c:if test="${sessionScope.acc.role == 1}">
