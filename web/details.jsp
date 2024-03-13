@@ -43,8 +43,18 @@
 
                     <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
                         <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
-                        <li><a href="introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
-                        <li><a href="#" class="text-red p-2">Trải Nghiệm</a></li>
+                        <li><a href="introduction/introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
+                        <li>
+                            <div class="dropdown">
+                                <a href="#" onclick="myFunction()" class="dropbtn text-red p-2" style="color: #EE2E24; font-size: unset !important">Trải nghiệm<span class="caret"></span></a>
+
+                                <div id="myDropdown" class="dropdown-content" style="background-color: white; left: 20px !important; height: 32vh; width: 10vw">
+                                    <a href="details.jsp?id=PA000001" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Asia Park</a>
+                                    <a href="details.jsp?id=PA000002" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Núi Thần Tài</a>
+                                    <a href="details.jsp?id=PA000003" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Helio Center</a>
+                                    <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
+                            </div> 
+                        </li>
                     </ul>
                     <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
                     <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
@@ -491,15 +501,27 @@
             }
         });
     </script>
+    <script>
+            /* When the user clicks on the button, 
+             toggle between hiding and showing the dropdown content */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
 
-
-
-
-
-
-
-
-
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            };
+        </script>
 
     <jsp:include page="footer.jsp"></jsp:include>
 </body>

@@ -16,7 +16,7 @@
             <link rel="stylesheet" type="text/css" href="css_god/details.css"/>
     </head>
     <body>
-        <div class="bg-red" style="height: 5vh;"></div>
+        <div class="bg-red" style="height: 3vh;"></div>
         <nav class="d-flex  bg-white" >
         <jsp:useBean id="parkDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <c:set var="parkName" value="${parkDAO.getParkNameByParkID(param.parkID)}"></c:set>
@@ -34,4 +34,6 @@
 
                     </nav>
     </body>
+    
+    
 </html>

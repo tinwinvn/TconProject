@@ -12,10 +12,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="introduction.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="nav.jsp"></jsp:include>
+        <jsp:include page="../nav.jsp"></jsp:include>
         <div class="bg-red" style="height: 0.5vh"></div>
         <style>
             .main-content {

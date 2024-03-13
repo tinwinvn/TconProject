@@ -87,6 +87,7 @@
                         <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
                     </form>  
                         </div>
+                        </form> 
                 </c:if>
                 <c:if test="${not empty param.transactionCode}">
                     <form action="../ConfirmChangeTicketServlet" method="get">
@@ -99,51 +100,7 @@
         </div>
         
         
-        
-        
-        
-<!--        <div class="container d-flex justify-content-center align-items-center">
-                <div class="row" >
-                <c:forEach var="item" items="${sessionScope.cart}">
-                    <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
-                    <c:set var="ticketTypeName" value="${ticketType.typeName}" />
-                    <c:set var="quantity" value="${item.value.quantity}" />
-                    <c:set var="price" value="${ticketType.price}"></c:set>
-                        <li class="cart-item">
-                            <h3>${ticketTypeName}</h3>
-                        <p>Số lượng: ${quantity}</p>
-                        <p>Giá: ${price * quantity} VNĐ</p>
-                        <form action="../DeleteCartServlet" method="POST">                              
-                            <input type="hidden" name="ticketType" value="${item.key}">
-                            <input type="hidden" name="parkID" value="${param.parkID}">
-                            <input type="hidden" name="transactionCode" value="${param.transactionCode}">
-                            <button type="submit">Xóa</button>
-                        </form>
-                    </li>
-                    <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
-                </c:forEach>         
-                <c:if test="${empty sessionScope.cart}">
-                    <p class="empty-cart-message">Giỏ hàng trống</p>
-                </c:if>
-            </ul>
-            <c:if test="${not empty sessionScope.cart}">
-                <c:if test="${empty param.transactionCode}">
-                    <form action="../PaymentServlet" method="post">
-                        <input type="date" id="experationDate" name="experationDate" required="">
-                        <input type="hidden" name="totalPrice" value="${totalPrice}">
-                        <input type="hidden" name="orderID" value="${param.orderID}">
-                        <button type="submit" class="payment-link">Thanh Toán</button>
-                    </form>  
-                </c:if>
-                <c:if test="${not empty param.transactionCode}">
-                    <form action="../ConfirmChangeTicketServlet" method="get">
-                        <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
-                        <input type="hidden" name="transactionCode" value="${param.transactionCode}">
-                        <button type="submit" class="payment-link">Đổi vé</button>
-                    </form>                  
-                </c:if>
-            </c:if>
-        </main>-->
+
        
         <jsp:include page="../footer.jsp"></jsp:include>
     </body>
