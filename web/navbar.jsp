@@ -23,6 +23,7 @@
                 <li class="link"><a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}">Lịch sử giao dịch</a></li>
                 <li class="link"><a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}">Danh sách yêu thích</a></li>
                 <li class="link"><a href="booking/notification_list.jsp">Thông báo</a></li>
+                <li class="link"><a href="voucher/voucher_list.jsp">Đổi Voucher</a></li>
                     <c:if test="${sessionScope.acc != null}">
                     <li>
                         <div class="dropdown">

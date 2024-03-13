@@ -48,7 +48,7 @@
                     </ul>
                     <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
                     <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                        <li><a href="#" class="text-red p-2">Trò Chơi</a></li>
+                        <li><a href="gameIntro/APgameIntro.jsp" class="text-red p-2">Trò Chơi</a></li>
                         <li><a href="#" class="text-red p-2">Tin tức</a></li>
                         <li><a href="#" class="text-red p-2">Bản đồ</a></li>
                         <c:if test="${sessionScope.acc != null}">
@@ -118,7 +118,6 @@
                                                 <button type="submit" class="primary-btn" style="margin-top: 5px; font-size: 102%">Yêu thích</button>
                                             </form>
                                         </div>
-
                                     </c:if>
                                 </c:forEach>
                             </div>
