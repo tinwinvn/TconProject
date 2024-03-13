@@ -107,16 +107,16 @@
                                 <div id="content" style="text-align: left;">
                                     <div class="w60"></div>
                                     <div class="w55">
-                                        <p><strong>  TẾT DƯƠNG LỊCH Ở ĐÀ NẴNG ĐI ĐÂU? ĂN GÌ CHƠI GÌ Ở HELIO CENTER </strong></p>
-                                        <p style="text-align: justify;">Dịp Tết đến Xuân về chắc chắn sẽ không thể thiếu được những vũ điệu sôi động của các tài năng nhí. Chương trình Vũ Hội Năm Mới sẽ diễn ra vào lúc 19h30 đêm 31/12 và 1/1/2024. Với những tiết mục nhảy múa mang giai điệu của ngày Tết xuân sang, chúc mừng năm mới vô cùng ý nghĩa. 2 đêm diễn sẽ là cột mốc đánh dấu cho sự chuyển giao giữa năm cũ và năm mới là đêm giao thừa sôi động và ngày Tết Dương Lịch đầy niềm vui.<br />
-                                        <p><img src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/DJI_0198-300x200.jpg" alt="" width="632" height="421" class=" wp-image-4749 aligncenter" srcset="https://helio.vn/media/uploads/2023/12/26/dia-diem-vui-choi-tet-duong-lich-o-da-nang8.JPG" sizes="(max-width: 632px) 100vw, 632px" /></p>
-                                        <p class="f-17 texj" style="text-align: justify;"><span class="dropcap"></span>Vui chơi gameshow Hái lộc đầu năm cùng Helio Kids</p>
+                                        <p><strong>HELIO &#8211; TỔ HỢP VUI CHƠI GIẢI TRÍ LÝ TƯỞNG DÀNH CHO MÙA LỄ HỘI CUỐI NĂM</strong></p>
+                                        <p style="text-align: justify;">Tọa lạc ngay trung tâm Đà Nẵng, Helio Center là điểm đến thu hút rất nhiều khách du lịch cũng như điểm vui chơi quen thuộc của người dân địa phương. Nếu bạn đang tìm kiếm địa chỉ tụ tập buổi tối vui vẻ với bạn bè hay gia đình, thì Helio chính là nơi bạn không thể bỏ qua. Bởi ở đây khu vui chơi, rạp chiếu phim, có quảng trường với nhiều chương trình biểu diễn, hoạt động, sự kiện, và cả khu tổ hợp ẩm thực đêm lớn nhất Đà Thành nữa. <br />
+                                        <p><img src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/DJI_0198-300x200.jpg" alt="" width="632" height="421" class=" wp-image-4749 aligncenter" srcset="https://helio.vn/media/uploads/2023/11/20/khu-vui-choi-helio-center-da-nang-8.jpg" sizes="(max-width: 632px) 100vw, 632px" /></p>
+                                        <p class="f-17 texj" style="text-align: justify;"><span class="dropcap"></span>Helio Play - Thế giới game bất tận. Khu vui chơi này khá rộng lớn và một số máy trò chơi hiện đại. Đến đây bạn có thể thoải mái trải nghiệm tất tần tật các máy game thùng và có thời gian vui chơi tuyệt vời với bạn bè và gia đình.</p>
                                     </div>
-                                    <div class="clearfix"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-1-300x240.png" alt="" width="641" height="513" class=" wp-image-4756 aligncenter" srcset="https://helio.vn/media/uploads/2023/12/26/dia-diem-vui-choi-tet-duong-lich-o-da-nang.jpg" sizes="(max-width: 641px) 100vw, 641px" /></div>
+                                    <div class="clearfix"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-1-300x240.png" alt="" width="641" height="513" class=" wp-image-4756 aligncenter" srcset="https://helio.vn/media/uploads/2023/11/20/khu-vui-choi-helio-center-da-nang.jpg" sizes="(max-width: 641px) 100vw, 641px" /></div>
                                     <div class="w100"></div>
                                     <div class="clearfix"></div>
                                     <div class="w55">
-                                        <p class="f-17 texj" style="text-align: justify;">Phiên chợ phụ kiện chính là một hoạt động tô điểm cho không khí của ngày Tết Dương Lịch thêm rực rỡ. Với hơn 20 gian hàng lung linh, ở đây có đủ các sản phẩm như thời trang, đồ trang trí, móc khóa, phụ kiện trang sức, đồ chơi,...cho bạn và cả gia đình thỏa thích sắm sửa cho ngày Tết, hay trao nhau những món quà tặng.</p>
+                                        <p class="f-17 texj" style="text-align: justify;">Helio Kids - Thiên đường vui chơi dành riêng cho bé. Với 30 phòng chơi lớn nhỏ, kết hợp giữa vui chơi và giáo dục trí tuệ cho trẻ. Các bạn nhỏ sẽ được tham gia các trò chơi kích thích sự sáng tạo trí tưởng tượng. Còn được tham gia các hoạt động như diễn kịch, tập nhảy, ca hát, chơi trò chơi, làm đồ handmade vô cùng thú vị.</p>
                                     </div>
                                     <div class="clearfix" style="text-align: center;"></div>
                                     <div class="clearfix" style="text-align: center;"></div>
@@ -124,23 +124,23 @@
                                         <p class="f-17 texj" style="text-align: justify;"><span class="dropcap"></span></p>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-300x240.png" alt="" width="681" height="544" class=" wp-image-4754 aligncenter" srcset="https://helio.vn/media/uploads/2023/12/26/dia-diem-vui-choi-tet-duong-lich-o-da-nang16.JPG" sizes="(max-width: 681px) 100vw, 681px" /></div>
+                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-300x240.png" alt="" width="681" height="544" class=" wp-image-4754 aligncenter" srcset="https://helio.vn/media/uploads/2023/11/20/khu-vui-choi-helio-center-da-nang-1.jpg" sizes="(max-width: 681px) 100vw, 681px" /></div>
                                     <div class="clearfix"></div>
                                     <div class="w55">
-                                        <p class="f-17 texj" style="text-align: justify;">Những ngày thời tiết se lạnh như thế này chắc chắn bạn sẽ không thể bỏ qua món trà sữa nướng Vân Nam ấm áp. Khác với các loại trà sữa khác có pha thêm đá lạnh, thì thức uống này được nấu trên bếp than cùng các nguyên liệu bổ dưỡng như kỷ tử, hoa hồng, táo, đường.</p>
+                                        <p class="f-17 texj" style="text-align: justify;">Bên cạnh các phòng chơi và sân khấu thì Helio Kids còn có khu Bếp Nhí - nơi các đầu bếp của chúng ta trổ tài. Bé được tự tay làm những chiếc bánh dễ thương, những món ăn ngon, qua đó các bạn nhỏ sẽ biết tự lập hơn trong cuộc sống, giúp bố mẹ làm bếp.</p>
                                     </div>
-                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2023/01/bc5bb1d36c13b54dec02-1-300x225.jpg" alt="" width="682" height="511" class="wp-image-5350 aligncenter" srcset="https://helio.vn/media/uploads/2023/12/26/dia-diem-vui-choi-tet-duong-lich-o-da-nang1.jpg" sizes="(max-width: 682px) 100vw, 682px" /> <img loading="lazy"  /></div>
+                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2023/01/bc5bb1d36c13b54dec02-1-300x225.jpg" alt="" width="682" height="511" class="wp-image-5350 aligncenter" srcset="https://helio.vn/media/uploads/2023/11/20/khu-vui-choi-helio-center-da-nang-2.jpg" sizes="(max-width: 682px) 100vw, 682px" /> <img loading="lazy"  /></div>
                                     <div>
                                         <div></div>
-                                        <div class="clearfix" style="text-align: justify;"><span><span>Với hương vị ngọt thanh nhẹ nhàng, trời lạnh lạnh vào dịp Tết Dương Lịch bạn có thể ghé qua đây để thưởng thức và nhâm nhi. Khi uống trà sữa ở đây bạn còn được sưởi ấm bằng bếp lửa, ăn bánh hạt dẻ, bánh sầu riêng thơm ngon được giữ ấm cùng ấm trà sữa trên bếp sẽ là một trải nghiệm tuyệt vời đó.</span></div>
+                                        <div class="clearfix" style="text-align: justify;"><span>Phá đảo món ngôn Đà Thành cùng Tổ hợp ẩm thực đêm Helio. Nếu bạn đang tìm kiếm một địa chỉ để thưởng thức các món ngon thì đừng bỏ qua khu Tổ hợp ẩm thực đêm Helio nha, mở cửa lúc 17:00 hàng ngày. Với hơn 200 món phục vụ thực khách mỗi ngày, menu đa dạng món ăn từ quốc tế đến đồ ăn truyền thống của Việt Nam. Ngoài ra, nhiều loại đồ uống mát lạnh và những món hottrend mới nhất cũng được bày bán tại đây.</span></div>
                                         <div class="w55">
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-8-300x240.png" alt="" width="669" height="535" class=" wp-image-4764 aligncenter" srcset="https://helio.vn/media/uploads/2023/12/26/dia-diem-vui-choi-tet-duong-lich-o-da-nang2.jpg" sizes="(max-width: 669px) 100vw, 669px" /></div>
+                                    <div class="w100"><img loading="lazy" src="https://asiapark.sunworld.vn/wp-content/uploads/2022/05/Brown-Mothers-Day-Vintage-Scrapbook-Photo-Collage-8-300x240.png" alt="" width="669" height="535" class=" wp-image-4764 aligncenter" srcset="https://helio.vn/media/uploads/2023/11/20/khu-vui-choi-helio-center-da-nang-3.jpg" sizes="(max-width: 669px) 100vw, 669px" /></div>
                                     <div class="clearfix"></div>
                                     <div class="w80">
-                                        <p class="f-17 marginB30 texj">Bên cạnh những hoạt động trên, thế giới game trong nhà vẫn sẽ mở cửa phục vụ du khách xuyên dịp Tết. Hãy cùng gia đình, bè bạn tới du xuân và lưu giữ những kỹ niệm đáng nhớ tại Helio vào dịp Tết Giáp Thìn năm nay</p>
+                                        <p class="f-17 marginB30 texj">Với những thông tin trên mong rằng sẽ giúp bạn trong việc lựa chọn một địa điểm vui chơi thoải mái dành cho cả gia đình vào dịp lễ năm nay tại Đà Nẵng. Hãy theo dõi chúng mình để có cập các gợi ý địa điểm ăn uống, vui chơi giải trí mới nhất nhé.</p>
                                     </div>
                                     
                                     <div class="clearfix"></div>

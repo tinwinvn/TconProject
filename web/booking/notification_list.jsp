@@ -8,13 +8,18 @@
         <title>Refund List</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
+        <link rel="stylesheet" href="../css/styles.css" />
     </head>
     <body>
-        <jsp:include page="../nav.jsp"></jsp:include>
+       
+       
+        <div class="bg-red" style="height: 3vh; background-color: #EE2E24"></div>
+        <jsp:include page="../navbar.jsp"></jsp:include>
+       
         <jsp:useBean id="ntDAO" class="ModelDAO.NotificationDAO"></jsp:useBean>
         <jsp:useBean id="orderDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
         <jsp:useBean id="transactionDAO" class="ModelDAO.TransactionDAO"></jsp:useBean>
-            <div style="display: flex; justify-content: center; align-items: center; margin-top: 2%">
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 5%">
                 <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">
                     <h1 style="color: white; text-align: center">Thông báo</h1>
                 </button>
