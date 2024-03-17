@@ -40,13 +40,14 @@
                             <th>Park ID</th>  
                             <th>Park</th>   
                             <th>Action</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
 
                     <c:forEach var="aflist" items="${afDAO.allAddFavourite}">
                         <c:forEach var="parklist" items="${pkDAO.allPark}">
-                            <c:if test="${sessionScope.acc.userID == aflist.userID}">
+                            <c:if test="${sessionScope.acc.userID == aflist.userID}">                               
                                 <tr>
                                     <c:if test="${aflist.favouriteItems == parklist.parkID}">
                                         <td>${aflist.favouriteItems}</td>    
@@ -57,8 +58,10 @@
                                                 <input type="hidden" name="favouriteID" value="${aflist.favouriteID}">
                                                 <button type="submit">Xóa</button>
                                             </form>
-                                        </c:if>
-                                </tr>
+                                        </td> 
+                                        <td><a href="../details.jsp?id=${parklist.parkID}">Xem chi tiết</a></td>
+                                    </c:if>
+                                </tr>                               
                             </c:if>
                         </c:forEach>
                     </c:forEach>

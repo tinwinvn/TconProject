@@ -44,10 +44,6 @@
                 </div>
             </header>
 
-            
-
-            
-
             <div class="rooms" style="margin-top: 3vh">
                 <div class="container top">
                     <div class="heading">

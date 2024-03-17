@@ -18,9 +18,9 @@ import java.nio.file.Paths;
  * @author admin
  */
 public class GenerateQR {
-    public void generateQR(String orderID) throws WriterException, IOException{
-        String content = "http://localhost:8080/ProjectSWP/payment/verification_order.jsp?orderID=" + orderID;
-        String folderPath = "web/payment/QR/" + orderID +".jpg";
+    public void generateQR(String ticketCode) throws WriterException, IOException{
+        String content =  ticketCode;
+        String folderPath = "web/payment/QR/" + ticketCode +".jpg";
         String dir = GenerateQR.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         File file = new File(dir);
         file = file.getParentFile().getParentFile().getParentFile().getParentFile();

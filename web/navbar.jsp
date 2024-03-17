@@ -19,7 +19,7 @@
     
     <body>
         <nav>          
-            <div class="nav__logo"><a href="index.jsp" style="color: #EE2E24">TCON</a></div>
+            <div class="nav__logo"><a href="../index.jsp" style="color: #EE2E24">TCON</a></div>
             </div>
             <ul class="nav__links" style="margin-top: 1%">
                

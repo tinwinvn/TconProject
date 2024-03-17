@@ -20,6 +20,7 @@
     </head>
     <body>
         <jsp:include page="nav.jsp"></jsp:include>
+        <a href="index.jsp">Home</a>
         <div class="container" style="margin-top: 5%;">
         <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">

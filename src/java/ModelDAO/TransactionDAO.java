@@ -153,7 +153,6 @@ public class TransactionDAO {
     
     public void addNewTransaction(String orderID, String date, String TransactionCode, int transactionStatus) throws SQLException, Exception {
         String query = "INSERT INTO TransactionHistory VALUES (?, ?, ?, ?, ?)";
-        System.out.println(orderID);
         Connection conn;
         Timestamp fdate = toDate(date);
         GenerateID gn = new GenerateID();

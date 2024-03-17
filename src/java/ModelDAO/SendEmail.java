@@ -2,9 +2,11 @@ package ModelDAO;
 
 import Validation.GenerateQR;
 import java.io.File;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.List;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -52,10 +54,14 @@ public class SendEmail {
         }
     }
 
-    public void sendQR(String mail, String emailContent, String imagePath) {
+    public void sendQR(String mail, String emailContent, String orderID) throws Exception {
         String email = "taiminhtest@gmail.com";
         String pswd = "eavo dccr fnnv koyg";
-
+        TicketDAO ticketDAO = new TicketDAO();
+        List<String> ticketCodeList = ticketDAO.getAllTicketCodeByORderID(orderID);
+        String dir = GenerateQR.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        File file = new File(dir);
+        file = file.getParentFile().getParentFile().getParentFile().getParentFile();
         final String senderEmail = email;
         final String password = pswd;
         final String receiverEmail = mail;
@@ -74,37 +80,39 @@ public class SendEmail {
         });
 
         try {
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiverEmail));
             message.setSubject("OTP from send-otp");
-
+            Multipart multipart = new MimeMultipart();
             // Tạo phần thân của email
             MimeBodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText(emailContent);
-
-            // Tạo phần thân của email chứa ảnh
-            MimeBodyPart imageBodyPart = new MimeBodyPart();
-            DataSource source = new FileDataSource(new File(imagePath));
-            imageBodyPart.setDataHandler(new DataHandler(source));
-            imageBodyPart.setFileName(toSHA256(imagePath.substring(imagePath.length()-8, imagePath.length())));
-            
+            for (String ticketcode : ticketCodeList) {
+                String absoluteFolderPath = Paths.get(file.toString(), "web/payment/QR/" + ticketcode + ".jpg").toString();
+                MimeBodyPart imageBodyPart = new MimeBodyPart();
+                DataSource source = new FileDataSource(new File(absoluteFolderPath));
+                imageBodyPart.setDataHandler(new DataHandler(source));
+                imageBodyPart.setFileName(ticketcode);
+                multipart.addBodyPart(imageBodyPart);
+            }
             // Tạo multipart để kết hợp cả phần text và phần ảnh
-            Multipart multipart = new MimeMultipart();
+
             multipart.addBodyPart(messageBodyPart);
-            multipart.addBodyPart(imageBodyPart);
             // Đặt multipart vào message
             message.setContent(multipart);
 
             // Gửi email
             Transport.send(message);
             System.out.println("Email sent successfully!");
+
         } catch (MessagingException e) {
             e.printStackTrace();
             System.out.println("Error sending email!");
         }
     }
-    
+
     public void sendVoucherCode(String mail, String voucherCode) {
         String email = "taiminhtest@gmail.com";
 
@@ -139,8 +147,8 @@ public class SendEmail {
             System.out.println("loi");
         }
     }
-    
-    public String toSHA256(String string){
+
+    public String toSHA256(String string) {
         try {
             // Create SHA-1 message digest
             MessageDigest sha1Digest = MessageDigest.getInstance("SHA-256");
