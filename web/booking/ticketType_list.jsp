@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
                                 <div class="card-body text-center d-flex flex-column align-items-center" style="background-color:white; color: black">
                                     <h3>${ttL.typeName}</h3>
                                     <p>${ttL.description}</p>
-                                    <span class="price">Giá: ${ttL.price} VNĐ</span>
+                                    <span class="price">Giá: <fmt:formatNumber value="${ttL.price}"></fmt:formatNumber> VNĐ</span>
                                     <form action="../AddToCartServlet" method="GET">
                                         <input type="hidden" name="ticketTypeID" value="${ttL.ticketTypeID}">
                                         <input type="number" name="quantity" min="1" value="1">

@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.sql.Time;
+
 /**
  *
  * @author Nguyen Nhu Loc
@@ -15,17 +17,25 @@ public class Park {
     private String ParkName;
     private String Address;
     private String Image;
+    private String MapImage;
+    private Time openTime;
+    private Time closeTime;
 
     public Park() {
     }
 
-    public Park(String ParkID, String UserID, String ParkName, String Address, String Image) {
+    public Park(String ParkID, String UserID, String ParkName, String Address, String Image, String MapImage, Time openTime, Time closeTime) {
         this.ParkID = ParkID;
         this.UserID = UserID;
         this.ParkName = ParkName;
         this.Address = Address;
         this.Image = Image;
+        this.MapImage = MapImage;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
+
+    
 
     public String getParkID() {
         return ParkID;
@@ -65,6 +75,30 @@ public class Park {
 
     public void setImage(String Image) {
         this.Image = Image;
+    }
+
+    public String getMapImage() {
+        return MapImage;
+    }
+
+    public void setMapImage(String MapImage) {
+        this.MapImage = MapImage;
+    }
+
+    public Time getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(Time openTime) {
+        this.openTime = openTime;
+    }
+
+    public Time getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(Time closeTime) {
+        this.closeTime = closeTime;
     }
     
     

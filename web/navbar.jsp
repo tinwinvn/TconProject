@@ -19,7 +19,7 @@
     
     <body>
         <nav>          
-            <div class="nav__logo"><a href="index.jsp" style="color: #EE2E24">TCON</a></div>
+            <div class="nav__logo"><a href="../index.jsp" style="color: #EE2E24">TCON</a></div>
             </div>
             <ul class="nav__links" style="margin-top: 1%">
                
@@ -37,6 +37,7 @@
                                 <c:if test="${sessionScope.acc.role == 3}">
                                     <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: black">PROFILE</a>
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử giao dịch</a>
+                                    <a href="payment/order_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử đặt vé</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}" style="color: black">Danh sách yêu thích</a>
                                     <a href="booking/notification_list.jsp" style="color: black">Thông báo</a>
                                 </c:if>

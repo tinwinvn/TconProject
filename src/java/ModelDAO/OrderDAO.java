@@ -7,6 +7,7 @@ package ModelDAO;
 import DAO.ConnectDB;
 import Model.Chart;
 import Model.Order;
+import Model.OrderTicketList;
 import Validation.GenerateID;
 import Validation.GenerateQR;
 import java.io.File;
@@ -151,6 +152,43 @@ public class OrderDAO {
             conn.close();
         } catch (SQLException e) {
         }
+    }
+    
+    public List<OrderTicketList> getOrderTicketListByOrderID (String orderID) throws SQLException {
+        List<OrderTicketList> output = new ArrayList<>();
+        String query =  "  SELECT " +
+                        "tt.TypeName, " +
+                        "tt.Price, " +
+                        "t.TicketCode, " +
+                        "t.isUsed " +
+                        "FROM " +
+                        "    Ticket AS t " +
+                        "INNER JOIN OrderDetail AS od ON t.OrderID = od.OrderID " +
+                        "INNER JOIN TicketType AS tt ON t.TicketTypeID = tt.TicketTypeID AND od.TicketTypeID = tt.TicketTypeID " +
+                        "WHERE " +
+                        "    t.OrderID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, orderID);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                OrderTicketList o = new OrderTicketList(rs.getString("TypeName")
+                        , rs.getInt("Price")
+                        , rs.getString("TicketCode")
+                        , rs.getBoolean("isUsed"));
+                output.add(o);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return output;
     }
     
     

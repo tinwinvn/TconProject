@@ -5,7 +5,6 @@
 <html lang="en">
     <head>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <jsp:useBean id="dDAO" class="ModelDAO.ParkDetailDAO" ></jsp:useBean>
         <jsp:useBean id="pDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gDAO" class="ModelDAO.GameDAO"></jsp:useBean>
         <jsp:useBean id="rDAO" class="ModelDAO.RatingDAO"></jsp:useBean>
@@ -29,14 +28,15 @@
         <c:set var="parkId" value="${param.id}"></c:set>
         <c:forEach items="${pDAO.allPark}" var="r">
             <c:if test="${parkId == r.parkID}">
+                <c:set var="parkID" value="${r.parkID}"></c:set>
+                <c:set var="imageBackground" value="${r.image}"></c:set>
                 <c:set var="parkName" value="${r.parkName}"></c:set>
-                <c:set var="address" value="${r.address}"></c:set>                   
+                <c:set var="address" value="${r.address}"></c:set>
+                <c:set var="mapImg" value="${r.mapImage}"></c:set>
+                <c:set var="openTime" value="${r.openTime}"></c:set>
+                <c:set var="closeTime" value="${r.closeTime}"></c:set>
             </c:if>
         </c:forEach>
-        <c:forEach items="${dDAO.allParkDetail}" var="c">     
-            <c:set var="openrationTime" value="${c.openrationTime}"></c:set>
-            <c:set var="id" value="${c.parkID}"/>
-            <c:if test="${parkId == id}">
 
                 <div class="bg-red" style="height: 5vh;"></div>
                 <nav class="d-flex  bg-white" >
@@ -70,7 +70,7 @@
 
                 </nav>
 
-                <div class="featured-section position-relative " style="background-image: url('${c.image_bg}'); height: 70vh; background-size: cover; background-repeat:no-repeat;">
+                <div class="featured-section position-relative " style="background-image: url('${imageBackground}'); height: 70vh; background-size: cover; background-repeat:no-repeat;">
                     <div class="position-absolute d-flex align-items-center justify-content-around top-100 start-50 translate-middle">
                         <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
                             <i class="fas fa-film"></i>
@@ -85,7 +85,7 @@
                         <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
                             <i class="fas fa-film"></i>
                             <h3>Thông báo</h3>
-                            <p style="color: white"><strong>Giờ mở cửa:</strong> <c:out value="${openrationTime}"/></p>
+                            <p style="color: white"><strong>Giờ mở cửa:</strong> <c:out value="${openTime}"/> - <c:out value="${closeTime}"/></p>
                         </div>
 
                         <c:if test="${sessionScope.acc != null}">
@@ -106,7 +106,7 @@
 
                     <div class="map-image col-6 p-0" style="position: relative; overflow: hidden; ">
 
-                        <img style="height: 550px; width: 100%; transform: scale(0.9);" src="${c.image3}" alt="Map Image">
+                        <img style="height: 550px; width: 100%; transform: scale(0.9);" src="${mapImg}" alt="Map Image">
                     </div>
 
                     <div class="games-list col-6 p-0" style="transform: scale(0.9)">
@@ -176,8 +176,6 @@
                     </div>
 
                 </div>
-            </c:if>
-        </c:forEach>
         <button id="scrollBtn" onclick="scrollToTop()" style="background-color: #EE2E24; padding: 0.1vw 0.1vh; margin-bottom: 3%;"><span class="material-symbols-outlined">arrow_upward</span></button>   
         <div style="background-color: #EE2E24">
             <div class="logo"></div>
@@ -249,7 +247,7 @@
                                         <div class="rating-body" id="rating-form" style="">
                                             <div class="wrapper" id="rating-wrapper" style="display: none;  z-index: 1000; border: 2px solid #EE2E24; padding: 10px;">
                                                 <h3 style="color: #EE2E24">Bình chọn</h3>
-                                                <form action="RatingServlet" method="post" id="ratingForm">
+                                                <form action="RatingServlet" method="post" id="ratingForm" onsubmit="return validateForm()">
                                                     <div class="ratingvalue">
                                                         <input type="number" name="star" hidden>
                                                         <i class='bx bx-star star' style="--i: 0;"></i>
@@ -259,6 +257,7 @@
                                                         <i class='bx bx-star star' style="--i: 4;"></i>
                                                     </div>
                                                     <textarea name="message" cols="30" rows="5" placeholder="Cảm nhận của bạn là gì?"></textarea>
+                                                    <div id="error-message" style="color: red; display: none;">Vui lòng nhập đầy đủ thông tin</div>
                                                     <div class="btn-group" style="margin-top: 3vh">
                                                         <input type="hidden" name="userIdC" value="${sessionScope.acc.userID}">
                                                         <input type="hidden" name="receiveId" value="${param.id}">
@@ -383,6 +382,21 @@
 
             </div>
         </div>
+        <script>
+            function validateForm() {
+                var starValue = document.getElementsByName("star")[0].value;
+                var messageValue = document.getElementsByName("message")[0].value;
+                var errorMessage = document.getElementById("error-message");
+
+                if (starValue === "" || messageValue === "") {
+                    errorMessage.style.display = "block";
+                    return false;
+                } else {
+                    errorMessage.style.display = "none";
+                    return true;
+                }
+            }
+        </script>
         <script>
             // Get the modal
             var modal = document.getElementById('myModal');

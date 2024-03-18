@@ -33,10 +33,6 @@
         <servlet-class>Controller.SignUpServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DetailsServlet</servlet-name>
-        <servlet-class>Controller.ParkDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PlacesServlet</servlet-name>
         <servlet-class>Controller.ParkServlet</servlet-class>
     </servlet>
@@ -67,10 +63,6 @@
     <servlet>
         <servlet-name>TicketRefundServlet</servlet-name>
         <servlet-class>Controller.TicketRefundServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TicketChangeServlet</servlet-name>
-        <servlet-class>Controller.TicketChangeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteFavouriteServlet</servlet-name>
@@ -169,10 +161,6 @@
         <url-pattern>/SignUpServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DetailsServlet</servlet-name>
-        <url-pattern>/DetailsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PlacesServlet</servlet-name>
         <url-pattern>/PlacesServlet</url-pattern>
     </servlet-mapping>
@@ -199,10 +187,6 @@
     <servlet-mapping>
         <servlet-name>TicketRefundServlet</servlet-name>
         <url-pattern>/TicketRefundServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TicketChangeServlet</servlet-name>
-        <url-pattern>/TicketChangeServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteFavouriteServlet</servlet-name>

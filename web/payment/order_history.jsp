@@ -115,36 +115,41 @@
             <table border="1" style="margin-top: 2%">
                 <thead>
                     <tr>
-                        <th>Ngày</th>
-                        <th>Mã giao dịch</th>
+                        <th>Ngày đặt</th>
                         <th>Mã đơn hàng</th>
-                        <th>Tổng giá trị</th>
-                        <th>Trạng Thái</th>
+                        <th>Ngày sử dụng</th>
+                        <th>Chi tiết</th>
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="transaction" items="${transactionDAO.allTransaction}"> 
+                    <c:forEach var="order" items="${OrderDAO.allOrder}"> 
                                 <tr>
-                                    <td>${transaction.date}</td>
-                                    <td>${transaction.getTransactionCode()}</td>
-                                    <td>${transaction.orderID}</td>
-                                    <td><fmt:formatNumber value="${transactionDAO.getTotalPriceByTransactionID(transaction.transactionID)}"></fmt:formatNumber> VNĐ</td>
-                                    <td>
-                                        <c:if test="${transaction.getTransactionStatus() == 1}">
-                                            Giao dịch thành công
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 2}">
-                                        Đã hoàn vé
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 3}">
-                                            Hoàn thành công
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 4}">
-                                            Từ chối hoàn tiền
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 5}">
-                                            Lỗi
-                                        </c:if>
+                                    <td>${order.orderDate}</td>
+                                    <td>${order.orderID}</td>
+                                    <td>${order.experationDate}</td>
+                                    <td> 
+                                        <table>
+                                            <tbody>
+                                                <c:forEach var="orderTicketList" items="${OrderDAO.getOrderTicketListByOrderID(order.orderID)}">
+                                                <tr>
+                                                    <td>${orderTicketList.typeName}</td>
+                                                    <td><fmt:formatNumber value="${orderTicketList.price}"></fmt:formatNumber> VNĐ</td>
+                                                    <td>${orderTicketList.ticketCode}</td>
+                                                    <c:if test="${orderTicketList.isUsed == false}">
+                                                        <td>
+                                                            <button type="submit" onclick="showConfirmPopup()">Hoàn trả vé</button>
+                                                            <form action="../test.jsp" id="refundForm" style="display: none">
+                                                                <input type="hidden" name="senderID" value="${param.userID}">
+                                                            </form>
+                                                        </td>
+                                                    </c:if>
+                                                    <c:if test="${orderTicketList.isUsed == true}">
+                                                        <td>Vé đã được sử dụng</td>
+                                                    </c:if>
+                                                </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
                 </c:forEach>
@@ -169,5 +174,16 @@
         document.getElementById("popup").style.display = "none";
     }
     
+</script>
+
+<script>
+    function showConfirmPopup() {
+      var confirmAction = confirm("Khi trả vé bạn sẽ mất 100% số tiền đặt vé\nBạn có chắc chắn muốn hoàn trả vé này không?");
+      if (confirmAction) {
+        document.getElementById('refundForm').submit();
+      } else {
+        alert("Hoàn trả vé đã bị hủy.");
+      }
+    }
 </script>
 </html>

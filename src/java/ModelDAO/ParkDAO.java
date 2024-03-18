@@ -126,6 +126,9 @@ public class ParkDAO {
         pk.setParkName(resultSet.getString("ParkName"));
         pk.setAddress(resultSet.getString("Address"));
         pk.setImage(resultSet.getString("Image"));
+        pk.setMapImage(resultSet.getString("MapImage"));
+        pk.setOpenTime(resultSet.getTime("OpenTime"));
+        pk.setCloseTime(resultSet.getTime("CloseTime"));
         return pk;
     }
 }

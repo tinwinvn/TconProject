@@ -189,6 +189,43 @@ public class TransactionDAO {
         } catch (SQLException e) {
         }
     }
+    
+    public int getTotalPriceByTransactionID (String transactionID) throws SQLException, SQLException {
+        int totalPrice = 0;
+        String query = "SELECT" +
+                        "    tt.Price," +
+                        "    od.Quantity " +
+                        "FROM" +
+                        "    TransactionHistory th " +
+                        " JOIN" +
+                        "    Orders o ON th.OrderID = o.OrderID " +
+                        " JOIN" +
+                        "    OrderDetail od ON o.OrderID = od.OrderID " +
+                        " JOIN" +
+                        "    TicketType tt ON od.TicketTypeID = tt.TicketTypeID " +
+                        " WHERE " +
+                        "    th.TransactionID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, transactionID);
+            rs = statement.executeQuery();         
+            while (rs.next()) {
+                int price = rs.getInt("Price");
+                int quantity = rs.getInt("Quantity");
+                totalPrice += price*quantity;
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return totalPrice;
+    }
 
     
     public Timestamp toDate(String input){
