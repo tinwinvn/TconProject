@@ -134,8 +134,8 @@ public class LoginServlet extends HttpServlet {
                 response.addCookie(rem);
                 response.addCookie(status);
                 response.addCookie(tokenC);
-            }
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            }    
+            request.getRequestDispatcher("index.jsp").forward(request, response);         
         } catch (Exception ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

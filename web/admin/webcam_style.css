@@ -1,0 +1,7 @@
+   #videoElement {
+        display: block;
+        top: 30%;
+        margin: 0 auto; /* căn giữa theo chiều ngang */
+        width: 50%; /* chiều rộng của video */
+        height: 50%; /* chiều cao của video */
+   }

@@ -192,17 +192,11 @@ public class OrderDAO {
     }
     
     
-    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String expirationDate, int orderStatus) throws SQLException, Exception {
+    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String expirationDate, int orderStatus, String email) throws SQLException, Exception {
         String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?)";
-        Connection conn;
+        Connection conn;    
         GenerateQR genQR = new GenerateQR();
-        genQR.generateQR(orderID);
-        SendEmail send = new SendEmail();
-        String dir = GenerateQR.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        File file = new File(dir);
-        file = file.getParentFile().getParentFile().getParentFile().getParentFile();
-        String absoluteFolderPath = Paths.get(file.toString(), "web/payment/QR/" + orderID + ".jpg").toString();
-        send.sendQR("taingocminh2003@gmail.com", "Your QR Code", absoluteFolderPath);
+        genQR.generateQR(orderID);       
         Timestamp fdate = toDate(orderDate);
         Timestamp edate = toeDate(expirationDate);
         try {

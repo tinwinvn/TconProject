@@ -71,7 +71,7 @@
                 </c:forEach>
             </div>
         </div>
-
+        <div>
         <c:if test="${not empty sessionScope.cart}">
                 <c:if test="${empty param.transactionCode}">
                     <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">

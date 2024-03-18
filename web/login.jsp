@@ -183,14 +183,30 @@
 
     <!-- initialize jQuery Library -->
     
+    
+
     <script>
     function submitForm() {
-      var checkbox = document.getElementById("acceptCheckbox");
-      if (checkbox.checked) {
-        document.getElementById("signupForm").submit();
-      } else {
-        alert("Bạn cần phải đồng ý với điều khoản dịch vụ");
-      }
+        var checkbox = document.getElementById("acceptCheckbox");
+        var email = document.forms["signupForm"]["email"].value;
+        var password = document.forms["signupForm"]["password"].value;
+        var repassword = document.forms["signupForm"]["repassword"].value;
+        var acceptance = document.forms["signupForm"]["acceptance"].checked;
+       if (email == null || email === "") {
+        alert("Địa chỉ email không được để trống");
+        return false;
+    } else if (password.length < 6) {
+        alert("Mật khẩu phải có ít nhất từ 8 đến 32 ký tự.");
+        return false;
+    } else if (password !== repassword) {
+        alert("Mật khẩu nhập lại không khớp.");
+        return false;
+    } else if (!acceptance) {
+        alert("Bạn phải đồng ý với chính sách bảo mật và điều khoản dịch vụ.");
+        return false;
+    } 
+    // If all validations pass, you can submit the form
+    document.getElementById("signupForm").submit();
     }
     </script>
     <script src="js\jquery-2.2.4.min.js"></script>

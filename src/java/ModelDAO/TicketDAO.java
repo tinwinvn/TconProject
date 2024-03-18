@@ -8,6 +8,8 @@ import DAO.ConnectDB;
 import Model.Ticket;
 import Validation.GenerateID;
 import Validation.GenerateQR;
+import java.io.File;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -49,16 +51,85 @@ public class TicketDAO {
         return list;
     }
     
+    public List<String> getAllTicketCodeByORderID(String orderID) throws SQLException{
+        List<String> tkcodelist = new ArrayList<>();
+        String query =  "SELECT TicketCode\n" +
+                        "FROM Ticket\n" +
+                        "WHERE OrderID = ?;";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, orderID);
+            rs = statement.executeQuery();
+                while (rs.next()) {
+                    tkcodelist.add(rs.getString("TicketCode"));
+                }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return tkcodelist;
+    }
+    
+    public boolean getTicketStatusByTicketCode(String ticketCode) throws SQLException{
+        boolean isUsed = false;
+        String query =  "SELECT isUsed\n" +
+                        "FROM Ticket\n" +
+                        "WHERE TicketCode = ?;";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, ticketCode);
+            rs = statement.executeQuery();
+                while (rs.next()) {
+                    isUsed = rs.getBoolean("isUsed");
+                }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return isUsed;
+    }
+    
+    
+    public void updateTicketStatusBYTicketCode(String ticketCode){
+        String query = "update Ticket set isUsed = ? where TicketCode = ?";
+        Connection conn;
+         try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setBoolean(1, true);
+                statement.setString(2, ticketCode);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+    
     public void addNewTicket(String ticketTypeID, String orderID) throws SQLException, Exception {
         String query = "INSERT INTO Ticket VALUES (?, ?, ?, ?, ?)";
         Connection conn;
-        GenerateID gn = new GenerateID();    
+        GenerateID gn = new GenerateID();   
+        GenerateQR qr = new GenerateQR();       
+        String a =gn.generateID("TK");
         String ticketCode = randomCode(12);
+        qr.generateQR(ticketCode);
         try {
             conn = db.getConnection();
                                                 
             try (PreparedStatement statement = conn.prepareStatement(query)) {
-                statement.setString(1, gn.generateID("TK"));
+                statement.setString(1, a);
                 statement.setString(2, ticketTypeID);
                 statement.setString(3, orderID);         
                 statement.setString(4, ticketCode);

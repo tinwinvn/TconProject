@@ -40,6 +40,12 @@
 					<span class="text">Notification</span>
 				</a>
 			</li>
+                        <li>
+				<a href="qrscan.jsp">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Scan</span>
+				</a>
+			</li>
 		</ul>
 		<ul class="side-menu">
 			<li>

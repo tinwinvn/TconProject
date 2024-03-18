@@ -131,6 +131,9 @@ public class UserDAO {
                 + "WHERE UserID = ?";
         User u = getUserById(id);
         Connection conn;
+        System.out.println(name);
+        System.out.println(phone);
+        System.out.println("dob");
         PreparedStatement statement;
         try {
             conn = db.getConnection();
@@ -222,7 +225,6 @@ public class UserDAO {
 
     public void addNewUser( String email, String password) throws Exception {
         String query = "INSERT INTO Users (UserID, Email, Password, Role, isActive) VALUES (?, ?, ?, ?, ?)";
-        System.out.println(password);
         GenerateID gen = new GenerateID();
         String id = gen.generateID("US");
         Connection conn;
