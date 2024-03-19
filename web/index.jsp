@@ -345,7 +345,7 @@
                     if (xhr.responseText.trim() === "sus") {
                         a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
                         Swal.fire({
-                            title: 'Add Success',
+                            title: 'Thêm thành công',
                             icon: 'success',
                             confirmButtonText: 'OK',
                             timer: 1500

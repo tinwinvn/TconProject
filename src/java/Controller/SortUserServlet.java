@@ -73,24 +73,32 @@ public class SortUserServlet extends HttpServlet {
             boolean sortPerformed = false; // Mặc định không có sắp xếp được thực hiện
 
             if (sortBy != null) {
-                if (sortBy.equals("2")) {
-                    sortedUsers = uDAO.sortByName();
-                    sortPerformed = true; // Sắp xếp theo tên (A-Z) được thực hiện
-                } else if (sortBy.equals("3")) {
-                    sortedUsers = uDAO.sortByNameDecs();
-                    sortPerformed = true; // Sắp xếp theo tên (Z-A) được thực hiện
+                switch (sortBy) {
+                    case "1":
+                        sortPerformed = false;
+                        break;
+                    case "2":
+                        sortedUsers = uDAO.sortByName();
+                        sortPerformed = true; // Sắp xếp theo tên (A-Z) được thực hiện
+                        break;
+                    case "3":
+                        sortedUsers = uDAO.sortByNameDecs();
+                        sortPerformed = true; // Sắp xếp theo tên (Z-A) được thực hiện
+                        break;
+                    default:
+                        break;
                 }
             }
 
             // Đặt thuộc tính sortPerformed cho request
-            request.setAttribute("sortPerformed", sortPerformed);
+            request.getSession().setAttribute("sortPerformed", sortPerformed);
 
             // Đặt thuộc tính listafterSort nếu có kết quả sắp xếp
             if (sortPerformed) {
-                request.setAttribute("listafterSort", sortedUsers);
+                request.getSession().setAttribute("listafterSort", sortedUsers);
             }
 
-            request.getRequestDispatcher("admin/listuser.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/admin/listuser.jsp");
         } catch (Exception e) {
         }
     }

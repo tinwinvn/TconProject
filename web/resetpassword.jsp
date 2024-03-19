@@ -5,17 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Reset Password</title>
-    <link rel="stylesheet" href="./css/resetpassword-style.css">
+    <link rel="stylesheet" href="css/resetpassword-style.css">
 </head>
 <body>
     <form action="ResetPasswordServlet" method="post">
-        <h2>Reset Password</h2>
-        <label for="newPassword">New Password:</label>
+        <h2>Đặt lại mật khẩu</h2>
+        <label for="newPassword" style="">Mật khẩu mới:</label>
         <input type="password" id="newPassword" name="newPassword" required>
-        <label for="confirmPassword">Confirm Password:</label>
+        <label for="confirmPassword">Nhập lại mật khẩu mới:</label>
         <input type="password" id="confirmPassword" name="confirmPassword" required>
         <input type="hidden" name="userId" value="${param.userId}">
-        <input type="submit" value="Reset Password">
+        <input type="submit" value="Xác nhận">
     </form>
 </body>
 </html>

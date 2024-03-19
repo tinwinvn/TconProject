@@ -46,11 +46,11 @@
                     <div class="brand-col">
                         <div class="headline">
                             <!-- brand-logo start -->
-                            <div class="brand-logo">
-                                <a href="index.jsp"><img src="images/logo.jpg" width="200" alt="brand-logo"></a>
-                            </div>
+                            <div class="brand-logo" style="text-align: center;">
+    <a href="index.jsp"><img src="images/logo.jpg" width="200" alt="brand-logo"></a>
+</div>
                             <!-- ./brand-logo -->
-                            <p>Login using social media to get quick access</p>
+                            <p></p>
                             <!-- social login buttons start -->
                             <div class="row social-buttons">
                                 <div class="col-xs-4 col-sm-4 col-md-12">
@@ -67,7 +67,7 @@
                         <div class="authfy-panel panel-login text-center active">
                             <div class="authfy-heading">
                                 <h3 class="auth-title">Đăng nhập vào tài khoản của bạn  </h3>
-                                <p>Không có tài khoản? <a class="lnk-toggler" data-panel=".panel-signup" href="#">Đăng ký ngay!</a></p>
+                                <p>Không có tài khoản? <a class="lnk-toggler" data-panel=".panel-signup" href="#" style="color: #ee2e24">Đăng ký ngay!</a></p>
                             </div>
                             <c:set var="cookie" value="${pageContext.request.cookies}"></c:set>
                             <div class="row">
@@ -87,18 +87,18 @@
                                             <div class="col-xs-6 col-sm-6">
                                                 <label class="checkbox text-left">
                                                     <input type="checkbox" value="remember-me" name="remember" ${(cookie.remC!=null?'checked':'')}>
-                                                    <span class="label-text">Nhớ mật khẩu</span>
+                                                    <span class="label-text" >Nhớ mật khẩu</span>
                                                 </label>
                                             </div>
                                             <div class="col-xs-6 col-sm-6">
                                                 <p class="forgotPwd">
-                                                    <a class="lnk-toggler" data-panel=".panel-forgot">Quên mật khẩu ?</a>
+                                                    <a class="lnk-toggler" data-panel=".panel-forgot" style="color: #ee2e24">Quên mật khẩu ?</a>
                                                 </p>
                                             </div>
                                         </div>
                                         <!-- ./remember-row -->
                                         <div class="form-group">
-                                                <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color: #ee2e24; border-color: #ee2e24">Đăng nhập</button>
                                         </div>
                                     </form>
                                 </div>
@@ -130,14 +130,14 @@
                                         </div>
                                         
                                         <div class="form-group" style="display: flex; align-items: center">
-                                                <input style="margin-bottom: 4%" type="checkbox" value="accept" name="acceptance" id="acceptCheckbox">
-                                                <p class="term-policy text-muted small" style="margin-left: 12%">Tôi đồng ý với <a href="#">chính sách bảo mật</a> và <a href="#">điều khoản dịch vụ</a>.</p>
+                                                <input style="margin-bottom: 4%" type="checkbox" value="accept" name="acceptance" id="acceptCheckbox" style="">
+                                                <p class="term-policy text-muted small" style="margin-left: 12%">Tôi đồng ý với <a href="#" style="color: #ee2e24">chính sách bảo mật</a> và <a href="#" style="color: #ee2e24">điều khoản dịch vụ</a>.</p>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="submitForm()">Đăng ký với email</button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="submitForm()" style="background-color: #ee2e24; border-color: #ee2e24">Đăng ký với email</button>
                                         </div>
                                     </form>
-                                    <a class="lnk-toggler" data-panel=".panel-login" href="#">Bạn đã có tài khoản?</a>
+                                    <a class="lnk-toggler" data-panel=".panel-login" href="#" style="color: #ee2e24">Bạn đã có tài khoản?</a>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="authfy-heading">
-                                        <h3 class="auth-title">Khôi phục mật khẩu của bạn</h3>
+                                        <h3 class="auth-title" >Khôi phục mật khẩu của bạn</h3>
                                         <p>Nhập vào địa chỉ email của bạn ở bên dưới, chúng tôi sẽ gửi cho bạn mã OTP để lấy lại mật khẩu.</p>
                                     </div>
                                     <form name="forgetForm" class="forgetForm" action="SendEmailServlet" method="POST">
@@ -156,14 +156,14 @@
                                         </div>
                                         <div class="form-group">
             
-                                            <button class="btn btn-lg btn-primary btn-block" type="submit">Khôi phục mật khẩu</button>
+                                            <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color: #ee2e24; border-color: #ee2e24">Khôi phục mật khẩu</button>
                                             
                                         </div>
                                         <div class="form-group">
-                                            <a class="lnk-toggler" data-panel=".panel-login" href="#">Bạn đã có tài khoản?</a>
+                                            <a class="lnk-toggler" data-panel=".panel-login" href="#" style="color: #ee2e24">Bạn đã có tài khoản?</a>
                                         </div>
                                         <div class="form-group">
-                                            <a class="lnk-toggler" data-panel=".panel-signup" href="#">Bạn không có tài khoản?</a>
+                                            <a class="lnk-toggler" data-panel=".panel-signup" href="#" style="color: #ee2e24">Bạn không có tài khoản?</a>
                                         </div>
                                     </form>
                                 </div>
