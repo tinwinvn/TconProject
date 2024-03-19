@@ -16,24 +16,24 @@
             <link rel="stylesheet" type="text/css" href="css_god/details.css"/>
     </head>
     <body>
-        <div class="bg-red" style="height: 3vh;"></div>
-        <nav class="d-flex  bg-white" >
+    <div class="bg-red" style="height: 3vh;"></div>
+    <nav class="d-flex bg-white">
         <jsp:useBean id="parkDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <c:set var="parkName" value="${parkDAO.getParkNameByParkID(param.parkID)}"></c:set>
-                        <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
-                            <li><a href="../index.jsp" class="text-red p-2">Trang Chủ</a></li>
-                            <li><a href="../introduction.jsp" class="text-red p-2">Giới Thiệu</a></li>
-                            <li><a href="#" class="text-red p-2">Trải nghiệm</a></li>
-                        </ul>
-            <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
-                        <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                            <li><a href="#" class="text-red p-2">Trò chơi</a></li>
-                            <li><a href="#" class="text-red p-2">Tin tức</a></li>
-                            <li><a href="#" class="text-red p-2">Bản Đồ</a></li>
-                        </ul>
+        <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0">
+            <li><a href="../index.jsp" class="text-red p-2" style="padding: 0.5rem;">Trang Chủ</a></li>
+            <li><a href="../introduction.jsp" class="text-red p-2" style="padding: 0.5rem;">Giới Thiệu</a></li>
+            <li><a href="#" class="text-red p-2" style="padding: 0.5rem;">Trải nghiệm</a></li>
+        </ul>
+        <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24; padding: 0.5rem 1rem;"><c:out value="${parkName}"/></div>
+        <ul class="col-5 justify-content-start ps-5 d-flex align-items-center mb-0">
+            <li><a href="#" class="text-red p-2" style="padding: 0.5rem;">Trò chơi</a></li>
+            <li><a href="#" class="text-red p-2" style="padding: 0.5rem;">Tin tức</a></li>
+            <li><a href="#" class="text-red p-2" style="padding: 0.5rem;">Bản Đồ</a></li>
+        </ul>
+    </nav>
+</body>
 
-                    </nav>
-    </body>
     
     
 </html>
