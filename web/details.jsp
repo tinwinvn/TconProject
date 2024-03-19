@@ -341,7 +341,7 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                    <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                        <button class="report-btn" style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -360,7 +360,103 @@
                                 </div>                    
                             </div> 
                         </div>
+                                    
+                <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                    <div class="report-modal-content">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Lí do</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Tên không hợp lệ</option>
+                                <option>Nội dung tiêu cực</option>
+                                <option>Nội dung phản cảm</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Chi tiết</label>
+                            <textarea id="exampleFormControlTextarea1" rows="7"></textarea>
+                        </div>
+                        <button id="banBtn" type="submit" >Thêm mới</button>
+                        <button id="closeBan" >Đóng</button>
+                    </form>
+                    </div>
+                </div>
+                                    <style>
+                                        /* Modal */
+                                        .reportmodal {
+                                            position: fixed;
+                                            z-index: 1;
+                                            top: 50%;
+                                            left: 50%;
+                                            transform: translate(-50%, -50%);
+                                            width: 100%;
+                                            height: 100%;
+                                            overflow: auto;
+                                            background-color: rgba(0,0,0,0.4);
+                                        }
 
+                                        /* Modal Content */
+                                        .report-modal-content {
+                                            background-color: #fefefe;
+                                            margin: 20% auto;
+                                            padding: 20px;
+                                            border: 1px solid #888;
+                                            border-radius: 0.5rem;
+                                            width: 50%;
+                                        }
+
+
+                                        /* Textarea and Button inside Modal Content */
+                                        .report-modal-content textarea {
+                                            width: 97%;
+                                            padding: 10px;
+                                            margin-bottom: 10px;
+                                        }
+                                        
+                                        #banBtn {
+                                            background-color: #4CAF50;
+                                            color: white;
+                                            padding: 10px 15px;
+                                            border: none;
+                                            border-radius: 5px;
+                                            text-align: center;
+                                            cursor: pointer;
+                                        }
+                                        
+                                        #closeBan {
+                                            background-color: #4CAF50;
+                                            color: white;
+                                            padding: 10px 15px;
+                                            border: none;
+                                            border-radius: 5px;
+                                            width: 15%;
+                                            text-align: center;
+                                            cursor: pointer;
+                                        }
+
+                                        .report-modal-content button:hover {
+                                            background-color: #45a049;
+                                        }
+                                    </style>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const reportButtons = document.querySelectorAll(".report-btn");
+                                            const reportForm = document.getElementById("banForm");
+                                            const closeButton = document.getElementById("closeBan");
+
+                                            reportButtons.forEach(function(button) {
+                                                button.addEventListener("click", function () {
+                                                    reportForm.style.display = "block";
+                                                });
+                                            });
+
+                                            closeButton.addEventListener("click", function (event) {
+                                                event.preventDefault(); // Ngăn chặn hành vi mặc định của nút "submit"
+                                                reportForm.style.display = "none";
+                                            });
+                                        });
+                                    </script>
 
 
  <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
@@ -376,8 +472,9 @@
                         </div>
                     </div>           
                 </div>     
-
-
+                                    
+                                    
+                
                 <style>
                     ::-webkit-scrollbar{
                         width: 10px;

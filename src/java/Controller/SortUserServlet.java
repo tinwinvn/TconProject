@@ -83,14 +83,14 @@ public class SortUserServlet extends HttpServlet {
             }
 
             // Đặt thuộc tính sortPerformed cho request
-            request.setAttribute("sortPerformed", sortPerformed);
+            request.getSession().setAttribute("sortPerformed", sortPerformed);
 
             // Đặt thuộc tính listafterSort nếu có kết quả sắp xếp
             if (sortPerformed) {
-                request.setAttribute("listafterSort", sortedUsers);
+                request.getSession().setAttribute("listafterSort", sortedUsers);
             }
 
-            request.getRequestDispatcher("admin/listuser.jsp").forward(request, response);
+            response.sendRedirect("admin/listuser.jsp");
         } catch (Exception e) {
         }
     }

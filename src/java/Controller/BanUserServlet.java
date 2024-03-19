@@ -76,7 +76,7 @@ public class BanUserServlet extends HttpServlet {
             boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
             UserDAO uDAO = new UserDAO();
             uDAO.banUser(userId, isActive);
-            response.sendRedirect("listuser.jsp");
+            response.sendRedirect("admin/listuser.jsp");
         } catch (Exception e) {
         }
     }

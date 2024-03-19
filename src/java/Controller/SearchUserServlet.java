@@ -80,13 +80,13 @@ public class SearchUserServlet extends HttpServlet {
             List<User> list = uDAO.searchUsers(txtSearch);
             
             boolean searchPerformed = (list != null && !list.isEmpty());
-            request.setAttribute("searchPerformed", searchPerformed);
+            request.getSession().setAttribute("searchPerformed", searchPerformed);
 
             // Đặt thuộc tính listU nếu có kết quả tìm kiếm
             if (searchPerformed) {
-                request.setAttribute("listU", list);
+                request.getSession().setAttribute("listU", list);
             }
-            request.getRequestDispatcher("admin/listuser.jsp").forward(request, response);
+            response.sendRedirect("admin/listuser.jsp");
         } catch (Exception e) {
             
         }
