@@ -6,6 +6,7 @@ package ModelDAO;
 
 import DAO.ConnectDB;
 import Model.TicketType;
+import Validation.GenerateID;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketTypeDAO {
-    
+
     private final ConnectDB db;
 
     public TicketTypeDAO() throws Exception {
         db = new ConnectDB();
     }
-            
-    public List<TicketType> getAllTicketType(){
+
+    public List<TicketType> getAllTicketType() {
         List<TicketType> list = new ArrayList<>();
         String sql = "select * from TicketType";
         Connection conn;
@@ -40,8 +41,8 @@ public class TicketTypeDAO {
         }
         return list;
     }
-    
-    public TicketType getTicketTypeByID(String TicketTypeID) throws SQLException{
+
+    public TicketType getTicketTypeByID(String TicketTypeID) throws SQLException {
         TicketType tt = new TicketType();
         String query = "SELECT * FROM TicketType where TicketTypeID = ?";
         Connection conn = null;
@@ -65,8 +66,8 @@ public class TicketTypeDAO {
         }
         return tt;
     }
-           
-    public String getParkIDByTicketTypeID(String TicketTypeID) throws SQLException{
+
+    public String getParkIDByTicketTypeID(String TicketTypeID) throws SQLException {
         TicketType tt = new TicketType();
         String query = "SELECT * FROM TicketType where TicketTypeID = ?";
         Connection conn = null;
@@ -90,7 +91,70 @@ public class TicketTypeDAO {
         }
         return tt.getParkID();
     }
+
+    public void addNewTicketType(String parkID, String gameID, String TypeName, String Description, int Price) throws SQLException, Exception {
+        String query = "INSERT INTO TicketType VALUES (?, ?, ?, ?, ?, ?)";
+        Connection conn;
+        GenerateID gn = new GenerateID();
+        String ticketTypeID = gn.generateID("TT");
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, ticketTypeID);
+                statement.setString(2, parkID);
+                statement.setString(3, gameID);
+                statement.setNString(4, TypeName);
+                statement.setNString(5, Description);
+                statement.setInt(6, Price);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+
+    public void updateTicketType(String parkID, String gameID, String typeName, String description, int price, String ticketTypeID) throws SQLException, Exception {
+        String query = "  update TicketType "
+                + "  set ParkID = ?,"
+                + "	GameID = ?,"
+                + "	TypeName = ?,"
+                + "	Description = ?,"
+                + "	price = ?"
+                + "	where TicketTypeID = ?";
+        Connection conn;
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, parkID);
+                statement.setString(2, gameID);
+                statement.setString(3, typeName);
+                statement.setString(4, description);
+                statement.setInt(5, price);
+                statement.setString(6, ticketTypeID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
     
+    public void deleteTicketTypeByTicketTypeID(String ticketTypeID) throws SQLException, Exception {
+        String query = "delete from TicketType where TicketTypeID = ?";
+        Connection conn;
+        try {
+
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, ticketTypeID);
+                statement.execute();
+            }
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
+
     private TicketType mapResultSetToTicketType(ResultSet resultSet) throws SQLException {
         TicketType tkt = new TicketType();
         tkt.setTicketTypeID(resultSet.getString("TicketTypeID"));

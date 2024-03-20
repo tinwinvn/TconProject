@@ -20,7 +20,9 @@
             <title>Entertainment World</title>
 
         </head>
+        <style>
 
+        </style>
         <body >
 
 
@@ -341,7 +343,7 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                    <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                        <button style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -363,7 +365,7 @@
 
 
 
- <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                        <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
                             <div class="modal-content" style="border-color: #EE2E24">
                                 <span class="close">&times;</span>
                                 <form id="editForm" action="UpdateCommentServlet" method="post">
@@ -389,10 +391,9 @@
                     }
                 </style>                              
 
-
-
+               
             </div>
-        </div>
+        </div>                           
         <script>
             function validateForm() {
                 var starValue = document.getElementsByName("star")[0].value;

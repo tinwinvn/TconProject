@@ -132,6 +132,30 @@
         <servlet-name>UpdateTicketServlet</servlet-name>
         <servlet-class>Controller.UpdateTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddNewTicketServlet</servlet-name>
+        <servlet-class>Controller.AddNewTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateTicketTypeServlet</servlet-name>
+        <servlet-class>Controller.UpdateTicketTypeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteTicketTypeServlet</servlet-name>
+        <servlet-class>Controller.DeleteTicketTypeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewGameServlet</servlet-name>
+        <servlet-class>Controller.AddNewGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateGameServlet</servlet-name>
+        <servlet-class>Controller.UpdateGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteGameServlet</servlet-name>
+        <servlet-class>Controller.DeleteGameServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -263,6 +287,30 @@
     <servlet-mapping>
         <servlet-name>UpdateTicketServlet</servlet-name>
         <url-pattern>/UpdateTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewTicketServlet</servlet-name>
+        <url-pattern>/AddNewTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateTicketTypeServlet</servlet-name>
+        <url-pattern>/UpdateTicketTypeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteTicketTypeServlet</servlet-name>
+        <url-pattern>/DeleteTicketTypeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewGameServlet</servlet-name>
+        <url-pattern>/AddNewGameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateGameServlet</servlet-name>
+        <url-pattern>/UpdateGameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteGameServlet</servlet-name>
+        <url-pattern>/DeleteGameServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

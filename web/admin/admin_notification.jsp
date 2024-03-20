@@ -28,7 +28,7 @@
                         </li>
                         <li><i class='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a class="active" href="admin_notification.jsp">admin_notification</a>
+                            <a class="active" href="admin_notification.jsp">Thông báo</a>
                         </li>
                     </ul>
                 </div>

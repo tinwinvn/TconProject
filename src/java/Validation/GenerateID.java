@@ -1,20 +1,24 @@
 package Validation;
 
 import Model.AddFavourite;
+import Model.Game;
 import Model.Notification;
 import Model.Order;
 import Model.OrderDetail;
 import Model.Rating;
 import Model.Ticket;
+import Model.TicketType;
 import Model.TransactionHistory;
 import ModelDAO.UserDAO;
 import Model.User;
 import ModelDAO.AddFavouriteDAO;
+import ModelDAO.GameDAO;
 import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.RatingDAO;
 import ModelDAO.TicketDAO;
+import ModelDAO.TicketTypeDAO;
 import ModelDAO.TransactionDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +125,35 @@ public class GenerateID {
                     return nextID;
                 }
             }
-        } else{
+        } else if (entity == "TT") {
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            if (ticketTypeDAO.getAllTicketType().isEmpty()) {
+                return entity + "000001";
+            }
+            List<TicketType> listTicketType = ticketTypeDAO.getAllTicketType();
+            for (TicketType ticketType : listTicketType) {
+                String numID = ticketType.getTicketTypeID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
+        } else if (entity == "GA") {
+            GameDAO gameDAO = new GameDAO();
+            if (gameDAO.getAllGame().isEmpty()) {
+                return entity + "000001";
+            }
+            List<Game> listGame = gameDAO.getAllGame();
+            for (Game game : listGame) {
+                String numID = game.getGameID().substring(2);
+                int num = Integer.parseInt(numID);
+                String nextID = entity + (String.format("%06d", num + 1));
+                if (!isDupplicatedID(nextID, entity)) {
+                    return nextID;
+                }
+            }
+        } else {
 
             UserDAO userDAO = new UserDAO();
             if (userDAO.getAllUser().isEmpty()) {
@@ -200,7 +232,23 @@ public class GenerateID {
                     return true;
                 }
             }
-        } else{
+        } else if (entity == "TT") {
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            List<TicketType> listTicketType = ticketTypeDAO.getAllTicketType();
+            for (TicketType ticketType : listTicketType) {
+                if (ticketType.getTicketTypeID().equals(id)) {
+                    return true;
+                }
+            }
+        } else if (entity == "GA") {
+            GameDAO gameDAO = new GameDAO();
+            List<Game> listGame = gameDAO.getAllGame();
+            for (Game game : listGame) {
+                if (game.getGameID().equals(id)) {
+                    return true;
+                }
+            }
+        } else {
             UserDAO userDAO = new UserDAO();
             ArrayList<User> listUser = userDAO.getAllUser();
             for (User user : listUser) {

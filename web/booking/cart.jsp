@@ -79,6 +79,10 @@
                             <p style="margin-top: 0.7%; margin-right: 10px">Ngày sử dụng: </p>
                             <input type="date" id="experationDate" name="experationDate" required="">
                         </div>
+                        <div style="display: flex; align-items: center; justify-content: center">
+                            <p style="margin-top: 0.7%; margin-right: 10px">Voucher: </p>
+                            <input type="text" id="experationDate" name="experationDate" required="">
+                        </div>
                         <input type="hidden" name="totalPrice" value="${totalPrice}">
                         <input type="hidden" name="orderID" value="${param.orderID}">
                         <input type="hidden" name="parkID" value="${param.parkID}">

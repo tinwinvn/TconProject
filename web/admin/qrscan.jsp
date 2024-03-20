@@ -5,10 +5,28 @@
     <head>
         <title>QR Scanner</title>
         <link rel="stylesheet" href="webcam_style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <!-- My CSS -->
+        <link rel="stylesheet" href="admin_style.css">
     </head>
     <body>
         <jsp:include page="admin_nav.jsp"></jsp:include>
         <jsp:useBean id="ticketDAO" class="ModelDAO.TicketDAO"></jsp:useBean>
+        <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li>
+                            <a class="active" href="../index.jsp">Quét mã QR</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         <video id="videoElement" width="400" height="300" autoplay></video>
         <script type="text/javascript" src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
         <script>
