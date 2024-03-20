@@ -4,23 +4,26 @@
  */
 package Model;
 
+import java.sql.Timestamp;
 public class Ticket {
    
     private String TicketID;
     private String TicketTypeID;
     private String orderID;
     private String TicketCode;
-    private boolean isUsed;
-
+    private int TicketStatus;
+    private Timestamp ExperationDate;
+    
     public Ticket() {
     }
 
-    public Ticket(String TicketID, String TicketTypeID, String orderID, String TicketCode, boolean isUsed) {
+    public Ticket(String TicketID, String TicketTypeID, String orderID, String TicketCode, int TicketStatus, Timestamp ExperationDate) {
         this.TicketID = TicketID;
         this.TicketTypeID = TicketTypeID;
         this.orderID = orderID;
         this.TicketCode = TicketCode;
-        this.isUsed = isUsed;
+        this.TicketStatus = TicketStatus;
+        this.ExperationDate = ExperationDate;
     }
 
     public String getTicketID() {
@@ -55,11 +58,21 @@ public class Ticket {
         this.TicketCode = TicketCode;
     }
 
-    public boolean isIsUsed() {
-        return isUsed;
+    public int getTicketStatus() {
+        return TicketStatus;
     }
 
-    public void setIsUsed(boolean isUsed) {
-        this.isUsed = isUsed;
-    }   
+    public void setTicketStatus(int TicketStatus) {
+        this.TicketStatus = TicketStatus;
+    }
+
+    public Timestamp getExperationDate() {
+        return ExperationDate;
+    }
+
+    public void setExperationDate(Timestamp ExperationDate) {
+        this.ExperationDate = ExperationDate;
+    }
+
+    
 }

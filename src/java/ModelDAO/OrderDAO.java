@@ -138,35 +138,13 @@ public class OrderDAO {
         return ch;
     }
     
-    public void updateOrderStatusByOrderID(int orderStatus, String orderID){
-        String query = "update Orders set OrderStatus = ? where OrderID = ?";
-        Connection conn;
-        try {
-
-            conn = db.getConnection();
-            try (PreparedStatement statement = conn.prepareStatement(query)) {
-                statement.setInt(1, orderStatus);
-                statement.setString(2, orderID);
-                statement.execute();
-            }
-            conn.close();
-        } catch (SQLException e) {
-        }
-    }
-    
     public List<OrderTicketList> getOrderTicketListByOrderID (String orderID) throws SQLException {
         List<OrderTicketList> output = new ArrayList<>();
-        String query =  "  SELECT " +
-                        "tt.TypeName, " +
-                        "tt.Price, " +
-                        "t.TicketCode, " +
-                        "t.isUsed " +
-                        "FROM " +
-                        "    Ticket AS t " +
-                        "INNER JOIN OrderDetail AS od ON t.OrderID = od.OrderID " +
-                        "INNER JOIN TicketType AS tt ON t.TicketTypeID = tt.TicketTypeID AND od.TicketTypeID = tt.TicketTypeID " +
-                        "WHERE " +
-                        "    t.OrderID = ?";
+        String query =  "  SELECT tt.TypeName, tt.Price, t.TicketCode, t.TicketStatus \n" +
+                        "  FROM Ticket AS t \n" +
+                        "  INNER JOIN OrderDetail AS od ON t.OrderID = od.OrderID \n" +
+                        "  INNER JOIN TicketType AS tt ON t.TicketTypeID = tt.TicketTypeID AND od.TicketTypeID = tt.TicketTypeID \n" +
+                        "  WHERE t.OrderID = ?";
         Connection conn = null;
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -180,7 +158,7 @@ public class OrderDAO {
                 OrderTicketList o = new OrderTicketList(rs.getString("TypeName")
                         , rs.getInt("Price")
                         , rs.getString("TicketCode")
-                        , rs.getBoolean("isUsed"));
+                        , rs.getInt("TicketStatus"));
                 output.add(o);
             }
         } catch (SQLException ex) {
@@ -192,13 +170,12 @@ public class OrderDAO {
     }
     
     
-    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String expirationDate, int orderStatus, String email) throws SQLException, Exception {
-        String query = "INSERT INTO Orders VALUES (?, ?, ?, ?, ?, ?)";
+    public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String email) throws SQLException, Exception {
+        String query = "INSERT INTO Orders VALUES (?, ?, ?, ?)";
         Connection conn;    
         GenerateQR genQR = new GenerateQR();
         genQR.generateQR(orderID);       
         Timestamp fdate = toDate(orderDate);
-        Timestamp edate = toeDate(expirationDate);
         try {
             conn = db.getConnection();
             try (PreparedStatement statement = conn.prepareStatement(query)) {
@@ -206,8 +183,6 @@ public class OrderDAO {
                 statement.setString(2, userID);
                 statement.setString(3, null);
                 statement.setTimestamp(4, fdate);
-                statement.setTimestamp(5, edate);
-                statement.setInt(6, orderStatus);
                 statement.execute();
             }
             conn.close();
@@ -221,8 +196,6 @@ public class OrderDAO {
         order.setUserID(resultSet.getString("UserID"));
         order.setVoucherID(resultSet.getString("VoucherID"));
         order.setOrderDate(resultSet.getDate("OrderDate"));
-        order.setExperationDate(resultSet.getDate("ExperationDate"));
-        order.setOrderStatus(resultSet.getInt("OrderStatus"));
         return order;
     }
     

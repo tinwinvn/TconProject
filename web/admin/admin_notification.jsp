@@ -58,12 +58,11 @@
                     <form action="../ResponeRefundServler" method="POST">
                         <input type="hidden" name="senderID" value="${notilist.receiverID}">
                         <input type="hidden" name="receiverID" value="${notilist.senderID}">
-                        <input type="hidden" name="transactionCode" value="${notilist.content}">
+                        <input type="hidden" name="ticketCode" value="${notilist.content}">
                         <input type="hidden" name="notificationID" value="${notilist.notificationID}">
                         <c:if test="${notilist.isConfirm == false}">
                             <button type="submit" name="accept" value="accept">Accept</button>
                             <button type="submit" name="denied" value="denied">Denied</button>
-                            <a href="../payment/verification_order.jsp?orderID=${orderDAO.getOrderbyOrderID(transactionDAO.getOrderIDbyTransactionCode(notilist.content)).orderID}">Detail</a>
                         </c:if>
                     </form>
                 </td>

@@ -101,23 +101,12 @@
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 2%">
         <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24" onclick="openPopup()">Hoàn vé</button>
         </div>
-            <div id="overlay" class="overlay"></div>
-            <div id="popup" class="popup">
-                <form action="../TicketRefundServlet" method="POST">
-                    <label for="transactionCode">Nhập vào mã giao dịch của bạn:</label> <br>                
-                    <input type="text" id="transactionCode" name="transactionCode" required>
-                    <input type="hidden" name="senderID" value="${param.userID}">
-                    <br><br>
-                    <button type="submit">Refund</button>
-                    <button onclick="closePopup()">Close</button>
-                </form>
-            </div>
+            <div id="overlay" class="overlay"></div>          
             <table border="1" style="margin-top: 2%">
                 <thead>
                     <tr>
                         <th>Ngày đặt</th>
                         <th>Mã đơn hàng</th>
-                        <th>Ngày sử dụng</th>
                         <th>Chi tiết</th>
                     </tr>
                 </thead>
@@ -126,7 +115,6 @@
                                 <tr>
                                     <td>${order.orderDate}</td>
                                     <td>${order.orderID}</td>
-                                    <td>${order.experationDate}</td>
                                     <td> 
                                         <table>
                                             <tbody>
@@ -135,16 +123,23 @@
                                                     <td>${orderTicketList.typeName}</td>
                                                     <td><fmt:formatNumber value="${orderTicketList.price}"></fmt:formatNumber> VNĐ</td>
                                                     <td>${orderTicketList.ticketCode}</td>
-                                                    <c:if test="${orderTicketList.isUsed == false}">
-                                                        <td>
-                                                            <button type="submit" onclick="showConfirmPopup()">Hoàn trả vé</button>
-                                                            <form action="../test.jsp" id="refundForm" style="display: none">
+                                                    <c:if test="${orderTicketList.ticketStatus == 0}">
+                                                        <td>                                                                                                                    
+                                                            <form id="refundForm" action="../TicketRefundServlet" method="post">
+                                                                <button type="submit" onclick="showConfirmPopup()">Hoàn trả vé</button>
                                                                 <input type="hidden" name="senderID" value="${param.userID}">
+                                                                <input type="hidden" name="ticketCode" value="${orderTicketList.ticketCode}">
                                                             </form>
                                                         </td>
                                                     </c:if>
-                                                    <c:if test="${orderTicketList.isUsed == true}">
+                                                    <c:if test="${orderTicketList.ticketStatus == 1}">
                                                         <td>Vé đã được sử dụng</td>
+                                                    </c:if>
+                                                    <c:if test="${orderTicketList.ticketStatus == 2}">
+                                                        <td>Vé đã được hoàn</td>
+                                                    </c:if>
+                                                    <c:if test="${orderTicketList.ticketStatus == 3}">
+                                                        <td>Vé đã bị từ chối hoàn</td>
                                                     </c:if>
                                                 </tr>
                                                 </c:forEach>
@@ -174,16 +169,5 @@
         document.getElementById("popup").style.display = "none";
     }
     
-</script>
-
-<script>
-    function showConfirmPopup() {
-      var confirmAction = confirm("Khi trả vé bạn sẽ mất 100% số tiền đặt vé\nBạn có chắc chắn muốn hoàn trả vé này không?");
-      if (confirmAction) {
-        document.getElementById('refundForm').submit();
-      } else {
-        alert("Hoàn trả vé đã bị hủy.");
-      }
-    }
 </script>
 </html>

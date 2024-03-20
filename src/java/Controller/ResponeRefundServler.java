@@ -4,7 +4,9 @@
  */
 package Controller;
 
+import Model.Ticket;
 import ModelDAO.NotificationDAO;
+import ModelDAO.TicketDAO;
 import ModelDAO.TransactionDAO;
 import ModelDAO.UserDAO;
 import java.io.IOException;
@@ -62,29 +64,27 @@ public class ResponeRefundServler extends HttpServlet {
         String receiverID = request.getParameter("receiverID");
         String accept = request.getParameter("accept");
         String denied = request.getParameter("denied");
-        String transactionCode = request.getParameter("transactionCode");
         Date currentDate = new Date(System.currentTimeMillis());
+        String ticketCode = request.getParameter("ticketCode");
+        System.out.println(ticketCode);
         String notificationID = request.getParameter("notificationID");
         boolean isConfirm = true;
         System.out.println(notificationID);
         try {
             UserDAO udao = new UserDAO();
-             NotificationDAO notiDAO = new NotificationDAO();
-             TransactionDAO tdao = new TransactionDAO();
+            NotificationDAO notiDAO = new NotificationDAO();
+            TicketDAO ticketDAO = new TicketDAO();
             if (accept != null) {
-                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
-                tdao.updateTransactionStatus(transactionID, 2);
                 notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is accepted \nPlease waiting for refund", currentDate);
                 udao.UpdatePointByUserID(receiverID);
+                ticketDAO.updateTicketStatusBYTicketCode(2, ticketCode);
                 notiDAO.updateNotification(isConfirm, notificationID);
             } else if (denied != null){
-                String transactionID = tdao.getTransactionIDbyTransactionCode(transactionCode);
-                tdao.updateTransactionStatus(transactionID, 4);
                 notiDAO.addNewNotification(senderID, receiverID, "Respone Request", "Your request is denied because your request is invalid \nPlease check your request again", currentDate);
-                
+                ticketDAO.updateTicketStatusBYTicketCode(3, ticketCode);
                 notiDAO.updateNotification(isConfirm, notificationID);
             }
-            response.sendRedirect("booking/notification_list.jsp");
+            response.sendRedirect("admin/admin_notification.jsp");
         } catch (Exception ex) {
             Logger.getLogger(ResponeRefundServler.class.getName()).log(Level.SEVERE, null, ex);
         }      

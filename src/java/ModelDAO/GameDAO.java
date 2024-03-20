@@ -154,6 +154,31 @@ public class GameDAO {
         }
     }
 
+    public String getGameNameByParkID(String ParkID) throws SQLException{
+        Game gm = new Game();
+        String query = "SELECT * FROM Game where ParkID = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, ParkID);
+            rs = statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    gm = mapResultSetToGame(resultSet);
+                }
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return gm.getGameName();
+    }
+    
     private Game mapResultSetToGame(ResultSet resultSet) throws SQLException {
         Game gm = new Game();
         gm.setGameID(resultSet.getString("GameID"));

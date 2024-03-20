@@ -467,6 +467,64 @@
                         background-color: #F7F7F7;
                     }
                 </style>                              
+                
+                <style>
+                    /* Modal */
+                    .reportmodal {
+                        position: fixed;
+                        z-index: 1;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 100%;
+                        height: 100%;
+                        overflow: auto;
+                        background-color: rgba(0,0,0,0.4);
+                    }
+
+                    /* Modal Content */
+                    .report-modal-content {
+                        background-color: #fefefe;
+                        margin: 20% auto;
+                        padding: 20px;
+                        border: 1px solid #888;
+                        border-radius: 0.5rem;
+                        width: 50%;
+                    }
+
+
+                    /* Textarea and Button inside Modal Content */
+                    .report-modal-content textarea {
+                        width: 97%;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                    }
+
+                    #banBtn {
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 10px 15px;
+                        border: none;
+                        border-radius: 5px;
+                        text-align: center;
+                        cursor: pointer;
+                    }
+
+                    #closeBan {
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 10px 15px;
+                        border: none;
+                        border-radius: 5px;
+                        width: 15%;
+                        text-align: center;
+                        cursor: pointer;
+                    }
+
+                    .report-modal-content button:hover {
+                        background-color: #45a049;
+                    }
+                </style>
 
 
             </div>
@@ -528,20 +586,20 @@
                     ratingText.value = oldComment;
 
                     modal.style.display = "block";
-                }
+                };
             }
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function () {
                 modal.style.display = "none";
-            }
+            };
 
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function (event) {
-                if (event.target == modal) {
+                if (event.target === modal) {
                     modal.style.display = "none";
                 }
-            }
+            };
 
 
         </script>
