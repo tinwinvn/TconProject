@@ -42,6 +42,7 @@ public class GenerateID {
                 return entity + "000001";
             }
             List<Ticket> listTicket = ticketDAO.getAllTicket();
+            System.out.println(listTicket.size());
             for (Ticket ticket: listTicket) {
                 String numID = ticket.getTicketID().substring(2);
                 int num = Integer.parseInt(numID);

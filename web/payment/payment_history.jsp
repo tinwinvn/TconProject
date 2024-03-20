@@ -119,7 +119,6 @@
                         <th>Mã giao dịch</th>
                         <th>Mã đơn hàng</th>
                         <th>Tổng giá trị</th>
-                        <th>Trạng Thái</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,23 +128,7 @@
                                     <td>${transaction.getTransactionCode()}</td>
                                     <td>${transaction.orderID}</td>
                                     <td><fmt:formatNumber value="${transactionDAO.getTotalPriceByTransactionID(transaction.transactionID)}"></fmt:formatNumber> VNĐ</td>
-                                    <td>
-                                        <c:if test="${transaction.getTransactionStatus() == 1}">
-                                            Giao dịch thành công
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 2}">
-                                        Đã hoàn vé
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 3}">
-                                            Hoàn thành công
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 4}">
-                                            Từ chối hoàn tiền
-                                        </c:if>
-                                        <c:if test="${transaction.getTransactionStatus() == 5}">
-                                            Lỗi
-                                        </c:if>
-                                    </td>
+                               
                                 </tr>
                 </c:forEach>
         </tbody>

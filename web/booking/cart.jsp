@@ -28,7 +28,7 @@
         <jsp:useBean id="ttDAO" class="ModelDAO.TicketTypeDAO"></jsp:useBean>
         <jsp:useBean id="otDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
         <jsp:useBean id="odDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
-
+        <jsp:useBean id="vhDAO" class="ModelDAO.VoucherDAO"></jsp:useBean>
         
        <div class="container d-flex justify-content-center align-items-center">
                 <div class="row" >
@@ -44,6 +44,9 @@
                             <c:set var="quantity" value="${item.value.quantity}" />
                             <c:set var="price" value="${ticketType.price}"></c:set>
                             <c:set var="parkID" value="${ticketType.parkID}"></c:set>
+                            <c:set var="voucher" value="${vhDAO.getVoucherBYParkID(parkID)}"></c:set>
+                            <c:set var="voucherCode" value="${voucher.voucherCode}"></c:set>
+                            <c:set var="discountRate" value="${voucher.discountRate}"></c:set>
                                 <h3>${ticketTypeName}</h3>
                             <p>Số lượng: ${quantity}</p>
                             <p>Giá: ${price * quantity} VNĐ</p>
@@ -65,7 +68,11 @@
                             <c:if test="${not empty sessionScope.cart}">
 
                             </c:if>
-
+                            <div style="margin-top: 1%">
+                            <label for="discountCode">Nhập mã giảm giá:</label>
+                            <input type="text" name="discountCode">
+                            <button type="submit">Nhập mã</button>
+                            </div>    
                         </div>
                     </div>
                 </c:forEach>
@@ -84,9 +91,8 @@
                         <input type="hidden" name="parkID" value="${param.parkID}">
                         <div style="margin-top: 1%">
                         <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
-                    </form>  
                         </div>
-                        </form> 
+                    </form>                         
                 </c:if>
                 <c:if test="${not empty param.transactionCode}">
                     <form action="../ConfirmChangeTicketServlet" method="get">

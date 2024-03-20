@@ -12,18 +12,17 @@ public class OrderTicketList {
     private String TypeName; 
     private int price;
     private String ticketCode;
-    private boolean isUsed;
+    private int TicketStatus;
 
     public OrderTicketList() {
     }
 
-    public OrderTicketList(String TypeName, int price, String ticketCode, boolean isUsed) {
+    public OrderTicketList(String TypeName, int price, String ticketCode, int TicketStatus) {
         this.TypeName = TypeName;
         this.price = price;
         this.ticketCode = ticketCode;
-        this.isUsed = isUsed;
+        this.TicketStatus = TicketStatus;
     }
-
 
     public String getTypeName() {
         return TypeName;
@@ -49,13 +48,13 @@ public class OrderTicketList {
         this.ticketCode = ticketCode;
     }
 
-    public boolean isIsUsed() {
-        return isUsed;
+    public int getTicketStatus() {
+        return TicketStatus;
     }
 
-    public void setIsUsed(boolean isUsed) {
-        this.isUsed = isUsed;
+    public void setTicketStatus(int TicketStatus) {
+        this.TicketStatus = TicketStatus;
     }
-    
+
     
 }

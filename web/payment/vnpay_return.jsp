@@ -117,12 +117,13 @@
                         <c:set var="expirationDate" value="${sessionScope.experationDate}"></c:set>
                         <c:set var="orderID" value="${generate.generateID(entity)}"></c:set>
                         <c:set var="transactionCode" value="${param.vnp_TxnRef}"></c:set>
-                        ${orderDAO.addNewOrder(orderID, sessionScope.acc.userID, null, param.vnp_PayDate, expirationDate, 1, sessionScope.acc.email)}
-                        ${tDAO.addNewTransaction(orderID, param.vnp_PayDate, param.vnp_TxnRef, 1)}          
+                        ${orderDAO.addNewOrder(orderID, sessionScope.acc.userID, null, param.vnp_PayDate, sessionScope.acc.email)}
+                        ${tDAO.addNewTransaction(orderID, param.vnp_PayDate, param.vnp_TxnRef)}          
                         <c:forEach var="cart" items="${sessionScope.cart}">
                             ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
                             <c:forEach var="i" begin="1" end="${cart.value.quantity}">
-                                ${ticketDAO.addNewTicket(cart.key, orderID)}
+                                ${ticketDAO.addNewTicket(cart.key, orderID, 0, expirationDate)}
+                                
                                 ${userDAO.UpdatePointByUserID(sessionScope.acc.userID)}
                             </c:forEach>                          
                         </c:forEach>

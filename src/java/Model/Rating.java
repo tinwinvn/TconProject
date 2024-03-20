@@ -4,15 +4,16 @@ public class Rating {
     private String ratingID;
     private String sendID;
     private String receiveID;
-    private String parentID;
     private String ratingText;
     private int ratingValue;
 
-    public Rating(String ratingID, String sendID, String receiveID, String parentID, String ratingText, int ratingValue) {
+    public Rating() {
+    }
+
+    public Rating(String ratingID, String sendID, String receiveID, String ratingText, int ratingValue) {
         this.ratingID = ratingID;
         this.sendID = sendID;
         this.receiveID = receiveID;
-        this.parentID = parentID;
         this.ratingText = ratingText;
         this.ratingValue = ratingValue;
     }
@@ -39,14 +40,6 @@ public class Rating {
 
     public void setReceiveID(String receiveID) {
         this.receiveID = receiveID;
-    }
-
-    public String getParentID() {
-        return parentID;
-    }
-
-    public void setParentID(String parentID) {
-        this.parentID = parentID;
     }
 
     public String getRatingText() {

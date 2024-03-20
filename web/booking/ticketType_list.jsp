@@ -55,10 +55,7 @@
             <a href="cart.jsp?orderID=${param.orderID}&parkID=${param.parkID}" class="btn-cart"><button type="submit" style="margin-top: 3%; background-color: #EE2E24; color: white; border-color: #EE2E24;" class="btn btn-primary">Xem giỏ hàng</button></a>
         </div>
 
- 
-
-
-  
+        
 
 
 

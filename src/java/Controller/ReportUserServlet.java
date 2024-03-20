@@ -4,12 +4,12 @@
  */
 package Controller;
 
-import ModelDAO.TicketDAO;
+import ModelDAO.NotificationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-public class UpdateTicketServlet extends HttpServlet {
+public class ReportUserServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,10 +29,10 @@ public class UpdateTicketServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateTicketServlet</title>");            
+            out.println("<title>Servlet ReportUserServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateTicketServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReportUserServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -46,24 +46,21 @@ public class UpdateTicketServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {      
-        response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
-        String qrContent = request.getParameter("content");
-        String message;
+            throws ServletException, IOException {
+        String senderID = request.getParameter("senderID");
+        String parkID = request.getParameter("parkID");
+        String fullName = request.getParameter("fullName");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        Date currentDate = new Date(System.currentTimeMillis());
         try {
-            TicketDAO ticketDAO = new TicketDAO();
-            if (ticketDAO.getTicketStatusByTicketCode(qrContent) == 0){  
-                ticketDAO.updateTicketStatusBYTicketCode( 1,qrContent);
-                out.print("sus");
-            }
-            else {
-                out.print("used");
-            }
+            NotificationDAO ndao = new NotificationDAO();
+            ndao.addNewNotification(senderID, "AD000001", title, "Người dùng " + fullName + content, currentDate);
+            response.sendRedirect("details.jsp?id="+parkID);
         } catch (Exception ex) {
-            Logger.getLogger(UpdateTicketServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportUserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    }
 
     @Override
     public String getServletInfo() {
