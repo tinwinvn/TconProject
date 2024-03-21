@@ -101,6 +101,9 @@
             <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
                 <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
                 <li><a href="introduction/introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
+            </ul>
+            <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
+            <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
                 <li>
                     <div class="dropdown">
                         <a href="#" onclick="myFunction()" class="dropbtn text-red p-2" style="color: #EE2E24; font-size: unset !important">Trải nghiệm<span class="caret"></span></a>
@@ -112,23 +115,7 @@
                             <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
                         </div> 
                 </li>
-            </ul>
-            <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
-            <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                <c:if test="${param.id == 'PA000001'}">
-                    <li><a href="gameIntro/APgameIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                    </c:if>
-                    <c:if test="${param.id == 'PA000002'}">
-                    <li><a href="gameIntro/NTTIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                    </c:if>
-                    <c:if test="${param.id == 'PA000003'}">
-                    <li><a href="gameIntro/HLCIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                    </c:if>
-                    <c:if test="${param.id == 'PA000004'}">
-                    <li><a href="gameIntro/BNHIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                    </c:if>
-                <li><a href="#" class="text-red p-2">Tin tức</a></li>
-                <li><a href="#" class="text-red p-2">Bản đồ</a></li>
+                <li><a href="#" class="text-red p-2">Liên hệ</a></li>
                     <c:if test="${sessionScope.acc != null}">
                     <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
                        style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
@@ -309,7 +296,7 @@
                                 <c:if test="${sessionScope.acc != null}">
                                     <div class="pup-button">
                                         <p style="color: black">Để lại cảm nhận của bạn tại đây!</p>
-                                        <button id="show-rating"  style="background-color: #EE2E24; border-radius: 15%; width: 6vw; border-bottom-color: #EE2E24;">Đánh giá</button>
+                                        <button id="show-rating"  style="background-color: #EE2E24; border-radius: 15%; width: 10vw; border-bottom-color: #EE2E24;">Đánh giá</button>
                                     </div>
                                     <div class="all-ratingform">
                                         <div class="rating-body" id="rating-form" style="">
@@ -398,7 +385,7 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                    <button class="report-btn" style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                    <button class="report-btn" data-comment-id="${list.ratingID}" style="width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -410,12 +397,12 @@
                                                 <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
                                                 <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
                                             </div> 
-                                            <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
-                                                <div class="report-modal-content" style="margin: 0 auto !important;">
+                                            <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0);">
+                                                <div class="report-modal-content">
                                                     <form>
+                                                        <!-- Thêm input hidden để lưu id của comment -->
+                                                        <input type="hidden" name="commentId">
                                                         <div class="form-group">
-                                                            <label for="exampleFormControlSelect1">Báo cáo người dùng: ${uDAO.getUserById(userID).fullName  }</label>
-                                                            <br>
                                                             <label for="exampleFormControlSelect1">Lí do</label>
                                                             <select class="form-control" id="exampleFormControlSelect1">
                                                                 <option>Tên không hợp lệ</option>
@@ -426,10 +413,12 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="exampleFormControlTextarea1">Chi tiết</label>
-                                                            <textarea id="exampleFormControlTextarea1" rows="7" required=""></textarea>
+                                                            <textarea id="exampleFormControlTextarea1" rows="7"></textarea>
                                                         </div>
-                                                        <button id="banBtn" type="submit" >Thêm mới</button>
-                                                        <button id="closeBan" >Đóng</button>
+                                                        <div>
+                                                            <button id="banBtn" type="submit">Thêm mới</button>
+                                                            <button id="closeBan">Đóng</button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -467,7 +456,7 @@
                         background-color: #F7F7F7;
                     }
                 </style>                              
-                
+
                 <style>
                     /* Modal */
                     .reportmodal {
@@ -475,21 +464,17 @@
                         z-index: 1;
                         top: 50%;
                         left: 50%;
-                        transform: translate(-50%, -50%);
                         width: 100%;
                         height: 100%;
-                        overflow: auto;
                         background-color: rgba(0,0,0,0.4);
                     }
 
                     /* Modal Content */
                     .report-modal-content {
                         background-color: #fefefe;
-                        margin: 20% auto;
-                        padding: 20px;
+                        width: 100%;
                         border: 1px solid #888;
                         border-radius: 0.5rem;
-                        width: 50%;
                     }
 
 
@@ -501,22 +486,24 @@
                     }
 
                     #banBtn {
-                        background-color: #4CAF50;
+                        background-color: #EE2E24;
                         color: white;
                         padding: 10px 15px;
+                        margin: 0 auto;
                         border: none;
+                        width: 30%;
                         border-radius: 5px;
                         text-align: center;
                         cursor: pointer;
                     }
 
                     #closeBan {
-                        background-color: #4CAF50;
+                        background-color: #EE2E24;
                         color: white;
                         padding: 10px 15px;
                         border: none;
                         border-radius: 5px;
-                        width: 15%;
+                        width: 30%;
                         text-align: center;
                         cursor: pointer;
                     }
@@ -536,13 +523,19 @@
                 const closeButton = document.getElementById("closeBan");
 
                 reportButtons.forEach(function (button) {
-                    button.addEventListener("click", function () {
+                    button.addEventListener("click", function (event) {
+                        const commentId = button.dataset.commentId;
+                        const formTextarea = reportForm.querySelector("#exampleFormControlTextarea1");
+                        // Gắn id của comment vào input hidden để lưu lại khi gửi form
+                        reportForm.querySelector("input[name='commentId']").value = commentId;
+                        // Cái ni là cái hiện trong cái textarea, muốn không hiện thì cho nó cút
+                        formTextarea.value = "Báo cáo comment số " + commentId;
                         reportForm.style.display = "block";
                     });
                 });
 
                 closeButton.addEventListener("click", function (event) {
-                    event.preventDefault(); // Ngăn chặn hành vi mặc định của nút "submit"
+                    event.preventDefault();
                     reportForm.style.display = "none";
                 });
             });

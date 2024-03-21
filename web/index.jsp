@@ -24,7 +24,6 @@
 
         <body>
             <div class="bg-red" style="height: 3vh; background-color: #EE2E24"></div>
-            <div class="bg-red" style="height: 7vh; background-color: white"></div>
         <jsp:include page="navbar.jsp"></jsp:include>
             <header>
                 <div class="section__container">
@@ -341,7 +340,7 @@
                     if (xhr.responseText.trim() === "sus") {
                         a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
                         Swal.fire({
-                            title: 'Add Success',
+                            title: 'Thêm thành công',
                             icon: 'success',
                             confirmButtonText: 'OK',
                             timer: 1500

@@ -115,29 +115,29 @@
                             <c:if test="${i.userID == param.userId}">
                                 <div class="row gutters">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                                <h6 class="mb-2 text-primary" style="color: #EE2E24 !important">Personal Details</h6>
+                                                <h6 class="mb-2 text-primary" style="color: #EE2E24 !important">Thông tin cá nhân</h6>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                        <label for="fullName">Full Name</label>
+                                                        <label for="fullName">Tên đầy đủ</label>
                                                         <input type="text" class="form-control" id="fullName" name="name" placeholder="${i.fullName}">
                                                 </div>
                                         </div>               
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                        <label for="phone">Phone</label>
+                                                        <label for="phone">Số điện thoại</label>
                                                         <input type="text" class="form-control" id="phone" name="phone" placeholder="${i.phone}">
                                                 </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                        <label for="eMail">Date of Birth</label>
+                                                        <label for="eMail">Ngày sinh</label>
                                                         <input type="date" class="form-control" id="eMail" name="dob"} placeholder="${i.dob}"> 
                                                 </div>
                                         </div>
                                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                        <label for="eMail">Your Point</label>
+                                                        <label for="eMail">Điểm của bạn</label>
                                                         <input type="text" class="form-control" id="point" name="point" value="${i.point}" readonly=""}>
                                                 </div>
                                         </div>
@@ -148,8 +148,8 @@
                         <div class="row gutters">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="text-right">
-                                            <button type="submit" class="btn btn-primary" style="background-color: #EE2E24">Update</button>
-                                            <button type="submit" class="btn btn-secondary" style="background-color: white;"><a href="changepassword.jsp?userId=${param.userId}" style="color: #EE2E24">Change Password</a></button>
+                                            <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Cập nhật</button>
+                                            <button type="submit" class="btn btn-secondary" style="background-color: white;"><a href="changepassword.jsp?userId=${param.userId}" style="color: #EE2E24">Đổi mật khẩu</a></button>
                                         </div>
                                 </div>
                         </div>

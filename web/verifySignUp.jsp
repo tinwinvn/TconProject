@@ -13,7 +13,7 @@
         <input type="text" id="otp" name="otp" required>
         <input type="hidden" name="email" value="${param.email}">
         <input type="hidden" name="password" value="${param.password}">
-        <input type="submit" value="Verify">
+        <input type="submit" value="Verify" style="background-color: #EE2E24; width: 20%">
     </form>
 </body>
 </html>
