@@ -79,6 +79,7 @@
                         <th>Game ID</th>  
                         <th>Game</th>   
                         <th>Action</th>
+                        <th>Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,6 +97,11 @@
                                                 <button type="submit" style="background-color: #EE2E24">Xóa</button>
                                             </form>
                                         </td>
+                                         <td>
+                                            <button type="submit" style="background-color: #EE2E24; border: none; padding: 8px 16px; border-radius: 4px;">
+                                                <a href="../details.jsp?id=${gamelist.parkID}" style="color: white; text-decoration: none;">Xem chi tiết</a>
+                                            </button>
+                                        </td>   
                                     </c:if>
                                 </tr>
                             </c:if>
