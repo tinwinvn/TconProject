@@ -6,15 +6,18 @@ package Controller;
 
 import Model.Order;
 import Model.OrderDetail;
+import Model.Ticket;
 import ModelDAO.NotificationDAO;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.ParkDAO;
+import ModelDAO.TicketDAO;
 import ModelDAO.TicketTypeDAO;
 import ModelDAO.TransactionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +46,7 @@ public class TicketRefundServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TicketRefundServlet</title>");            
+            out.println("<title>Servlet TicketRefundServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TicketRefundServlet at " + request.getContextPath() + "</h1>");
@@ -51,7 +54,6 @@ public class TicketRefundServlet extends HttpServlet {
             out.println("</html>");
         }
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,35 +64,37 @@ public class TicketRefundServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String transactionCode = request.getParameter("transactionCode");
+        String ticketCode = request.getParameter("ticketCode");
         String senderID = request.getParameter("senderID");
-        try{
+        System.out.println(ticketCode);
+        System.out.println(senderID);
+        try {
             NotificationDAO notificationDAO = new NotificationDAO();
-            TransactionDAO transactionDAO= new TransactionDAO();
+            TicketDAO ticketDAO = new TicketDAO();
+            Ticket ticket = new Ticket();
+            List<String> ticketID = ticketDAO.getTicketIDbyTicketCode(ticketCode);
+            System.out.println(ticketID);
             TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
             ParkDAO parkDAO = new ParkDAO();
-            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            OrderDAO orderDAO = new OrderDAO();      
             Date currentDate = new Date(System.currentTimeMillis());
-            String orderID = transactionDAO.getOrderIDbyTransactionCode(transactionCode);
-            Order order = orderDAO.getOrderbyOrderID(orderID);
-            OrderDetail orderDetail = orderDetailDAO.getOrderDetailByOrderID(orderID);           
-            String parkID = ticketTypeDAO.getParkIDByTicketTypeID(orderDetail.getTicketTypeID()); 
-            String userID = parkDAO.getUserIDByParkID(parkID);
-            if (order.getOrderStatus() == 1){
-                System.out.println(senderID);
+            List<String> ticketTypeIDs = ticketDAO.getTicketTypeIDsByTicketCode(ticketCode);
+            System.out.println(ticketTypeIDs);
+            for (String ticketTypeID : ticketTypeIDs) {
+                String parkID = ticketTypeDAO.getParkIDByTicketTypeID(ticketTypeID);
+                System.out.println(parkID);
+                String userID = parkDAO.getUserIDByParkID(parkID);
                 System.out.println(userID);
-                notificationDAO.addNewNotification(senderID, userID, "Yêu cầu hoàn trả vé",transactionCode, currentDate);
-                response.sendRedirect("payment/payment_history.jsp?userID=" + senderID);
-            } else if (order.getOrderStatus() == 2){
-                response.sendRedirect("payment/payment_history.jsp?userID=" + senderID);
+
+                if (ticketID != null && ticket.getTicketStatus() == 0) {
+                    System.out.println(senderID);
+                    notificationDAO.addNewNotification(senderID, userID, "Yêu cầu hoàn trả vé", ticketCode, currentDate);
+                    response.sendRedirect("payment/order_history.jsp?userID=" + senderID);
+                }
             }
-            
-        } catch (Exception ex){
-            
+        } catch (Exception ex) {
+
         }
     }
-
 
     @Override
     public String getServletInfo() {

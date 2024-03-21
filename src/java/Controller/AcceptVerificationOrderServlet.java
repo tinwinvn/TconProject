@@ -75,7 +75,6 @@ public class AcceptVerificationOrderServlet extends HttpServlet {
         String orderID = request.getParameter("orderID");
         try {
             OrderDAO orderDAO = new OrderDAO();
-        orderDAO.updateOrderStatusByOrderID(2, orderID);
         } catch (Exception ex) {
             Logger.getLogger(AcceptVerificationOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

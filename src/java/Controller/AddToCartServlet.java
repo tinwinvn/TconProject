@@ -61,6 +61,9 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+        
         String transactionCode = request.getParameter("transactionCode");
         String ticketTypeID = request.getParameter("ticketTypeID"); // Loại vé
         String parkID = request.getParameter("parkID");
@@ -77,7 +80,7 @@ public class AddToCartServlet extends HttpServlet {
             odt = cart.get(ticketTypeID);
             int oldQuantity = odt.getQuantity();
             odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);       
+            cart.put(ticketTypeID, odt);    
         } else {
             odt.setQuantity(quantity);
             cart.put(ticketTypeID, odt);

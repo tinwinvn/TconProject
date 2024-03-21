@@ -11,21 +11,18 @@ public class Order {
     private String UserID;
     private String VoucherID;
     private Date OrderDate;
-    private Date ExperationDate;
-    private int orderStatus;
 
     public Order() {
     }
 
-    public Order(String OrderID, String UserID, String VoucherID, Date OrderDate, Date ExperationDate, int orderStatus) {
+    public Order(String OrderID, String UserID, String VoucherID, Date OrderDate) {
         this.OrderID = OrderID;
         this.UserID = UserID;
         this.VoucherID = VoucherID;
         this.OrderDate = OrderDate;
-        this.ExperationDate = ExperationDate;
-        this.orderStatus = orderStatus;
     }
 
+    
     public String getOrderID() {
         return OrderID;
     }
@@ -58,23 +55,6 @@ public class Order {
         this.OrderDate = OrderDate;
     }
 
-    public Date getExperationDate() {
-        return ExperationDate;
-    }
-
-    public void setExperationDate(Date ExperationDate) {
-        this.ExperationDate = ExperationDate;
-    }
-
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     
 
-    
 }

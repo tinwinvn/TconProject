@@ -23,35 +23,52 @@
 			<li class="active">
 				<a href="admin.jsp">
 					<i class='bx bxs-dashboard' ></i>
-					<span class="text">Dashboard</span>
+					<span class="text">Thống kê</span>
 				</a>
 			</li>
                 <c:if test="${sessionScope.acc.role == 1}">
 			<li>
 				<a href="listuser.jsp">
 					<i class='bx bxs-shopping-bag-alt' ></i>
-					<span class="text">Users List</span>
+					<span class="text">Người dùng</span>
 				</a>
 			</li>
                 </c:if>
 			<li>
 				<a href="admin_notification.jsp">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Notification</span>
+					<span class="text">Thông báo</span>
 				</a>
 			</li>
+                <c:if test="${sessionScope.acc.role == 2}">
                         <li>
 				<a href="qrscan.jsp">
 					<i class='bx bxs-group' ></i>
-					<span class="text">Scan</span>
+					<span class="text">Quét Mã QR</span>
 				</a>
 			</li>
+                        
+                        <li>
+				<a href="game_management.jsp">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Quản lý trò chơi</span>
+				</a>
+			</li>
+                        
+                        <li>
+				<a href="ticket_management.jsp">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Quản lý vé</span>
+				</a>
+			</li>
+                        
+                </c:if>
 		</ul>
 		<ul class="side-menu">
 			<li>
 				<a href="../LogOutServlet" class="logout">
 					<i class='bx bxs-log-out-circle' ></i>
-					<span class="text">Logout</span>
+					<span class="text">Đăng Xuất</span>
 				</a>
 			</li>
 		</ul>

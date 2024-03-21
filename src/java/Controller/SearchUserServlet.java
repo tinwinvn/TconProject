@@ -9,6 +9,7 @@ import Model.User;
 import ModelDAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -78,7 +79,7 @@ public class SearchUserServlet extends HttpServlet {
             String txtSearch = request.getParameter("txtSearch");
             UserDAO uDAO = new UserDAO();
             List<User> list = uDAO.searchUsers(txtSearch);
-            
+
             boolean searchPerformed = (list != null && !list.isEmpty());
             request.getSession().setAttribute("searchPerformed", searchPerformed);
 
@@ -86,9 +87,10 @@ public class SearchUserServlet extends HttpServlet {
             if (searchPerformed) {
                 request.getSession().setAttribute("listU", list);
             }
-            response.sendRedirect("admin/listuser.jsp");
+            // Chuyển hướng người dùng đến trang JSP
+            response.sendRedirect(request.getContextPath() + "/admin/listuser.jsp");
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
     }
 

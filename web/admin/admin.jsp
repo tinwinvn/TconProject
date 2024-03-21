@@ -85,29 +85,6 @@
                 </div>
             </div>
 
-            <ul class="box-info">
-                <li>
-                    <i class='bx bxs-calendar-check' ></i>
-                    <span class="text">
-                        <h3>1020</h3>
-                        <p>New Order</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-group' ></i>
-                    <span class="text">
-                        <h3>2834</h3>
-                        <p>Visitors</p>
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bxs-dollar-circle' ></i>
-                    <span class="text">
-                        <h3>$2543</h3>
-                        <p>Total Sales</p>
-                    </span>
-                </li>
-            </ul>
             <input type="hidden" id="parkID" value="${pkDAO.getParkIDByUserID(sessionScope.acc.userID)}" />
             <div class="table-data">               
                     <div id="chartBox" class="chartBox">               
@@ -125,7 +102,7 @@
                             <button id="fetchButton" type="submit">Fetch Now</button>
                         </form>
                         <label for="weekPicker">Chọn tuần:</label>
-                    <input type="week" id="weekPicker" name="week" onchange="loadDataForWeek(this.value)">
+                    <input type="week" id="weekPicker2" name="week" onchange="loadDataForWeek(this.value)">
                     </div>  
                 
                     <div id="chartBox3" class="chartBox">               
@@ -134,7 +111,7 @@
                             <button id="fetchButton" type="submit">Fetch Now</button>
                         </form>
                         <label for="weekPicker">Chọn tuần:</label>
-                    <input type="week" id="weekPicker" name="week" onchange="loadDataForWeek(this.value)">
+                    <input type="week" id="weekPicker3" name="week" onchange="loadDataForWeek(this.value)">
                     </div> 
                 
                     <div id="chartBox4" class="chartBox">               
@@ -143,7 +120,7 @@
                             <button id="fetchButton" type="submit">Fetch Now</button>
                         </form>
                         <label for="weekPicker">Chọn tuần:</label>
-                    <input type="week" id="weekPicker" name="week" onchange="loadDataForWeek(this.value)">
+                    <input type="week" id="weekPicker4" name="week" onchange="loadDataForWeek(this.value)">
                     </div>
                     <br>
                     
@@ -265,15 +242,15 @@
                                 const orderDates = ordersByLabel.map(order => order.OrderDate);                                                              
                                 let fd = new Date(firstDay);
                                 let ld = new Date(lastDay);
-                                let od = new Date(orderDates[0]);
-                                console.log(orderDates);
-                                console.log(fd <= orderDates);
-                                if (od >= fd && od <= ld){
-                                   console.log(orderDates);    
-                                
-                                return financials.filter(item => item.ParkID === 'PA000001' && item.OrderDayOfWeek === label)
-                                                  .reduce((total, item) => total + item.Price * item.Quantity, 0);
-                                }
+                                let totalFinancials = 0;
+                                financials.forEach(item => {
+                                    let od = new Date(item.OrderDate);
+                                    if (od >= fd && od <= ld && item.ParkID === 'PA000001' && item.OrderDayOfWeek === label) {
+                                        totalFinancials += item.Price * item.Quantity;
+                                    }
+                                });
+                                return totalFinancials;
+
                             });
                             console.log(asiaData);
                             myChart.data.labels = labels;
@@ -324,7 +301,7 @@
                     async function updateBarChart2() {
                         const url = "http://localhost:8080/ProjectSWP/ChartServlet";
                         try {
-                            let a = document.getElementById('weekPicker').value;
+                            let a = document.getElementById('weekPicker2').value;
                             if (a === ''){
                                 a = getCurrentWeek();
                             }
@@ -361,20 +338,19 @@
                             const label = 'Helio Center';
                             
                             const helioData = labels.map(label => {
-                                const ordersByLabel = financials.filter(item => item.ParkName === 'Helio Center' && item.OrderDayOfWeek === label);
-    
+                                const ordersByLabel = financials.filter(item => item.ParkID === 'PA000003' && item.OrderDayOfWeek === label);
+                                
                                 const orderDates = ordersByLabel.map(order => order.OrderDate);                                                              
                                 let fd = new Date(firstDay);
                                 let ld = new Date(lastDay);
-                                let od = new Date(orderDates[0]);
-                                console.log(orderDates);
-                                console.log(fd <= orderDates);
-                                if (od >= fd && od <= ld){
-                                   console.log(orderDates);    
-                                
-                                return financials.filter(item => item.ParkName === 'Helio Center' && item.OrderDayOfWeek === label)
-                                                  .reduce((total, item) => total + item.Price * item.Quantity, 0);
-                                }
+                                let totalFinancials = 0;
+                                financials.forEach(item => {
+                                    let od = new Date(item.OrderDate);
+                                    if (od >= fd && od <= ld && item.ParkID === 'PA000003' && item.OrderDayOfWeek === label) {
+                                        totalFinancials += item.Price * item.Quantity;
+                                    }
+                                });
+                                return totalFinancials;
                             });
                             console.log(helioData);
                             myChart2.data.labels = labels;
@@ -421,7 +397,7 @@
                     async function updateBarChart3() {
                         const url = "http://localhost:8080/ProjectSWP/ChartServlet";
                         try {
-                            let a = document.getElementById('weekPicker').value;
+                            let a = document.getElementById('weekPicker3').value;
                             if (a === ''){
                                 a = getCurrentWeek();
                             }
@@ -461,19 +437,18 @@
                             
                             const banahillsData = labels.map(label => {
                                 const ordersByLabel = financials.filter(item => item.ParkID === 'PA000004' && item.OrderDayOfWeek === label);
-    
+                                
                                 const orderDates = ordersByLabel.map(order => order.OrderDate);                                                              
                                 let fd = new Date(firstDay);
                                 let ld = new Date(lastDay);
-                                let od = new Date(orderDates[0]);
-                                console.log(orderDates);
-                                console.log(fd <= orderDates);
-                                if (od >= fd && od <= ld){
-                                   console.log(orderDates);    
-                                
-                                return financials.filter(item => item.ParkID === 'PA000004' && item.OrderDayOfWeek === label)
-                                                  .reduce((total, item) => total + item.Price * item.Quantity, 0);
-                                }
+                                let totalFinancials = 0;
+                                financials.forEach(item => {
+                                    let od = new Date(item.OrderDate);
+                                    if (od >= fd && od <= ld && item.ParkID === 'PA000004' && item.OrderDayOfWeek === label) {
+                                        totalFinancials += item.Price * item.Quantity;
+                                    }
+                                });
+                                return totalFinancials;
                             });
                             console.log(banahillsData);
                             myChart3.data.labels = labels;
@@ -519,7 +494,7 @@
                     async function updateBarChart4() {
                         const url = "http://localhost:8080/ProjectSWP/ChartServlet";
                         try {
-                            let a = document.getElementById('weekPicker').value;
+                            let a = document.getElementById('weekPicker4').value;
                             if (a === ''){
                                 a = getCurrentWeek();
                             }
@@ -559,19 +534,18 @@
                             
                             const nuithantaiData = labels.map(label => {
                                 const ordersByLabel = financials.filter(item => item.ParkID === 'PA000002' && item.OrderDayOfWeek === label);
-    
+                                
                                 const orderDates = ordersByLabel.map(order => order.OrderDate);                                                              
                                 let fd = new Date(firstDay);
                                 let ld = new Date(lastDay);
-                                let od = new Date(orderDates[0]);
-                                console.log(orderDates);
-                                console.log(fd <= orderDates);
-                                if (od >= fd && od <= ld){
-                                   console.log(orderDates);    
-                                
-                                return financials.filter(item => item.ParkID === 'PA000002' && item.OrderDayOfWeek === label)
-                                                  .reduce((total, item) => total + item.Price * item.Quantity, 0);
-                                }
+                                let totalFinancials = 0;
+                                financials.forEach(item => {
+                                    let od = new Date(item.OrderDate);
+                                    if (od >= fd && od <= ld && item.ParkID === 'PA000002' && item.OrderDayOfWeek === label) {
+                                        totalFinancials += item.Price * item.Quantity;
+                                    }
+                                });
+                                return totalFinancials;
                             });
                             myChart4.data.labels = labels;
                             myChart4.data.datasets[0].data = nuithantaiData;
@@ -619,8 +593,7 @@
                         lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
                         var firstDay = firstDayOfWeek.toDateString();
                         var lastDay = lastDayOfWeek.toDateString();
-                        document.getElementById('dataDisplay').innerHTML = `
-                            Dữ liệu từ ` + firstDay +   ` đến ` + lastDay;
+
                     }
 
                     function getFirstDateOfWeek(year, weekNumber) {

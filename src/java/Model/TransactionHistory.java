@@ -8,17 +8,16 @@ public class TransactionHistory {
     private String OrderID;
     private String Date;
     private String TransactionCode;
-    private int TransactionStatus;
+
 
     public TransactionHistory() {
     }
 
-    public TransactionHistory(String TransactionID, String OrderID, String Date, String TransactionCode, int TransactionStatus) {
+    public TransactionHistory(String TransactionID, String OrderID, String Date, String TransactionCode) {
         this.TransactionID = TransactionID;
         this.OrderID = OrderID;
         this.Date = Date;
         this.TransactionCode = TransactionCode;
-        this.TransactionStatus = TransactionStatus;
     }
 
     public String getTransactionID() {
@@ -53,14 +52,6 @@ public class TransactionHistory {
         this.TransactionCode = TransactionCode;
     }
 
-    public int getTransactionStatus() {
-        return TransactionStatus;
-    }
 
-    public void setTransactionStatus(int TransactionStatus) {
-        this.TransactionStatus = TransactionStatus;
-    }
-
-    
     
 }

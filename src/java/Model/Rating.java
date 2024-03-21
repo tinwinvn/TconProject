@@ -7,6 +7,10 @@ public class Rating {
     private String ratingText;
     private int ratingValue;
 
+    public Rating() {
+    }
+
+    
     public Rating(String ratingID, String sendID, String receiveID, String ratingText, int ratingValue) {
         this.ratingID = ratingID;
         this.sendID = sendID;

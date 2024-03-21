@@ -21,10 +21,10 @@
                 <div class="left">
                     <h1>Dashboard</h1>
                     <ul class="breadcrumb">
-                        <li>
+                        
                             <a href="#">Dashboard</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right' ></i></li>
+                        
+                        <i class='bx bx-chevron-right' ></i>
                         <li>
                             <a class="active" href="../index.jsp">User Manager</a>
                         </li>
@@ -85,48 +85,6 @@
                                                                     </select>
                                                                 </div>
                                                             </form>
-                                                            <!--                                                <div class="result-views">
-                                                                                                                <button type="button" class="btn btn-soft-base btn-icon">
-                                                                                                                    <svg
-                                                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                                                        width="24"
-                                                                                                                        height="24"
-                                                                                                                        viewBox="0 0 24 24"
-                                                                                                                        fill="none"
-                                                                                                                        stroke="currentColor"
-                                                                                                                        stroke-width="2"
-                                                                                                                        stroke-linecap="round"
-                                                                                                                        stroke-linejoin="round"
-                                                                                                                        class="feather feather-list"
-                                                                                                                    >
-                                                                                                                        <line x1="8" y1="6" x2="21" y2="6"></line>
-                                                                                                                        <line x1="8" y1="12" x2="21" y2="12"></line>
-                                                                                                                        <line x1="8" y1="18" x2="21" y2="18"></line>
-                                                                                                                        <line x1="3" y1="6" x2="3" y2="6"></line>
-                                                                                                                        <line x1="3" y1="12" x2="3" y2="12"></line>
-                                                                                                                        <line x1="3" y1="18" x2="3" y2="18"></line>
-                                                                                                                    </svg>
-                                                                                                                </button>
-                                                                                                                <button type="button" class="btn btn-soft-base btn-icon">
-                                                                                                                    <svg
-                                                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                                                        width="24"
-                                                                                                                        height="24"
-                                                                                                                        viewBox="0 0 24 24"
-                                                                                                                        fill="none"
-                                                                                                                        stroke="currentColor"
-                                                                                                                        stroke-width="2"
-                                                                                                                        stroke-linecap="round"
-                                                                                                                        stroke-linejoin="round"
-                                                                                                                        class="feather feather-grid"
-                                                                                                                    >
-                                                                                                                        <rect x="3" y="3" width="7" height="7"></rect>
-                                                                                                                        <rect x="14" y="3" width="7" height="7"></rect>
-                                                                                                                        <rect x="14" y="14" width="7" height="7"></rect>
-                                                                                                                        <rect x="3" y="14" width="7" height="7"></rect>
-                                                                                                                    </svg>
-                                                                                                                </button>
-                                                                                                            </div>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,31 +99,41 @@
                                                             <table class="table widget-26">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="width: 10%">
+                                                                            <c:if test="${i.image == null}">
                                                                             <div class="widget-26-job-emp-img">
-                                                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
                                                                             </div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.image != null}">
+                                                                            <div class="widget-26-job-emp-img">
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="../uploads/${i.image}" alt="Company" />
+                                                                            </div>
+                                                                            </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-title">
                                                                                 <a href="#">${i.fullName}</a>
 
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-info">
                                                                                 <p class="type m-0">${i.email}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 20%">
                                                                             <c:if test="${i.role == 1}">
                                                                                 <div class="widget-26-job-salary">Admin</div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.role == 2}">
+                                                                                <div class="widget-26-job-salary">Partner</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
                                                                                 <div class="widget-26-job-salary">User</div>
                                                                             </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}" >
                                                                                     <a onclick="showBanPopup('${i.userID}')">
@@ -221,31 +189,41 @@
                                                             <table class="table widget-26">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="width: 10%">
+                                                                            <c:if test="${i.image == null}">
                                                                             <div class="widget-26-job-emp-img">
-                                                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
                                                                             </div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.image != null}">
+                                                                            <div class="widget-26-job-emp-img">
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="../uploads/${i.image}" alt="Company" />
+                                                                            </div>
+                                                                            </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-title">
                                                                                 <a href="#">${i.fullName}</a>
 
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-info">
                                                                                 <p class="type m-0">${i.email}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 20%">
                                                                             <c:if test="${i.role == 1}">
                                                                                 <div class="widget-26-job-salary">Admin</div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.role == 2}">
+                                                                                <div class="widget-26-job-salary">Partner</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
                                                                                 <div class="widget-26-job-salary">User</div>
                                                                             </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
                                                                                     <a onclick="showBanPopup('${i.userID}')">
@@ -299,23 +277,30 @@
                                                             <table class="table widget-26">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="width: 10%">
+                                                                            <c:if test="${i.image == null}">
                                                                             <div class="widget-26-job-emp-img">
-                                                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
                                                                             </div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.image != null}">
+                                                                            <div class="widget-26-job-emp-img">
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="../uploads/${i.image}" alt="Company" />
+                                                                            </div>
+                                                                            </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-title">
                                                                                 <a href="#">${i.fullName}</a>
 
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-info">
                                                                                 <p class="type m-0">${i.email}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 20%">
                                                                             <c:if test="${i.role == 1}">
                                                                                 <div class="widget-26-job-salary">Admin</div>
                                                                             </c:if>
@@ -326,7 +311,7 @@
                                                                                 <div class="widget-26-job-salary">User</div>
                                                                             </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
                                                                                     <a onclick="showBanPopup('${i.userID}')">

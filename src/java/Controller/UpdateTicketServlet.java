@@ -53,8 +53,8 @@ public class UpdateTicketServlet extends HttpServlet {
         String message;
         try {
             TicketDAO ticketDAO = new TicketDAO();
-            if (!ticketDAO.getTicketStatusByTicketCode(qrContent)){  
-                ticketDAO.updateTicketStatusBYTicketCode(qrContent);
+            if (ticketDAO.getTicketStatusByTicketCode(qrContent) == 0){  
+                ticketDAO.updateTicketStatusBYTicketCode( 1,qrContent);
                 out.print("sus");
             }
             else {

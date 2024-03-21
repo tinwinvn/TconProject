@@ -18,9 +18,8 @@
    
     
     <body>
-        <nav>          
+        <nav class="d-flex bg-white" style="max-width: 100%; position: initial; transform: translateX(0); padding: 0.1rem 20px;">    
             <div class="nav__logo"><a href="../index.jsp" style="color: #EE2E24">TCON</a></div>
-            </div>
             <ul class="nav__links" style="margin-top: 1%">
                
                     <c:if test="${sessionScope.acc != null}">
