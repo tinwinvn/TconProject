@@ -38,156 +38,156 @@
             </c:if>
         </c:forEach>
 
-                <div class="bg-red" style="height: 5vh;"></div>
-                <nav class="d-flex  bg-white" >
+        <div class="bg-red" style="height: 5vh;"></div>
+        <nav class="d-flex  bg-white" >
 
-                    <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
-                        <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
-                        <li><a href="introduction/introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
-                        <li>
-                            <div class="dropdown">
-                                <a href="#" onclick="myFunction()" class="dropbtn text-red p-2" style="color: #EE2E24; font-size: unset !important">Trải nghiệm<span class="caret"></span></a>
+            <ul class="col-5 justify-content-end ps-0 pe-5 d-flex align-items-center mb-0" >
+                <li><a href="index.jsp" class="text-red p-2">Trang Chủ</a></li>
+                <li><a href="introduction/introduction.jsp" class="text-red p-2">Giới thiệu</a></li>
+                <li>
+                    <div class="dropdown">
+                        <a href="#" onclick="myFunction()" class="dropbtn text-red p-2" style="color: #EE2E24; font-size: unset !important">Trải nghiệm<span class="caret"></span></a>
 
-                                <div id="myDropdown" class="dropdown-content" style="background-color: white; left: 20px !important; height: 32vh; width: 10vw">
-                                    <a href="details.jsp?id=PA000001" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Asia Park</a>
-                                    <a href="details.jsp?id=PA000002" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Núi Thần Tài</a>
-                                    <a href="details.jsp?id=PA000003" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Helio Center</a>
-                                    <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
-                                </div> 
-                            </div>     
-                        </li>
-                    </ul>
-                    <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
-                    <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
-                            <c:if test="${param.id == 'PA000001'}">
-                                <li><a href="gameIntro/APgameIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                            </c:if>
-                                <c:if test="${param.id == 'PA000002'}">
-                                <li><a href="gameIntro/NTTIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                            </c:if>
-                                <c:if test="${param.id == 'PA000003'}">
-                                <li><a href="gameIntro/HLCIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                            </c:if>
-                                <c:if test="${param.id == 'PA000004'}">
-                                <li><a href="gameIntro/BNHIntro.jsp" class="text-red p-2">Trò chơi</a></li>
-                            </c:if>
-                        <li><a href="#" class="text-red p-2">Tin tức</a></li>
-                        <li><a href="#" class="text-red p-2">Bản đồ</a></li>
-                            <c:if test="${sessionScope.acc != null}">
-                            <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
-                               style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
-                        </c:if>
+                        <div id="myDropdown" class="dropdown-content" style="background-color: white; left: 20px !important; height: 32vh; width: 10vw">
+                            <a href="details.jsp?id=PA000001" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Asia Park</a>
+                            <a href="details.jsp?id=PA000002" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Núi Thần Tài</a>
+                            <a href="details.jsp?id=PA000003" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Helio Center</a>
+                            <a href="details.jsp?id=PA000004" style="color: #EE2E24; display: block; margin-bottom: 10px; border-top: 1px solid #EE2E24; padding: 10px 0;">Bà Nà Hill</a>
+                        </div> 
+                    </div>     
+                </li>
+            </ul>
+            <div class="col-2 text-center logo px-4 py-2" style="color: #EE2E24"><c:out value="${parkName}"/></div>
+            <ul class="col-5 justify-content-start ps-5  d-flex align-items-center mb-0">
+                <c:if test="${param.id == 'PA000001'}">
+                    <li><a href="gameIntro/APgameIntro.jsp" class="text-red p-2">Trò chơi</a></li>
+                    </c:if>
+                    <c:if test="${param.id == 'PA000002'}">
+                    <li><a href="gameIntro/NTTIntro.jsp" class="text-red p-2">Trò chơi</a></li>
+                    </c:if>
+                    <c:if test="${param.id == 'PA000003'}">
+                    <li><a href="gameIntro/HLCIntro.jsp" class="text-red p-2">Trò chơi</a></li>
+                    </c:if>
+                    <c:if test="${param.id == 'PA000004'}">
+                    <li><a href="gameIntro/BNHIntro.jsp" class="text-red p-2">Trò chơi</a></li>
+                    </c:if>
+                <li><a href="#" class="text-red p-2">Tin tức</a></li>
+                <li><a href="#" class="text-red p-2">Bản đồ</a></li>
+                    <c:if test="${sessionScope.acc != null}">
+                    <a href="booking/ticketType_list.jsp?parkID=${parkId}" class="btn-cart" 
+                       style="color: white; background-color: #EE2E24; padding: 0.7vw 2vh; display: inline-block;">Đặt vé</a>
+                </c:if>
 
-                    </ul>
+            </ul>
 
-                </nav>
+        </nav>
 
-                <div class="featured-section position-relative " style="background-image: url('${imageBackground}'); height: 70vh; background-size: cover; background-repeat:no-repeat;">
-                    <div class="position-absolute d-flex align-items-center justify-content-around top-100 start-50 translate-middle">
-                        <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
-                            <i class="fas fa-film"></i>
+        <div class="featured-section position-relative " style="background-image: url('${imageBackground}'); height: 70vh; background-size: cover; background-repeat:no-repeat;">
+            <div class="position-absolute d-flex align-items-center justify-content-around top-100 start-50 translate-middle">
+                <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
+                    <i class="fas fa-film"></i>
 
-                            <div class="game-info">
-                                <h3>Asia Park</h3>
-                                <strong>Địa chỉ:</strong> <c:out value="${address}"/>
+                    <div class="game-info">
+                        <h3>Asia Park</h3>
+                        <strong>Địa chỉ:</strong> <c:out value="${address}"/>
 
-                            </div>
-                        </div>
-
-                        <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
-                            <i class="fas fa-film"></i>
-                            <h3>Thông báo</h3>
-                            <p style="color: white"><strong>Giờ mở cửa:</strong> <c:out value="${openTime}"/> - <c:out value="${closeTime}"/></p>
-                        </div>
-
-                        <c:if test="${sessionScope.acc != null}">
-                            <form action="OrderServlet" method="GET">
-                                <input type="hidden" name="parkID" value="${parkId}">
-                                <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-
-                            </form>
-                        </c:if>
                     </div>
-
                 </div>
-                <div style="display: flex; gap: 42%; margin-left: 2.5%; margin-top: 7%; color:#EE2E24">
-                    <h1>BẢN ĐỒ</h1>
-                    <h1>TRÒ CHƠI</h1>
-                </div>       
-                <div class="d-flex" style=" background-size:cover; "> 
 
-                    <div class="map-image col-6 p-0" style="position: relative; overflow: hidden; ">
+                <div class="card" style="background-color: #EE2E24; color: white; height: 20vh">
+                    <i class="fas fa-film"></i>
+                    <h3>Thông báo</h3>
+                    <p style="color: white"><strong>Giờ mở cửa:</strong> <c:out value="${openTime}"/> - <c:out value="${closeTime}"/></p>
+                </div>
 
-                        <img style="height: 550px; width: 100%; transform: scale(0.9);" src="${mapImg}" alt="Map Image">
+                <c:if test="${sessionScope.acc != null}">
+                    <form action="OrderServlet" method="GET">
+                        <input type="hidden" name="parkID" value="${parkId}">
+                        <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+
+                    </form>
+                </c:if>
+            </div>
+
+        </div>
+        <div style="display: flex; gap: 42%; margin-left: 2.5%; margin-top: 7%; color:#EE2E24">
+            <h1>BẢN ĐỒ</h1>
+            <h1>TRÒ CHƠI</h1>
+        </div>       
+        <div class="d-flex" style=" background-size:cover; "> 
+
+            <div class="map-image col-6 p-0" style="position: relative; overflow: hidden; ">
+
+                <img style="height: 550px; width: 100%; transform: scale(0.9);" src="${mapImg}" alt="Map Image">
+            </div>
+
+            <div class="games-list col-6 p-0" style="transform: scale(0.9)">
+
+                <div class="scroll-container"  style="max-height: 550px; border-color: lightgray">
+                    <div class="content">
+
+                        <c:forEach items="${gDAO.allGame}" var="c" varStatus="loop">
+                            <c:if test="${c.parkID == param.id}">
+                                <div class="pb-5 mb-3 border-bottom my-card" style="color: #EE2E24; background-color: #F7F7F7; border-radius: 5px;">
+                                    <c:set var="GameName" value="${c.gameName}"/>     
+                                    <h2 style=""> ${GameName}</h2>
+                                    <c:set var="GameDescription" value="${c.getGameDescription()}"/>
+                                    <p style="color: black">${GameDescription}</p>
+                                    <img src="${c.image}" style="width: 100%; height: 300px" alt="Khu Vui Chơi">
+                                    <form onsubmit="addToFavourites(event)">
+                                        <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                                        <input type="hidden" name="favouriteItems" value="${c.gameID}">
+                                        <button type="submit" class="btn btn-primary" style="margin-top: 5px; font-size: 102%;background-color: #EE2E24; border-color: #EE2E24">Yêu thích</button>
+                                    </form>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
+                </div>
 
-                    <div class="games-list col-6 p-0" style="transform: scale(0.9)">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-                        <div class="scroll-container"  style="max-height: 550px; border-color: lightgray">
-                            <div class="content">
+                <script>
+                                        function addToFavourites(event) {
+                                            event.preventDefault();
+                                            var form = event.target;
+                                            var userID = form.userID.value;
+                                            var favouriteItems = form.favouriteItems.value;
+                                            var a; // Khai báo biến a để lưu trạng thái
 
-                                <c:forEach items="${gDAO.allGame}" var="c" varStatus="loop">
-                                    <c:if test="${c.parkID == param.id}">
-                                        <div class="pb-5 mb-3 border-bottom my-card" style="color: #EE2E24; background-color: #F7F7F7; border-radius: 5px;">
-                                            <c:set var="GameName" value="${c.gameName}"/>     
-                                            <h2 style=""> ${GameName}</h2>
-                                            <c:set var="GameDescription" value="${c.getGameDescription()}"/>
-                                            <p style="color: black">${GameDescription}</p>
-                                            <img src="${c.image}" style="width: 100%; height: 300px" alt="Khu Vui Chơi">
-                                            <form onsubmit="addToFavourites(event)">
-                                                <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
-                                                <input type="hidden" name="favouriteItems" value="${c.gameID}">
-                                                <button type="submit" class="btn btn-primary" style="margin-top: 5px; font-size: 102%;background-color: #EE2E24; border-color: #EE2E24">Yêu thích</button>
-                                            </form>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-                            </div>
-                        </div>
-
-                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-                        <script>
-                                                function addToFavourites(event) {
-                                                    event.preventDefault();
-                                                    var form = event.target;
-                                                    var userID = form.userID.value;
-                                                    var favouriteItems = form.favouriteItems.value;
-                                                    var a; // Khai báo biến a để lưu trạng thái
-
-                                                    var xhr = new XMLHttpRequest();
-                                                    xhr.open('POST', 'AddFavouriteServlet', true);
-                                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                                    xhr.onreadystatechange = function () {
-                                                        if (xhr.readyState === 4) {
-                                                            if (xhr.status === 200) {
-                                                                if (xhr.responseText.trim() === "sus") {
-                                                                    a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
-                                                                    Swal.fire({
-                                                                        title: 'Add Success',
-                                                                        icon: 'success',
-                                                                        confirmButtonText: 'OK',
-                                                                        timer: 1500
-                                                                    });
-                                                                } else {
-                                                                    a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
-                                                                    Swal.fire({
-                                                                        title: 'Đã có trong danh sách yêu thích',
-                                                                        icon: 'error',
-                                                                        confirmButtonText: 'OK'
-                                                                    });
-                                                                }
-                                                            }
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', 'AddFavouriteServlet', true);
+                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                            xhr.onreadystatechange = function () {
+                                                if (xhr.readyState === 4) {
+                                                    if (xhr.status === 200) {
+                                                        if (xhr.responseText.trim() === "sus") {
+                                                            a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
+                                                            Swal.fire({
+                                                                title: 'Add Success',
+                                                                icon: 'success',
+                                                                confirmButtonText: 'OK',
+                                                                timer: 1500
+                                                            });
+                                                        } else {
+                                                            a = "fail"; // Gán giá trị "fail" cho biến a nếu thất bại
+                                                            Swal.fire({
+                                                                title: 'Đã có trong danh sách yêu thích',
+                                                                icon: 'error',
+                                                                confirmButtonText: 'OK'
+                                                            });
                                                         }
-                                                    };
-                                                    xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+                                                    }
                                                 }
+                                            };
+                                            xhr.send('userID=' + encodeURIComponent(userID) + '&favouriteItems=' + encodeURIComponent(favouriteItems));
+                                        }
 
-                        </script>
+                </script>
 
-                    </div>
+            </div>
 
-                </div>
+        </div>
         <button id="scrollBtn" onclick="scrollToTop()" style="background-color: #EE2E24; padding: 0.1vw 0.1vh; margin-bottom: 3%;"><span class="material-symbols-outlined">arrow_upward</span></button>   
         <div style="background-color: #EE2E24">
             <div class="logo"></div>
@@ -342,33 +342,10 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                        <button class="report-btn" style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                    <button class="report-btn" style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
 
-                                                                        <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
-                                                                            <div class="report-modal-content">
-                                                                                <form action="ReportUserServlet" method="POST">
-                                                                                    <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
-                                                                                    <input type="hidden" name="fullName" value="${username.fullName}">
-                                                                                    <input type="hidden" name="parkID" value="${param.id}">
-                                                                                    <div class="form-group">
-                                                                                        <label for="exampleFormControlSelect1">Lí do</label>
-                                                                                        <select class="form-control" name="title" id="exampleFormControlSelect1">
-                                                                                            <option>Tên không hợp lệ</option>
-                                                                                            <option>Nội dung tiêu cực</option>
-                                                                                            <option>Nội dung phản cảm</option>
-                                                                                            <option>Khác</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="exampleFormControlTextarea1">Chi tiết</label>
-                                                                                        <textarea id="exampleFormControlTextarea1" rows="7" name="content"></textarea>
-                                                                                    </div>
-                                                                                    <button id="banBtn" type="submit" >Thêm mới</button>
-                                                                                    <button id="closeBan" >Đóng</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                              
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -387,10 +364,33 @@
                                 </div>                    
                             </div> 
                         </div>
+                        <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                            <div class="report-modal-content">
+                                <form action="ReportUserServlet" method="POST">
+                                    <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
+                                    <input type="hidden" name="fullName" value="${username.fullName}">
+                                    <input type="hidden" name="parkID" value="${param.id}">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Lí do</label>
+                                        <select class="form-control" name="title" id="exampleFormControlSelect1">
+                                            <option>Tên không hợp lệ</option>
+                                            <option>Nội dung tiêu cực</option>
+                                            <option>Nội dung phản cảm</option>
+                                            <option>Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Chi tiết</label>
+                                        <textarea id="exampleFormControlTextarea1" rows="7" name="content"></textarea>
+                                    </div>
+                                    <button id="banBtn" type="submit" >Thêm mới</button>
+                                    <button id="closeBan" >Đóng</button>
+                                </form>
+                            </div>
+                        </div>
 
 
-
- <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                        <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
                             <div class="modal-content" style="border-color: #EE2E24">
                                 <span class="close">&times;</span>
                                 <form id="editForm" action="UpdateCommentServlet" method="post">
@@ -415,7 +415,7 @@
                         background-color: #F7F7F7;
                     }
                 </style>                              
-                
+
                 <style>
                     /* Modal */
                     .reportmodal {
@@ -478,24 +478,24 @@
 
             </div>
         </div>
-                                    
+
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const reportButtons = document.querySelectorAll(".report-btn");
-            const reportForm = document.getElementById("banForm");
-            const closeButton = document.getElementById("closeBan");
+            document.addEventListener("DOMContentLoaded", function () {
+                const reportButtons = document.querySelectorAll(".report-btn");
+                const reportForm = document.getElementById("banForm");
+                const closeButton = document.getElementById("closeBan");
 
-            reportButtons.forEach(function(button) {
-            button.addEventListener("click", function () {
-            reportForm.style.display = "block";
-            });
-            });
+                reportButtons.forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        reportForm.style.display = "block";
+                    });
+                });
 
-            closeButton.addEventListener("click", function (event) {
-            event.preventDefault(); // Ngăn chặn hành vi mặc định của nút "submit"
-            reportForm.style.display = "none";
+                closeButton.addEventListener("click", function (event) {
+                    event.preventDefault(); // Ngăn chặn hành vi mặc định của nút "submit"
+                    reportForm.style.display = "none";
+                });
             });
-        });
         </script>                            
         <script>
             function validateForm() {
@@ -556,29 +556,29 @@
 
 
         <script>
-            const allStar = document.querySelectorAll('.rating .star')
-            const ratingValue = document.querySelector('.rating input')
+            const allStar = document.querySelectorAll('.rating .star');
+            const ratingValue = document.querySelector('.rating input');
 
             allStar.forEach((item, idx) => {
                 item.addEventListener('click', function () {
-                    let click = 0
-                    ratingValue.value = idx + 1
+                    let click = 0;
+                    ratingValue.value = idx + 1;
 
                     allStar.forEach(i => {
                         i.classList.replace('bxs-star', 'bx-star')
-                        i.classList.remove('active')
-                    })
+                        i.classList.remove('active');
+                    });
                     for (let i = 0; i < allStar.length; i++) {
                         if (i <= idx) {
                             allStar[i].classList.replace('bx-star', 'bxs-star')
                             allStar[i].classList.add('active')
                         } else {
                             allStar[i].style.setProperty('--i', click)
-                            click++
+                            click++;
                         }
                     }
-                })
-            })
+                });
+            });
         </script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -613,7 +613,7 @@
                             dropdown.style.display = "none";
                         }
                     });
-                }
+                };
             });
         </script>
         <script>

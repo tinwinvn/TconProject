@@ -122,10 +122,9 @@
                         <c:forEach var="cart" items="${sessionScope.cart}">
                             ${orderDetailDAO.addNewOrderDetail(orderID, cart.key, cart.value.quantity)}
                             <c:forEach var="i" begin="1" end="${cart.value.quantity}">
-                                ${ticketDAO.addNewTicket(cart.key, orderID, 0, expirationDate)}
-                                
-                                ${userDAO.UpdatePointByUserID(sessionScope.acc.userID)}
-                            </c:forEach>                          
+                                ${ticketDAO.addNewTicket(cart.key, orderID, 0, expirationDate)}                             
+                            </c:forEach>    
+                            ${userDAO.UpdatePointByUserID(sessionScope.acc.userID)}
                         </c:forEach>
                         ${sendEmail.sendQR(sessionScope.acc.email, 'Your tickets', orderID)}
                     <a href="../index.jsp" class="btn btn-primary">Back to Home</a>

@@ -261,9 +261,22 @@ public class UserDAO {
         } catch (SQLException e) {
         }
     }
-    
+        public void PayPointByUserID( int point, String userID) throws Exception {
+        String query = "update Users set Point = ? where UserID = ?";
+        Connection conn;
+        try {
+            conn = db.getConnection();
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, point);
+                statement.setString(2, userID);
+                statement.execute();
+            }            
+            conn.close();
+        } catch (SQLException e) {
+        }
+    }
         public int getPointByUserID(String userID) throws SQLException{
-        String sql = "select * from Users where UserID = ?";
+        String sql = "select Point from Users where UserID = ?";
         User user = new User();
         Connection conn = null;
         PreparedStatement statement = null;

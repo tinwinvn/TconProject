@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,18 +10,13 @@
         <link rel="stylesheet" type="text/css" href="../css_god/details.css"/>
     </head>
 
-
-
-
-
-
     <body>
         <jsp:include page="../nav.jsp"></jsp:include>
-        <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
-        <nav>
-            <ul>
-                <li><a href="../index.jsp">Home</a></li>
-                <li><a href="ticketType_list.jsp?parkID=${param.parkID}&transactionCode=${param.transactionCode}">Add Cart</a></li>
+            <div class="bg-red" style="height: 0.5vh; margin-bottom: 15px"></div>
+            <nav>
+                <ul>
+                    <li><a href="../index.jsp">Home</a></li>
+                    <li><a href="ticketType_list.jsp?parkID=${param.parkID}&transactionCode=${param.transactionCode}">Add Cart</a></li>
             </ul>
         </nav>
 
@@ -29,25 +25,21 @@
         <jsp:useBean id="otDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>
         <jsp:useBean id="odDAO" class="ModelDAO.OrderDAO"></jsp:useBean>
         <jsp:useBean id="vhDAO" class="ModelDAO.VoucherDAO"></jsp:useBean>
-        
-       <div class="container d-flex justify-content-center align-items-center">
+
+            <div class="container d-flex justify-content-center align-items-center">
                 <div class="row" >
                 <c:forEach var="item" items="${sessionScope.cart}">
                     <div class="card mx-3" style="width: 15rem; height: 50%">
 
                         <div class="card-body text-center d-flex flex-column align-items-center">
-                            <img class="card-img-top" src="../images/a.jpg" alt="">
-
-
+                            <img class="card-img-top" src="../images/a.jpg" alt="">                                                      
                             <c:set var="ticketType" value="${ttDAO.getTicketTypeByID(item.key)}"></c:set>
                             <c:set var="ticketTypeName" value="${ticketType.typeName}" />
                             <c:set var="quantity" value="${item.value.quantity}" />
                             <c:set var="price" value="${ticketType.price}"></c:set>
                             <c:set var="parkID" value="${ticketType.parkID}"></c:set>
-                            <c:set var="voucher" value="${vhDAO.getVoucherBYParkID(parkID)}"></c:set>
                             <c:set var="voucherCode" value="${voucher.voucherCode}"></c:set>
-                            <c:set var="discountRate" value="${voucher.discountRate}"></c:set>
-                                <h3>${ticketTypeName}</h3>
+                            <h3>${ticketTypeName}</h3>
                             <p>Số lượng: ${quantity}</p>
                             <p>Giá: ${price * quantity} VNĐ</p>
                             <form action="../DeleteCartServlet" method="POST">                              
@@ -59,7 +51,6 @@
 
 
                             <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
-                            <c:set var="voucherPrice" value="${totalPrice * discountrate}"></c:set>
                             <c:set var="finalPrice" value="${empty param.voucher ? totalPrice : voucherPrice}" />    
                             <c:if test="${empty sessionScope.cart}">
                                 <p class="empty-cart-message">Giỏ hàng trống</p>
@@ -67,32 +58,44 @@
 
                             <c:if test="${not empty sessionScope.cart}">
 
-                            </c:if>
-                            <div style="margin-top: 1%">
-                            <label for="discountCode">Nhập mã giảm giá:</label>
-                            <input type="text" name="discountCode">
-                            <button type="submit">Nhập mã</button>
-                            </div>    
+                            </c:if>                               
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
         <div>
-        <c:if test="${not empty sessionScope.cart}">
+            <c:if test="${not empty sessionScope.cart}">
                 <c:if test="${empty param.transactionCode}">
-                    <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">
-                        <div style="display: flex; align-items: center; justify-content: center">
-                            <p style="margin-top: 0.7%; margin-right: 10px">Ngày sử dụng: </p>
-                            <input type="date" id="experationDate" name="experationDate" required="">
+                    <c:set var="userlist" value="${userDAO.getUserByOrderId(param.orderID)}"></c:set>
+                    <div>    
+                            <form style="text-align: center; margin-top: 2%" action="../GetVoucherServlet" method="POST">
+                                <label for="discountCode">Nhập mã giảm giá:</label>
+                                <input type="hidden" name="parkID" value="${parkID}">
+                                <input type="hidden" name="totalPrice" value="${totalPrice}">
+                                <input type="text" name="voucherCode">
+                                <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Nhập mã</button>
+                            </form>
+                            <h6 style="text-align: center; margin-top: 20px;">Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber> VNĐ</h6> 
+                            <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">
+                                <div style="display: flex; align-items: center; justify-content: center">
+                                    <p style="margin-top: 0.7%; margin-right: 10px">Ngày sử dụng: </p>
+                                    <input type="date" id="experationDate" name="experationDate" required="">
+                                </div>
+                                <input type="hidden" name="totalPrice" value="${totalPrice}">
+                            <input type="hidden" name="point" value="${sessionScope.acc.point}">
+                            <c:set var="totalpoint" value="${Math.round(totalPrice/10000)}"></c:set>
+                            <input type="hidden" name="pointprice" value="${totalpoint}">
+                            <input type="hidden" name="orderID" value="${param.orderID}">
+                            <input type="hidden" name="userID" value="${sessionScope.acc.userID}">
+                            <input type="hidden" name="parkID" value="${param.parkID}">
+                            <input type="hidden" name="email" value="${sessionScope.acc.email}">
+                            <div style="margin-top: 1%">
+                                <button type="submit" name="action" value="point" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Điểm</button>       
+                                <button type="submit" name="action" value="money" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
+                            </div>
+                            </form>  
                         </div>
-                        <input type="hidden" name="totalPrice" value="${totalPrice}">
-                        <input type="hidden" name="orderID" value="${param.orderID}">
-                        <input type="hidden" name="parkID" value="${param.parkID}">
-                        <div style="margin-top: 1%">
-                        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
-                        </div>
-                    </form>                         
                 </c:if>
                 <c:if test="${not empty param.transactionCode}">
                     <form action="../ConfirmChangeTicketServlet" method="get">
@@ -103,13 +106,13 @@
                 </c:if>
             </c:if>
         </div>
-        
-        
 
-       
+
+
+
         <jsp:include page="../footer.jsp"></jsp:include>
     </body>
-    
+
     <script>
         // Lấy ngày hiện tại
         var currentDate = new Date();
@@ -119,5 +122,22 @@
 
         // Đặt giá trị min cho trường input date
         document.getElementById("experationDate").setAttribute("min", formattedDate);
+        
+        function updateTotalPrice() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var totalPrice = parseFloat(this.responseText); // Lấy giá trị từ servlet
+                document.getElementById("totalPriceValue").textContent = totalPrice; // Cập nhật giá trị
+            }
+        };
+        xhttp.open("GET", "servlet_url", true); // Thay "servlet_url" bằng URL của servlet của bạn
+        xhttp.send();
+    }
+
+    // Gọi hàm khi trang được tải
+    window.onload = function() {
+        updateTotalPrice();
+    };
     </script>
 </html>

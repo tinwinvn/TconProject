@@ -172,9 +172,7 @@ public class OrderDAO {
     
     public void addNewOrder(String orderID, String userID, String voucherID, String orderDate, String email) throws SQLException, Exception {
         String query = "INSERT INTO Orders VALUES (?, ?, ?, ?)";
-        Connection conn;    
-        GenerateQR genQR = new GenerateQR();
-        genQR.generateQR(orderID);       
+        Connection conn;      
         Timestamp fdate = toDate(orderDate);
         try {
             conn = db.getConnection();
