@@ -341,7 +341,7 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                        <button class="report-btn" style=" width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                        <button class="report-btn" data-comment-id="${list.ratingID}" style="width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -364,6 +364,7 @@
                 <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
                     <div class="report-modal-content">
                     <form>
+                        <input type="hidden" name="commentId">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Lí do</label>
                             <select class="form-control" id="exampleFormControlSelect1">
@@ -382,6 +383,30 @@
                     </form>
                     </div>
                 </div>
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                        const reportButtons = document.querySelectorAll(".report-btn");
+                                        const reportForm = document.getElementById("banForm");
+                                        const closeButton = document.getElementById("closeBan");
+
+                                        reportButtons.forEach(function(button) {
+                                            button.addEventListener("click", function (event) { 
+                                                const commentId = button.dataset.commentId;
+                                                const formTextarea = reportForm.querySelector("#exampleFormControlTextarea1");
+                                                // Gắn id của comment vào input hidden để lưu lại khi gửi form
+                                                reportForm.querySelector("input[name='commentId']").value = commentId;
+                                                // Cập nhật nội dung trong textarea nếu muốn
+                                                formTextarea.value = "Báo cáo comment số " + commentId;
+                                                reportForm.style.display = "block";
+                                            });
+                                        });
+
+                                        closeButton.addEventListener("click", function (event) {
+                                            event.preventDefault();
+                                            reportForm.style.display = "none";
+                                        });
+                                    });
+                                    </script>
                                     <style>
                                         /* Modal */
                                         .reportmodal {
@@ -439,24 +464,7 @@
                                             background-color: #45a049;
                                         }
                                     </style>
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            const reportButtons = document.querySelectorAll(".report-btn");
-                                            const reportForm = document.getElementById("banForm");
-                                            const closeButton = document.getElementById("closeBan");
-
-                                            reportButtons.forEach(function(button) {
-                                                button.addEventListener("click", function () {
-                                                    reportForm.style.display = "block";
-                                                });
-                                            });
-
-                                            closeButton.addEventListener("click", function (event) {
-                                                event.preventDefault(); // Ngăn chặn hành vi mặc định của nút "submit"
-                                                reportForm.style.display = "none";
-                                            });
-                                        });
-                                    </script>
+                                    
 
 
  <div id="myModal" class="modal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
