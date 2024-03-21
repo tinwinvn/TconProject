@@ -14,7 +14,7 @@
         <label for="otp">OTP:</label>
         <input type="text" id="otp" name="otp" required>
         <input type="hidden" name="userId" value="${param.userId}">
-        <input type="submit" value="Verify" style="background-color: #EE2E24; width: 20%">
+        <input type="submit" value="Xác minh" style="background-color: #EE2E24; width: 20%">
     </form>
 </body>
 </html>

@@ -31,10 +31,10 @@
                                 
                                 
                                 <c:if test="${sessionScope.acc.role == 1  || sessionScope.acc.role == 2}">
-                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: black">DASHBOARD</a>
+                                    <a href="admin/admin.jsp?userId=${sessionScope.acc.userID}" style="color: black">Quản lý</a>
                                 </c:if>
                                 <c:if test="${sessionScope.acc.role == 3}">
-                                    <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: black">PROFILE</a>
+                                    <a href="profile.jsp?userId=${sessionScope.acc.userID}" style="color: black">Trang cá nhân</a>
                                     <a href="payment/payment_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử giao dịch</a>
                                     <a href="payment/order_history.jsp?userID=${sessionScope.acc.userID}" style="color: black">Lịch sử đặt vé</a>
                                     <a href="favourite_list/favourite_list.jsp?userID=${sessionScope.acc.userID}" style="color: black">Danh sách yêu thích</a>

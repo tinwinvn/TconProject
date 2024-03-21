@@ -20,8 +20,9 @@
     </head>
     <body>
         <jsp:include page="nav.jsp"></jsp:include>
-        <a href="index.jsp">Home</a>
-        <div class="container" style="margin-top: 5%;">
+<button type="submit" style="background-color: #EE2E24; border: none; padding: 8px 16px; border-radius: 4px; margin-left: 3vw">
+    <a href="index.jsp" style="color: white; text-decoration: none;">Trang chủ</a>
+</button>        <div class="container" style="margin-top: 5%;">
         <div class="row gutters">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
         <jsp:useBean id="userAlg" class="ModelDAO.UserDAO"></jsp:useBean>

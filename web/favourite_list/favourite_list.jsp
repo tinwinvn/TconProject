@@ -11,27 +11,27 @@
     </head>
     <body>
         <div class="bg-red" style="height: 3vh; background-color: #EE2E24"></div>
-            
+
         <jsp:include page="../navbar.jsp"></jsp:include> 
-        
+
         <jsp:useBean id="afDAO" class="ModelDAO.AddFavouriteDAO"></jsp:useBean>
         <jsp:useBean id="pkDAO" class="ModelDAO.ParkDAO"></jsp:useBean>
         <jsp:useBean id="gmDAO" class="ModelDAO.GameDAO"></jsp:useBean>
-        
 
-        
+
+
             <div style="margin-top: 5%; display: flex; justify-content: center;">
-    
-    <a href="#" onclick="showFavorites('parks')">
-        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-right: 30%">Danh sách công viên yêu thích</button>
-    </a>
-    <a href="#" onclick="showFavorites('games')">
-        <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-left: 30%">Danh sách trò chơi yêu thích</button>
-    </a>
-</div>
 
-           
-        
+                <a href="#" onclick="showFavorites('parks')">
+                    <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-right: 30%">Danh sách công viên yêu thích</button>
+                </a>
+                <a href="#" onclick="showFavorites('games')">
+                    <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24; margin-left: 30%">Danh sách trò chơi yêu thích</button>
+                </a>
+            </div>
+
+
+
 
             <div id="favoritesTable" style="margin-left: 24%">
                 <table border="1" >
@@ -56,12 +56,15 @@
                                             <form action="../DeleteFavouriteServlet" method="POST">
                                                 <input type="hidden" name="userID" value="${aflist.userID}">
                                                 <input type="hidden" name="favouriteID" value="${aflist.favouriteID}">
-                                                <button type="submit">Xóa</button>
+                                                <button type="submit" style="background-color: #EE2E24">Xóa</button>
                                             </form>
                                         </td> 
-                                        <td><a href="../details.jsp?id=${parklist.parkID}">Xem chi tiết</a></td>
-                                    </c:if>
-                                </tr>                               
+                                        <td>
+                                            <button type="submit" style="background-color: #EE2E24; border: none; padding: 8px 16px; border-radius: 4px;">
+                                                <a href="../details.jsp?id=${parklist.parkID}" style="color: white; text-decoration: none;">Xem chi tiết</a>
+                                            </button>
+                                        </td>                                    </c:if>
+                                    </tr>                               
                             </c:if>
                         </c:forEach>
                     </c:forEach>
@@ -90,7 +93,7 @@
                                             <form action="../DeleteFavouriteServlet" method="POST">
                                                 <input type="hidden" name="userID" value="${aflist.userID}">
                                                 <input type="hidden" name="favouriteID" value="${aflist.favouriteID}">
-                                                <button type="submit">Xóa</button>
+                                                <button type="submit" style="background-color: #EE2E24">Xóa</button>
                                             </form>
                                         </td>
                                     </c:if>
@@ -112,7 +115,7 @@
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Gọi hàm showFavorites với tham số 'parks' khi trang được tải
         showFavorites('parks');
     });
@@ -129,7 +132,7 @@
         }
         // Gửi yêu cầu AJAX tương ứng với loại (parks hoặc games)
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (type === 'parks') {
                     tableParks.innerHTML = this.responseText;

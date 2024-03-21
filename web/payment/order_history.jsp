@@ -99,7 +99,7 @@
         <jsp:useBean id="orderDetailDAO" class="ModelDAO.OrderDetailDAO"></jsp:useBean>     
         <h2 style="text-align: center; color: #EE2E24; margin-top: 5%">Lịch sử giao dịch</h2>
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 2%">
-        <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24" onclick="openPopup()">Hoàn vé</button>
+<!--        <button class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24" onclick="openPopup()">Hoàn vé</button>-->
         </div>
             <div id="overlay" class="overlay"></div>          
             <table border="1" style="margin-top: 2%">

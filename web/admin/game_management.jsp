@@ -57,19 +57,20 @@
 
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
-                    <ul class="breadcrumb">
+                    <h1>Quản lý trò chơi</h1>
+<!--                    <ul class="breadcrumb">
                         <li>
                             <a href="#">Dashboard</a>
                         </li>
-                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li><i class='bx bx-chevron-right' ></i></li>-->
                         <li>
-                            <a class="active" href="../index.jsp">Quản lý trò chơi</a>
+                            <a class="active" href="../index.jsp" style="color: #EE2E24">Trang chủ</a>
+<!--                            <a class="active" href="../index.jsp">Quản lý trò chơi</a>-->
                         </li>
                     </ul>
                 </div>
             </div>
-            <button id="openAddButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 7%;">Thêm mới</button>
+            <button id="openAddButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 7%; margin-top: 5vh; background-color: #EE2E24">Thêm mới</button>
             <div  class="container" style="margin-top : 5%; margin-left: 5%;">
             <c:forEach var="game" items="${gameDAO.allGame}" varStatus="loop">
                 <c:if test="${game.parkID == parkID}">
@@ -80,8 +81,8 @@
                             <p class="card-text" style="height: 100px; overflow-y: auto">${game.gameDescription}</p>
                         </div>  
                         <div class="card-body">
-                            <button id="openFormButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Cập nhật</button>
-                            <button id="openDeleteButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Xóa</button>
+                            <button id="openFormButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; background-color: #EE2E24">Cập nhật</button>
+                            <button id="openDeleteButton_${loop.index}" style="background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; ">Xóa</button>
                         </div>
                     </div>
                     <div id="myForm_${loop.index}" class="form-container" style="left: 15% !important; width: 80%;">
@@ -102,8 +103,8 @@
                                 <input type="file" name="image" class="form-control-file" id="fileUpload" aria-describedby="fileHelp" >
                                 <small id="fileHelp" class="form-text text-muted">Vui lòng tải lên một ảnh đại diện cho trò chơi của bạn.</small>
                             </div>
-                                <button class="btn btn-primary" onclick="updateGame()">Cập nhật</button>
-                                <button type="button" id="closeFormButton_${loop.index}" class="btn btn-primary">Đóng</button>
+                                <button class="btn btn-primary" onclick="updateGame()" style="background-color: #EE2E24; border-color: #EE2E24">Cập nhật</button>
+                                <button type="button" id="closeFormButton_${loop.index}" class="btn btn-primary" style="background-color: #6c757d; border-color: #6c757d">Đóng</button>
                         </form>
                     </div>
 
@@ -111,7 +112,7 @@
                         <form id="deleteForm_${loop.index}" action="../DeleteGameServlet" method="post">
                             <input type="hidden" name="gameID" value="${game.gameID}">
                             <p>Bạn có muốn xóa trò chơi "${game.gameName}" không?</p>
-                            <button type="submit" class="btn btn-danger">Xác nhận</button>
+                            <button type="submit" class="btn btn-danger" style="background-color: #EE2E24">Xác nhận</button>
                             <button type="button" id="closeDeleteButton_${loop.index}" class="btn btn-secondary">Hủy</button>
                         </form>
                     </div> 
@@ -135,8 +136,8 @@
                     <input type="file" name="image" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" >
                     <small id="fileHelp" class="form-text text-muted">Vui lòng tải lên một ảnh đại diện cho trò chơi của bạn.</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Thêm mới</button>
-                <button id="closeFormButton" class="btn btn-primary">Đóng</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thêm mới</button>
+                <button id="closeFormButton" class="btn btn-primary" style="background-color: #6c757d; border-color: #6c757d">Đóng</button>
             </form>
         </div>
     </body>

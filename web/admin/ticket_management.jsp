@@ -58,19 +58,20 @@
         <c:set var="parkID" value="${parkDAO.getParkIDByUserID(sessionScope.acc.userID)}"></c:set>
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
-                    <ul class="breadcrumb">
+                    <h1>Quản lý vé</h1>
+<!--                    <ul class="breadcrumb">
                         <li>
                             <a href="#">Dashboard</a>
                         </li>
-                        <li><i class='bx bx-chevron-right' ></i></li>
+                        <li><i class='bx bx-chevron-right' ></i></li>-->
                         <li>
-                            <a class="active" href="../index.jsp">Quản lý vé</a>
+                            <a class="active" href="../index.jsp" style="color: #EE2E24">Trang chủ</a>
+<!--                            <a class="active" href="../index.jsp">Quản lý vé</a>-->
                         </li>
                     </ul>
                 </div>
             </div>
-            <button id="openAddButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 7%;">Thêm mới</button>
+            <button id="openAddButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 7%; margin-top: 5vh; background-color: #EE2E24">Thêm mới</button>
             <div  class="container" style="margin-top : 5%; margin-left: 5%;">
             <c:forEach var="ticketType" items="${ticketTypeDAO.allTicketType}" varStatus="loop">
                 <c:if test="${ticketType.parkID == parkID}">
@@ -84,8 +85,8 @@
                             <li class="list-group-item">Đơn giá: <fmt:formatNumber value="${ticketType.price}"></fmt:formatNumber> VNĐ</li>
                             </ul>
                             <div class="card-body">
-                                <button id="openFormButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Cập nhật</button>
-                            <button id="openDeleteButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Xóa</button>
+                                <button id="openFormButton_${loop.index}" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; background-color: #EE2E24">Cập nhật</button>
+                            <button id="openDeleteButton_${loop.index}" style="background-color: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; ">Xóa</button>
                         </div>
                     </div>
                     <div id="myForm_${loop.index}" class="form-container" style="left: 20% !important; width: 80%;">
@@ -115,16 +116,16 @@
                                 <label for="exampleFormControlInput1">Đơn giá</label>
                                 <input type="text" name="price" class="form-control" id="exampleFormControlInput1" value="${ticketType.price}"> <label for="exampleFormControlInput1">VNĐ</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                            <button type="button" id="closeFormButton_${loop.index}" class="btn btn-primary">Đóng</button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Cập nhật</button>
+                            <button type="button" id="closeFormButton_${loop.index}" class="btn btn-primary" style="background-color: #6c757d; border-color: #6c757d">Đóng</button>
                         </form>
                     </div>
                     <div id="deleteFormContainer_${loop.index}" class="form-container" style="left: 20% !important; width: 80%;">
-                        <form id="deleteForm_${loop.index}" action="../DeleteTicketTypeServlet" method="post">
+                        <form id="deleteForm_${loop.index}" action="../DeleteTicketTypeServlet" method="post" >
                             <input type="hidden" name="ticketTypeID" value="${ticketType.ticketTypeID}">
-                            <p>Bạxn có muốn xóa vé "${ticketType.typeName}" không?</p>
-                            <button type="submit" class="btn btn-danger">Xác nhận</button>
-                            <button type="button" id="closeDeleteButton_${loop.index}" class="btn btn-secondary">Hủy</button>
+                            <p>Bạn có muốn xóa vé "${ticketType.typeName}" không?</p>
+                            <button type="submit" class="btn btn-danger" style="background-color: #EE2E24">Xác nhận</button>
+                            <button type="button" id="closeDeleteButton_${loop.index}" class="btn btn-secondary" >Hủy</button>
                         </form>
                     </div>  
                 </c:if>             
@@ -157,8 +158,8 @@
                     <label for="exampleFormControlInput1">Đơn giá</label>
                     <input type="text" name="price" class="form-control" id="exampleFormControlInput1"> <label for="exampleFormControlInput1">VNĐ</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Thêm mới</button>
-                <button type="button" id="closeAddButton" class="btn btn-primary">Đóng</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thêm mới</button>
+                <button type="button" id="closeAddButton" class="btn btn-primary" style="background-color: #6c757d; border-color: #6c757d">Đóng</button>
             </form>
         </div>
     </body>
