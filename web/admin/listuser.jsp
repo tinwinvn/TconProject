@@ -136,7 +136,7 @@
                                                                         <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}" >
-                                                                                    <a onclick="toggleBanPopup()">
+                                                                                    <a onclick="showBanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -149,14 +149,14 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #ff0000">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${i.isActive == false}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
-                                                                                    <a onclick="toggleUnbanPopup()">
+                                                                                    <a onclick="showUnbanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -169,7 +169,7 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #34ce57">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
@@ -189,34 +189,44 @@
                                                             <table class="table widget-26">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="width: 10%">
+                                                                            <c:if test="${i.image == null}">
                                                                             <div class="widget-26-job-emp-img">
-                                                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
                                                                             </div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.image != null}">
+                                                                            <div class="widget-26-job-emp-img">
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="../uploads/${i.image}" alt="Company" />
+                                                                            </div>
+                                                                            </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-title">
                                                                                 <a href="#">${i.fullName}</a>
 
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-info">
                                                                                 <p class="type m-0">${i.email}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 20%">
                                                                             <c:if test="${i.role == 1}">
                                                                                 <div class="widget-26-job-salary">Admin</div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.role == 2}">
+                                                                                <div class="widget-26-job-salary">Partner</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
                                                                                 <div class="widget-26-job-salary">User</div>
                                                                             </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
-                                                                                    <a onclick="toggleBanPopup()">
+                                                                                    <a onclick="showBanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -229,14 +239,14 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #ff0000">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${i.isActive == false}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
-                                                                                    <a onclick="toggleUnbanPopup()">
+                                                                                    <a onclick="showUnbanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -249,7 +259,7 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #34ce57">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
@@ -267,23 +277,30 @@
                                                             <table class="table widget-26">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>
+                                                                        <td style="width: 10%">
+                                                                            <c:if test="${i.image == null}">
                                                                             <div class="widget-26-job-emp-img">
-                                                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Company" />
                                                                             </div>
+                                                                            </c:if>
+                                                                            <c:if test="${i.image != null}">
+                                                                            <div class="widget-26-job-emp-img">
+                                                                                <img style="height: 60px; width: 60px; border-radius: 50%; border: 0.2px black solid;" src="../uploads/${i.image}" alt="Company" />
+                                                                            </div>
+                                                                            </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-title">
                                                                                 <a href="#">${i.fullName}</a>
 
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 30%">
                                                                             <div class="widget-26-job-info">
                                                                                 <p class="type m-0">${i.email}</p>
                                                                             </div>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 20%">
                                                                             <c:if test="${i.role == 1}">
                                                                                 <div class="widget-26-job-salary">Admin</div>
                                                                             </c:if>
@@ -294,10 +311,10 @@
                                                                                 <div class="widget-26-job-salary">User</div>
                                                                             </c:if>
                                                                         </td>
-                                                                        <td>
+                                                                        <td style="width: 10%">
                                                                             <c:if test="${i.isActive == true}">
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
-                                                                                    <a onclick="showBanConfirmation()">
+                                                                                    <a onclick="showBanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -310,14 +327,14 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #ff0000">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
                                                                             </c:if>
                                                                             <c:if test="${i.isActive == false}" >
                                                                                 <div class="widget-26-job-starred" id="reportButton_${loop.index}">
-                                                                                    <a onclick="showUnbanConfirmation()">
+                                                                                    <a onclick="showUnbanPopup('${i.userID}')">
                                                                                         <svg
                                                                                             xmlns="http://www.w3.org/2000/svg"
                                                                                             width="24"
@@ -330,7 +347,7 @@
                                                                                             stroke-linejoin="round"
                                                                                             class="feather feather-star"
                                                                                             >
-                                                                                        <i class="material-icons">report</i>
+                                                                                        <i class="material-icons" style="color: #34ce57">report</i>
                                                                                         </svg>
                                                                                     </a>
                                                                                 </div>
@@ -349,35 +366,57 @@
                                             </div>
                                         </div>
                                         <!-- Ban User Confirmation Popup -->
-                                        <div id="banConfirmationPopup_${loop.index}" class="popup">
+                                        <div id="banConfirmationPopup" class="popup">
                                             <div class="popup-content">
-                                                <span id="closeButton_${loop.index}" class="close" onclick="hideBanConfirmation()">&times;</span>
-                                                <h2>Ban User Confirmation</h2>
-                                                <p>Are you sure you want to ban this user?</p>
-                                                <form id="banForm_${loop.index}" action="../BanUserServlet" method="post">
-                                                    <input type="hidden" name="userId" value="${i.userID}">
-                                                    <input type="hidden" id="isActiveInput" name="isActive" value="false">
-                                                    <button type="submit" onclick="banUser()">Yes, Ban User</button>
-                                                    <button onclick="hideBanConfirmation()">Cancel</button>
-                                                </form>
+                                                <p>Cấm người dùng này ?</p>
+                                                <div class="combo-button">
+                                                    <form id="banForm" action="../BanUserServlet" method="post" style="display: inline-block;">
+                                                        <input type="hidden" name="userId" value="${i.userID}">
+                                                        <input type="hidden" id="isActiveInput" name="isActive" value="false">
+                                                        <button class="submit-btn" type="submit" onclick="hidePopup('banConfirmationPopup')">Đúng</button>
+                                                    </form>
+                                                        <button class="close-btn" style="display: inline-block; margin-left: 5px;" onclick="hidePopup('banConfirmationPopup')">Hủy</button>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <!-- Unban User Popup -->
-                                        <div id="unbanConfirmationPopup_${loop.index}" class="popup">
+                                        <div id="unbanConfirmationPopup" class="popup">
                                             <div class="popup-content">
-                                                <span id="closeButton_${loop.index}" class="close" onclick="hideUnbanConfirmation()">&times;</span>
-                                                <h2>Unban User Confirmation</h2>
-                                                <p>Are you sure you want to unban this user?</p>
-                                                <form id="banForm_${loop.index}" action="../BanUserServlet" method="post">
-                                                    <input type="hidden" name="userId" value="${i.userID}">
-                                                    <input type="hidden" id="isActiveInput" name="isActive" value="true">
-                                                    <button onclick="unbanUser()">Yes, Unban User</button>
-                                                    <button onclick="hideUnbanConfirmation()">Cancel</button>
-                                                </form>
+                                                <p>Bỏ lệnh cấm người dùng này ?</p>
+                                                <div class="combo-button">
+                                                    <form id="unbanForm" action="../BanUserServlet" method="post" style="display: inline-block;">
+                                                        <input type="hidden" name="userId" value="${i.userID}">
+                                                        <input type="hidden" id="isActiveInput" name="isActive" value="true">
+                                                        <button class="submit-btn" type="submit" onclick="hidePopup('unbanConfirmationPopup')">Đúng</button>
+                                                    </form>
+                                                        <button class="close-btn" style="display: inline-block; margin-left: 5px;" onclick="hidePopup('unbanConfirmationPopup')">Hủy</button>
+                                                </div>
                                             </div>
                                         </div>
+                                        <script>
+                                            function showBanPopup(userId) {
+                                                // Hiển thị popup
+                                                document.getElementById("banConfirmationPopup").style.display = "block";
 
+                                                // Truyền userId vào input hidden trong form ban
+                                                document.getElementById("banForm").querySelector('input[name="userId"]').value = userId;
+                                            }
+                                            
+                                            function showUnbanPopup(userId) {
+                                                // Hiển thị popup
+                                                document.getElementById("unbanConfirmationPopup").style.display = "block";
+
+                                                // Truyền userId vào input hidden trong form unban
+                                                document.getElementById("unbanForm").querySelector('input[name="userId"]').value = userId;
+                                            }
+                                            
+                                            function hidePopup(popupId) {
+                                                // Ẩn popup
+                                                document.getElementById(popupId).style.display = "none";
+                                            }
+                                            
+                                        </script>
                                         <style>
                                             /* Styles for the popup */
                                             .popup {
@@ -406,44 +445,23 @@
                                                 right: 10px;
                                                 cursor: pointer;
                                             }
+                                            
+                                            .widget-26-job-starred a {
+                                                cursor: pointer;
+                                            }
+                                            
+                                            .close-btn {
+                                                border-radius: 5px;
+                                                 
+                                            }
+                                            .submit-btn {
+                                                border-radius: 5px;
+                                                background-color: #34ce57;
+                                                
+                                            }
+                                            
                                         </style>
-                                        <script>
-                                            // Function to show ban confirmation popup
-                                            function showBanConfirmation() {
-                                                var popup = document.getElementById('banConfirmationPopup_${loop.index}');
-                                                popup.style.display = 'block';
-                                            }
-
-                                            // Function to hide ban confirmation popup
-                                            function hideBanConfirmation() {
-                                                var popup = document.getElementById('banConfirmationPopup_${loop.index}');
-                                                popup.style.display = 'none';
-                                            }
-
-                                            // Function to show unban confirmation popup
-                                            function showUnbanConfirmation() {
-                                                var popup = document.getElementById('unbanConfirmationPopup_${loop.index}');
-                                                popup.style.display = 'block';
-                                            }
-
-                                            // Function to hide unban confirmation popup
-                                            function hideUnbanConfirmation() {
-                                                var popup = document.getElementById('unbanConfirmationPopup_${loop.index}');
-                                                popup.style.display = 'none';
-                                            }
-
-                                            // Function to ban user
-                                            function banUser() {
-                                                // Add any additional logic you need here before submitting the form
-                                                document.getElementById('banForm_${loop.index}').submit();
-                                            }
-
-                                            // Function to unban user
-                                            function unbanUser() {
-                                                // Add any additional logic you need here before submitting the form
-                                                document.getElementById('banForm_${loop.index}').submit();
-                                            }
-                                        </script>
+                                        
                                         <script>
                                             // Hàm kiểm tra trạng thái của nút button
                                             function checkSearchForm() {
@@ -479,10 +497,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <nav class="d-flex justify-content-center">
+<!--                            <nav class="d-flex justify-content-center">
 
                                 <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
-                                    <c:forEach begin="1" end="${endPage}" var="i">
                                         <li class="page-item">
                                             <a class="page-link no-border" href="#">
                                                 <span aria-hidden="true">«</span>
@@ -496,10 +513,9 @@
                                                 <span class="sr-only">Next</span>
                                             </a>
                                         </li>
-                                    </c:forEach>
                                 </ul>
 
-                            </nav>
+                            </nav>-->
                         </div>
                     </div>
                 </div>
