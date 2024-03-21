@@ -528,8 +528,6 @@
                         const formTextarea = reportForm.querySelector("#exampleFormControlTextarea1");
                         // Gắn id của comment vào input hidden để lưu lại khi gửi form
                         reportForm.querySelector("input[name='commentId']").value = commentId;
-                        // Cái ni là cái hiện trong cái textarea, muốn không hiện thì cho nó cút
-                        formTextarea.value = "Báo cáo comment số " + commentId;
                         reportForm.style.display = "block";
                     });
                 });
