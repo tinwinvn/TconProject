@@ -428,6 +428,30 @@
                                 </div>                    
                             </div> 
                         </div>
+                        <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
+                            <div class="report-modal-content">
+                                <form action="ReportUserServlet" method="POST">
+                                    <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
+                                    <input type="hidden" name="fullName" value="${username.fullName}">
+                                    <input type="hidden" name="parkID" value="${param.id}">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Lí do</label>
+                                        <select class="form-control" name="title" id="exampleFormControlSelect1">
+                                            <option>Tên không hợp lệ</option>
+                                            <option>Nội dung tiêu cực</option>
+                                            <option>Nội dung phản cảm</option>
+                                            <option>Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Chi tiết</label>
+                                        <textarea id="exampleFormControlTextarea1" rows="7" name="content"></textarea>
+                                    </div>
+                                    <button id="banBtn" type="submit" >Thêm mới</button>
+                                    <button id="closeBan" >Đóng</button>
+                                </form>
+                            </div>
+                        </div>
 
 
 
@@ -597,29 +621,29 @@
 
 
         <script>
-            const allStar = document.querySelectorAll('.rating .star')
-            const ratingValue = document.querySelector('.rating input')
+            const allStar = document.querySelectorAll('.rating .star');
+            const ratingValue = document.querySelector('.rating input');
 
             allStar.forEach((item, idx) => {
                 item.addEventListener('click', function () {
-                    let click = 0
-                    ratingValue.value = idx + 1
+                    let click = 0;
+                    ratingValue.value = idx + 1;
 
                     allStar.forEach(i => {
                         i.classList.replace('bxs-star', 'bx-star')
-                        i.classList.remove('active')
-                    })
+                        i.classList.remove('active');
+                    });
                     for (let i = 0; i < allStar.length; i++) {
                         if (i <= idx) {
                             allStar[i].classList.replace('bx-star', 'bxs-star')
                             allStar[i].classList.add('active')
                         } else {
                             allStar[i].style.setProperty('--i', click)
-                            click++
+                            click++;
                         }
                     }
-                })
-            })
+                });
+            });
         </script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -654,7 +678,7 @@
                             dropdown.style.display = "none";
                         }
                     });
-                }
+                };
             });
         </script>
         <script>

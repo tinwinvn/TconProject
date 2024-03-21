@@ -160,6 +160,10 @@
         <servlet-name>BanUserServlet</servlet-name>
         <servlet-class>Controller.BanUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PointPaymentServlet</servlet-name>
+        <servlet-class>Controller.PointPaymentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -319,6 +323,10 @@
     <servlet-mapping>
         <servlet-name>BanUserServlet</servlet-name>
         <url-pattern>/BanUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PointPaymentServlet</servlet-name>
+        <url-pattern>/PointPaymentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -26,7 +26,7 @@
                         
                         <i class='bx bx-chevron-right' ></i>
                         <li>
-                            <a class="active" href="../index.jsp">User Manager</a>
+                            <a class="active" href="../index.jsp">Quản lý người dùng</a>
                         </li>
                     </ul>
                 </div>
@@ -70,18 +70,18 @@
                                             <div class="result-header">
                                                 <div class="row">
                                                     <div class="col-lg-6">
-                                                        <div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
+                                                        <div class="records">Danh sách người dùng</div>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="result-actions">
                                                             <form action="../SortUserServlet" method="post" id="sortForm">
                                                                 <input type="hidden" name="sortPerformed" id="sortPerformed" value="false"> <!-- Input ẩn để lưu trữ trạng thái sắp xếp -->
                                                                 <div class="result-sorting">
-                                                                    <span>Sort By:</span>
+                                                                    <span>Sắp xếp theo:</span>
                                                                     <select class="form-control border-0" id="exampleOption" name="sortBy" onchange="checkSortForm()">
-                                                                        <option value="1">Relevance</option>
-                                                                        <option value="2">Names (A-Z)</option>
-                                                                        <option value="3">Names (Z-A)</option>
+                                                                        <option value="1">Bình thường</option>
+                                                                        <option value="2">Tên (A-Z)</option>
+                                                                        <option value="3">Tên (Z-A)</option>
                                                                     </select>
                                                                 </div>
                                                             </form>
@@ -127,10 +127,10 @@
                                                                                 <div class="widget-26-job-salary">Admin</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 2}">
-                                                                                <div class="widget-26-job-salary">Partner</div>
+                                                                                <div class="widget-26-job-salary">Đối tác</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
-                                                                                <div class="widget-26-job-salary">User</div>
+                                                                                <div class="widget-26-job-salary">Người dùng</div>
                                                                             </c:if>
                                                                         </td>
                                                                         <td style="width: 10%">
@@ -217,10 +217,10 @@
                                                                                 <div class="widget-26-job-salary">Admin</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 2}">
-                                                                                <div class="widget-26-job-salary">Partner</div>
+                                                                                <div class="widget-26-job-salary">Đối tác</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
-                                                                                <div class="widget-26-job-salary">User</div>
+                                                                                <div class="widget-26-job-salary">Người dùng</div>
                                                                             </c:if>
                                                                         </td>
                                                                         <td style="width: 10%">
@@ -305,10 +305,10 @@
                                                                                 <div class="widget-26-job-salary">Admin</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 2}">
-                                                                                <div class="widget-26-job-salary">Co-Operator</div>
+                                                                                <div class="widget-26-job-salary">Đối tác</div>
                                                                             </c:if>
                                                                             <c:if test="${i.role == 3}">
-                                                                                <div class="widget-26-job-salary">User</div>
+                                                                                <div class="widget-26-job-salary">Người dùng</div>
                                                                             </c:if>
                                                                         </td>
                                                                         <td style="width: 10%">
@@ -373,7 +373,7 @@
                                                     <form id="banForm" action="../BanUserServlet" method="post" style="display: inline-block;">
                                                         <input type="hidden" name="userId" value="${i.userID}">
                                                         <input type="hidden" id="isActiveInput" name="isActive" value="false">
-                                                        <button class="submit-btn" type="submit" onclick="hidePopup('banConfirmationPopup')">Đúng</button>
+                                                        <button style="background-color: #EE2E24; color: white; border: #EE2E24" class="submit-btn" type="submit" onclick="hidePopup('banConfirmationPopup')">Đúng</button>
                                                     </form>
                                                         <button class="close-btn" style="display: inline-block; margin-left: 5px;" onclick="hidePopup('banConfirmationPopup')">Hủy</button>
                                                 </div>
