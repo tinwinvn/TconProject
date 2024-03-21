@@ -97,8 +97,7 @@ public class AddNewGameServlet extends HttpServlet {
                 List<FileItem> items = upload.parseRequest(request);
                 System.out.println(items);
                 Iterator<FileItem> iter = items.iterator();
-                // Lặp qua các mục tải lên
-                HashMap<String, String> fields = new HashMap<>();
+                // Lặp qua các mục tải lên  
                 String gameName = null;
                 String description = null;
                 String filename = null;

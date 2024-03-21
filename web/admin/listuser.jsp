@@ -373,7 +373,7 @@
                                                     <form id="banForm" action="../BanUserServlet" method="post" style="display: inline-block;">
                                                         <input type="hidden" name="userId" value="${i.userID}">
                                                         <input type="hidden" id="isActiveInput" name="isActive" value="false">
-                                                        <button style="background-color: #EE2E24; color: white; border: #EE2E24" class="submit-btn" type="submit" onclick="hidePopup('banConfirmationPopup')">Đúng</button>
+                                                        <button style="background-color: #EE2E24; color: white; border: #EE2E24" class="submit-btn" type="submit" onclick="hidePopup('banConfirmationPopup')">Xác nhận</button>
                                                     </form>
                                                         <button class="close-btn" style="display: inline-block; margin-left: 5px;" onclick="hidePopup('banConfirmationPopup')">Hủy</button>
                                                 </div>
@@ -388,7 +388,7 @@
                                                     <form id="unbanForm" action="../BanUserServlet" method="post" style="display: inline-block;">
                                                         <input type="hidden" name="userId" value="${i.userID}">
                                                         <input type="hidden" id="isActiveInput" name="isActive" value="true">
-                                                        <button class="submit-btn" type="submit" onclick="hidePopup('unbanConfirmationPopup')">Đúng</button>
+                                                        <button style="background-color: #EE2E24; color: white; border: #EE2E24" class="submit-btn" type="submit" onclick="hidePopup('unbanConfirmationPopup')">Xác nhận</button>
                                                     </form>
                                                         <button class="close-btn" style="display: inline-block; margin-left: 5px;" onclick="hidePopup('unbanConfirmationPopup')">Hủy</button>
                                                 </div>

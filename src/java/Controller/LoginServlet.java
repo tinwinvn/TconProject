@@ -75,9 +75,13 @@ public class LoginServlet extends HttpServlet {
                 }                   
             }
             if (u != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("acc", u);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                if (!u.getIsActive()){
+                    response.sendRedirect("login.jsp");
+                } else {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("acc", u);
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                }
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,34 +110,38 @@ public class LoginServlet extends HttpServlet {
             if (u == null) {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("acc", u);
-                session.setAttribute("pass", password);
-                String token = userAlgorithm.getToken(u.getUserID(), u.getRole());
-                
-                Cookie user = new Cookie("userC", username);
-                Cookie pass = new Cookie("passC", password);
-                Cookie rem = new Cookie("remC", remember);
-                Cookie status = new Cookie("statusC", "login");
-                Cookie tokenC = new Cookie("token", token);
-                if (remember != null) {
-                    user.setMaxAge(60 * 60 * 24 * 365);
-                    pass.setMaxAge(60 * 60 * 24 * 365);
-                    rem.setMaxAge(60 * 60 * 24 * 365);
-                    status.setMaxAge(60 * 60 * 24 * 365);
-                    tokenC.setMaxAge(60 * 60 * 24 * 365);
+                if (!u.getIsActive()){
+                    response.sendRedirect("login.jsp?error=accountLocked");
                 } else {
-                    user.setMaxAge(0);
-                    pass.setMaxAge(0);
-                    rem.setMaxAge(0);
-                    status.setMaxAge(0);
-                    tokenC.setMaxAge(0);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("acc", u);
+                    session.setAttribute("pass", password);
+                    String token = userAlgorithm.getToken(u.getUserID(), u.getRole());
+
+                    Cookie user = new Cookie("userC", username);
+                    Cookie pass = new Cookie("passC", password);
+                    Cookie rem = new Cookie("remC", remember);
+                    Cookie status = new Cookie("statusC", "login");
+                    Cookie tokenC = new Cookie("token", token);
+                    if (remember != null) {
+                        user.setMaxAge(60 * 60 * 24 * 365);
+                        pass.setMaxAge(60 * 60 * 24 * 365);
+                        rem.setMaxAge(60 * 60 * 24 * 365);
+                        status.setMaxAge(60 * 60 * 24 * 365);
+                        tokenC.setMaxAge(60 * 60 * 24 * 365);
+                    } else {
+                        user.setMaxAge(0);
+                        pass.setMaxAge(0);
+                        rem.setMaxAge(0);
+                        status.setMaxAge(0);
+                        tokenC.setMaxAge(0);
+                    }
+                    response.addCookie(user);
+                    response.addCookie(pass);
+                    response.addCookie(rem);
+                    response.addCookie(status);
+                    response.addCookie(tokenC);
                 }
-                response.addCookie(user);
-                response.addCookie(pass);
-                response.addCookie(rem);
-                response.addCookie(status);
-                response.addCookie(tokenC);
             }    
             request.getRequestDispatcher("index.jsp").forward(request, response);         
         } catch (Exception ex) {

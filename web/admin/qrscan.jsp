@@ -42,10 +42,13 @@
                             if (xhr.responseText.trim() === "sus") {
                                 a = "sus"; // Gán giá trị "sus" cho biến a nếu thành công
                                 alert("Quét mã QR thành công");
+                            } else if (xhr.responseText.trim() === "wrongpark"){
+                                a = "wrongpark"; // Gán giá trị "fail" cho biến a nếu thất bại
+                                alert("Vé không hợp lệ");    
                             } else {
                                 a = "used"; // Gán giá trị "fail" cho biến a nếu thất bại
-                                alert("Vé đã được sử dụng");    
-                            }
+                                alert("Vé đã được sử dụng");   
+                            }    
                         }
                     };
                     xhr.send("content=" + encodeURIComponent(content));

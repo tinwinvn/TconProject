@@ -75,8 +75,6 @@ public class GameDAO {
         Connection conn;
         GenerateID gn = new GenerateID();
         String gameID = gn.generateID("GA");
-        System.out.println(gameName);
-        System.out.println(description);
         try {
 
             conn = db.getConnection();

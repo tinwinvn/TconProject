@@ -4,16 +4,22 @@
  */
 package Controller;
 
+import Model.Park;
+import Model.User;
+import ModelDAO.ParkDAO;
 import ModelDAO.TicketDAO;
+import ModelDAO.TicketTypeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,11 +59,21 @@ public class UpdateTicketServlet extends HttpServlet {
         String message;
         try {
             TicketDAO ticketDAO = new TicketDAO();
-            if (ticketDAO.getTicketStatusByTicketCode(qrContent) == 0){  
-                ticketDAO.updateTicketStatusBYTicketCode( 1,qrContent);
+            TicketTypeDAO ticketTypeDAO = new TicketTypeDAO();
+            ParkDAO parkDAO = new ParkDAO();
+            String ParkID = ticketTypeDAO.getParkIDByTicketTypeID(ticketDAO.getTicketTypeIDByTicketCode(qrContent));
+            String userID = parkDAO.getUserIDByParkID(ParkID);
+            HttpSession session = request.getSession();
+            User acc = (User) session.getAttribute("acc");
+            System.out.println(acc.getUserID());
+            System.out.println(userID);
+            if (ticketDAO.getTicketStatusByTicketCode(qrContent) == 0 && userID.equals(acc.getUserID())){  
+                ticketDAO.updateTicketStatusBYTicketCode( 1,qrContent);               
                 out.print("sus");
             }
-            else {
+            else if (!userID.equals(acc.getUserID())){
+                out.print("wrongpark");
+            } else {
                 out.print("used");
             }
         } catch (Exception ex) {

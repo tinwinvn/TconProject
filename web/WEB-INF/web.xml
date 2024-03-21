@@ -164,6 +164,10 @@
         <servlet-name>PointPaymentServlet</servlet-name>
         <servlet-class>Controller.PointPaymentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportUserServlet</servlet-name>
+        <servlet-class>Controller.ReportUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -327,6 +331,10 @@
     <servlet-mapping>
         <servlet-name>PointPaymentServlet</servlet-name>
         <url-pattern>/PointPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportUserServlet</servlet-name>
+        <url-pattern>/ReportUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,7 @@
 package Controller;
 
 import Model.OrderDetail;
+import Model.User;
 import ModelDAO.OrderDAO;
 import ModelDAO.OrderDetailDAO;
 import ModelDAO.SendEmail;
@@ -88,6 +89,9 @@ public class PaymentServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 OrderDetail odt = new OrderDetail();   
                 Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
+                User user = (User) session.getAttribute("acc");
+                user.setPoint(point - pointprice);
+                session.setAttribute("acc", user);
                 Set<String> keys = cart.keySet();
                 OrderDAO orderDAO = new OrderDAO();
                 TransactionDAO tdao = new TransactionDAO();
@@ -108,7 +112,7 @@ public class PaymentServlet extends HttpServlet {
                     }
                 }             
                 sendEmail.sendQR(email, "Your tickets: ", gorderID);
-                response.sendRedirect("booking/cart.jsp?parkID="+parkID);
+                response.sendRedirect("payment/order_history.jsp?userID=" + user.getUserID());
             } catch (Exception ex) {
                 Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

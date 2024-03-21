@@ -47,6 +47,7 @@ public class ReportUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String senderID = request.getParameter("senderID");
         String parkID = request.getParameter("parkID");
         String fullName = request.getParameter("fullName");

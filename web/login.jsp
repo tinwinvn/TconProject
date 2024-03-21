@@ -209,6 +209,18 @@
     document.getElementById("signupForm").submit();
     }
     </script>
+    
+    <script>
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+        }
+        window.onload = function() {
+            var error = getURLParameter('error');
+            if (error === 'accountLocked') {
+                alert('Tài khoản của bạn đã bị khóa');
+            }
+        };
+    </script>
     <script src="js\jquery-2.2.4.min.js"></script>
 
     <!-- for Bootstrap js -->

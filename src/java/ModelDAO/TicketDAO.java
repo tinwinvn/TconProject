@@ -102,6 +102,29 @@ public class TicketDAO {
         }
         return ticketTypeIDs;
     }
+    
+    public String getTicketTypeIDByTicketCode(String ticketCode) throws SQLException, UnsupportedEncodingException {
+        String query = "SELECT TicketTypeID FROM Ticket WHERE TicketCode = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            conn = db.getConnection();
+            statement = conn.prepareStatement(query);
+            statement.setString(1, ticketCode);
+            rs = statement.executeQuery();         
+            if (rs.next()) {
+                String ticketTypeID = rs.getString("TicketTypeID");
+                return ticketTypeID;
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            db.close(conn, statement, rs);
+        }
+        return null;
+    }
 
     
     public List<String> getTicketIDbyTicketCode(String ticketCode) throws SQLException, UnsupportedEncodingException {

@@ -120,11 +120,11 @@
                                             <tbody>
                                                 <c:forEach var="orderTicketList" items="${OrderDAO.getOrderTicketListByOrderID(order.orderID)}">
                                                 <tr>
-                                                    <td>${orderTicketList.typeName}</td>
-                                                    <td><fmt:formatNumber value="${orderTicketList.price}"></fmt:formatNumber> VNĐ</td>
-                                                    <td>${orderTicketList.ticketCode}</td>
+                                                    <td style="width: 40%">${orderTicketList.typeName}</td>
+                                                    <td style="width: 20%"><fmt:formatNumber value="${orderTicketList.price}"></fmt:formatNumber> VNĐ</td>
+                                                    <td style="width: 20%">${orderTicketList.ticketCode}</td>
                                                     <c:if test="${orderTicketList.ticketStatus == 0}">
-                                                        <td>                                                                                                                    
+                                                        <td style="width: 20%">                                                                                                                    
                                                             <form id="refundForm" action="../TicketRefundServlet" method="post">
                                                                 <button type="submit" onclick="showConfirmPopup()">Hoàn trả vé</button>
                                                                 <input type="hidden" name="senderID" value="${param.userID}">
@@ -133,13 +133,13 @@
                                                         </td>
                                                     </c:if>
                                                     <c:if test="${orderTicketList.ticketStatus == 1}">
-                                                        <td>Vé đã được sử dụng</td>
+                                                        <td style="width: 20%">Vé đã được sử dụng</td>
                                                     </c:if>
                                                     <c:if test="${orderTicketList.ticketStatus == 2}">
-                                                        <td>Vé đã được hoàn</td>
+                                                        <td style="width: 20%">Vé đã được hoàn</td>
                                                     </c:if>
                                                     <c:if test="${orderTicketList.ticketStatus == 3}">
-                                                        <td>Vé đã bị từ chối hoàn</td>
+                                                        <td style="width: 20%">Vé đã bị từ chối hoàn</td>
                                                     </c:if>
                                                 </tr>
                                                 </c:forEach>

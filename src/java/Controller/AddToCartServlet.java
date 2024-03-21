@@ -71,7 +71,6 @@ public class AddToCartServlet extends HttpServlet {
         HttpSession session = request.getSession();
         OrderDetail odt = new OrderDetail();   
         Map<String, OrderDetail> cart = (Map<String, OrderDetail>) session.getAttribute("cart");
-        
         if (cart == null) {
             cart = new HashMap<>();
         }
@@ -80,14 +79,14 @@ public class AddToCartServlet extends HttpServlet {
             odt = cart.get(ticketTypeID);
             int oldQuantity = odt.getQuantity();
             odt.setQuantity(oldQuantity + quantity);
-            cart.put(ticketTypeID, odt);    
+            cart.put(ticketTypeID, odt);
         } else {
             odt.setQuantity(quantity);
             cart.put(ticketTypeID, odt);
         }
 
         session.setAttribute("cart", cart);
-        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID + "&transactionCode=" + transactionCode);
+        response.sendRedirect("booking/ticketType_list.jsp?parkID=" + parkID);
 
     }
 

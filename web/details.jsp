@@ -385,7 +385,7 @@
                                                                             <button type="submit" style=" width: 6vw; height: 5vh"><h6>Xóa</h6></button>
                                                                         </form>
                                                                     </c:if>
-                                                                    <button class="report-btn" data-comment-id="${list.ratingID}" style="width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
+                                                                    <button class="report-btn" data-comment-id="${list.ratingID}" data-sender-id="${list.sendID}" data-full-name="${username.fullName}" data-park-id="${param.id}" style="width: 6vw; height: 5vh"><h6>Báo cáo</h6></button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -397,31 +397,7 @@
                                                 <input type="hidden" id="ratingId_${loop.index}" value="${list.ratingID}" />
                                                 <input type="hidden" id="parkID_${loop.index}" value="${param.id}" />
                                             </div> 
-                                            <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0);">
-                                                <div class="report-modal-content">
-                                                    <form>
-                                                        <!-- Thêm input hidden để lưu id của comment -->
-                                                        <input type="hidden" name="commentId">
-                                                        <div class="form-group">
-                                                            <label for="exampleFormControlSelect1">Lí do</label>
-                                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                                <option>Tên không hợp lệ</option>
-                                                                <option>Nội dung tiêu cực</option>
-                                                                <option>Nội dung phản cảm</option>
-                                                                <option>Khác</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="exampleFormControlTextarea1">Chi tiết</label>
-                                                            <textarea id="exampleFormControlTextarea1" rows="7"></textarea>
-                                                        </div>
-                                                        <div>
-                                                            <button id="banBtn" type="submit">Thêm mới</button>
-                                                            <button id="closeBan">Đóng</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            
                                         </c:if>
                                     </c:forEach>
 
@@ -431,9 +407,9 @@
                         <div id="banForm" class="reportmodal" style="display: none; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: 50%; background-color: rgba(255, 255, 255, 0); ">
                             <div class="report-modal-content">
                                 <form action="ReportUserServlet" method="POST">
-                                    <input type="hidden" name="senderID" value="${sessionScope.acc.userID}">
-                                    <input type="hidden" name="fullName" value="${username.fullName}">
-                                    <input type="hidden" name="parkID" value="${param.id}">
+                                    <input type="hidden" name="senderID">
+                                    <input type="hidden" name="fullName">
+                                    <input type="hidden" name="parkID">
                                     <div class="form-group">
                                         <label for="exampleFormControlSelect1">Lí do</label>
                                         <select class="form-control" name="title" id="exampleFormControlSelect1">
@@ -541,27 +517,28 @@
             </div>
         </div>     
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const reportButtons = document.querySelectorAll(".report-btn");
-                const reportForm = document.getElementById("banForm");
-                const closeButton = document.getElementById("closeBan");
+                        document.querySelectorAll('.report-btn').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const commentId = this.getAttribute('data-comment-id');
+                                const senderId = this.getAttribute('data-sender-id');
+                                const fullName = this.getAttribute('data-full-name');
+                                const parkId = this.getAttribute('data-park-id');
 
-                reportButtons.forEach(function (button) {
-                    button.addEventListener("click", function (event) {
-                        const commentId = button.dataset.commentId;
-                        const formTextarea = reportForm.querySelector("#exampleFormControlTextarea1");
-                        // Gắn id của comment vào input hidden để lưu lại khi gửi form
-                        reportForm.querySelector("input[name='commentId']").value = commentId;
-                        reportForm.style.display = "block";
-                    });
-                });
+                                // Đặt giá trị cho các input trong form báo cáo
+                                document.querySelector('#banForm [name="senderID"]').value = senderId;
+                                document.querySelector('#banForm [name="fullName"]').value = fullName;
+                                document.querySelector('#banForm [name="parkID"]').value = parkId;
 
-                closeButton.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    reportForm.style.display = "none";
-                });
-            });
-        </script>
+                                // Hiển thị form báo cáo
+                                document.getElementById('banForm').style.display = 'block';
+                            });
+                        });
+
+                        // Xử lý đóng form báo cáo
+                        document.getElementById('closeBan').addEventListener('click', function() {
+                            document.getElementById('banForm').style.display = 'none';
+                        });
+                            </script>
         <script>
             function validateForm() {
                 var starValue = document.getElementsByName("star")[0].value;

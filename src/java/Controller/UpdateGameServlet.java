@@ -109,15 +109,11 @@ public class UpdateGameServlet extends HttpServlet {
                     if (item.isFormField()) {
                         if (item.getFieldName().equals("gameName")) {
                             gameName = item.getString("UTF-8");
-                            System.out.println(gameName);
                         }
                         if (item.getFieldName().equals("description")) {
-                            description = item.getString("UTF-8");
-                            System.out.println(description);
                         }
                         if (item.getFieldName().equals("gameID")) {
                             gameID = item.getString("UTF-8");
-                            System.out.println(gameID);
                         }
                     } else {
                         filename = item.getName();

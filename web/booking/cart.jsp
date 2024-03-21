@@ -50,8 +50,7 @@
                             </form>
 
 
-                            <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>
-                            <c:set var="finalPrice" value="${empty param.voucher ? totalPrice : voucherPrice}" />    
+                            <c:set var="totalPrice" value="${totalPrice + price * quantity}"></c:set>   
                             <c:if test="${empty sessionScope.cart}">
                                 <p class="empty-cart-message">Giỏ hàng trống</p>
                             </c:if>
@@ -69,14 +68,8 @@
                 <c:if test="${empty param.transactionCode}">
                     <c:set var="userlist" value="${userDAO.getUserByOrderId(param.orderID)}"></c:set>
                     <div>    
-                            <form style="text-align: center; margin-top: 2%" action="../GetVoucherServlet" method="POST">
-                                <label for="discountCode">Nhập mã giảm giá:</label>
-                                <input type="hidden" name="parkID" value="${parkID}">
-                                <input type="hidden" name="totalPrice" value="${totalPrice}">
-                                <input type="text" name="voucherCode">
-                                <button type="submit" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Nhập mã</button>
-                            </form>
-                            <h6 style="text-align: center; margin-top: 20px;">Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber> VNĐ</h6> 
+                            <h6 id="h6-tag" style="text-align: center; margin-top: 20px;">Tổng: <fmt:formatNumber value="${totalPrice}"></fmt:formatNumber> VNĐ Hoặc ${Math.round(totalPrice/10000)} Điểm</h6> 
+                            <h6 id="h6-tag" style="text-align: center; margin-top: 20px;">Điểm của bạn: ${sessionScope.acc.point}</h6>
                             <form action="../PaymentServlet" method="post" style="text-align: center; margin-top: 2%">
                                 <div style="display: flex; align-items: center; justify-content: center">
                                     <p style="margin-top: 0.7%; margin-right: 10px">Ngày sử dụng: </p>
@@ -91,8 +84,8 @@
                             <input type="hidden" name="parkID" value="${param.parkID}">
                             <input type="hidden" name="email" value="${sessionScope.acc.email}">
                             <div style="margin-top: 1%">
-                                <button type="submit" name="action" value="point" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Điểm</button>       
-                                <button type="submit" name="action" value="money" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán</button>                   
+                                <button type="submit" name="action" value="point" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán bằng Điểm</button>       
+                                <button type="submit" name="action" value="money" class="btn btn-primary" style="background-color: #EE2E24; border-color: #EE2E24">Thanh toán tài khoản</button>                   
                             </div>
                             </form>  
                         </div>
@@ -119,25 +112,8 @@
 
         // Format ngày hiện tại thành chuỗi yyyy-mm-dd
         var formattedDate = currentDate.toISOString().split('T')[0];
-
         // Đặt giá trị min cho trường input date
         document.getElementById("experationDate").setAttribute("min", formattedDate);
-        
-        function updateTotalPrice() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                var totalPrice = parseFloat(this.responseText); // Lấy giá trị từ servlet
-                document.getElementById("totalPriceValue").textContent = totalPrice; // Cập nhật giá trị
-            }
-        };
-        xhttp.open("GET", "servlet_url", true); // Thay "servlet_url" bằng URL của servlet của bạn
-        xhttp.send();
-    }
-
-    // Gọi hàm khi trang được tải
-    window.onload = function() {
-        updateTotalPrice();
-    };
+                // Trong hàm callback sau khi gửi yêu cầu POST
     </script>
 </html>

@@ -69,6 +69,7 @@
                     </ul>
                 </div>
             </div>
+            <!-- Add new Game -->
             <button id="openAddButton" style="background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 7%;">Thêm mới</button>
             <div  class="container" style="margin-top : 5%; margin-left: 5%;">
             <c:forEach var="game" items="${gameDAO.allGame}" varStatus="loop">
@@ -118,7 +119,9 @@
                 </c:if>       
             </c:forEach>
         </div>
-
+            
+            
+        <!-- form Add New Game -->    
         <div id="myAddForm" class="form-container" style="left: 15% !important; width: 80%;">
             <form action="../AddNewGameServlet" method="post" enctype="multipart/form-data">
                 <div class="form-group">

@@ -60,6 +60,9 @@ public class GetVoucherServlet extends HttpServlet {
                     totalPrice = (int) voucherPrice;
                     voucherDAO.updateisUsedByVoucherCode(voucherCode);
                     request.setAttribute("totalPrice", totalPrice);
+                    response.setContentType("text/plain");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(totalPrice);
                     response.sendRedirect("booking/cart.jsp?parkID=" + parkID);
                 } else {
                     response.sendRedirect("booking/cart.jsp?parkID=" + parkID);
